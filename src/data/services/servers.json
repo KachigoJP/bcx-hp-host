@@ -1,0 +1,35 @@
+[
+    {
+        "iconImage": "../images/icons/s1.png",
+        "title": "GẮN KẾT",
+        "parText": "Một trong những điều mà Bàn Chân Xanh luôn tự hào rằng chúng mình đã và đang kết nối, xây dựng một cộng đồng người Việt lớn mạnh.",
+        "itemClassName": "item-one",
+        "image": "../images/causes/01.jpg",
+        "destails1": "Số lượng người Việt đang sinh sống, học tập và làm việc tại Nhật Bản ngày càng tăng. Tuy nhiên, do khác biệt văn hoá và áp lực công việc khiến nhiều người Việt xa quê cảm thấy cô đơn và cần được sẻ chia.",
+        "destails2": "Vì vậy, những hoạt động của BÀN CH N XANH tạo ra như leo núi, cắm trại … đã và đang tạo nên nhiều niềm vui và sự kết nối cộng đồng người Việt tại Nhật Bản.",
+        "destails3": "Tham gia các buổi leo núi định kỳ giúp mọi người giao lưu và chia sẻ những câu chuyện về cuộc sống, gia đình và công việc.",
+        "destails4": "Những sự kiện của chúng mình đã gắn kết hàng trăm người Việt và cùng họ tạo nên những giá trị có ích cho cộng đồng và xã hội."
+    },
+    {
+        "iconImage": "../images/icons/s2.png",
+        "title": "YÊU THƯƠNG",
+        "parText": "Ngoài việc nối nhằm tạo nên một cộng đồng người Việt lớn mạnh và đoàn kết. Bàn Chân Xanh còn có một sự mệnh quan trọng hơn đó là kêu gọi gây quỹ giúp đỡ trẻ em nghèo vùng cao, mang đến cho cộng đồng những giá trị tốt đẹp.",
+        "itemClassName": "item-two",
+        "image": "../images/causes/02.jpg", 
+        "destails1": "Thiện nguyện cùng Ban Chan Xanh là gì?",
+        "destails2": "Chúng tôi kêu gọi quyên góp theo từng sự kiện mà bạn tham gia cùng Bàn Chân Xanh.",
+        "destails3": "Thiện nguyện là theo tinh thần tự nguyện, không bắt buộc, vì vậy BCX không đặt một hạn mức nào cho lòng tốt của bạn.",
+        "destails4": "Hãy cùng Bàn Chân Xanh tạo nên những chuyến đi ý nghĩa và có giá trị cho cộng đồng nhé."
+    },
+    {
+        "iconImage": "../images/icons/s3.png",
+        "title": "HOẠT ĐỘNG",
+        "parText": "Bên cạnh hoạt động cốt lõi của dự án là: “leo núi - quyên góp thiện nguyện”, chúng tôi còn có những workshop và còn rất nhiều hoạt động gây quỹ khác như tổ chức cắm trại, dã ngoại …",
+        "itemClassName": "item-three",
+        "image": "../images/causes/03.jpg",
+        "destails1": "Bàn Chân Xanh mở bán khăn rằn, thu nhận sách cũ để bán góp phần tăng nguồn thu cho quỹ và còn rất nhiều hoạt động gây quỹ khác như tổ chức cắm trại, dã ngoại …",
+        "destails2": "Hãy đến với “Bàn Chân Xanh” không chỉ là nơi các bạn được giao lưu, kết bạn, sống với đam mê, sở thích của mình mà còn là nơi bạn được đóng góp cho xã hội, cho cộng đồng.",
+        "destails3": "“Bàn Chân Xanh” luôn sẵn sàng đồng hành cùng bạn.",
+        "destails4": ""
+    }
+]

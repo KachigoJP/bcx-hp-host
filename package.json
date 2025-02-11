@@ -1,0 +1,35 @@
+{
+  "name": "bcx-hp-host",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@styled-system/theme-get": "^5.1.2",
+    "next": "15.1.6",
+    "react": "^19.0.0",
+    "react-bootstrap": "^2.10.9",
+    "react-dom": "^19.0.0",
+    "react-helmet": "^6.1.0",
+    "react-i18next": "^15.4.0",
+    "styled-components": "^6.1.15",
+    "webpack": "^5.97.1"
+  },
+  "devDependencies": {
+    "@emotion/styled": "^11.14.0",
+    "@eslint/eslintrc": "^3",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@types/react-helmet": "^6.1.11",
+    "@types/styled-system__theme-get": "^5.0.4",
+    "eslint": "^9",
+    "eslint-config-next": "15.1.6",
+    "typescript": "^5"
+  }
+}
