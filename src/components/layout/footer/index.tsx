@@ -2,11 +2,12 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { Col, Container, Row } from "react-bootstrap";
 import Image from "next/image";
+import Link from "next/link";
 
 // Source
 import HeartIcon from "@assets/images/svg/heart.svg";
 import Logo from "@components/shared/logo";
-import { Props } from "./interface";
+import { FooterProps } from "./interface";
 import {
   FooterWrap,
   FooterMain,
@@ -29,8 +30,13 @@ import {
 // sampleData
 import * as SampleData from "@data/footer/footer.json";
 
-const Footer: React.FC<Props> = (props) => {
+const Footer: React.FC = () => {
   const { t } = useTranslation();
+  const config = {
+    logo: "",
+    footer_slogan: "ds",
+    footerimage: undefined,
+  };
 
   const {
     footerAbout,
@@ -43,8 +49,6 @@ const Footer: React.FC<Props> = (props) => {
     footerShapeImage,
   }: any = SampleData;
 
-  const footerimage = getImage(footerShapeImage);
-
   return (
     <FooterWrap>
       <FooterMain>
@@ -53,9 +57,9 @@ const Footer: React.FC<Props> = (props) => {
             <Col sm={12} md={6} lg={4} xl={4}>
               <WidgetItem>
                 <AboutWidget>
-                  <Logo className="footer-logo" logo={settings.logo?.image} />
+                  <Logo className="footer-logo" logo={config.logo} />
                   <AboutWidgetText>
-                    {settings.footer_slogan?.value || ""}
+                    {config.footer_slogan || ""}
                   </AboutWidgetText>
                   {/* <WidgetTotalRaised>
                                         <RaisedTitle>
@@ -97,9 +101,9 @@ const Footer: React.FC<Props> = (props) => {
                   <Row>
                     <Col xs={6} sm={6} md={6} className="pr-sm-5">
                       <NavMenu>
-                        {quickLink.map((linkItem, i) => (
+                        {quickLink.map((linkItem: any, i: number) => (
                           <NavItem key={`id-${i}-one`}>
-                            <Link to={linkItem.path}>{linkItem.text}</Link>
+                            <Link href={linkItem.path}>{linkItem.text}</Link>
                           </NavItem>
                         ))}
                       </NavMenu>
@@ -107,9 +111,9 @@ const Footer: React.FC<Props> = (props) => {
 
                     <Col xs={6} sm={6} md={6} className="col-6 pl-sm-5">
                       <NavMenu className="align-right">
-                        {quickLinkTwo.map((linkItem, i) => (
+                        {quickLinkTwo.map((linkItem: any, i: number) => (
                           <NavItem key={`id-${i}`}>
-                            <Link to={linkItem.path}>{linkItem.text}</Link>
+                            <Link href={linkItem.path}>{linkItem.text}</Link>
                           </NavItem>
                         ))}
                       </NavMenu>
@@ -121,7 +125,7 @@ const Footer: React.FC<Props> = (props) => {
           </Row>
         </Container>
         <div className="scroll-to-top">
-          <StaticImage
+          <Image
             className="shape-img3"
             src="../../../assets/images/icons/arrow-up-line.png"
             alt="Icon-Image"
@@ -142,7 +146,7 @@ const Footer: React.FC<Props> = (props) => {
           </Col>
         </Row>
       </Container>
-      {footerimage ? (
+      {config.footerimage ? (
         <FooterShapeLayer>
           <Image
             src="/images/my-image.jpg"
@@ -151,7 +155,7 @@ const Footer: React.FC<Props> = (props) => {
             height={300}
           />
 
-          <GatsbyImage image={footerimage} alt="Image-Givest" />
+          <Image src={config.footerimage} alt="Image-Givest" />
         </FooterShapeLayer>
       ) : null}
     </FooterWrap>

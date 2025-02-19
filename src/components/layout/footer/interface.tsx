@@ -1,10 +1,14 @@
 import { Image } from "../../../interfaces";
 
-export interface Props {
-  setting: Setting;
+export interface FooterProps {
+  config: FooterConfig;
 }
 
-export interface Setting {
+export interface FooterConfig {
+  logo: string;
+  footer_slogan: string;
+  footerimage: string;
+  
   siteUrl: string;
   title: string;
   description?: string;

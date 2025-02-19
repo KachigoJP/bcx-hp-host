@@ -1,11 +1,6 @@
 import React from "react";
 
-// Source
-import "@assets/css/fonts.css";
-import "@assets/css/icofont.css";
-import "@assets/css/bootstrap.css";
-
-import "@i18n";
+import "@i18n/index";
 import { themeDefault } from "@theme/index";
 import { ThemeProvider } from "@emotion/react";
 import { GlobalCSS } from "@theme/style";
@@ -17,9 +12,9 @@ const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
     <ThemeProvider theme={themeDefault}>
       <div className="wrapper">
         <GlobalCSS />
-        <Header />
+        {/* <Header /> */}
         {children}
-        <Footer />
+        {/* <Footer /> */}
       </div>
     </ThemeProvider>
   );

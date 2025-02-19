@@ -14,7 +14,7 @@
     "jsx": "preserve",
     "incremental": true,
     "paths": {
-      "@assets": ["./src/assets"],
+      // "@assets": ["./src/assets"],
       // "@components": ["./src/components"],
       "@components/*": ["./src/components/*"],
       // "@config": ["./src/config"],
@@ -26,7 +26,7 @@
       // "@constants": path.resolve(__dirname, "./src/constants"),
       // "@hooks": path.resolve(__dirname, "./src/hooks"),
       // "@i18n": ["./src/i18n"],
-      // "@assets/*": ["./src/assets/*"],
+      "@assets/*": ["./src/assets/*"],
       // "@config/*": ["./src/config/*"],
       "@data/*": ["./src/data/*"],
       // "@pages/*": ["./src/pages/*"],
@@ -34,7 +34,7 @@
       "@utils/*": ["./src/utils/*"],
       // "@constants": path.resolve(__dirname, "./src/constants"),
       // "@hooks": path.resolve(__dirname, "./src/hooks"),
-      // "@i18n/*": ["./src/i18n/*"],
+      "@i18n/*": ["./src/i18n/*"],
       "@interfaces/*": ["./src/interfaces/*"]
     }
   },
