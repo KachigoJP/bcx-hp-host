@@ -1,0 +1,438 @@
+[
+    {
+        "XE": "Tokyo 1",
+        "event_code": "BCX-374010"
+    },
+    {
+        "XE": "Tokyo 1",
+        "event_code": "BCX-049776"
+    },
+    {
+        "XE": "Tokyo 1",
+        "event_code": "BCX-465108"
+    },
+    {
+        "XE": "Tokyo 1",
+        "event_code": "BCX-620599"
+    },
+    {
+        "XE": "Tokyo 1",
+        "event_code": "BCX-175050"
+    },
+    {
+        "XE": "Tokyo 1",
+        "event_code": "BCX-001556"
+    },
+    {
+        "XE": "Tokyo 1",
+        "event_code": "BCX-746278"
+    },
+    {
+        "XE": "Tokyo 1",
+        "event_code": "BCX-143618"
+    },
+    {
+        "XE": "Tokyo 1",
+        "event_code": "BCX-591254"
+    },
+    {
+        "XE": "Tokyo 1",
+        "event_code": "BCX-312340"
+    },
+    {
+        "XE": "Tokyo 1",
+        "event_code": "BCX-119862"
+    },
+    {
+        "XE": "Tokyo 1",
+        "event_code": "BCX-550592"
+    },
+    {
+        "XE": "Tokyo 1",
+        "event_code": "BCX-033702"
+    },
+    {
+        "XE": "Tokyo 1",
+        "event_code": "BCX-659999"
+    },
+    {
+        "XE": "Tokyo 1",
+        "event_code": "BCX-820735"
+    },
+    {
+        "XE": "Tokyo 1",
+        "event_code": "BCX-496013"
+    },
+    {
+        "XE": "Tokyo 1",
+        "event_code": "BCX-371882"
+    },
+    {
+        "XE": "Tokyo 1",
+        "event_code": "BCX-679714"
+    },
+    {
+        "XE": "Tokyo 1",
+        "event_code": "BCX-705736"
+    },
+    {
+        "XE": "Tokyo 1",
+        "event_code": "BCX-651358"
+    },
+    {
+        "XE": "Tokyo 1",
+        "event_code": "BCX-439024"
+    },
+    {
+        "XE": "Tokyo 1",
+        "event_code": "BCX-746305"
+    },
+    {
+        "XE": "Tokyo 2",
+        "event_code": "BCX-006322"
+    },
+    {
+        "XE": "Tokyo 2",
+        "event_code": "BCX-218476"
+    },
+    {
+        "XE": "Tokyo 2",
+        "event_code": "BCX-675686"
+    },
+    {
+        "XE": "Tokyo 2",
+        "event_code": "BCX-202467"
+    },
+    {
+        "XE": "Tokyo 2",
+        "event_code": "BCX-215690"
+    },
+    {
+        "XE": "Tokyo 2",
+        "event_code": "BCX-388362"
+    },
+    {
+        "XE": "Tokyo 2",
+        "event_code": "BCX-283507"
+    },
+    {
+        "XE": "Tokyo 2",
+        "event_code": "BCX-504366"
+    },
+    {
+        "XE": "Tokyo 2",
+        "event_code": "BCX-191486"
+    },
+    {
+        "XE": "Tokyo 2",
+        "event_code": "BCX-128624"
+    },
+    {
+        "XE": "Tokyo 2",
+        "event_code": "BCX-109803"
+    },
+    {
+        "XE": "Tokyo 2",
+        "event_code": "BCX-260904"
+    },
+    {
+        "XE": "Tokyo 2",
+        "event_code": "BCX-731555"
+    },
+    {
+        "XE": "Tokyo 2",
+        "event_code": "BCX-663421"
+    },
+    {
+        "XE": "Tokyo 2",
+        "event_code": "BCX-397951"
+    },
+    {
+        "XE": "Tokyo 2",
+        "event_code": "BCX-357599"
+    },
+    {
+        "XE": "Tokyo 2",
+        "event_code": "BCX-939722"
+    },
+    {
+        "XE": "Tokyo 2",
+        "event_code": "BCX-978417"
+    },
+    {
+        "XE": "Tokyo 2",
+        "event_code": "BCX-441187"
+    },
+    {
+        "XE": "Tokyo 2",
+        "event_code": "BCX-479054"
+    },
+    {
+        "XE": "Tokyo 3",
+        "event_code": "BCX-175253"
+    },
+    {
+        "XE": "Tokyo 3",
+        "event_code": "BCX-203504"
+    },
+    {
+        "XE": "Tokyo 3",
+        "event_code": "BCX-446565"
+    },
+    {
+        "XE": "Tokyo 3",
+        "event_code": "BCX-338656"
+    },
+    {
+        "XE": "Tokyo 3",
+        "event_code": "BCX-122444"
+    },
+    {
+        "XE": "Tokyo 3",
+        "event_code": "BCX-516044"
+    },
+    {
+        "XE": "Tokyo 3",
+        "event_code": "BCX-799089"
+    },
+    {
+        "XE": "Tokyo 3",
+        "event_code": "BCX-589939"
+    },
+    {
+        "XE": "Tokyo 3",
+        "event_code": "BCX-279840"
+    },
+    {
+        "XE": "Tokyo 3",
+        "event_code": "BCX-757277"
+    },
+    {
+        "XE": "Tokyo 3",
+        "event_code": "BCX-895443"
+    },
+    {
+        "XE": "Tokyo 3",
+        "event_code": "BCX-615022"
+    },
+    {
+        "XE": "Tokyo 3",
+        "event_code": "BCX-148471"
+    },
+    {
+        "XE": "Tokyo 3",
+        "event_code": "BCX-504143"
+    },
+    {
+        "XE": "Tokyo 3",
+        "event_code": "BCX-071454"
+    },
+    {
+        "XE": "Tokyo 3",
+        "event_code": "BCX-379250"
+    },
+    {
+        "XE": "Tokyo 3",
+        "event_code": "BCX-187018"
+    },
+    {
+        "XE": "Tokyo 3",
+        "event_code": "BCX-502432"
+    },
+    {
+        "XE": "Kansai",
+        "event_code": "BCX-075020"
+    },
+    {
+        "XE": "Kansai",
+        "event_code": "BCX-557227"
+    },
+    {
+        "XE": "Kansai",
+        "event_code": "BCX-418901"
+    },
+    {
+        "XE": "Kansai",
+        "event_code": "BCX-870039"
+    },
+    {
+        "XE": "Kansai",
+        "event_code": "BCX-480214"
+    },
+    {
+        "XE": "Kansai",
+        "event_code": "BCX-139491"
+    },
+    {
+        "XE": "Kansai",
+        "event_code": "BCX-696840"
+    },
+    {
+        "XE": "Kansai",
+        "event_code": "BCX-859684"
+    },
+    {
+        "XE": "Kansai",
+        "event_code": "BCX-568167"
+    },
+    {
+        "XE": "Kansai",
+        "event_code": "BCX-158215"
+    },
+    {
+        "XE": "Kansai",
+        "event_code": "BCX-858851"
+    },
+    {
+        "XE": "Kansai",
+        "event_code": "BCX-764348"
+    },
+    {
+        "XE": "Kansai",
+        "event_code": "BCX-399836"
+    },
+    {
+        "XE": "Kansai",
+        "event_code": "BCX-298551"
+    },
+    {
+        "XE": "Kansai",
+        "event_code": "BCX-266576"
+    },
+    {
+        "XE": "Kansai",
+        "event_code": "BCX-426914"
+    },
+    {
+        "XE": "Kansai",
+        "event_code": "BCX-488114"
+    },
+    {
+        "XE": "Kansai",
+        "event_code": "BCX-668356"
+    },
+    {
+        "XE": "Kansai",
+        "event_code": "BCX-649697"
+    },
+    {
+        "XE": "Kansai",
+        "event_code": "BCX-388575"
+    },
+    {
+        "XE": "Kansai",
+        "event_code": "BCX-786284"
+    },
+    {
+        "XE": "Gunma",
+        "event_code": "BCX-443858"
+    },
+    {
+        "XE": "Gunma",
+        "event_code": "BCX-213085"
+    },
+    {
+        "XE": "Nagoya",
+        "event_code": "BCX-588853"
+    },
+    {
+        "XE": "Nagoya",
+        "event_code": "BCX-902237"
+    },
+    {
+        "XE": "Nagoya",
+        "event_code": "BCX-093561"
+    },
+    {
+        "XE": "Nagoya",
+        "event_code": "BCX-004435"
+    },
+    {
+        "XE": "Nagoya",
+        "event_code": "BCX-943719"
+    },
+    {
+        "XE": "Nagoya",
+        "event_code": "BCX-468523"
+    },
+    {
+        "XE": "Nagoya",
+        "event_code": "BCX-872676"
+    },
+    {
+        "XE": "Yamanashi",
+        "event_code": "BCX-946433"
+    },
+    {
+        "XE": "Yamanashi",
+        "event_code": "BCX-481692"
+    },
+    {
+        "XE": "Yamanashi",
+        "event_code": "BCX-892335"
+    },
+    {
+        "XE": "Yamanashi",
+        "event_code": "BCX-578845"
+    },
+    {
+        "XE": "Yamanashi",
+        "event_code": "BCX-082360"
+    },
+    {
+        "XE": "Yamanashi",
+        "event_code": "BCX-574948"
+    },
+    {
+        "XE": "Khac",
+        "event_code": "BCX-619643"
+    },
+    {
+        "XE": "Khac",
+        "event_code": "BCX-392701"
+    },
+    {
+        "XE": "Khac",
+        "event_code": "BCX-890341"
+    },
+    {
+        "XE": "Khac",
+        "event_code": "BCX-423302"
+    },
+    {
+        "XE": "Khac",
+        "event_code": "BCX-863253"
+    },
+    {
+        "XE": "Khac",
+        "event_code": "BCX-975512"
+    },
+    {
+        "XE": "Khac",
+        "event_code": "BCX-213306"
+    },
+    {
+        "XE": "Khac",
+        "event_code": "BCX-669685"
+    },
+    {
+        "XE": "Khac",
+        "event_code": "BCX-801730"
+    },
+    {
+        "XE": "Khac",
+        "event_code": "BCX-796725"
+    },
+    {
+        "XE": "Khac",
+        "event_code": "BCX-199504"
+    },
+    {
+        "XE": "Khac",
+        "event_code": "BCX-136032"
+    },
+    {
+        "XE": "Khac",
+        "event_code": "BCX-506145"
+    }
+]
