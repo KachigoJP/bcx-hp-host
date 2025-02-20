@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "ES2017",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -12,11 +16,14 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
+    "jsxImportSource": "@emotion/react",
     "incremental": true,
     "paths": {
       // "@assets": ["./src/assets"],
       // "@components": ["./src/components"],
-      "@components/*": ["./src/components/*"],
+      "@components/*": [
+        "./src/components/*"
+      ],
       // "@config": ["./src/config"],
       // "@data": ["./src/data"],
       // "@pages": ["./src/pages"],
@@ -26,18 +33,39 @@
       // "@constants": path.resolve(__dirname, "./src/constants"),
       // "@hooks": path.resolve(__dirname, "./src/hooks"),
       // "@i18n": ["./src/i18n"],
-      "@assets/*": ["./src/assets/*"],
+      "@assets/*": [
+        "./src/assets/*"
+      ],
       // "@config/*": ["./src/config/*"],
-      "@data/*": ["./src/data/*"],
+      "@data/*": [
+        "./src/data/*"
+      ],
       // "@pages/*": ["./src/pages/*"],
-      "@theme/*": ["./src/theme/*"],
-      "@utils/*": ["./src/utils/*"],
+      "@theme/*": [
+        "./src/theme/*"
+      ],
+      "@utils/*": [
+        "./src/utils/*"
+      ],
       // "@constants": path.resolve(__dirname, "./src/constants"),
       // "@hooks": path.resolve(__dirname, "./src/hooks"),
-      "@i18n/*": ["./src/i18n/*"],
-      "@interfaces/*": ["./src/interfaces/*"]
+      "@i18n/*": [
+        "./src/i18n/*"
+      ],
+      "@interfaces/*": [
+        "./src/interfaces/*"
+      ],
+      "@styles/*": [
+        "./src/styles/*"
+      ]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

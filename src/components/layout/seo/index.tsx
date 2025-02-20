@@ -7,75 +7,43 @@ import { SEOProps } from "./interface";
 const SEO: React.FC<SEOProps> = (props) => {
   const { metadata } = props;
 
-  let pageUrl;
-  const path = props.pathname.replace(/^\/|\/$/g, "");
-
-  const metaDescription = metadata.description;
-  const language = metadata.lang;
-  const siteUrl = metadata.siteUrl.replace(/\/$/, "");
-  const bannerImage = `${siteUrl}/${metadata.bannerImage?.src}`;
-
-  let canonicalLink;
-  if (metadata.canonical) {
-    canonicalLink = `${siteUrl}${metadata.canonical}`;
-  }
-  const imgWidth = metadata.bannerImage?.width
-    ? metadata.bannerImage.width
-    : 875;
-  const imgHeight = metadata.bannerImage?.height
-    ? metadata.bannerImage.height
-    : 554;
-
-  pageUrl = `${siteUrl}/${path}`;
-  pageUrl = pageUrl.replace(/^\/+/g, "");
+  const siteUrl = metadata.url?.replace(/\/$/, "");
 
   const prevLink =
-    metadata.prevPage &&
-    metadata.prevPage !== null &&
-    siteUrl + metadata.prevPage;
+    metadata.prev &&
+    metadata.prev !== null &&
+    siteUrl + metadata.prev;
   const nextLink =
-    metadata.nextPage &&
-    metadata.nextPage !== null &&
-    siteUrl + metadata.nextPage;
-
-  let siteTitle;
-  if (props.pathname === "/") {
-    siteTitle = `${metadata.site_title} By ${metadata.title}`;
-  }
+    metadata.next &&
+    metadata.next !== null &&
+    siteUrl + metadata.next;
 
   return (
     <Helmet
       htmlAttributes={{
-        lang: language,
+        lang: metadata.lang,
       }}
     >
       {/* General tags */}
-      <title>{siteTitle}</title>
-      <meta name="description" content={metaDescription} />
-      <meta name="image" content={bannerImage} />
-      <link rel="canonical" href={canonicalLink} />
-      <meta
-        name="robots"
-        content="index, follow, max-snippet:-1, max-video-preview:-1, max-image-preview:large"
-      />
+      <title>{metadata.title}</title>
+      <meta name="description" content={metadata.description} />
+      <meta name="image" content={metadata.image} />
+      <link rel="canonical" href={metadata.canonical} />
+      <meta name="robots" content={metadata.robots} />
       {prevLink && <link rel="prev" href={prevLink} />}
       {nextLink && <link rel="next" href={nextLink} />}
 
       {/* OpenGraph tags */}
-      <meta property="og:locale" content={language} />
-      {metadata.isBlogPost ? (
-        <meta property="og:type" content="article" />
-      ) : null}
-      <meta property="og:type" content="website" />
-      <meta property="og:url" content={canonicalLink} />
-      <meta property="og:title" content={siteTitle} />
-      <meta property="og:description" content={metaDescription} />
-      <meta property="og:image" content={bannerImage} />
-      <meta property="og:image:secure_url" content={bannerImage} />
-      <meta property="og:image:width" content={`${imgWidth}px`} />
-      <meta property="og:image:height" content={`${imgHeight}px`} />
-      <meta property="og:image:alt" content={siteTitle} />
-      <meta property="og:image:type" content="image/png" />
+      <meta property="og:locale" content={metadata.lang} />
+      <meta property="og:type" content={metadata.og?.type} />
+      <meta property="og:url" content={metadata.og?.url} />
+      <meta property="og:title" content={metadata.og?.title} />
+      <meta property="og:description" content={metadata.og?.description} />
+      <meta property="og:image" content={metadata.og?.image} />
+      <meta property="og:image:secure_url" content={metadata.og?.secure_url} />
+      <meta property="og:image:width" content={metadata.og?.img_width} />
+      <meta property="og:image:height" content={metadata.og?.img_height} />
+      <meta property="og:image:alt" content={metadata.og?.img_alt} />
     </Helmet>
   );
 };

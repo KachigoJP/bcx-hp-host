@@ -1,20 +1,32 @@
-import { Image } from "../../../interfaces";
-
 export interface SEOProps {
-  pathname: string;
   metadata: SEOMetadata;
 }
 
 export interface SEOMetadata {
-  siteUrl: string;
+  url?: string;
   title: string;
   description?: string;
-  lang?: string;
-  site_title?: string;
-  bannerImage?: Image;
   canonical?: string;
-  nextPage?: string;
-  prevPage?: string;
-  rootPath?: string;
+  robots?: string;
+  lang?: string;
+  favicon: string;
+  keywords: string;
+  image?: string;
+  prev?: string;
+  next?: string;
+  og?: OpenGraph;
   isBlogPost?: boolean;
+}
+
+export interface OpenGraph {
+  url?: string;
+  title?: string;
+  description?: string;
+  type?: string;
+  locale?: string;
+  image?: string;
+  secure_url?: string
+  img_width?: string;
+  img_height?: string;
+  img_alt?: string
 }
