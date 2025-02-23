@@ -36,7 +36,7 @@ const Button: React.FC<React.PropsWithChildren<ButtonProps>> = (props) => {
             return (
                 <StyledLink
                     className={className}
-                    to={path}
+                    href={path}
                     {...buttonProps}
                     css={css}
                 >

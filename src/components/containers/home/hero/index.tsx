@@ -4,9 +4,9 @@ import { useEffect, useRef } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import Parallax from "parallax-js";
 import { useTranslation } from "react-i18next";
+import { GetServerSideProps } from "next";
 
 // Source
-import Images from "@utils/images";
 import Button from "@components/common/button";
 import {
     HomeSliderItem,
@@ -19,8 +19,9 @@ import {
     DonateCircleWrap,
     DonateContent,
 } from "./style";
+import { HeroProps } from "./interface";
 
-const Hero = () => {
+const Hero: React.FC<HeroProps> = ({ data }) => {
     const { t } = useTranslation();
 
     // Parallax actives
@@ -46,15 +47,15 @@ const Hero = () => {
                             <Content>
                                 <SubTitle>
                                     <Image
-                                        src="../../../../data/images/icons/logo.png"
+                                        src="/assets/images/icons/logo.png"
                                         alt="BanChanXanh"
                                         className="logo"
-                                        loading="eager"
+                                        fill
                                     />
-                                    <h6>{settings.title.value}</h6>
+                                    <h6>{data.title}</h6>
                                 </SubTitle>
                                 <HeroTitleWrap>
-                                    <h1>{settings.slogan.value}</h1>
+                                    <h1>{data.slogan}</h1>
                                 </HeroTitleWrap>
                                 <div
                                     className="btn-wrp"
@@ -82,18 +83,19 @@ const Hero = () => {
                         >
                             <LayerStyle>
                                 <div className="thumb scene">
-                                    {props.heroImage ? (
+                                    {data.image ? (
                                         <span
                                             className="scene-layer"
                                             data-depth="0.20"
                                         >
                                             <Image
-                                                src={heroImage}
+                                                src={data.image}
                                                 alt=""
                                                 style={{
                                                     maxWidth: 600,
                                                     aspectRatio: "1",
                                                 }}
+                                                fill
                                             />
                                         </span>
                                     ) : null}
@@ -104,9 +106,10 @@ const Hero = () => {
                                             ref={sceneEl}
                                         >
                                             <Image
-                                                src="../../../../assets/images/shape/2.png"
+                                                src="/assets/images/shape/2.png"
                                                 alt="Hero Shape 2"
                                                 loading="eager"
+                                                fill
                                             />
                                         </span>
                                         <span
@@ -114,9 +117,10 @@ const Hero = () => {
                                             data-depth="0.10"
                                         >
                                             <Image
-                                                src="../../../../assets/images/shape/circle1.png"
+                                                src="/assets/images/shape/circle1.png"
                                                 alt="Hero Circle Image"
                                                 loading="eager"
+                                                fill
                                             />
                                         </span>
                                     </div>
@@ -130,9 +134,10 @@ const Hero = () => {
                                         data-depth="0.30"
                                     >
                                         <Image
-                                            src="../../../../assets/images/shape/1.png"
+                                            src="/assets/images/shape/1.png"
                                             alt="Hero Shape 1"
                                             loading="eager"
+                                            fill
                                         />
                                     </span>
                                 </div>
@@ -145,9 +150,10 @@ const Hero = () => {
                                         </div>
                                         <Image
                                             className="line-shape-img"
-                                            src="../../../../data/images/shape/line-s2.png"
+                                            src="/assets/images/shape/line-s2.png"
                                             alt="Image-Givest"
                                             loading="eager"
+                                            fill
                                         />
                                         <h5 className="donate-title">
                                             {t("Total Raised")}
@@ -163,33 +169,37 @@ const Hero = () => {
                         <div className="shape-style1">
                             <Image
                                 className="shape-img1"
-                                src="../../../../assets/images/shape/map1.png"
+                                src="/assets/images/shape/map1.png"
                                 alt=""
                                 loading="eager"
+                                fill
                             />
                         </div>
                         <div className="shape-style2">
                             <Image
                                 className="shape-img2"
-                                src="../../../../assets/images/shape/map2.png"
+                                src="/assets/images/shape/map2.png"
                                 alt=""
                                 loading="eager"
+                                fill
                             />
                         </div>
                         <div className="shape-style3">
                             <Image
                                 className="shape-img3"
-                                src="../../../../assets/images/shape/banner-line1.png"
+                                src="/assets/images/shape/banner-line1.png"
                                 alt=""
                                 loading="eager"
+                                fill
                             />
                         </div>
                         <div className="shape-style4">
                             <Image
                                 className="shape-img3"
-                                src="../../../../assets/images/shape/banner-line2.png"
+                                src="/assets/images/shape/banner-line2.png"
                                 alt=""
                                 loading="eager"
+                                fill
                             />
                         </div>
                     </div>

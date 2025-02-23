@@ -1,10 +1,10 @@
 import { themeGet } from "@styled-system/theme-get";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
-import { Link } from "gatsby";
+import Link from "next/link";
 
 // Source
-import { device, Theme } from "@theme";
+import { device, Theme } from "@theme/index";
 
 export const createStyles = (
     theme: Theme,

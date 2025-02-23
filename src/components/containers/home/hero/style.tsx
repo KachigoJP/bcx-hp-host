@@ -3,7 +3,6 @@ import styled from "@emotion/styled";
 
 // Source
 import { device } from "@theme/index";
-import BannerTitleShape from "@data/images/shape/banner-title-shape.png";
 
 export const Section = styled.section`
     position: relative;
@@ -102,7 +101,7 @@ export const HeroTitleWrap = styled.div`
             position: relative;
             z-index: 1;
             &:before {
-                background-image: url(${BannerTitleShape});
+                background-image: url('assets/images/shape/banner-title-shape.png');
                 background-repeat: no-repeat;
                 content: "";
                 display: block;
