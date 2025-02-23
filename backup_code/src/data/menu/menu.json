@@ -1,0 +1,17 @@
+[
+    {
+        "text": "Trang chủ",
+        "link": "/",
+        "isSubmenu": false
+    },
+    {
+        "text": "Về chúng tôi",
+        "link": "#about-us",
+        "isSubmenu": false
+    },
+    {
+        "text": "Liên hệ",
+        "link": "/contact-us",
+        "isSubmenu": false
+    }
+]
