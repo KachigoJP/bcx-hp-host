@@ -4,7 +4,7 @@ import { Row, Container, Col } from "react-bootstrap";
 import { StaticImage, GatsbyImage, getImage } from "gatsby-plugin-image";
 import { DiscussionEmbed } from "disqus-react";
 
-import Layout from "@components/layout";
+import Layout from "../../../../../src/components_old/layout";
 import SEO from "@components/common/seo";
 // import PageBreadcrumb from "@components/pagebreadcrumb";
 import BlogSidebar from "@components/ui/blog/blog-sidebar";
@@ -151,7 +151,7 @@ const SinglePosts: React.FC<SinglePostProps> = (props) => {
                                                         {tag}
                                                         {i !==
                                                             post.tags.length -
-                                                                1 && ", "}
+                                                            1 && ", "}
                                                     </Link>
                                                 ))}
                                             </PostCategoryItems>

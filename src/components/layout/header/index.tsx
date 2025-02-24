@@ -1,124 +1,153 @@
-import React, { useEffect, useState, Fragment } from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import React, { useState, useEffect, MouseEvent, FormEvent } from "react";
+import Link from 'next/link';
+import Image from 'next/image';
 
-// Source
-import Logo from "@components/shared/logo";
-import Button from "@components/shared/button";
-import MainMenu from "@components/layout/menu/main-menu";
-import MobileNavMenu from "@components/layout/menu/mobile-menu";
-import * as Styled from "./style";
-import { MenuItem } from "@interfaces/index";
+import MobileMenu from '../../containers/MobileMenu';
 
-const MenuData: MenuItem[] = [
-  {
-    id: "1",
-    text: "Trang chủ",
-    link: "/",
-    isSubmenu: false,
-  },
-  {
-    id: "2",
-    text: "Về chúng tôi",
-    link: "#about-us",
-    isSubmenu: false,
-  },
-  {
-    id: "3",
-    text: "Liên hệ",
-    link: "/contact-us",
-    isSubmenu: false,
-  },
-];
+interface NavbarProps {
+  topbarNone?: string;
+  hclass?: string;
+  logo: string;
+}
 
-const Header: React.FC = () => {
-  const config = {
-    logo: "",
-  };
-  // State
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [scroll, setScroll] = useState(0);
-  const [headerTop, setHeaderTop] = useState(0);
+const Navbar: React.FC<NavbarProps> = (props) => {
+  const [scroll, setScroll] = useState<number>(0);
+  const [isSearchShow, setIsSearchShow] = useState<boolean>(false);
+
+  const handleScroll = (): void => setScroll(document.documentElement.scrollTop);
 
   useEffect(() => {
-    const header = document.querySelector(".header-section");
-    if (header) setHeaderTop((header as HTMLElement).offsetTop);
     window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleScroll = () => {
-    setScroll(window.scrollY);
+  const searchHandler = (): void => {
+    setIsSearchShow(!isSearchShow);
   };
 
-  const onClickMenu = () => {
-    setIsMenuOpen((prev) => !prev);
+  const SubmitHandler = (e: FormEvent<HTMLFormElement>): void => {
+    e.preventDefault();
   };
+
+  const ClickHandler = (e: MouseEvent<HTMLAnchorElement>): void => {
+    window.scrollTo(10, 0);
+  };
+
+  const className = scroll > 80 ? "fixed-navbar active" : "fixed-navbar";
 
   return (
-    <Fragment>
-      <Styled.HeaderTop
-        className={`header-section ${scroll > headerTop ? "is-sticky" : ""}`}
-      >
-        <Container>
-          <Row className="align-items-center">
-            <Col lg={3} md={4} sm={5} xs={8}>
-              <Logo logo={config?.logo} />
-            </Col>
-            <Col lg={9} md={8} sm={7} xs={4}>
-              <Styled.HeaderMenuArea>
-                <MainMenu menu={MenuData} />
-
-                <Styled.HeaderActionArea>
-                  <Styled.MobileMenuBtn onClick={onClickMenu}>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                  </Styled.MobileMenuBtn>
-                  <Styled.ButtonBoxArea>
-                    <Button
-                      css={{ ml: "15px" }}
-                      type="button"
-                      path="/contact-us"
-                      color="gradient"
-                    >
-                      Liên hệ
-                      <i className="flaticon-right-arrow"></i>
-                    </Button>
-                  </Styled.ButtonBoxArea>
-                </Styled.HeaderActionArea>
-              </Styled.HeaderMenuArea>
-            </Col>
-          </Row>
-        </Container>
-      </Styled.HeaderTop>
-      <Styled.MobileMenuArea
-        className={`${isMenuOpen ? "mobile-menu-open" : ""}`}
-      >
-        <Styled.OffCanvasInner>
-          <div
-            className="OffCanvasContent"
-            onClick={onClickMenu}
-            role="button"
-            tabIndex={0}
-          ></div>
-          <Styled.OffCanvasContent>
-            <Styled.OffCanvasHeader>
-              <Logo logo={config?.logo} />
-              <Styled.CloseAction>
-                <Styled.ButtonClose onClick={onClickMenu}>
-                  <i className="icofont-close"></i>
-                </Styled.ButtonClose>
-              </Styled.CloseAction>
-            </Styled.OffCanvasHeader>
-
-            <MobileNavMenu menu={MenuData} />
-          </Styled.OffCanvasContent>
-        </Styled.OffCanvasInner>
-      </Styled.MobileMenuArea>
-    </Fragment>
+    <div className={className}>
+      <header id="header" className={props.topbarNone}>
+        <div className={`wpo-site-header ${props.hclass}`}>
+          <nav className="navigation navbar navbar-expand-lg navbar-light">
+            <div className="container-fluid">
+              <div className="row align-items-center">
+                <div className="col-lg-3 col-md-3 col-3 d-lg-none dl-block">
+                  <div className="mobail-menu">
+                    <MobileMenu />
+                  </div>
+                </div>
+                <div className="col-lg-3 col-md-6 col-6">
+                  <div className="navbar-header">
+                    <Link onClick={ClickHandler} className="navbar-brand" href="/home">
+                      <Image src={props.logo} width={178} height={55} alt="" />
+                    </Link>
+                  </div>
+                </div>
+                <div className="col-lg-6 col-md-1 col-1">
+                  <div id="navbar" className="collapse navbar-collapse navigation-holder">
+                    <button className="menu-close"><i className="ti-close"></i></button>
+                    <ul className="nav navbar-nav mb-2 mb-lg-0">
+                      <li className="menu-item-has-children">
+                        <Link onClick={ClickHandler} href="/">Home</Link>
+                        <ul className="sub-menu">
+                          <li><Link onClick={ClickHandler} href="/home">Home Charity</Link></li>
+                          <li><Link onClick={ClickHandler} href="/home2">Home Education</Link></li>
+                          <li><Link onClick={ClickHandler} href="/home3">Home Wildlife</Link></li>
+                          <li><Link onClick={ClickHandler} href="/home4">Home Ocean Polution</Link></li>
+                          <li><Link onClick={ClickHandler} href="/home5">Home World Pandemic</Link></li>
+                          <li><Link onClick={ClickHandler} href="/home6">Home Nature</Link></li>
+                          <li><Link onClick={ClickHandler} href="/home7">Home Nature S2</Link></li>
+                        </ul>
+                      </li>
+                      <li className="menu-item-has-children">
+                        <Link href="/cause">Cause</Link>
+                        <ul className="sub-menu">
+                          <li><Link onClick={ClickHandler} href="/cause">Cause</Link></li>
+                          <li><Link onClick={ClickHandler} href="/cause-single/Poor-Children">Cause Single</Link></li>
+                        </ul>
+                      </li>
+                      <li className="menu-item-has-children">
+                        <Link href="/">Events</Link>
+                        <ul className="sub-menu">
+                          <li><Link onClick={ClickHandler} href="/event">Events</Link></li>
+                          <li><Link onClick={ClickHandler} href="/event-s2">Events S2</Link></li>
+                          <li><Link onClick={ClickHandler} href="/event-single/Help-Children">Events Single</Link></li>
+                        </ul>
+                      </li>
+                      <li className="menu-item-has-children">
+                        <Link href="/">Pages</Link>
+                        <ul className="sub-menu">
+                          <li><Link onClick={ClickHandler} href="/about">About</Link></li>
+                          <li><Link onClick={ClickHandler} href="/service">Service</Link></li>
+                          <li><Link onClick={ClickHandler} href="/service/Clean-Water">Service Single</Link></li>
+                          <li><Link onClick={ClickHandler} href="/project">Project</Link></li>
+                          <li><Link onClick={ClickHandler} href="/project/African-Macaw-Bird">Project Single</Link></li>
+                          <li><Link onClick={ClickHandler} href="/donate">Donate</Link></li>
+                          <li><Link onClick={ClickHandler} href="/volunteer">Volunteer</Link></li>
+                          <li><Link onClick={ClickHandler} href="/testimonial">Testimonial</Link></li>
+                          <li><Link onClick={ClickHandler} href="/404">Error 404</Link></li>
+                          <li><Link onClick={ClickHandler} href="/login">Login</Link></li>
+                          <li><Link onClick={ClickHandler} href="/register">Sign Up</Link></li>
+                        </ul>
+                      </li>
+                      <li className="menu-item-has-children">
+                        <Link onClick={ClickHandler} href="/blog">Blog</Link>
+                        <ul className="sub-menu">
+                          <li><Link onClick={ClickHandler} href="/blog">Blog right sidebar</Link></li>
+                          <li><Link onClick={ClickHandler} href="/blog-left-sidebar">Blog left sidebar</Link></li>
+                          <li><Link onClick={ClickHandler} href="/blog-fullwidth">Blog fullwidth</Link></li>
+                          <li className="menu-item-has-children">
+                            <Link onClick={ClickHandler} href="/">Blog details</Link>
+                            <ul className="sub-menu">
+                              <li><Link onClick={ClickHandler} href="/blog-single/Make-Someone’s">Blog details right sidebar</Link></li>
+                              <li><Link onClick={ClickHandler} href="/blog-single-left-sidebar/Make-Someone’s">Blog details left sidebar</Link></li>
+                              <li><Link onClick={ClickHandler} href="/blog-single-fullwidth/Make-Someone’s">Blog details fullwidth</Link></li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </li>
+                      <li><Link onClick={ClickHandler} href="/contact">Contact</Link></li>
+                    </ul>
+                  </div>
+                </div>
+                <div className="col-lg-3 col-md-2 col-2">
+                  <div className="header-right">
+                    <div className="close-form">
+                      <Link onClick={ClickHandler} className="theme-btn" href="/donate">Donate Now</Link>
+                    </div>
+                    <div className="header-search-form-wrapper">
+                      <div className="cart-search-contact">
+                        <button onClick={searchHandler} className="search-toggle-btn"><i className={`${isSearchShow ? 'ti-close' : 'ti-search'}`}></i></button>
+                        <div className={`header-search-form ${isSearchShow ? 'header-search-content-toggle' : ''}`}>
+                          <form onSubmit={SubmitHandler}>
+                            <div>
+                              <input type="text" className="form-control" placeholder="Search here..." />
+                              <button type="submit"><i className="fi flaticon-search"></i></button>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </header>
+    </div>
   );
 };
 
-export default Header;
+export default Navbar;

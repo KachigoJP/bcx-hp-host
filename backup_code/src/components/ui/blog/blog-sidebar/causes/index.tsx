@@ -5,7 +5,7 @@ import { ProgressBar } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 
 // Source
-import Button from "@components/common/button";
+import Button from "../../../../../../../src/components_old/common/button";
 import {
     WidgetCausesItem,
     Thumb,

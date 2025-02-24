@@ -6,7 +6,7 @@ import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import Tilt from "react-parallax-tilt";
 
 // Source
-import SectionTitle from "@components/common/title";
+import SectionTitle from "../../../../../../../src/components_old/common/title";
 import {
     SectionArea,
     LayerStyle,

@@ -7,7 +7,7 @@ import { StaticImage, GatsbyImage, getImage } from "gatsby-plugin-image";
 // Source
 import HeartIcon from "@assets/images/svg/heart.svg";
 import { useSettings } from "@graphql/settings";
-import Logo from "@components/common/logo";
+import Logo from "../../../../../src/components_old/common/logo";
 import {
     FooterWrap,
     FooterMain,

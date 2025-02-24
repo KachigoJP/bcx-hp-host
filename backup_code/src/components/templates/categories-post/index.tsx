@@ -2,7 +2,7 @@ import React from "react";
 import { graphql } from "gatsby";
 import { Row, Container, Col } from "react-bootstrap";
 
-import Layout from "@components/layout";
+import Layout from "../../../../../src/components_old/layout";
 import SEO from "@components/common/seo";
 import BlogSidebar from "@components/ui/blog/blog-sidebar";
 import BlogList from "@components/ui/blog/list-blog";

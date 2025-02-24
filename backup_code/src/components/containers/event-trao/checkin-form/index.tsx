@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { graphql, useStaticQuery } from "gatsby";
 import { Col, Row } from "react-bootstrap";
-import Button from "@components/common/button";
+import Button from "../../../../../../src/components_old/common/button";
 import {
     FormArea,
     Form,

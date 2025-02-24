@@ -1,6 +1,6 @@
 import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import SectionTitle from "@components/common/title";
+import SectionTitle from "../../../../../../src/components_old/common/title";
 import DonateForm from "@components/ui/donate-form";
 import { graphql, useStaticQuery } from "gatsby";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";

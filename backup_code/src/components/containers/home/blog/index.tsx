@@ -5,7 +5,7 @@ import { Col, Container, Row } from "react-bootstrap";
 
 // Source
 import LatestBlogItem from "@components/ui/blog/latest-blog";
-import SectionTitle from "@components/common/title";
+import SectionTitle from "../../../../../../src/components_old/common/title";
 import { SectionArea } from "./style";
 import { BlogItem } from "./interface";
 

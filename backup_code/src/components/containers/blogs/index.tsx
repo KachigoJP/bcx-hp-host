@@ -4,7 +4,7 @@ import { graphql, useStaticQuery } from "gatsby";
 // Source
 import { BlogItem } from "../../../interfaces";
 import BlogList from "@components/ui/blog/list-blog";
-import PaginationLinks from "@components/common/pagination";
+import PaginationLinks from "../../../../../src/components_old/common/pagination";
 import { BlogPostContentArea, PaginationArea } from "./style";
 
 const BlogPostArea: React.FC = () => {

@@ -3,7 +3,7 @@ import { getImage } from "gatsby-plugin-image";
 import { Col, Container, Row } from "react-bootstrap";
 
 // Source
-import SectionTitle from "@components/common/title";
+import SectionTitle from "../../../../../../src/components_old/common/title";
 import SponsorLogo from "@components/ui/sponsors-logo";
 import { usePhotos } from "@graphql/photos";
 import { SectionArea, BrandLogoContent } from "./style";

@@ -5,8 +5,8 @@ import { StaticImage } from "gatsby-plugin-image";
 import Tilt from "react-parallax-tilt";
 
 // Source
-import SectionTitle from "@components/common/title";
-import Video from "@components/common/video";
+import SectionTitle from "../../../../../../src/components_old/common/title";
+import Video from "../../../../../../src/components_old/common/video";
 import EventItem from "@components/ui/events";
 import { SectionArea, EventContentWrap, LayerStyle, Thumb } from "./style";
 import { AllQuery, EventItemData } from "../../../../interfaces";

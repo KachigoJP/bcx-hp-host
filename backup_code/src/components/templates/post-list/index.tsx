@@ -2,12 +2,12 @@ import React from "react";
 import { graphql } from "gatsby";
 import { Row, Container, Col } from "react-bootstrap";
 
-import Layout from "@components/layout";
+import Layout from "../../../../../src/components_old/layout";
 import SEO from "@components/common/seo";
 // import PageBreadcrumb from "@components/pagebreadcrumb";
 import BlogSidebar from "@components/ui/blog/blog-sidebar";
 import BlogList from "@components/ui/blog/list-blog";
-import PaginationLinks from "@components/common/pagination";
+import PaginationLinks from "../../../../../src/components_old/common/pagination";
 import { BlogPostContentArea, BlogDetailsArea } from "./style";
 import { PostListProps } from "./interface";
 

@@ -5,9 +5,9 @@ import { StaticImage } from "gatsby-plugin-image";
 import { SwiperSlide } from "swiper/react";
 
 // Source
-import SectionTitle from "@components/common/title";
+import SectionTitle from "../../../../../../src/components_old/common/title";
 import TestimonialItem from "@components/ui/testimonial-item";
-import Swiper from "@components/common/swiper";
+import Swiper from "../../../../../../src/components_old/common/swiper";
 import {
     SectionArea,
     TitleWrap,

@@ -1,72 +1,35 @@
-import * as React from "react";
-import { GetServerSideProps } from "next";
+import React, { Fragment } from 'react';
+import Header from '../components/layout/header';
+import Hero6 from '../components/containers/hero6';
+import Service5 from '../components/containers/Service5';
+import AboutS4 from '../components/containers/AboutS4';
+import Footer from '../components/layout/footer'
+import Scrollbar from '../components/containers/scrollbar'
+import Logo from '/public/images/logo2.png'
+import PartnerSection from '../components/containers/PartnerSection';
+import TeamSection3 from '../components/containers/TeamSection3';
+import BlogSection5 from '../components/containers/BlogSection5';
+import abimg from '/public/images/about6.jpg'
+import ProjectSection4 from '../components/containers/ProjectSection4';
+import Testimonial2 from '../components/containers/Testimonial2';
+import EventSection4 from '../components/containers/EventSection4';
 
-import Layout from "@components/layout";
-import SEO from "@components/layout/seo";
-import { SEOMetadata } from "@interfaces/index";
-import Hero from "@components/containers/home/hero";
-import { HeroData } from "@components/containers/home/hero/interface";
-// import AboutArea from "@components/containers/home/about";
-// import FunfactArea from "@components/containers/home/funfact";
-// import CausesArea from "@components/containers/home/causes";
-// import DonateArea from "@components/containers/home/donate";
-// import EventArea from "@components/containers/home/events";
-// import TestimonialArea from "@components/containers/home/testimonial";
-// import SponsorsArea from "@components/containers/home/sponsors";
-
-export const getServerSideProps: GetServerSideProps = async () => {
-  // DEFAULT Value
-  const seoData: SEOMetadata = {
-    title: "Ban Chan Xanh",
-    description:
-      "Non Profit Best Gatsby and react Templates are available on this website.",
-    canonical: "https://banchanxanh.com",
-    robots: "index, follow, max-snippet:-1, max-video-preview:-1, max-image-preview:large",
-    lang: "vi",
-    favicon: "https://banchanxanh.com/assets/vi",
-    keywords: "",
-    og: {
-      title: "Ban Chan Xanh - Non Profit Website",
-      description: "Ban Chan Xanh - Non Profit Website",
-      type: 'website',
-    }
-  };
-
-  const heroData: HeroData = {
-    title: "Ban Chan Xanh",
-    slogan: 'Moi buoc chan, Mot nu cuoi',
-    image: "/asset/sdsd.png"
-  };
-
-  return {
-    props: {
-      seoData,
-      heroData
-    },
-  };
-};
-
-interface Props {
-  seoData: SEOMetadata,
-  heroData: HeroData
-}
-
-const IndexPage: React.FC<Props> = (props) => {
-
+const HomePage6 = () => {
   return (
-    <Layout>
-      <SEO metadata={props.seoData} />
-      <Hero data={props.heroData} />
-      {/* <AboutArea />
-      <FunfactArea />
-      <TestimonialArea /> */}
-
-      {/* <BlogArea /> */}
-      {/* <CausesArea /> */}
-      {/* <DonateArea /> */}
-      {/* <SponsorsArea /> */}
-    </Layout>
-  );
+    <Fragment>
+      <Header logo='/images/logo2.png' hclass='wpo-header-style-4' />
+      <Hero6 heroClass={'wpo-hero-section-6'} />
+      <AboutS4 abClass={'wpo-about-section-s6'} abImg={abimg} Atitle={'We are Protecting Wildlife With All Our Dedication.'} />
+      <Service5 />
+      <TeamSection3 />
+      <ProjectSection4 />
+      <Testimonial2 tClass={'wpo-testimonial-area-s3 pt-0'} />
+      <EventSection4 />
+      <BlogSection5 />
+      <PartnerSection tNone={'title-none'} />
+      <Scrollbar />
+      <Footer />
+    </Fragment>
+  )
 };
-
-export default IndexPage;
+export default HomePage6;

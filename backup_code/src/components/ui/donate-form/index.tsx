@@ -2,7 +2,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 
 // Source
-import Button from "@components/common/button";
+import Button from "../../../../../src/components_old/common/button";
 import { DonateFormArea, DonateAmountInfo, DonateAmount } from "./style";
 
 const DonateForm: React.FC = () => {

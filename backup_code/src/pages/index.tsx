@@ -1,8 +1,8 @@
 import * as React from "react";
 
-import Layout from "@components/layout";
+import Layout from "../../../src/components_old/layout";
 import SEO from "@components/common/seo";
-import Hero from "@components/containers/home/hero";
+import Hero from "../../../src/components_old/containers/home/hero";
 import AboutArea from "@components/containers/home/about";
 import FunfactArea from "@components/containers/home/funfact";
 import CausesArea from "@components/containers/home/causes";

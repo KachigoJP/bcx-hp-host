@@ -7,8 +7,8 @@ import "@assets/css/bootstrap.css";
 import "@assets/css/flaticon.css";
 import "@assets/css/elegantIcons.css";
 import "@assets/css/modal-video.min.css";
-import Logo from "@components/common/logo";
-import Button from "@components/common/button";
+import Logo from "../../../../../src/components_old/common/logo";
+import Button from "../../../../../src/components_old/common/button";
 import MainMenu from "@components/ui/menu/main-menu";
 import MobileNavMenu from "@components/ui/menu/mobile-menu";
 import * as Styled from "./style";
@@ -59,9 +59,8 @@ const Header = () => {
     return (
         <Fragment>
             <Styled.HeaderTop
-                className={`header-section ${
-                    scroll > headerTop ? "is-sticky" : ""
-                }`}
+                className={`header-section ${scroll > headerTop ? "is-sticky" : ""
+                    }`}
             >
                 <Container>
                     <Row className="align-items-center">

@@ -3,7 +3,7 @@ import { Link } from "gatsby";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 
 // Source
-import Button from "@components/common/button";
+import Button from "../../../../../src/components_old/common/button";
 import {
     EventItemWrap,
     Thumb,

@@ -1,6 +1,6 @@
 import { Link, HeadFC, PageProps } from "gatsby";
 
-import Layout from "@components/layout";
+import Layout from "../../../src/components_old/layout";
 import SEO from "@components/common/seo";
 // import PageBreadcrumb from "@components/common/breadcrumb";
 import ContactUsArea from "@components/containers/contact-us";

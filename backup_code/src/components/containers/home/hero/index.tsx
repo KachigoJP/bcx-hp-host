@@ -8,7 +8,7 @@ import { useTranslation } from "react-i18next";
 
 // Source
 import Images from "@utils/images";
-import Button from "@components/common/button";
+import Button from "../../../../../../src/components_old/common/button";
 import { useSettings } from "@graphql/settings";
 import { usePhotos } from "@graphql/photos";
 import {

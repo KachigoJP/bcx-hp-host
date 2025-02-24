@@ -3,7 +3,7 @@ import { graphql, Link } from "gatsby";
 import { Row, Container, Col } from "react-bootstrap";
 import { StaticImage, GatsbyImage, getImage } from "gatsby-plugin-image";
 
-import Layout from "@components/layout";
+import Layout from "../../../../../src/components_old/layout";
 import SEO from "@components/common/seo";
 // import PageBreadcrumb from "@components/pagebreadcrumb";
 import BlogSidebar from "@components/ui/blog/blog-sidebar";

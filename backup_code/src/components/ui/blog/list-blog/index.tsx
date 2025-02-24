@@ -4,7 +4,7 @@ import { StaticImage, GatsbyImage, getImage } from "gatsby-plugin-image";
 
 // Source
 import { slugify } from "@utils/functions";
-import Button from "@components/common/button";
+import Button from "../../../../../../src/components_old/common/button";
 import { authors } from "@utils/authors";
 import {
     PostItemWrap,

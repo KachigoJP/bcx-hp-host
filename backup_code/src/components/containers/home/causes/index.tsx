@@ -4,7 +4,7 @@ import { graphql, useStaticQuery } from "gatsby";
 
 // Source
 import CausesItem from "@components/ui/causes";
-import SectionTitle from "@components/common/title";
+import SectionTitle from "../../../../../../src/components_old/common/title";
 import { SectionArea } from "./style";
 import { AllQuery, CauseItemData } from "../../../../interfaces";
 

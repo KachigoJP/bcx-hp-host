@@ -4,7 +4,7 @@ import { Link } from "gatsby";
 
 // Source
 import { slugify } from "@utils/functions";
-import Button from "@components/common/button";
+import Button from "../../../../../../src/components_old/common/button";
 import { LastesBlogProps } from "./interface";
 import {
     PostItemWrap,

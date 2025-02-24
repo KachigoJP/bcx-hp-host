@@ -5,7 +5,7 @@ import { GatsbyImage, getImage } from "gatsby-plugin-image";
 
 // SOurce
 import { themeGet } from "@styled-system/theme-get";
-import Button from "@components/common/button";
+import Button from "../../../../../src/components_old/common/button";
 import {
     CausesItemWrap,
     Thumb,

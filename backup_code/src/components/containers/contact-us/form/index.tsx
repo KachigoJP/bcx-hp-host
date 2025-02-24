@@ -2,7 +2,7 @@ import React from "react";
 import { Col, Row } from "react-bootstrap";
 
 // Source
-import Button from "@components/common/button";
+import Button from "../../../../../../src/components_old/common/button";
 import {
     ContactFormArea,
     Form,

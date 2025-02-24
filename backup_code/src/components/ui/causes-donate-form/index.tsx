@@ -4,7 +4,7 @@ import { StaticImage } from "gatsby-plugin-image";
 import { useTranslation } from "react-i18next";
 
 // Source
-import Button from "@components/common/button";
+import Button from "../../../../../src/components_old/common/button";
 import {
     DonationFormArea,
     SectionTitle,
