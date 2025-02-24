@@ -2,6 +2,8 @@ import React from 'react';
 import Image, { StaticImageData } from 'next/image';
 import Link from 'next/link';
 import Logo from '/public/images/logo2.png';
+import Projects from '../../../api/projects.js';
+
 
 interface Project {
     slug: string;
@@ -87,7 +89,7 @@ const Footer: React.FC<FooterProps> = ({ projects }) => {
                                     <h3>Projects</h3>
                                 </div>
                                 <ul className="d-flex">
-                                    {projects.slice(0, 6).map((project, pitem) => (
+                                    {Projects.slice(0, 6).map((project, pitem) => (
                                         <li className="grid" key={pitem}>
                                             <div className="img-holder">
                                                 <Link onClick={ClickHandler} href='/project/[slug]' as={`/project/${project.slug}`}>

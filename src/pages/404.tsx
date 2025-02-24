@@ -1,22 +1,19 @@
 import React from 'react';
+import Layout from '@components/layout';
 import PageTitle from '@components/common/PageTitle';
-import Footer from '@components/layout/Footer';
-import Scrollbar from '@components/common/scrollbar';
-import Error from '../../components/404';
+import Error from '@components/containers/404';
 
-interface StoryPageProps {}
+interface PageProps {}
 
-const StoryPage: React.FC<StoryPageProps> = (props) => {
+const Page404: React.FC<PageProps> = (props) => {
     return (
-        <div>
+        <Layout>
             <PageTitle pageTitle={'404'} pagesub={'404'}/> 
             <Error/>
-            <Footer ftClass={'wpo-site-footer-s2'}/>
-            <Scrollbar/>
-        </div>
+        </Layout>
     );
 };
 
-export default StoryPage;
+export default Page404;
 
 

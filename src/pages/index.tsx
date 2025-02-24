@@ -1,23 +1,19 @@
 import React, { Fragment } from 'react';
-import Header from '@components/layout/Header';
+import Layout from '@components/layout';
 import Footer from '@components/layout/Footer'
-import Scrollbar from '@components/common/Scrollbar'
-import Hero from '@components/containers/Hero';
-import Partner from '@components/containers/Partner';
-import Blog from '@components/containers/Blog';
-import Service from '@components/containers/Service';
-import About from '@components/containers/About';
-import Team from '@components/containers/Team';
-import Project from '@components/containers/Project';
-import Testimonial from '@components/containers/Testimonial';
-import Event from '@components/containers/Event';
+import Hero from '@components/containers/Home/Hero';
+import Partner from '@components/containers/Home/Partner';
+import Blog from '@components/containers/Home/Blog';
+import Service from '@components/containers/Home/Service';
+import About from '@components/containers/Home/About';
+import Team from '@components/containers/Home/Team';
+import Project from '@components/containers/Home/Project';
+import Testimonial from '@components/containers/Home/Testimonial';
+import Event from '@components/containers/Home/Event';
 
-import Projects from '../api/projects';
-
-const HomePage6 = () => {
+const HomePage = () => {
   return (
-    <Fragment>
-      <Header logo='/images/logo2.png'/>
+    <Layout>
       <Hero />
       <About />
       <Service />
@@ -27,9 +23,7 @@ const HomePage6 = () => {
       <Event />
       <Blog />
       <Partner tNone={'title-none'} />
-      <Scrollbar />
-      <Footer projects={Projects} />
-    </Fragment>
+    </Layout>
   )
 };
-export default HomePage6;
+export default HomePage;
