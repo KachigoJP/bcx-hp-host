@@ -22,7 +22,7 @@
       // "@assets": ["./src/assets"],
       // "@components": ["./src/components"],
       "@components/*": [
-        "src/components_old/*"
+        "./src/components/*"
       ],
       // "@config": ["./src/config"],
       // "@data": ["./src/data"],
