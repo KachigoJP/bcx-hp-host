@@ -3,19 +3,18 @@ export interface SEOProps {
 }
 
 export interface SEOMetadata {
-  url?: string;
+  url: string;
   title: string;
-  description?: string;
-  canonical?: string;
-  robots?: string;
-  lang?: string;
+  description: string;
+  canonical: string;
+  robots: string;
+  lang: string;
   favicon: string;
   keywords: string;
-  image?: string;
-  prev?: string;
-  next?: string;
-  og?: OpenGraph;
-  isBlogPost?: boolean;
+  image: string;
+  prev: string;
+  next: string;
+  og: OpenGraph;
 }
 
 export interface OpenGraph {
@@ -25,8 +24,8 @@ export interface OpenGraph {
   type?: string;
   locale?: string;
   image?: string;
-  secure_url?: string
+  secure_url?: string;
   img_width?: string;
   img_height?: string;
-  img_alt?: string
+  img_alt?: string;
 }

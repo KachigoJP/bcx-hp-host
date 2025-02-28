@@ -3,20 +3,17 @@ import { Helmet } from "react-helmet";
 
 // Source
 import { SEOProps } from "./interface";
+import defaultProps from "@default/data/seo.json";
 
 const SEO: React.FC<SEOProps> = (props) => {
-  const { metadata } = props;
+  const { metadata } = { ...defaultProps, ...props };
 
   const siteUrl = metadata.url?.replace(/\/$/, "");
 
   const prevLink =
-    metadata.prev &&
-    metadata.prev !== null &&
-    siteUrl + metadata.prev;
+    metadata.prev && metadata.prev !== null && siteUrl + metadata.prev;
   const nextLink =
-    metadata.next &&
-    metadata.next !== null &&
-    siteUrl + metadata.next;
+    metadata.next && metadata.next !== null && siteUrl + metadata.next;
 
   return (
     <Helmet

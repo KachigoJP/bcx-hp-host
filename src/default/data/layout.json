@@ -1,0 +1,108 @@
+{
+  "data": {
+    "logo": "/assets/images/logo.png",
+    "slogan": "",
+    "footerSlogan": "Welcome and open yourself to your truest love this year with us! With the Release Process",
+    "facebook": "",
+    "instagram": "",
+    "google": "",
+    "email": "thongbao@banchanxanh.com",
+    "phone": "(+081) 080-5988-2754",
+    "headerHenu": [
+      {
+        "id": 1,
+        "title": "Home",
+        "link": "/home"
+      },
+      {
+        "id": 4,
+        "title": "Event",
+        "link": "/event",
+        "submenu": [
+          {
+            "id": 41,
+            "title": "Hiking",
+            "link": "/hiking"
+          },
+          {
+            "id": 42,
+            "title": "Camping",
+            "link": "/camping"
+          },
+          {
+            "id": 43,
+            "title": "Workshop",
+            "link": "/workshop"
+          }
+        ]
+      },
+
+      {
+        "id": 3,
+        "title": "Pages",
+        "link": "/",
+        "submenu": [
+          {
+            "id": 31,
+            "title": "Term & Condition",
+            "link": "/terms"
+          },
+          {
+            "id": 32,
+            "title": "Privacy Policy",
+            "link": "/policy"
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "title": "Blog",
+        "link": "/blog"
+      },
+      {
+        "id": 88,
+        "title": "Contact",
+        "link": "/contact"
+      }
+    ],
+    "footerQuicklinks": [
+      {
+        "id": 1,
+        "title": "Term & Condition",
+        "link": "/term"
+      },
+      {
+        "id": 2,
+        "title": "Privacy Policy",
+        "link": "/policy"
+      }
+    ],
+    "footerMenu": [
+      {
+        "id": 1,
+        "title": "Blogs",
+        "link": "/blogs"
+      },
+      {
+        "id": 2,
+        "title": "Latest News",
+        "link": "/news"
+      },
+      {
+        "id": 3,
+        "title": "Events",
+        "link": "/events"
+      },
+      {
+        "id": 4,
+        "title": "About Us",
+        "link": "/about"
+      },
+      {
+        "id": 5,
+        "title": "Contact Us",
+        "link": "/contact"
+      }
+    ]
+  }
+}

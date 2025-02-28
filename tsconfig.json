@@ -57,6 +57,12 @@
       ],
       "@styles/*": [
         "./src/styles/*"
+      ],
+      "@default/*": [
+        "./src/default/*"
+      ],
+      "@store/*": [
+        "./src/store/*"
       ]
     }
   },

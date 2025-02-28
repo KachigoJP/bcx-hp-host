@@ -42,7 +42,7 @@ import picon3 from '/public/images/icon/3.png'
 const Services = [
     {
         id: '1',
-        fIcon1:'flaticon-vegetable',
+        icon:'flaticon-vegetable',
         title:'Healthy Food',
         slug:'Healthy-Food',
         description:'I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful.',
@@ -52,7 +52,7 @@ const Services = [
     },
     {
         id: '2',
-        fIcon1:'flaticon-water-tap',
+        icon:'flaticon-water-tap',
         title:'Clean Water',
         slug:'Clean-Water',
         description:'I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful.',
@@ -62,7 +62,7 @@ const Services = [
     },
     {
         id: '3',
-        fIcon1:'flaticon-medicine',
+        icon:'flaticon-medicine',
         title:'Medical Care',
         slug:'Medical-Care',
         description:'I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful.',
@@ -72,7 +72,7 @@ const Services = [
     },
     {
         id: '4',
-        fIcon1:'flaticon-graduation-cap',
+        icon:'flaticon-graduation-cap',
         title:'Child Education',
         slug:'Child-Education',
         description:'I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful.',
@@ -82,7 +82,7 @@ const Services = [
     },
     {
         id: '5',
-        fIcon1:'flaticon-elephant',
+        icon:'flaticon-elephant',
         title:'Saving Elephant',
         slug:'Saving-Elephant',
         description:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.',
@@ -92,7 +92,7 @@ const Services = [
     },
     {
         id: '6',
-        fIcon1:'flaticon-tiger',
+        icon:'flaticon-tiger',
         title:'Protecting Tigers',
         slug:'Protecting-Tigers',
         description:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.',
@@ -102,7 +102,7 @@ const Services = [
     },
     {
         id: '7',
-        fIcon1:'flaticon-target',
+        icon:'flaticon-target',
         title:'Reducing Hunting',
         slug:'Reducing-Hunting',
         description:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.',
@@ -112,7 +112,7 @@ const Services = [
     },
     {
         id: '8',
-        fIcon1:'flaticon-dolphin',
+        icon:'flaticon-dolphin',
         title:'Ocean Protection',
         slug:'Ocean-Protection',
         description:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.',
@@ -122,7 +122,7 @@ const Services = [
     },
     {
         id: '9',
-        fIcon1:'flaticon-whale',
+        icon:'flaticon-whale',
         title:'Saving Whale',
         slug:'Saving-Whale',
         description:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.',
@@ -132,7 +132,7 @@ const Services = [
     },
     {
         id: '10',
-        fIcon1:'flaticon-fish',
+        icon:'flaticon-fish',
         title:'Reducing Hunting',
         slug:'Reducing-Huntings',
         description:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.',
@@ -142,7 +142,7 @@ const Services = [
     },
     {
         id: '11',
-        fIcon1:picon1,
+        icon:picon1,
         title:'Wash Your Hands',
         slug:'Wash-Your-Hands',
         description:'Lorem ipsum dolor sit amet econsectetur adipiscin.',
@@ -152,7 +152,7 @@ const Services = [
     },
     {
         id: '12',
-        fIcon1:picon2,
+        icon:picon2,
         title:'Wear Musk',
         slug:'Wear-Musk',
         description:'Lorem ipsum dolor sit amet econsectetur adipiscin.',
@@ -162,7 +162,7 @@ const Services = [
     },
     {
         id: '13',
-        fIcon1:picon3,
+        icon:picon3,
         title:'Avoid Shakehand',
         slug:'Avoid-Shakehand',
         description:'Lorem ipsum dolor sit amet econsectetur adipiscin.',
@@ -172,7 +172,7 @@ const Services = [
     },
     {
         id: '14',
-        fIcon1:'flaticon-forest',
+        icon:'flaticon-forest',
         title:'Save Forest',
         slug:'Save-Forest',
         description:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.',
@@ -182,7 +182,7 @@ const Services = [
     },
     {
         id: '15',
-        fIcon1:'flaticon-ecology',
+        icon:'flaticon-ecology',
         title:'Recyling Process',
         slug:'Recyling-Process',
         description:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.',
@@ -192,7 +192,7 @@ const Services = [
     },
     {
         id: '16',
-        fIcon1:'flaticon-eco-light',
+        icon:'flaticon-eco-light',
         title:'Green Energy',
         slug:'Green-Energy',
         description:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.',

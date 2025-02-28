@@ -1,30 +1,14 @@
 import Image from "next/image";
 import React from "react";
 import Slider from "react-slick";
-import pimg1 from '/public/images/partners/img-1.jpg';
-import pimg2 from '/public/images/partners/img-2.jpg';
-import pimg3 from '/public/images/partners/img-3.jpg';
-import pimg4 from '/public/images/partners/img-4.jpg';
-import pimg5 from '/public/images/partners/img-5.jpg';
-
-interface Partner {
-    pImg: StaticImageData;
+export interface PartnerProps {
+    title: string;
+    subtitle: string;
+    description: string;
+    items: string[]
 }
 
-const partners: Partner[] = [
-    { pImg: pimg1 },
-    { pImg: pimg2 },
-    { pImg: pimg3 },
-    { pImg: pimg4 },
-    { pImg: pimg5 },
-    { pImg: pimg1 },
-];
-
-interface PartnerSectionProps {
-    tNone?: string;
-}
-
-const PartnerSection: React.FC<PartnerSectionProps> = (props) => {
+const PartnerSection: React.FC<PartnerProps> = (props) => {
     const settings = {
         dots: false,
         arrows: false,
@@ -72,15 +56,14 @@ const PartnerSection: React.FC<PartnerSectionProps> = (props) => {
     };
 
     return (
-        <section className={`partners-section section-padding ${props.tNone}`}>
+        <section className={`partners-section section-padding`}>
             <div className="container">
                 <div className="row justify-content-center">
                     <div className="col-lg-6">
                         <div className="wpo-section-title">
-                            <span>Who help us</span>
-                            <h2>Our Partners & Donors</h2>
-                            <p>There are many variations of passages of Lorem Ipsum available, but the majority have
-                                suffered alteration in some form,</p>
+                            <span>{props.subtitle}</span>
+                            <h2>{props.title}</h2>
+                            <p>{props.description}</p>
                         </div>
                     </div>
                 </div>
@@ -88,9 +71,9 @@ const PartnerSection: React.FC<PartnerSectionProps> = (props) => {
                     <div className="col col-xs-12">
                         <div className="partner-grids partners-slider owl-carousel">
                             <Slider {...settings}>
-                                {partners.map((partner, pitem) => (
-                                    <div className="grid" key={pitem}>
-                                        <Image src={partner.pImg} alt="" />
+                                {props.items.map((item, key) => (
+                                    <div className="grid" key={key}>
+                                        <Image src={item} width={45} height={45} alt="" />
                                     </div>
                                 ))}
                             </Slider>

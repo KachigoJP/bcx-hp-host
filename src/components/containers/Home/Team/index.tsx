@@ -1,17 +1,23 @@
 import React from "react";
 import Slider from "react-slick";
-import Link from 'next/link';
-import Image from "next/image";
-import Teams from '../../../../api/team';
+import { StaticImageData } from "next/image";
+import TeamItem from "@components/common/TeamItem";
 
-interface Team {
-    tImg: string;
+export interface TeamItem {
+    tImg: string | StaticImageData;
     slug: string;
     name: string;
     title: string;
 }
 
-const TeamSection: React.FC = () => {
+export interface TeamProps {
+    title: string;
+    subtitle: string;
+    description: string;
+    items: TeamItem[];
+}
+
+const Team: React.FC<TeamProps> = ({ items, title, subtitle, description }) => {
     const settings = {
         dots: false,
         arrows: false,
@@ -58,7 +64,7 @@ const TeamSection: React.FC = () => {
         ]
     };
 
-    const ClickHandler = () => {
+    const clickHandler = () => {
         window.scrollTo(10, 0);
     };
 
@@ -68,26 +74,17 @@ const TeamSection: React.FC = () => {
                 <div className="row justify-content-center">
                     <div className="col-lg-6">
                         <div className="wpo-section-title">
-                            <span>Expert Team</span>
-                            <h2>Meet Our Volunteer Team</h2>
-                            <p>There are many variations of passages of Lorem Ipsum available, but the majority have
-                                suffered alteration in some form,</p>
+                            <span>{subtitle}</span>
+                            <h2>{title}</h2>
+                            <p>{description}</p>
                         </div>
                     </div>
                 </div>
                 <div className="wpo-team-wrap">
                     <div className="team-slider">
                         <Slider {...settings}>
-                            {Teams.slice(0, 6).map((Team: Team, tm: number) => (
-                                <div className="wpo-team-item" key={tm}>
-                                    <div className="wpo-team-img">
-                                        <Image src={Team.tImg} alt="" />
-                                    </div>
-                                    <div className="wpo-team-content">
-                                        <h2><Link onClick={ClickHandler} href='/team-single/[slug]' as={`/team-single/${Team.slug}`}>{Team.name}</Link></h2>
-                                        <span>{Team.title}</span>
-                                    </div>
-                                </div>
+                            {items.slice(0, 6).map((team: TeamItem, tm: number) => (
+                                <TeamItem key={tm} {...team} onClick={clickHandler} />
                             ))}
                         </Slider>
                     </div>
@@ -97,4 +94,4 @@ const TeamSection: React.FC = () => {
     );
 }
 
-export default TeamSection;
+export default Team;

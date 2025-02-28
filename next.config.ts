@@ -4,6 +4,15 @@ const deps = require("./package.json").dependencies;
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "drive.usercontent.google.com",
+        pathname: "**",
+      },
+    ],
+  },
   webpack: (config: Configuration, { isServer }) => {
     config.experiments = {
       ...config.experiments,

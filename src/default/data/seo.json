@@ -1,0 +1,24 @@
+{
+  "metadata": {
+    "url": "https://banchanxanh.com",
+    "title": "Ban Chan Xanh",
+    "description": "Ban Chan Xanh",
+    "canonical": "https://banchanxanh.com",
+    "robots": "index, follow",
+    "lang": "vi_VN",
+    "favicon": "https://banchanxanh.com/images/logo.png",
+    "keywords": "Ban Chan Xanh",
+    "image": "https://banchanxanh.com/images/logo.png",
+    "prev": "",
+    "next": "",
+    "og": {
+      "type": "website",
+      "siteName": "Ban Chan Xanh",
+      "title": "Ban Chan Xanh",
+      "description": "Ban Chan Xanh",
+      "image": "https://banchanxanh.com/images/logo.png",
+      "url": "https://banchanxanh.com",
+      "locale": "vi_VN"
+    }
+  }
+}

@@ -24,219 +24,161 @@ import prontj4 from '/public/images/project/21.jpg'
 import prontj5 from '/public/images/project/22.jpg'
 import prontj6 from '/public/images/project/18.jpg'
 
-import primg1 from '/public/images/project-single/2.jpg'
-import primg2 from '/public/images/project-single/3.jpg'
-
-import prwimg1 from '/public/images/project-single/4.jpg'
-import prwimg2 from '/public/images/project-single/5.jpg'
-
-import propimg1 from '/public/images/project-single/6.jpg'
-import propimg2 from '/public/images/project-single/7.jpg'
-
-import pront1 from '/public/images/project-single/nt1.jpg'
-import pront2 from '/public/images/project-single/nt2.jpg'
-
-
 const Projects = [
    {
-     id:'1',
-     projectImg:prj1,
-     title:"School In Africa",
-     slug:'School-In-Africa',
-     dec:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-     prImg1:primg1,
-     prImg2:primg2,
+     id: '1',
+     image: prj1,
+     title: "School In Africa",
+     slug: 'School-In-Africa',
+     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
    },
    {
-     id:'2',
-     projectImg:prj2,
-     title:"School In Ghana",
-     slug:'School-In-Ghana',
-     dec:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-     prImg1:primg1,
-     prImg2:primg2,
+     id: '2',
+     image: prj2,
+     title: "School In Ghana",
+     slug: 'School-In-Ghana',
+     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
    },
    {
-     id:'3',
-     projectImg:prj3,
-     title:"School In Nigeria",
-     slug:'School-In-Nigeria',
-     dec:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-     prImg1:primg1,
-     prImg2:primg2,
+     id: '3',
+     image: prj3,
+     title: "School In Nigeria",
+     slug: 'School-In-Nigeria',
+     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
    },
    {
-     id:'4',
-     projectImg:prj4,
-     title:"School In Uganda",
-     slug:'School-In-Uganda',
-     dec:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-     prImg1:primg1,
-     prImg2:primg2,
+     id: '4',
+     image: prj4,
+     title: "School In Uganda",
+     slug: 'School-In-Uganda',
+     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
    },
    {
-     id:'5',
-     projectImg:prj5,
-     title:"School In India",
-     slug:'School-In-India',
-     dec:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-     prImg1:primg1,
-     prImg2:primg2,
+     id: '5',
+     image: prj5,
+     title: "School In India",
+     slug: 'School-In-India',
+     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
    },
    {
-     id:'6',
-     projectImg:prj6,
-     title:"School In PNG",
-     slug:'School-In-PNG',
-     dec:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-     prImg1:primg1,
-     prImg2:primg2,
+     id: '6',
+     image: prj6,
+     title: "School In PNG",
+     slug: 'School-In-PNG',
+     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
    },
    {
-     id:'7',
-     projectImg:prwj1,
-     title:"Sundarbans Royel Tiger",
-     slug:'Sundarbans-Royel-Tiger',
-     dec:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-     prImg1:prwimg1,
-     prImg2:prwimg2,
+     id: '7',
+     image: prwj1,
+     title: "Sundarbans Royel Tiger",
+     slug: 'Sundarbans-Royel-Tiger',
+     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
    },
    {
-     id:'8',
-     projectImg:prwj2,
-     title:"Australian Camel",
-     slug:'Australian-Camel',
-     dec:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-     prImg1:prwimg1,
-     prImg2:prwimg2,
+     id: '8',
+     image: prwj2,
+     title: "Australian Camel",
+     slug: 'Australian-Camel',
+     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
    },
    {
-     id:'9',
-     projectImg:prwj3,
-     title:"African Macaw Bird",
-     slug:'African-Macaw-Bird',
-     dec:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-     prImg1:prwimg1,
-     prImg2:prwimg2,
+     id: '9',
+     image: prwj3,
+     title: "African Macaw Bird",
+     slug: 'African-Macaw-Bird',
+     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
    },
    {
-     id:'10',
-     projectImg:prwj4,
-     title:"US-Deer",
-     slug:'US Deer',
-     dec:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-     prImg1:prwimg1,
-     prImg2:prwimg2,
+     id: '10',
+     image: prwj4,
+     title: "US-Deer",
+     slug: 'US-Deer',
+     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
    },
    {
-     id:'11',
-     projectImg:prwj5,
-     title:"African Elephant",
-     slug:'African-Elephant',
-     dec:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-     prImg1:prwimg1,
-     prImg2:prwimg2,
+     id: '11',
+     image: prwj5,
+     title: "African Elephant",
+     slug: 'African-Elephant',
+     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
    },
    {
-     id:'12',
-     projectImg:propj1,
-     title:"Save Ocean",
-     slug:'Save-Ocean',
-     dec:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-     prImg1:propimg1,
-     prImg2:propimg2,
+     id: '12',
+     image: propj1,
+     title: "Save Ocean",
+     slug: 'Save-Ocean',
+     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
    },
    {
-     id:'13',
-     projectImg:propj2,
-     title:"Save Ocean",
-     slug:'Save-Ocean-poly',
-     dec:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-     prImg1:propimg1,
-     prImg2:propimg2,
+     id: '13',
+     image: propj2,
+     title: "Save Ocean",
+     slug: 'Save-Ocean-poly',
+     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
    },
    {
-     id:'14',
-     projectImg:propj3,
-     title:"Save Ocean",
-     slug:'Save-Ocean-bottole',
-     dec:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-     prImg1:propimg1,
-     prImg2:propimg2,
+     id: '14',
+     image: propj3,
+     title: "Save Ocean",
+     slug: 'Save-Ocean-bottole',
+     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
    },
    {
-     id:'15',
-     projectImg:propj4,
-     title:"Save Ocean",
-     slug:'Save-Ocean-fish',
-     dec:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-     prImg1:propimg1,
-     prImg2:propimg2,
+     id: '15',
+     image: propj4,
+     title: "Save Ocean",
+     slug: 'Save-Ocean-fish',
+     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
    },
    {
-     id:'16',
-     projectImg:propj5,
-     title:"Save-Ocean-bag",
-     slug:'',
-     dec:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-     prImg1:propimg1,
-     prImg2:propimg2,
+     id: '16',
+     image: propj5,
+     title: "Save-Ocean-bag",
+     slug: '',
+     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
    },
    {
-     id:'17',
-     projectImg:prontj1,
-     title:"Amazon Rainforest",
-     slug:'Amazon-Rainforest',
-     dec:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-     prImg1:pront1,
-     prImg2:pront2,
+     id: '17',
+     image: prontj1,
+     title: "Amazon Rainforest",
+     slug: 'Amazon-Rainforest',
+     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
    },
    {
-     id:'18',
-     projectImg:prontj2,
-     title:"Amazon Rainforest",
-     slug:'Amazon-Rainforest-tree',
-     dec:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-     prImg1:pront1,
-     prImg2:pront2,
+     id: '18',
+     image: prontj2,
+     title: "Amazon Rainforest",
+     slug: 'Amazon-Rainforest-tree',
+     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
    },
    {
-     id:'19',
-     projectImg:prontj3,
-     title:"African forest",
-     slug:'African-forest',
-     dec:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-     prImg1:pront1,
-     prImg2:pront2,
+     id: '19',
+     image: prontj3,
+     title: "African forest",
+     slug: 'African-forest',
+     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
    },
    {
-     id:'20',
-     projectImg:prontj4,
-     title:"African forest plantation",
-     slug:'African-forest-plantation',
-     dec:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-     prImg1:pront1,
-     prImg2:pront2,
+     id: '20',
+     image: prontj4,
+     title: "African forest plantation",
+     slug: 'African-forest-plantation',
+     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
    },
    {
-     id:'21',
-     projectImg:prontj5,
-     title:"Shundarbans Forest",
-     slug:'Shundarbans-Forest',
-     dec:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-     prImg1:pront1,
-     prImg2:pront2,
+     id: '21',
+     image: prontj5,
+     title: "Shundarbans Forest",
+     slug: 'Shundarbans-Forest',
+     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
    },
    {
-     id:'22',
-     projectImg:prontj6,
-     title:"Amazon Rainforest",
-     slug:'Amazon-Rainforest-india',
-     dec:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-     prImg1:pront1,
-     prImg2:pront2,
-   },
-
+     id: '22',
+     image: prontj6,
+     title: "Amazon Rainforest",
+     slug: 'Amazon-Rainforest-india',
+     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+   }
 ]
 
 export default Projects;
