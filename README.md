@@ -13,6 +13,9 @@ pnpm dev
 # or
 bun dev
 ```
+docker build -f Dockerfile.dev -t us-central1-docker.pkg.dev/banchanxanh/development/bcx-hp-host:latest
+docker push gcr.io/banchanxanh/bcx-hp-host:latest
+docker push us-central1-docker.pkg.dev/banchanxanh/development/bcx-hp-host:latest
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 

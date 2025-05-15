@@ -1,6 +1,6 @@
- import React from 'react';
+import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
+import Image, { StaticImageData } from 'next/image'
 import blogs from '../../../../api/blogs';
 
 interface Blog {
