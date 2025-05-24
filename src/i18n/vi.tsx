@@ -5,4 +5,7 @@ export const vi = {
     Home: "Trang chủ",
     About: "Về nhóm",
     "View Details": "Chi Tiết",
+    "finish": "Hoàn thành",
+    "running": "Đang chạy",
+    
 };
