@@ -187,6 +187,12 @@ const HomePage: React.FC = () => {
     };
   }
 
+  const renderString = (timeLeft: any) => {
+    if (!timeLeft || Object.keys(timeLeft).length === 0) {
+      return "00:00:00";
+    }
+    return `${String(timeLeft.hours).padStart(2, '0')}:${String(timeLeft.minutes).padStart(2, '0')}:${String(timeLeft.seconds).padStart(2, '0')}`
+  }
   return (
     <span>
       <section className="wpo-about-section-s2 section-padding">
@@ -276,7 +282,6 @@ const HomePage: React.FC = () => {
                       <th scope="col" className=".column">BIB</th>
                       <th scope="col" className=".column">Số vòng</th>
                       <th scope="col" className=".column">Thành tích</th>
-                      <th scope="col" className=".column">Giới Tính</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -299,9 +304,8 @@ const HomePage: React.FC = () => {
                             <td>{ranking}</td>
                             <td>{user.name}</td>
                             <td>{user.bib}</td>
-                            <td>{user.scan_count}</td>
-                            <td>{timeLeft ? `${String(timeLeft.hours).padStart(2, '0')}:${String(timeLeft.minutes).padStart(2, '0')}:${String(timeLeft.seconds).padStart(2, '0')}` : ''}</td>
-                            <td>{user.gender}</td>
+                            <td>{user.scan_count || 1}</td>
+                            <td>{timeLeft ? renderString(timeLeft) : ''}</td>
                           </tr>
                         )
                       }
