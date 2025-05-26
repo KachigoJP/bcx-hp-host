@@ -101,37 +101,23 @@ const HomePage: React.FC = () => {
   }, [intervalId]);
 
   const sortRanking = async (data: any[]) => {
-
-    // Sort users:
-    // 1. Finished users are ranked first, by finish time.
-    // 2. Running users are ranked by distance covered (descending).
-    // 3. DNS users are last.
-    data.sort((a: any, b: any) => {
+    const sortedData = data.sort((a: any, b: any) => {
       if (a.status === "finished" && b.status === "finished") {
-        return a.finish_time.getTime() - b.finish_time.getTime(); // Earlier finish time is better
-      } else if (a.status === "finished") {
-        return -1; // a (finished) comes before b
-      } else if (b.status === "finished") {
-        return 1; // b (finished) comes before a
-      } else if (a.status === "running" && b.status === "running") {
-        return b.totalDistanceCovered - a.totalDistanceCovered; // More distance is better
-      } else if (a.status === "running") {
-        return -1; // a (running) comes before b (dns)
-      } else if (b.status === "running") {
-        return 1; // b (running) comes before a (dns)
-      } else {
-        return 0; // Keep original order for DNS users.
+        return a.finish_time - b.finish_time;
+      } else if (a.status === "finished" && b.status !== "finished") {
+        return -1; // Keep original order for DNS users
       }
+      return 1; // Keep original order for running users
     });
 
-    return data;
+    return sortedData
   }
 
   const getStatusClass = (userStatus: string, index: number) => {
     let classStatus = "table-info"
     if (userStatus === "finished") {
       classStatus = "table-success"
-      if (index in [0, 1, 2]) {
+      if (index <= 3) {
         classStatus = "table-warning"
       }
     } else if (userStatus === "running") {
@@ -231,32 +217,26 @@ const HomePage: React.FC = () => {
                   <li>Nhà tài trợ Vàng: Công ty GOJAPAN Mobile</li>
                   <li>Nhà tài trợ Đồng: Công ty XE ĐẠP TRỢ LỰC, XE ĐẠP OSAKA</li>
                 </ul>
-
-                {/* <ul>
-                  {about.points.map((point, index) => (
-                    <li key={index}>{point}</li>
-                  ))}
-                </ul>
-                <Link onClick={ClickHandler} className="theme-btn-s2" href={about.linkHref}>{about.linkText}</Link> */}
               </div>
             </div>
           </div>
         </div>
       </section>
       {
-        ["30km", "15km", "5km"].map((courseId: string, index) => {
-          const courseData = courses[courseId];
+        ["30km", "15km", "15km nữ", "5km", "5km nữ"].map((courseId: string, index) => {
+          const courseData = courses[courseId.split(' ')[0]];
 
+          let ranking = 0;
           let userData = []
           let section = "wpo-testimonial-area"
 
           if (courseId === "30km") {
             userData = user30
             section = "wpo-features-section-s6";
-          } else if (courseId === "15km") {
+          } else if (courseId.includes("15km")) {
             userData = user15
             section = "wpo-testimonial-area";
-          } else if (courseId === "5km") {
+          } else if (courseId.includes("5km")) {
             userData = user5
             section = "wpo-team-area";
           }
@@ -279,7 +259,7 @@ const HomePage: React.FC = () => {
                 </div>
               </div>
               {
-                courseData && courseData.status !== 'started' ?
+                courseData && courseData.status === 'no_start' ?
                   <div className="row justify-content-center">
                     <div className="col-lg-6 text-center mb-5">
                       <button type="button" className="btn btn-primary" onClick={onClickHandler(courseId)}>Bắt đầu</button>
@@ -296,23 +276,32 @@ const HomePage: React.FC = () => {
                       <th scope="col" className=".column">BIB</th>
                       <th scope="col" className=".column">Số vòng</th>
                       <th scope="col" className=".column">Thành tích</th>
+                      <th scope="col" className=".column">Giới Tính</th>
                     </tr>
                   </thead>
                   <tbody>
                     {
                       userData.map((user: any, index: number) => {
+                        if (courseId.includes('nữ') && user.gender !== 'nu') {
+                          return;
+                        } if (!courseId.includes('nữ') && user.gender === 'nu' && courseId !== "30km") {
+                          return
+                        }
+                        ranking = ranking + 1;
+
                         let timeLeft;
                         if (user.status === "finished" && courseData) {
                           timeLeft = calculateTimeLeft(courseData.start_time, user.finish_time);
                         };
 
                         return (
-                          <tr key={index} className={getStatusClass(user.status, index)}>
-                            <td>{index + 1}</td>
+                          <tr key={index} className={getStatusClass(user.status, ranking)}>
+                            <td>{ranking}</td>
                             <td>{user.name}</td>
                             <td>{user.bib}</td>
                             <td>{user.scan_count}</td>
-                            <td>{timeLeft ? `${String(timeLeft.hours).padStart(2, '0')}:${String(timeLeft.minutes).padStart(2, '0')}:${String(timeLeft.seconds).padStart(2, '0')}` : user.status}</td>
+                            <td>{timeLeft ? `${String(timeLeft.hours).padStart(2, '0')}:${String(timeLeft.minutes).padStart(2, '0')}:${String(timeLeft.seconds).padStart(2, '0')}` : ''}</td>
+                            <td>{user.gender}</td>
                           </tr>
                         )
                       }
