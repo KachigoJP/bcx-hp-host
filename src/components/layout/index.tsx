@@ -5,7 +5,7 @@ import { ThemeProvider } from "@emotion/react";
 
 // Source
 import { IMenuItem } from "@utils/interfaces/index";
-import defaultProps from "@default/data/layout.json";
+import defaultProps from "@data/layout.json";
 import Header from "./Header";
 import Footer from "./Footer";
 import Scrollbar from "./Scrollbar";

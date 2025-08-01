@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet";
 
 // Source
 import { SEOProps } from "./interface";
-import defaultProps from "@default/data/seo.json";
+import defaultProps from "@data/seo.json";
 
 const SEO: React.FC<SEOProps> = (props) => {
   const { metadata } = { ...defaultProps, ...props };

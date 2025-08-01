@@ -16,9 +16,9 @@ import Blog from "@components/containers/Home/Blog";
 import Event from "@components/containers/Home/Event";
 
 // Data
-import Services from "../api/service";
-import TeamsData from "../api/team";
-import ProjectsData from "../api/projects";
+import Services from "@api/service";
+import TeamsData from "@api/team";
+import ProjectsData from "@api/projects";
 import { SEOProps } from "@components/layout/SEO/interface";
 
 interface HomeProps {

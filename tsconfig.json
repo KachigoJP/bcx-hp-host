@@ -58,11 +58,11 @@
       "@styles/*": [
         "./src/utils/theme/styles/*"
       ],
-      "@default/*": [
-        "./src/default/*"
-      ],
       "@store/*": [
         "./src/store/*"
+      ],
+      "@api/*": [
+        "./src/api/*"
       ]
     }
   },

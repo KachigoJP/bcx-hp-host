@@ -10,10 +10,10 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 // import them CSS
-import "../styles/animate.css";
-import "../styles/flaticon.css";
-import "../styles/font-awesome.min.css";
-import "../styles/themify-icons.css";
+import "@utils/theme/styles/animate.css";
+import "@utils/theme/styles/flaticon.css";
+import "@utils/theme/styles/font-awesome.min.css";
+import "@utils/theme/styles/themify-icons.css";
 
 // import custom CSS
 import "@styles/sass/style.scss";
