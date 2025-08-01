@@ -1,6 +1,6 @@
 import React, { MouseEvent } from "react";
 import Link from "next/link";
-import { IMenuItem } from "@interfaces/index";
+import { IMenuItem } from "@utils/interfaces/index";
 
 export interface MenuItemProps {
   id: string;

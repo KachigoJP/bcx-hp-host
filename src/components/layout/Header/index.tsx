@@ -4,7 +4,7 @@ import Image from "next/image";
 
 import MobileMenu from "@components/layout/MobileMenu";
 import MenuItem from "@components/common/MenuItem";
-import { IMenuItem } from "@interfaces/index";
+import { IMenuItem } from "@utils/interfaces/index";
 
 export interface HeaderData {
   logo: string;
@@ -106,15 +106,13 @@ const Header: React.FC<HeaderProps> = (props) => {
                           className="search-toggle-btn"
                         >
                           <i
-                            className={`${
-                              isSearchShow ? "ti-close" : "ti-search"
-                            }`}
+                            className={`${isSearchShow ? "ti-close" : "ti-search"
+                              }`}
                           ></i>
                         </button>
                         <div
-                          className={`header-search-form ${
-                            isSearchShow ? "header-search-content-toggle" : ""
-                          }`}
+                          className={`header-search-form ${isSearchShow ? "header-search-content-toggle" : ""
+                            }`}
                         >
                           <form onSubmit={submitHandler}>
                             <div>

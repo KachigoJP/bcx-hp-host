@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Collapse, CardBody, Card } from "reactstrap";
 import Link from "next/link";
-import { IMenuItem } from "@interfaces/index";
+import { IMenuItem } from "@utils/interfaces/index";
 
 export interface MobileMenuProps {
   menus: IMenuItem[];

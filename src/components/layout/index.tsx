@@ -1,10 +1,10 @@
 import React from "react";
-import "@i18n/index";
-import { themeDefault } from "@theme/index";
+import "@utils/i18n/index";
+import { themeDefault } from "@utils/theme/index";
 import { ThemeProvider } from "@emotion/react";
 
 // Source
-import { IMenuItem } from "@interfaces/index";
+import { IMenuItem } from "@utils/interfaces/index";
 import defaultProps from "@default/data/layout.json";
 import Header from "./Header";
 import Footer from "./Footer";

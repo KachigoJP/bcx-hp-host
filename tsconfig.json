@@ -42,7 +42,7 @@
       ],
       // "@pages/*": ["./src/pages/*"],
       "@theme/*": [
-        "./src/theme/*"
+        "./src/utils/theme/*"
       ],
       "@utils/*": [
         "./src/utils/*"
@@ -50,13 +50,13 @@
       // "@constants": path.resolve(__dirname, "./src/constants"),
       // "@hooks": path.resolve(__dirname, "./src/hooks"),
       "@i18n/*": [
-        "./src/i18n/*"
+        "./src/utils/i18n/*"
       ],
       "@interfaces/*": [
-        "./src/interfaces/*"
+        "./src/utils/interfaces/*"
       ],
       "@styles/*": [
-        "./src/styles/*"
+        "./src/utils/theme/styles/*"
       ],
       "@default/*": [
         "./src/default/*"

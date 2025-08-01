@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IMenuItem } from "@interfaces/index";
+import { IMenuItem } from "@utils/interfaces/index";
 
 interface HeaderState {
   menus: IMenuItem[];

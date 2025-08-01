@@ -1,7 +1,7 @@
 import React from "react";
 import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
-import { IMenuItem } from "@interfaces/index.jsx";
+import { IMenuItem } from "@utils/interfaces/index.jsx";
 
 export interface FooterData {
   logo: string;
