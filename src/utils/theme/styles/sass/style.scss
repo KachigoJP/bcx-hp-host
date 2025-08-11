@@ -123,6 +123,7 @@ Version:        1.0.0
 
 // components
 @import "components/sticky-header";
+@import "components/collapsible";
 
 
 // page
@@ -151,6 +152,7 @@ Version:        1.0.0
 
 @import "page/_project";
 
+@import "page/_trao3";
 
 @import "page/_blog";
 
@@ -161,6 +163,3 @@ Version:        1.0.0
 @import "page/_auth-page";
 
 @import "page/_error-404";
-
-
-

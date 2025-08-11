@@ -1,0 +1,410 @@
+{
+  "id": "que_thuan_can",
+  "default": {
+    "ten_que": "Quẻ Bát Thuần Càn",
+    "so_que": 1,
+    "noi_quai": "Càn (Trời)",
+    "ngoai_quai": "Càn (Trời)",
+    "thoan_tu": "Nguyên, Hanh, Lợi, Trinh.",
+    "dai_tuong": "Trời vận động mạnh mẽ, người quân tử tự cường không ngừng.",
+    "dich_nghia": "Quẻ Càn tượng trưng cho Trời, sự mạnh mẽ, sự sáng tạo, sự khởi đầu. Nó mang ý nghĩa của sự thành công, phát triển và sự kiên định. Đây là quẻ thuần dương, biểu thị sự lãnh đạo, quyền uy, và sự vận động không ngừng của tự nhiên. Người bốc được quẻ này thường có ý chí mạnh mẽ, khả năng lãnh đạo, nhưng cũng cần chú ý đến sự cương cường quá mức.",
+    "giai_nghia": "Quẻ Càn là quẻ đầu tiên trong 64 quẻ Dịch, đại diện cho nguyên khí của vũ trụ, sự khởi nguồn của vạn vật. Nó thể hiện sức mạnh vô biên, sự vận động không ngừng và ý chí kiên cường của Trời. Khi bốc được quẻ Thuần Càn, người bốc có tiềm năng lớn để đạt được thành công vang dội, thăng tiến trong sự nghiệp, hoặc trở thành người lãnh đạo. Tuy nhiên, quẻ này cũng cảnh báo về sự cứng nhắc, độc đoán nếu không biết mềm dẻo và lắng nghe. Cần biết tiến thoái đúng lúc, như Rồng bay lượn trên trời nhưng cũng có lúc ẩn mình để tích lũy. Đặc biệt, hào 6 (Thượng Cửu) nếu động thì có thể báo hiệu sự quá đà, dễ gặp tai họa 'kháng long hữu hối'.",
+    "cau_truc": {
+      "ten": "Cấu trúc quẻ",
+      "giai_nghia": "Quẻ Càn có cấu trúc gồm 6 hào, tất cả đều là dương (một hào dương). Mỗi hào trong quẻ Càn đều mang ý nghĩa riêng, từ Hào 1 (Sơ Cửu) đến Hào 6 (Thượng Cửu), tượng trưng cho các giai đoạn khác nhau của sự phát triển và vận động của Trời. Các hào này tương tác với nhau để tạo nên một bức tranh tổng thể về sức mạnh, quyền lực và sự sáng tạo của vũ trụ.",
+      "hao_1": {
+        "ten": "Hào 1 (Sơ Cửu)",
+        "loai": "Dương",
+        "thoan_tu": "Tiềm long vật dụng.",
+        "tieu_tuong": "Tiềm long vật dụng, dương ở dưới vậy.",
+        "dich_nghia": "Rồng ẩn mình, chưa nên hành động.",
+        "giai_nghia": "Hào Sơ Cửu (Hào 1) của quẻ Càn là 'Tiềm long vật dụng'. Đây là giai đoạn đầu tiên, giống như con rồng còn ẩn mình dưới vực sâu, chưa có cơ hội để thể hiện tài năng. Đối với người gieo quẻ Càn, hào này nhắc nhở về sự cần thiết của việc tích lũy kiến thức, rèn luyện bản thân, và chờ đợi thời cơ thích hợp. Hành động vội vàng, bộc lộ tài năng quá sớm trong giai đoạn này sẽ không mang lại kết quả tốt mà dễ gặp thất bại hoặc bị kìm hãm. Cần khiêm tốn, nhẫn nại, và chuẩn bị kỹ lưỡng cho tương lai.",
+        "the": {
+          "ten": "Thế",
+          "giai_nghia": "Hào Thế tượng trưng cho chính người gieo quẻ hoặc sự việc đang được hỏi. Nếu Hào 1 là Thế, nó báo hiệu rằng người hỏi hoặc vấn đề đang ở giai đoạn tiềm ẩn, cần sự kiên nhẫn và tích lũy. Mọi quyết định và hành động cần được cân nhắc kỹ lưỡng, không nên vội vàng bộc lộ."
+        },
+        "ung": {
+          "ten": "Ứng",
+          "giai_nghia": "Hào Ứng là hào đối ứng với Hào Thế, tượng trưng cho đối tượng tương tác hoặc sự việc bên ngoài. Nếu Hào 1 là Thế, Hào 4 là Ứng. Hào Ứng có thể biểu thị những yếu tố bên ngoài đang ảnh hưởng đến người hỏi hoặc vấn đề. Mối quan hệ giữa Thế và Ứng cho thấy sự tương tác giữa nội tại và ngoại cảnh, có thể là sự hỗ trợ, cản trở, hoặc sự phản hồi từ môi trường."
+        },
+        "v_s": {
+          "vuong": {
+            "ten": "Vượng",
+            "giai_nghia": "Khi một hào ở trạng thái Vượng (được sinh trợ hoặc cùng ngũ hành với thời gian hiện tại), nó biểu thị hào có sức mạnh lớn nhất, mọi việc liên quan đến hào đang rất thuận lợi, có khí thế mạnh mẽ và đầy đủ năng lượng. Đối với Hào 1 của quẻ Càn ('Tiềm long'), dù Vượng thì vẫn là 'Tiềm long', vẫn cần giữ mình và chờ thời, nhưng tiềm năng phát triển rất lớn."
+          },
+          "tuong": {
+            "ten": "Tướng",
+            "giai_nghia": "Khi một hào ở trạng thái Tướng (khắc được thời gian hiện tại), nó biểu thị hào có khả năng chế ngự, kiểm soát tình hình, có quyền lực tiềm ẩn. Đối với Hào 1 của quẻ Càn, dù chưa hành động, nhưng đã có khả năng chi phối môi trường xung quanh. Cần sử dụng quyền lực này một cách khôn ngoan và kiềm chế."
+          },
+          "huu": {
+            "ten": "Hưu",
+            "giai_nghia": "Khi một hào ở trạng thái Hưu (sinh xuất cho thời gian hiện tại), nó biểu thị hào đang suy yếu, mất đi năng lượng do sinh xuất. Đối với Hào 1 của quẻ Càn, điều này gợi ý rằng việc 'rồng ẩn mình' đang tiêu hao năng lượng, có thể do quá tập trung vào việc bồi dưỡng bản thân mà không có sự phản hồi, hoặc do hao phí tài lộc. Cần điều chỉnh để tránh sự trì trệ."
+          },
+          "tu": {
+            "ten": "Tù",
+            "giai_nghia": "Khi một hào ở trạng thái Tù (bị thời gian hiện tại khắc chế), nó biểu thị hào bị kìm hãm, gặp nhiều trở ngại, áp lực. Đối với Hào 1 của quẻ Càn, điều này cho thấy sự 'Tiềm long' đang gặp khó khăn lớn, bị áp chế bởi các yếu tố bên ngoài. Không nên hành động vội vàng vì dễ gặp thất bại."
+          },
+          "tu4": {
+            "ten": "Tử",
+            "giai_nghia": "Khi một hào ở trạng thái Tử (bị thời gian hiện tại khắc chế mạnh mẽ hoặc hoàn toàn mất khí), nó biểu thị hào vô cùng suy yếu, gần như không có khả năng hành động. Đối với Hào 1 của quẻ Càn, giai đoạn 'Tiềm long' này đang cực kỳ khó khăn, mọi việc bế tắc, dễ gặp tai họa. Cần tuyệt đối kiên nhẫn và chờ đợi, hoặc tìm cách thoát khỏi tình hình hiện tại."
+          }
+        },
+        "ts_ngay": {
+          "truong_sinh": {
+            "ten": "Trường Sinh",
+            "giai_nghia": "Trường Sinh là giai đoạn khởi đầu của một Ngũ hành trong vòng đời 12 cung. Khi hào gặp ngày ở vị trí Trường Sinh, hào đó đang ở trạng thái sinh sôi nảy nở, có tiềm năng phát triển mạnh mẽ. Đối với Hào 1 của quẻ Càn, tiềm năng của 'Tiềm long' đang bắt đầu được hình thành, có sự tươi mới và hy vọng cho tương lai, nhưng vẫn cần sự nuôi dưỡng và bảo vệ."
+          },
+          "moc_duc": {
+            "ten": "Mộc Dục",
+            "giai_nghia": "Mộc Dục là giai đoạn phát triển ban đầu của một Ngũ hành. Khi hào gặp ngày ở vị trí Mộc Dục, hào đó có sự hào hứng nhưng cũng kèm theo sự non nớt, thiếu kinh nghiệm. Đối với Hào 1 của quẻ Càn, giai đoạn 'Tiềm long' này có thể gặp thử thách ban đầu, cần cẩn trọng với những cám dỗ hoặc sự bồng bột."
+          },
+          "quan_doi": {
+            "ten": "Quan Đới",
+            "giai_nghia": "Quan Đới là giai đoạn một Ngũ hành bắt đầu có sự trưởng thành. Khi hào gặp ngày ở vị trí Quan Đới, hào đó có trách nhiệm hơn, có khả năng đảm nhận nhiệm vụ. Đối với Hào 1 của quẻ Càn, 'Tiềm long' đang dần định hình năng lực và vị thế, có khả năng đảm nhận những nhiệm vụ lớn hơn sau này."
+          },
+          "lam_quan": {
+            "ten": "Lâm Quan",
+            "giai_nghia": "Lâm Quan là giai đoạn một Ngũ hành đạt được địa vị. Khi hào gặp ngày ở vị trí Lâm Quan, hào đó đã có quyền lực, đạt được một mức độ thành công nhất định. Đối với Hào 1 của quẻ Càn, dù vẫn là 'Tiềm long', nhưng đã có sự chủ động và tự quyết định trong việc bồi dưỡng bản thân và chờ thời."
+          },
+          "de_vuong": {
+            "ten": "Đế Vượng",
+            "giai_nghia": "Đế Vượng là giai đoạn thịnh vượng nhất của một Ngũ hành. Khi hào gặp ngày ở vị trí Đế Vượng, hào đó đạt đến đỉnh cao của sức mạnh và tiềm năng. Đối với Hào 1 của quẻ Càn, 'Tiềm long' đang ở giai đoạn sung mãn nhất, mọi việc liên quan đến tích lũy đều hanh thông, nhưng vẫn phải tuân thủ nguyên tắc 'vật dụng'."
+          },
+          "suy": {
+            "ten": "Suy",
+            "giai_nghia": "Suy là giai đoạn một Ngũ hành bắt đầu suy yếu. Khi hào gặp ngày ở vị trí Suy, hào đó năng lượng giảm sút. Đối với Hào 1 của quẻ Càn, giai đoạn 'Tiềm long' này có thể gặp khó khăn, cần xem xét lại phương hướng và không nên quá cố chấp vào việc giữ mình."
+          },
+          "benh": {
+            "ten": "Bệnh",
+            "giai_nghia": "Bệnh là giai đoạn một Ngũ hành gặp vấn đề. Khi hào gặp ngày ở vị trí Bệnh, hào đó gặp phải những vấn đề, trở ngại về tinh thần hoặc sức khỏe. Đối với Hào 1 của quẻ Càn, 'Tiềm long' có thể đang gặp phải áp lực, cần chú ý điều chỉnh và tìm cách khắc phục."
+          },
+          "tu": {
+            "ten": "Tử",
+            "giai_nghia": "Tử là giai đoạn một Ngũ hành mất đi sức sống. Khi hào gặp ngày ở vị trí Tử, hào đó năng lượng rất yếu. Đối với Hào 1 của quẻ Càn, giai đoạn 'Tiềm long' này có thể đi vào bế tắc, khó có thể cứu vãn. Cần chấp nhận sự kết thúc hoặc tìm lối đi mới hoàn toàn."
+          },
+          "mo": {
+            "ten": "Mộ",
+            "giai_nghia": "Mộ là giai đoạn một Ngũ hành bị chôn vùi, ẩn tàng. Khi hào gặp ngày ở vị trí Mộ, hào đó không thể hiện ra bên ngoài. Đối với Hào 1 của quẻ Càn, giai đoạn 'Tiềm long' này trở nên trì trệ, khó có sự đột phá. Đây là lúc cần tĩnh lặng hoàn toàn, tích lũy nội lực mà không mong đợi kết quả ngay."
+          },
+          "tuyet": {
+            "ten": "Tuyệt",
+            "giai_nghia": "Tuyệt là giai đoạn một Ngũ hành hoàn toàn mất đi năng lượng. Khi hào gặp ngày ở vị trí Tuyệt, hào đó không còn tồn tại hoặc không thể phát huy tác dụng. Đối với Hào 1 của quẻ Càn, giai đoạn 'Tiềm long' này gần như không còn tồn tại hoặc không thể tiếp tục theo hướng cũ."
+          },
+          "thai": {
+            "ten": "Thai",
+            "giai_nghia": "Thai là giai đoạn một Ngũ hành bắt đầu được hình thành trở lại. Khi hào gặp ngày ở vị trí Thai, hào đó có mầm mống của sự sống mới. Đối với Hào 1 của quẻ Càn, 'Tiềm long' đang trong giai đoạn ươm mầm cho một chu kỳ mới, cần được bảo vệ và nuôi dưỡng."
+          },
+          "duong": {
+            "ten": "Dưỡng",
+            "giai_nghia": "Dưỡng là giai đoạn một Ngũ hành được nuôi dưỡng, bồi đắp. Khi hào gặp ngày ở vị trí Dưỡng, hào đó đang chuẩn bị cho một chu kỳ mới. Đối với Hào 1 của quẻ Càn, giai đoạn 'Tiềm long' này cần sự chăm sóc, kiên nhẫn để phát triển tiềm năng một cách bền vững."
+          }
+        },
+        "ts_thang": {
+          "truong_sinh": {
+            "ten": "Trường Sinh",
+            "giai_nghia": "Trường Sinh là giai đoạn khởi đầu của một Ngũ hành trong vòng đời 12 cung. Khi hào gặp tháng ở vị trí Trường Sinh, hào đó đang ở trạng thái sinh sôi nảy nở, có tiềm năng phát triển mạnh mẽ. Đối với Hào 1 của quẻ Càn, tiềm năng của 'Tiềm long' đang được hình thành, có sự tươi mới và hy vọng cho tương lai trong bối cảnh rộng lớn của tháng."
+          },
+          "moc_duc": {
+            "ten": "Mộc Dục",
+            "giai_nghia": "Mộc Dục là giai đoạn phát triển ban đầu của một Ngũ hành. Khi hào gặp tháng ở vị trí Mộc Dục, hào đó có sự hào hứng nhưng cũng kèm theo sự non nớt, thiếu kinh nghiệm. Đối với Hào 1 của quẻ Càn, giai đoạn 'Tiềm long' này có thể gặp thử thách ban đầu, cần cẩn trọng với những cám dỗ hoặc sự bồng bột."
+          },
+          "quan_doi": {
+            "ten": "Quan Đới",
+            "giai_nghia": "Quan Đới là giai đoạn một Ngũ hành bắt đầu có sự trưởng thành. Khi hào gặp tháng ở vị trí Quan Đới, hào đó có trách nhiệm hơn, có khả năng đảm nhận nhiệm vụ. Đối với Hào 1 của quẻ Càn, 'Tiềm long' đang dần định hình năng lực và vị thế, có khả năng đảm nhận những nhiệm vụ lớn hơn sau này."
+          },
+          "lam_quan": {
+            "ten": "Lâm Quan",
+            "giai_nghia": "Lâm Quan là giai đoạn một Ngũ hành đạt được địa vị. Khi hào gặp tháng ở vị trí Lâm Quan, hào đó đã có quyền lực, đạt được một mức độ thành công nhất định. Đối với Hào 1 của quẻ Càn, dù vẫn là 'Tiềm long', nhưng đã có sự chủ động và tự quyết định trong việc bồi dưỡng bản thân và chờ thời."
+          },
+          "de_vuong": {
+            "ten": "Đế Vượng",
+            "giai_nghia": "Đế Vượng là giai đoạn thịnh vượng nhất của một Ngũ hành. Khi hào gặp tháng ở vị trí Đế Vượng, hào đó đạt đến đỉnh cao của sức mạnh và tiềm năng. Đối với Hào 1 của quẻ Càn, 'Tiềm long' đang ở giai đoạn sung mãn nhất, mọi việc liên quan đến tích lũy đều hanh thông, nhưng vẫn phải tuân thủ nguyên tắc 'vật dụng'."
+          },
+          "suy": {
+            "ten": "Suy",
+            "giai_nghia": "Suy là giai đoạn một Ngũ hành bắt đầu suy yếu. Khi hào gặp tháng ở vị trí Suy, hào đó năng lượng giảm sút. Đối với Hào 1 của quẻ Càn, giai đoạn 'Tiềm long' này có thể gặp khó khăn, cần xem xét lại phương hướng và không nên quá cố chấp vào việc giữ mình."
+          },
+          "benh": {
+            "ten": "Bệnh",
+            "giai_nghia": "Bệnh là giai đoạn một Ngũ hành gặp vấn đề. Khi hào gặp tháng ở vị trí Bệnh, hào đó gặp phải những vấn đề, trở ngại về tinh thần hoặc sức khỏe. Đối với Hào 1 của quẻ Càn, 'Tiềm long' có thể đang gặp phải áp lực, cần chú ý điều chỉnh và tìm cách khắc phục."
+          },
+          "tu": {
+            "ten": "Tử",
+            "giai_nghia": "Tử là giai đoạn một Ngũ hành mất đi sức sống. Khi hào gặp tháng ở vị trí Tử, hào đó năng lượng rất yếu. Đối với Hào 1 của quẻ Càn, giai đoạn 'Tiềm long' này có thể đi vào bế tắc, khó có thể cứu vãn. Cần chấp nhận sự kết thúc hoặc tìm lối đi mới hoàn toàn."
+          },
+          "mo": {
+            "ten": "Mộ",
+            "giai_nghia": "Mộ là giai đoạn một Ngũ hành bị chôn vùi, ẩn tàng. Khi hào gặp tháng ở vị trí Mộ, hào đó không thể hiện ra bên ngoài. Đối với Hào 1 của quẻ Càn, giai đoạn 'Tiềm long' này trở nên trì trệ, khó có sự đột phá. Đây là lúc cần tĩnh lặng hoàn toàn, tích lũy nội lực mà không mong đợi kết quả ngay."
+          },
+          "tuyet": {
+            "ten": "Tuyệt",
+            "giai_nghia": "Tuyệt là giai đoạn một Ngũ hành hoàn toàn mất đi năng lượng. Khi hào gặp tháng ở vị trí Tuyệt, hào đó không còn tồn tại hoặc không thể phát huy tác dụng. Đối với Hào 1 của quẻ Càn, giai đoạn 'Tiềm long' này gần như không còn tồn tại hoặc không thể tiếp tục theo hướng cũ."
+          },
+          "thai": {
+            "ten": "Thai",
+            "giai_nghia": "Thai là giai đoạn một Ngũ hành bắt đầu được hình thành trở lại. Khi hào gặp tháng ở vị trí Thai, hào đó có mầm mống của sự sống mới. Đối với Hào 1 của quẻ Càn, 'Tiềm long' đang trong giai đoạn ươm mầm cho một chu kỳ mới, cần được bảo vệ và nuôi dưỡng."
+          },
+          "duong": {
+            "ten": "Dưỡng",
+            "giai_nghia": "Dưỡng là giai đoạn một Ngũ hành được nuôi dưỡng, bồi đắp. Khi hào gặp tháng ở vị trí Dưỡng, hào đó đang chuẩn bị cho một chu kỳ mới. Đối với Hào 1 của quẻ Càn, giai đoạn 'Tiềm long' này cần sự chăm sóc, kiên nhẫn để phát triển tiềm năng một cách bền vững."
+          }
+        },
+        "luc_thu": {
+          "thanh_long": {
+            "vuong": {
+              "ten": "Thanh Long Vượng",
+              "giai_nghia": "Thanh Long đại diện cho sự may mắn, tốt lành, hỷ sự, quý nhân, sự thăng tiến. Khi Hào 1 ('Tiềm long') được Thanh Long ôm và ở trạng thái Vượng, điều này báo hiệu mọi việc liên quan đến tiềm năng cá nhân hoặc tài lộc đang cực kỳ hanh thông, có quý nhân phù trợ mạnh mẽ. Dù là 'Tiềm long', nhưng đã có những dấu hiệu tốt lành, có tin vui hoặc cơ hội lớn đang đến gần, cần chuẩn bị đón nhận."
+            },
+            "suy": {
+              "ten": "Thanh Long Suy",
+              "giai_nghia": "Khi Hào 1 ('Tiềm long') được Thanh Long ôm nhưng ở trạng thái Suy, điều này cho thấy may mắn có nhưng không đủ lớn, quý nhân có nhưng lực yếu, hoặc tin vui bị trì hoãn. 'Tiềm long' có thể gặp những cơ hội mờ nhạt, hoặc sự hỗ trợ không như mong đợi, cần nỗ lực nhiều hơn để biến may mắn thành hiện thực và tránh bỏ lỡ thời cơ."
+            }
+          },
+          "chu_tuoc": {
+            "vuong": {
+              "ten": "Chu Tước Vượng",
+              "giai_nghia": "Chu Tước đại diện cho lời nói, văn thư, tranh chấp, kiện tụng, tin tức. Khi Hào 1 ('Tiềm long') được Chu Tước ôm và ở trạng thái Vượng, điều này có thể báo hiệu có tin tức quan trọng hoặc lời nói có trọng lượng liên quan đến tài lộc hoặc sự nghiệp của 'Tiềm long'. Có thể có những tranh luận, kiện tụng nhưng có khả năng thắng lợi. Tuy nhiên, cần cẩn trọng với những lời nói của mình khi đang ở giai đoạn ẩn mình."
+            },
+            "suy": {
+              "ten": "Chu Tước Suy",
+              "giai_nghia": "Khi Hào 1 ('Tiềm long') được Chu Tước ôm nhưng ở trạng thái Suy, điều này cảnh báo về những lời nói thị phi, tin đồn thất thiệt, tranh chấp nhỏ nhưng dai dẳng liên quan đến 'Tiềm long' hoặc tài lộc. Các vấn đề văn thư, giấy tờ không rõ ràng, khó giải quyết. Cần hết sức cẩn trọng trong giao tiếp và các văn bản pháp lý để tránh gây bất lợi khi chưa đến lúc hành động."
+            }
+          },
+          "huyen_vu": {
+            "vuong": {
+              "ten": "Huyền Vũ Vượng",
+              "giai_nghia": "Huyền Vũ đại diện cho sự mờ ám, gian lận, bí mật, nhưng cũng là sự linh hoạt, khôn ngoan. Khi Hào 1 ('Tiềm long') được Huyền Vũ ôm và ở trạng thái Vượng, điều này có thể ám chỉ có sự việc ngầm, bí mật mang lại lợi ích tiềm ẩn cho 'Tiềm long' (ví dụ: thông tin nội bộ, cơ hội đầu tư kín đáo). Cần sự khôn ngoan, linh hoạt để nắm bắt. Tuy nhiên, cũng cần đề phòng lừa đảo hoặc sự không minh bạch."
+            },
+            "suy": {
+              "ten": "Huyền Vũ Suy",
+              "giai_nghia": "Khi Hào 1 ('Tiềm long') được Huyền Vũ ôm nhưng ở trạng thái Suy, điều này báo hiệu sự mờ ám, gian lận, lừa đảo, trộm cắp có thể xảy ra và gây hại cho 'Tiềm long' hoặc tài lộc. Cần hết sức cảnh giác với những điều không minh bạch, những người không đáng tin cậy. Thông tin có thể bị sai lệch hoặc che giấu, gây bất lợi cho việc tích lũy và chờ thời."
+            }
+          },
+          "bach_ho": {
+            "vuong": {
+              "ten": "Bạch Hổ Vượng",
+              "giai_nghia": "Bạch Hổ đại diện cho sự hung dữ, tai họa, nhưng cũng là sự mạnh mẽ, quyết đoán, quyền uy. Khi Hào 1 ('Tiềm long') được Bạch Hổ ôm và ở trạng thái Vượng, điều này có thể báo hiệu một sự kiện lớn, đột ngột, có tính chất quyết liệt liên quan đến 'Tiềm long' (ví dụ: một biến cố buộc phải thay đổi kế hoạch). Cần chú ý sức khỏe, tai nạn, nhưng cũng có thể là dấu hiệu của sự dũng mãnh, khả năng vượt qua thử thách lớn nếu biết kiềm chế."
+            },
+            "suy": {
+              "ten": "Bạch Hổ Suy",
+              "giai_nghia": "Khi Hào 1 ('Tiềm long') được Bạch Hổ ôm nhưng ở trạng thái Suy, điều này cảnh báo về những tai họa nhỏ nhưng dai dẳng, bệnh tật kéo dài, hoặc những vấn đề khó giải quyết dứt điểm liên quan đến 'Tiềm long'. Sức mạnh bị giảm sút, dễ bị tổn thương hoặc gặp phải những rắc rối không mong muốn khi chưa đến lúc hành động."
+            }
+          },
+          "cau_tran": {
+            "vuong": {
+              "ten": "Câu Trần Vượng",
+              "giai_nghia": "Câu Trần đại diện cho sự trì trệ, vướng mắc, dây dưa, nhưng cũng là sự bền bỉ, kiên trì. Khi Hào 1 ('Tiềm long') được Câu Trần ôm và ở trạng thái Vượng, điều này cho thấy sự việc liên quan đến 'Tiềm long' có thể bị đình trệ, vướng mắc kéo dài nhưng cuối cùng sẽ đạt được kết quả nếu kiên trì. Có sự bền vững, chắc chắn trong quá trình tích lũy nhưng tiến độ chậm."
+            },
+            "suy": {
+              "ten": "Câu Trần Suy",
+              "giai_nghia": "Khi Hào 1 ('Tiềm long') được Câu Trần ôm nhưng ở trạng thái Suy, điều này báo hiệu sự trì trệ, bế tắc, vướng mắc không lối thoát. Mọi việc liên quan đến 'Tiềm long' khó tiến triển, dễ bị mắc kẹt trong những rắc rối không đáng có. Cần tìm cách phá vỡ sự bế tắc hoặc chấp nhận tình hình chậm chạp khi chưa đến lúc hành động."
+            }
+          },
+          "dang_xa": {
+            "vuong": {
+              "ten": "Đằng Xà Vượng",
+              "giai_nghia": "Đằng Xà đại diện cho sự nghi ngờ, lừa dối, trói buộc, nhưng cũng là sự linh hoạt, khéo léo. Khi Hào 1 ('Tiềm long') được Đằng Xà ôm và ở trạng thái Vượng, điều này có thể cho thấy sự việc liên quan đến 'Tiềm long' có nhiều khúc mắc, phức tạp, nhưng có thể được giải quyết bằng sự khéo léo, linh hoạt và biết cách xoay sở. Cần cẩn trọng với những điều mập mờ, khó lường khi chưa đến lúc bộc lộ."
+            },
+            "suy": {
+              "ten": "Đằng Xà Suy",
+              "giai_nghia": "Khi Hào 1 ('Tiềm long') được Đằng Xà ôm nhưng ở trạng thái Suy, điều này cảnh báo về sự lừa dối, âm mưu, sự trói buộc khó thoát liên quan đến 'Tiềm long'. Mọi việc trở nên rối ren, khó hiểu, dễ bị mắc lừa hoặc bị cuốn vào những rắc rối không đáng có. Cần hết sức tỉnh táo và thận trọng khi đang ở giai đoạn ẩn mình."
+            }
+          }
+        },
+        "luc_than": {
+          "dung_than": {
+            "ten": "Dụng Thần",
+            "giai_nghia_chung": "Dụng Thần là yếu tố trung tâm của quẻ, là đối tượng chính mà người gieo quẻ muốn hỏi. Sức mạnh và trạng thái của Dụng Thần quyết định sự thành bại của sự việc. Việc Dụng Thần được xác định đúng và khỏe mạnh là chìa khóa để giải đoán quẻ. Đối với Hào 1 ('Tiềm long vật dụng'), sức mạnh của Dụng Thần sẽ ảnh hưởng trực tiếp đến khả năng tích lũy và chờ đợi thời cơ của bạn, bất kể Dụng Thần đó là Lục Thân nào.",
+            "lam_hao": {
+              "phu_mau": {
+                "ten": "Phụ Mẫu",
+                "giai_nghia": "Khi Dụng Thần lâm hào Phụ Mẫu (tức là hào Phụ Mẫu được chọn làm Dụng Thần cho vấn đề hỏi): Điều này cho thấy vấn đề người hỏi quan tâm liên quan đến cha mẹ, học vấn, giấy tờ, nhà cửa, hoặc các vấn đề mang tính bảo hộ. Đối với Hào 1 ('Tiềm long vật dụng'), nếu Dụng Thần là Phụ Mẫu và nó Vượng Tướng (sức mạnh của Phụ Mẫu tốt), sự chuẩn bị về kiến thức, giấy tờ, hoặc sự hỗ trợ từ người lớn đang rất tốt, là nền tảng vững chắc cho việc chờ thời. Nếu Suy Tử (sức mạnh của Phụ Mẫu kém), có thể gặp trục trặc về giấy tờ, học hành dang dở, hoặc cha mẹ, người lớn gặp vấn đề, ảnh hưởng đến quá trình tích lũy của 'Tiềm long'."
+              },
+              "huynh_de": {
+                "ten": "Huynh Đệ",
+                "giai_nghia": "Khi Dụng Thần lâm hào Huynh Đệ: Điều này cho thấy vấn đề người hỏi quan tâm liên quan đến anh em, bạn bè, hoặc các đối thủ cạnh tranh. Huynh Đệ là hào khắc Thê Tài (tiền bạc) và có thể gây hao tài, tranh giành. Đối với Hào 1 ('Tiềm long vật dụng'), nếu Dụng Thần là Huynh Đệ, sự hỗ trợ từ những mối quan hệ này có thể không ổn định, cần cẩn trọng để tránh hao tổn hoặc mâu thuẫn làm chậm quá trình tích lũy. Nếu hào Huynh Đệ Vượng, có thể là sự giúp đỡ mạnh mẽ từ anh em, nhưng cũng có thể là sự cạnh tranh, hoặc hao tốn để giải quyết vấn đề."
+              },
+              "tu_ton": {
+                "ten": "Tử Tôn",
+                "giai_nghia": "Khi Dụng Thần lâm hào Tử Tôn: Điều này cho thấy vấn đề người hỏi quan tâm liên quan đến con cái, sự sáng tạo, niềm vui, hoặc yếu tố hóa giải tai họa. Tử Tôn là hào sinh Thê Tài (tiền bạc) và khắc Quan Quỷ (tai họa). Đối với Hào 1 ('Tiềm long vật dụng'), nếu Dụng Thần là Tử Tôn, điều này có thể mang lại sự bình an, hóa giải tai họa cho vấn đề, hoặc có niềm vui từ con cái/sự sáng tạo giúp giảm bớt áp lực trong giai đoạn ẩn mình. Nếu hào Tử Tôn Vượng, có thể mang lại sự bình an, hóa giải tai họa. Nếu Suy, có thể gặp khó khăn trong việc hóa giải vấn đề hoặc niềm vui bị giảm sút."
+              },
+              "quan_quy": {
+                "ten": "Quan Quỷ",
+                "giai_nghia": "Khi Dụng Thần lâm hào Quan Quỷ: Điều này cho thấy vấn đề người hỏi quan tâm liên quan đến công việc, chức vụ, pháp luật, bệnh tật, hoặc tai họa. Đối với Hào 1 ('Tiềm long vật dụng'), nếu Dụng Thần là Quan Quỷ, điều này báo hiệu những áp lực từ bên ngoài hoặc những rắc rối tiềm tàng liên quan đến quyền lực/công việc có thể ảnh hưởng đến quá trình chuẩn bị. Nếu hào Quan Quỷ Vượng, công việc thăng tiến, có quyền lực nhưng cũng dễ gặp áp lực, rắc rối. Nếu Suy, tai họa được hóa giải, hoặc công việc trì trệ."
+              },
+              "the_tai": {
+                "ten": "Thê Tài",
+                "giai_nghia": "Khi Dụng Thần lâm hào Thê Tài: Điều này cho thấy vấn đề người hỏi quan tâm liên quan đến tiền bạc, tài lộc, vợ, người yêu, hoặc lợi ích vật chất. Đối với Hào 1 ('Tiềm long vật dụng'), nếu Dụng Thần là Thê Tài, cần cẩn trọng với các vấn đề tài chính hoặc tình cảm có thể gây ảnh hưởng tiêu cực đến nền tảng chuẩn bị của mình (ví dụ: Thê Tài khắc Phụ Mẫu - nền tảng, kiến thức). Nếu hào Thê Tài Vượng, tài lộc dồi dào, tình duyên thuận lợi. Nếu Suy, có thể hao tài, tình cảm trắc trở hoặc khó khăn về tài chính, ảnh hưởng tiêu cực đến quá trình tích lũy."
+              }
+            }
+          },
+          "hy_than": {
+            "ten": "Hỷ Thần",
+            "giai_nghia_chung": "Hỷ Thần là hào sinh trợ cho Dụng Thần, mang lại sức mạnh và sự hỗ trợ cho Dụng Thần. Hỷ Thần càng vượng càng có lợi cho sự việc được hỏi. Hỷ Thần có thể là hào Nguyên Thần (trực tiếp sinh Dụng Thần) hoặc các hào khác sinh trợ cho Dụng Thần. Đối với Hào 1 ('Tiềm long vật dụng'), Hỷ Thần sẽ là nguồn hỗ trợ gián tiếp nhưng quan trọng, giúp quá trình tích lũy và chờ thời diễn ra thuận lợi hơn, mang lại năng lượng tích cực cho sự phát triển tiềm tàng.",
+            "dung_than": {
+              "phu_mau": {
+                "ten_dung_than": "Phụ Mẫu",
+                "hy_than_tuong_ung": "Quan Quỷ",
+                "giai_nghia": "Nếu Dụng Thần được xác định là Phụ Mẫu, thì Hỷ Thần sẽ là Quan Quỷ (vì Quan Quỷ sinh Phụ Mẫu). Hỷ Thần Quan Quỷ Vượng sẽ giúp Dụng Thần Phụ Mẫu mạnh mẽ, có sự hỗ trợ tích cực từ công việc, quan chức, hoặc người có địa vị, giúp cho việc học hành, giấy tờ, nhà cửa được hanh thông. Đối với 'Tiềm long', sự hỗ trợ này rất quan trọng để tích lũy và chuẩn bị. Nếu Quan Quỷ suy, sự hỗ trợ yếu, có thể gặp khó khăn trong các vấn đề liên quan đến công việc, pháp lý, ảnh hưởng đến sự phát triển của Dụng Thần."
+              },
+              "huynh_de": {
+                "ten_dung_than": "Huynh Đệ",
+                "hy_than_tuong_ung": "Phụ Mẫu",
+                "giai_nghia": "Nếu Dụng Thần được xác định là Huynh Đệ, thì Hỷ Thần sẽ là Phụ Mẫu (vì Phụ Mẫu sinh Huynh Đệ). Hỷ Thần Phụ Mẫu Vượng sẽ giúp Dụng Thần Huynh Đệ mạnh mẽ, có sự hỗ trợ từ cha mẹ, người lớn tuổi, học vấn, giấy tờ, giúp cho mối quan hệ anh em, bạn bè bền chặt, hoặc giảm bớt hao tài. Đối với 'Tiềm long', điều này có thể báo hiệu sự hỗ trợ từ gia đình/kiến thức giúp bạn vững vàng hơn trong giai đoạn ẩn mình. Nếu Phụ Mẫu suy, sự hỗ trợ yếu, dễ gặp tranh chấp, hao tài."
+              },
+              "tu_ton": {
+                "ten_dung_than": "Tử Tôn",
+                "hy_than_tuong_ung": "Huynh Đệ",
+                "giai_nghia": "Nếu Dụng Thần được xác định là Tử Tôn, thì Hỷ Thần sẽ là Huynh Đệ (vì Huynh Đệ sinh Tử Tôn). Hỷ Thần Huynh Đệ Vượng sẽ giúp Dụng Thần Tử Tôn mạnh mẽ, hóa giải tai họa hiệu quả, mang lại niềm vui, sự bình an. Sự giúp đỡ từ anh em, bạn bè sẽ rất có lợi. Đối với 'Tiềm long', đây là yếu tố hỗ trợ cho sự sáng tạo, hóa giải khó khăn, mang lại niềm vui trong quá trình chờ đợi. Nếu Huynh Đệ suy, khả năng hóa giải tai họa kém, niềm vui bị giảm sút."
+              },
+              "quan_quy": {
+                "ten_dung_than": "Quan Quỷ",
+                "hy_than_tuong_ung": "Thê Tài",
+                "giai_nghia": "Nếu Dụng Thần được xác định là Quan Quỷ, thì Hỷ Thần sẽ là Thê Tài (vì Thê Tài sinh Quan Quỷ). Hỷ Thần Thê Tài Vượng sẽ giúp Dụng Thần Quan Quỷ mạnh mẽ, có lợi cho công việc, thăng tiến, nhưng cũng có thể gia tăng áp lực, bệnh tật. Tiền bạc hoặc người vợ/người yêu có thể mang lại sự hỗ trợ hoặc là nguồn gốc của vấn đề. Đối với 'Tiềm long', sự hỗ trợ tài chính hoặc tình cảm có thể giúp bạn vượt qua áp lực công việc trong giai đoạn ẩn mình. Nếu Thê Tài suy, công việc khó khăn, bệnh tật kéo dài."
+              },
+              "the_tai": {
+                "ten_dung_than": "Thê Tài",
+                "hy_than_tuong_ung": "Tử Tôn",
+                "giai_nghia": "Nếu Dụng Thần được xác định là Thê Tài, thì Hỷ Thần sẽ là Tử Tôn (vì Tử Tôn sinh Thê Tài). Hỷ Thần Tử Tôn Vượng sẽ giúp Dụng Thần Thê Tài mạnh mẽ, mang lại tài lộc dồi dào, tình duyên thuận lợi. Con cái hoặc sự sáng tạo có thể là nguồn gốc của tài lộc. Đối với 'Tiềm long', đây là yếu tố hỗ trợ cho tài lộc và niềm vui trong giai đoạn tích lũy. Nếu Tử Tôn suy, tài lộc kém, tình duyên trắc trở."
+              }
+            }
+          },
+          "nguyen_than": {
+            "ten": "Nguyên Thần",
+            "giai_nghia_chung": "Nguyên Thần là hào trực tiếp sinh Dụng Thần, là nguồn gốc sức mạnh của Dụng Thần. Nguyên Thần vượng thì Dụng Thần được sinh trợ mạnh mẽ, mọi việc hanh thông. Nguyên Thần suy thì Dụng Thần yếu, khó thành công. Nguyên Thần là một dạng đặc biệt của Hỷ Thần, mang ý nghĩa sự hỗ trợ cốt lõi. Đối với Hào 1 ('Tiềm long vật dụng'), Nguyên Thần sẽ là nguồn lực trực tiếp nhất giúp bạn tích lũy và chuẩn bị, là yếu tố nuôi dưỡng tiềm năng của bạn.",
+            "dung_than": {
+              "phu_mau": {
+                "ten_dung_than": "Phụ Mẫu",
+                "nguyen_than_tuong_ung": "Quan Quỷ",
+                "giai_nghia": "Nếu Dụng Thần được xác định là Phụ Mẫu, thì Nguyên Thần sẽ là Quan Quỷ (vì Quan Quỷ sinh Phụ Mẫu). Nguyên Thần Quan Quỷ Vượng cho thấy sự hỗ trợ trực tiếp và mạnh mẽ từ công việc, quyền lực, hoặc người có địa vị, giúp cho vấn đề liên quan đến cha mẹ, học vấn, giấy tờ được giải quyết nhanh chóng và thuận lợi. Điều này đặc biệt quan trọng cho 'Tiềm long' để có nền tảng vững chắc và sự chuẩn bị kỹ lưỡng."
+              },
+              "huynh_de": {
+                "ten_dung_than": "Huynh Đệ",
+                "nguyen_than_tuong_ung": "Phụ Mẫu",
+                "giai_nghia": "Nếu Dụng Thần được xác định là Huynh Đệ, thì Nguyên Thần sẽ là Phụ Mẫu (vì Phụ Mẫu sinh Huynh Đệ). Nguyên Thần Phụ Mẫu Vượng cho thấy sự hỗ trợ trực tiếp và mạnh mẽ từ cha mẹ, người lớn tuổi, kiến thức, giấy tờ, giúp cho mối quan hệ anh em, bạn bè thêm gắn kết hoặc giảm bớt hao tài. Đối với 'Tiềm long', đây là nguồn lực cốt lõi giúp bạn vững vàng trong giai đoạn ẩn mình."
+              },
+              "tu_ton": {
+                "ten_dung_than": "Tử Tôn",
+                "nguyen_than_tuong_ung": "Huynh Đệ",
+                "giai_nghia": "Nếu Dụng Thần được xác định là Tử Tôn, thì Nguyên Thần sẽ là Huynh Đệ (vì Huynh Đệ sinh Tử Tôn). Nguyên Thần Huynh Đệ Vượng cho thấy sự hỗ trợ trực tiếp và mạnh mẽ từ anh em, bạn bè, giúp hóa giải tai họa hiệu quả, mang lại niềm vui lớn, hoặc có lợi cho con cái. Đối với 'Tiềm long', đây là nguồn lực trực tiếp cho sự sáng tạo và bình an trong giai đoạn tích lũy."
+              },
+              "quan_quy": {
+                "ten_dung_than": "Quan Quỷ",
+                "nguyen_than_tuong_ung": "Thê Tài",
+                "giai_nghia": "Nếu Dụng Thần được xác định là Quan Quỷ, thì Nguyên Thần sẽ là Thê Tài (vì Thê Tài sinh Quan Quỷ). Nguyên Thần Thê Tài Vượng cho thấy sự hỗ trợ trực tiếp và mạnh mẽ từ tài chính, vợ/người yêu, giúp cho công việc, chức vụ được ổn định và phát triển, nhưng cũng có thể gia tăng áp lực nếu Quan Quỷ là Kỵ Thần. Đối với 'Tiềm long', nguồn tài chính này có thể giúp bạn vượt qua khó khăn và duy trì sự chuẩn bị."
+              },
+              "the_tai": {
+                "ten_dung_than": "Thê Tài",
+                "nguyen_than_tuong_ung": "Tử Tôn",
+                "giai_nghia": "Nếu Dụng Thần được xác định là Thê Tài, thì Nguyên Thần sẽ là Tử Tôn (vì Tử Tôn sinh Thê Tài). Nguyên Thần Tử Tôn Vượng cho thấy sự hỗ trợ trực tiếp và mạnh mẽ từ con cái, sự sáng tạo, hoặc các nguồn lợi nhuận, giúp cho tài lộc dồi dào, tình duyên thuận lợi. Đối với 'Tiềm long', đây là nguồn tài lộc chính trong giai đoạn tích lũy."
+              }
+            }
+          },
+          "ky_than": {
+            "ten": "Kỵ Thần",
+            "giai_nghia_chung": "Kỵ Thần là hào khắc Dụng Thần, là yếu tố gây trở ngại, khó khăn, hoặc tai họa cho sự việc được hỏi. Kỵ Thần càng vượng càng bất lợi cho Dụng Thần và sự việc. Cần tìm cách hóa giải Kỵ Thần nếu muốn sự việc hanh thông. Đối với Hào 1 ('Tiềm long vật dụng'), Kỵ Thần sẽ là những yếu tố gây cản trở trực tiếp đến quá trình tích lũy và chuẩn bị của bạn, khiến bạn khó lòng chờ đợi thời cơ.",
+            "dung_than": {
+              "phu_mau": {
+                "ten_dung_than": "Phụ Mẫu",
+                "ky_than_tuong_ung": "Thê Tài",
+                "giai_nghia": "Nếu Dụng Thần được xác định là Phụ Mẫu, thì Kỵ Thần sẽ là Thê Tài (vì Thê Tài khắc Phụ Mẫu). Kỵ Thần Thê Tài Vượng sẽ gây trở ngại lớn cho Dụng Thần Phụ Mẫu, gây hao tài, tốn kém, hoặc cản trở về giấy tờ, học hành, nhà cửa. Đối với 'Tiềm long', những vấn đề liên quan đến tiền bạc hoặc tình cảm có thể là nguyên nhân gây hại nghiêm trọng đến quá trình tích lũy và chuẩn bị, khiến bạn khó lòng chờ đợi thời cơ."
+              },
+              "huynh_de": {
+                "ten_dung_than": "Huynh Đệ",
+                "ky_than_tuong_ung": "Quan Quỷ",
+                "giai_nghia": "Nếu Dụng Thần được xác định là Huynh Đệ, thì Kỵ Thần sẽ là Quan Quỷ (vì Quan Quỷ khắc Huynh Đệ). Kỵ Thần Quan Quỷ Vượng sẽ gây trở ngại lớn cho Dụng Thần Huynh Đệ, gây ra bệnh tật, tai họa, áp lực công việc, hoặc tranh chấp pháp lý. Đối với 'Tiềm long', những áp lực từ công việc hoặc pháp luật có thể gây khó khăn cho mối quan hệ anh em, bạn bè, hoặc khiến bạn mất đi sự ổn định trong giai đoạn ẩn mình."
+              },
+              "tu_ton": {
+                "ten_dung_than": "Tử Tôn",
+                "ky_than_tuong_ung": "Phụ Mẫu",
+                "giai_nghia": "Nếu Dụng Thần được xác định là Tử Tôn, thì Kỵ Thần sẽ là Phụ Mẫu (vì Phụ Mẫu khắc Tử Tôn). Kỵ Thần Phụ Mẫu Vượng sẽ gây trở ngại lớn cho Dụng Thần Tử Tôn, làm giảm niềm vui, sự bình an, hoặc gây khó khăn cho con cái. Đối với 'Tiềm long', những vấn đề về giấy tờ, học hành, hoặc sự can thiệp từ người lớn có thể là trở ngại lớn, làm mất đi sự bình yên trong giai đoạn tích lũy."
+              },
+              "quan_quy": {
+                "ten_dung_than": "Quan Quỷ",
+                "ky_than_tuong_ung": "Huynh Đệ",
+                "giai_nghia": "Nếu Dụng Thần được xác định là Quan Quỷ, thì Kỵ Thần sẽ là Huynh Đệ (vì Huynh Đệ khắc Quan Quỷ). Kỵ Thần Huynh Đệ Vượng sẽ gây trở ngại lớn cho Dụng Thần Quan Quỷ, gây ra tranh chấp, hao tài, hoặc cản trở công việc, chức vụ. Đối với 'Tiềm long', những mâu thuẫn với bạn bè, người thân có thể gây ra áp lực công việc hoặc rắc rối pháp lý, ảnh hưởng đến sự ổn định trong giai đoạn ẩn mình."
+              },
+              "the_tai": {
+                "ten_dung_than": "Thê Tài",
+                "ky_than_tuong_ung": "Huynh Đệ",
+                "giai_nghia": "Nếu Dụng Thần được xác định là Thê Tài, thì Kỵ Thần sẽ là Huynh Đệ (vì Huynh Đệ khắc Thê Tài). Kỵ Thần Huynh Đệ Vượng sẽ gây trở ngại lớn cho Dụng Thần Thê Tài, gây hao tài, tình duyên trắc trở, hoặc gặp vấn đề về tài chính liên quan đến tranh chấp, bạn bè, hoặc người thân. Đối với 'Tiềm long', những tranh chấp hoặc hao tổn tài chính có thể làm suy yếu khả năng tích lũy và chuẩn bị của bạn."
+              }
+            }
+          },
+          "cuu_than": {
+            "ten": "Cừu Thần",
+            "giai_nghia_chung": "Cừu Thần là hào khắc Nguyên Thần (hoặc Hỷ Thần) và sinh Kỵ Thần. Cừu Thần làm suy yếu nguồn sinh của Dụng Thần và gia tăng sức mạnh của Kỵ Thần, do đó gián tiếp gây hại cho Dụng Thần. Cừu Thần càng vượng càng bất lợi. Đối với Hào 1 ('Tiềm long vật dụng'), Cừu Thần sẽ là những yếu tố gây rối loạn, làm suy yếu sự hỗ trợ và gia tăng khó khăn trong giai đoạn ẩn mình, khiến bạn khó lòng đạt được sự chuẩn bị cần thiết.",
+            "dung_than": {
+              "phu_mau": {
+                "ten_dung_than": "Phụ Mẫu",
+                "nguyen_than_tuong_ung": "Quan Quỷ",
+                "cuu_than_tuong_ung": "Tử Tôn",
+                "giai_nghia": "Nếu Dụng Thần được xác định là Phụ Mẫu, Nguyên Thần là Quan Quỷ. Cừu Thần sẽ là Tử Tôn (vì Tử Tôn khắc Quan Quỷ và Tử Tôn sinh Thê Tài). Cừu Thần Tử Tôn Vượng sẽ khắc chế Nguyên Thần, làm suy yếu nguồn sinh của Dụng Thần Phụ Mẫu, đồng thời gián tiếp làm tăng sức mạnh của Kỵ Thần Thê Tài. Đối với 'Tiềm long', điều này gây bất lợi cho việc học hành, giấy tờ, hoặc sự hỗ trợ từ người có địa vị. Có thể có những vấn đề liên quan đến con cái, sự sáng tạo, hoặc niềm vui làm suy yếu sự nghiệp, ảnh hưởng đến quá trình tích lũy."
+              },
+              "huynh_de": {
+                "ten_dung_than": "Huynh Đệ",
+                "nguyen_than_tuong_ung": "Phụ Mẫu",
+                "cuu_than_tuong_ung": "Thê Tài",
+                "giai_nghia": "Nếu Dụng Thần được xác định là Huynh Đệ, Nguyên Thần là Phụ Mẫu. Cừu Thần sẽ là Thê Tài (vì Thê Tài khắc Phụ Mẫu và Thê Tài sinh Quan Quỷ). Cừu Thần Thê Tài Vượng sẽ khắc chế Nguyên Thần, làm suy yếu nguồn sinh của Dụng Thần, gây hao tài, tình duyên trắc trở, hoặc cản trở sự hỗ trợ từ cha mẹ, người lớn tuổi. Đối với 'Tiềm long', điều này có thể làm suy yếu sự hỗ trợ từ gia đình/kiến thức, gây ra khó khăn trong giai đoạn ẩn mình."
+              },
+              "tu_ton": {
+                "ten_dung_than": "Tử Tôn",
+                "nguyen_than_tuong_ung": "Huynh Đệ",
+                "cuu_than_tuong_ung": "Quan Quỷ",
+                "giai_nghia": "Nếu Dụng Thần được xác định là Tử Tôn, Nguyên Thần là Huynh Đệ. Cừu Thần sẽ là Quan Quỷ (vì Quan Quỷ khắc Huynh Đệ và Quan Quỷ sinh Phụ Mẫu). Cừu Thần Quan Quỷ Vượng sẽ khắc chế Nguyên Thần, làm suy yếu khả năng hóa giải tai họa và niềm vui, đồng thời gia tăng áp lực công việc, bệnh tật. Đối với 'Tiềm long', những áp lực này có thể làm mất đi sự bình yên và khả năng sáng tạo trong giai đoạn tích lũy."
+              },
+              "quan_quy": {
+                "ten_dung_than": "Quan Quỷ",
+                "nguyen_than_tuong_ung": "Thê Tài",
+                "cuu_than_tuong_ung": "Huynh Đệ",
+                "giai_nghia": "Nếu Dụng Thần được xác định là Quan Quỷ, Nguyên Thần là Thê Tài. Cừu Thần sẽ là Huynh Đệ (vì Huynh Đệ khắc Thê Tài và Huynh Đệ sinh Tử Tôn). Cừu Thần Huynh Đệ Vượng sẽ khắc chế Nguyên Thần Thê Tài, làm suy yếu nguồn tài chính, ảnh hưởng đến công việc, chức vụ, và có thể gây ra những vấn đề liên quan đến tranh chấp, bạn bè. Đối với 'Tiềm long', những tranh chấp này có thể làm suy yếu nguồn lực và gia tăng áp lực công việc."
+              },
+              "the_tai": {
+                "ten_dung_than": "Thê Tài",
+                "nguyen_than_tuong_ung": "Tử Tôn",
+                "cuu_than_tuong_ung": "Phụ Mẫu",
+                "giai_nghia": "Nếu Dụng Thần được xác định là Thê Tài, Nguyên Thần là Tử Tôn. Cừu Thần sẽ là Phụ Mẫu (vì Phụ Mẫu khắc Tử Tôn và Phụ Mẫu sinh Huynh Đệ). Cừu Thần Phụ Mẫu Vượng sẽ khắc chế Nguyên Thần, làm suy yếu khả năng sinh tài, gây hao tài, tình duyên trắc trở, hoặc gặp vấn đề liên quan đến giấy tờ, học vấn, cha mẹ. Đối với 'Tiềm long', điều này có thể làm suy yếu nguồn tài lộc và gây ra những rắc rối không đáng có trong giai đoạn tích lũy."
+              }
+            }
+          },
+          "phong_than": {
+            "ten": "Phục Thần",
+            "giai_nghia_chung": "Phục Thần (còn gọi là Phong Thần) là hào không xuất hiện trên quẻ gốc (quẻ chính) nhưng lại là Dụng Thần hoặc Nguyên Thần/Kỵ Thần của quẻ đó. Phục Thần ẩn dưới một hào khác gọi là Tàng Thần. Phục Thần thường biểu thị những yếu tố tiềm ẩn, chưa rõ ràng, hoặc những vấn đề đã cũ nhưng có thể tái phát. Đối với Hào 1 ('Tiềm long vật dụng'), Phục Thần sẽ là những yếu tố chưa bộc lộ nhưng có ảnh hưởng quan trọng đến quá trình tích lũy và chờ thời của bạn.",
+            "tac_dong": {
+              "dung_than": {
+                "giai_nghia": "Nếu Phục Thần là Dụng Thần: Dụng Thần không hiện ra, cho thấy sự việc đang tiềm ẩn, chưa rõ ràng, hoặc gặp khó khăn trong việc thể hiện. Đối với Hào 1 ('Tiềm long vật dụng'), điều này có thể báo hiệu rằng cơ hội hoặc tài năng chưa đến lúc bộc lộ rõ ràng. Cần chờ đợi Phục Thần xuất hiện (động, biến, hoặc được ngày/tháng sinh trợ) thì sự việc mới có chuyển biến. Nếu Phục Thần được sinh trợ và Vượng, thì tiềm năng tốt, nhưng vẫn cần thời cơ. Nếu bị khắc hoặc Suy, thì sự việc khó thành hoặc có vấn đề tiềm ẩn."
+              },
+              "nguyen_than": {
+                "giai_nghia": "Nếu Phục Thần là Nguyên Thần: Nguồn sinh trợ cho Dụng Thần đang ẩn giấu, chưa thể hiện rõ. Dụng Thần có thể thiếu sức mạnh hoặc cần sự hỗ trợ từ những yếu tố tiềm ẩn (ví dụ: một người có quyền lực đang âm thầm giúp đỡ). Khi Nguyên Thần Phục được xuất hiện hoặc được sinh trợ, Dụng Thần sẽ mạnh lên, giúp Hào 1 ('Tiềm long') có thêm động lực và nguồn lực cho quá trình chuẩn bị."
+              },
+              "ky_than": {
+                "giai_nghia": "Nếu Phục Thần là Kỵ Thần: Yếu tố gây hại cho Dụng Thần đang tiềm ẩn, chưa rõ ràng. Điều này có thể là tốt nếu Kỵ Thần bị ẩn và không thể phát huy tác dụng. Tuy nhiên, cũng cần đề phòng Kỵ Thần này xuất hiện bất ngờ và gây hại. Đối với Hào 1 ('Tiềm long'), nếu Phục Thần Kỵ Thần được sinh trợ và xuất hiện, thì tai họa có thể bất ngờ ập đến, gây bất lợi cho quá trình ẩn mình và tích lũy."
+              },
+              "xuat_hien": {
+                "giai_nghia": "Phục Thần được xuất hiện khi nó trùng với hào động, hào biến, hoặc được ngày/tháng sinh trợ, xung hợp. Khi đó, yếu tố tiềm ẩn sẽ bộc lộ, sự việc có chuyển biến rõ rệt. Đối với Hào 1 ('Tiềm long'), đây là dấu hiệu cho thấy thời cơ đã đến hoặc một yếu tố quan trọng đã lộ diện, có thể là lúc bạn cần cân nhắc hành động."
+              },
+              "ap_che": {
+                "giai_nghia": "Phục Thần bị Tàng Thần hoặc các hào khác khắc chế, làm cho nó càng khó xuất hiện hoặc phát huy tác dụng. Nếu là Dụng Thần/Nguyên Thần thì bất lợi cho 'Tiềm long', vì tiềm năng khó được khai thác. Nếu là Kỵ Thần thì có lợi, vì yếu tố gây hại bị kìm hãm, giúp 'Tiềm long' có thời gian yên ổn để tích lũy."
+              }
+            }
+          },
+          "tang_than": {
+            "ten": "Tàng Thần",
+            "giai_nghia_chung": "Tàng Thần là hào hiện rõ trên quẻ, nơi mà Phục Thần (hào ẩn) ẩn náu. Tàng Thần có thể ảnh hưởng đến Phục Thần thông qua mối quan hệ sinh khắc. Nếu Tàng Thần sinh Phục Thần thì tốt, nếu khắc Phục Thần thì bất lợi. Đối với Hào 1 ('Tiềm long vật dụng'), Tàng Thần là yếu tố che chở hoặc ảnh hưởng trực tiếp đến những tiềm năng ẩn giấu của bạn.",
+            "tac_dong": {
+              "sinh_phuc_than": {
+                "giai_nghia": "Nếu Tàng Thần (hào hiện) sinh Phục Thần (hào ẩn): Tàng Thần đang hỗ trợ Phục Thần. Điều này tốt nếu Phục Thần là Dụng Thần/Nguyên Thần, giúp hào ẩn có sức mạnh tiềm tàng, dễ xuất hiện và phát huy tác dụng. Đối với 'Tiềm long', điều này báo hiệu có những yếu tố bên ngoài (mà bạn đang dựa vào) đang âm thầm nuôi dưỡng tiềm năng của bạn, giúp bạn tích lũy hiệu quả hơn. Ngược lại, nếu Phục Thần là Kỵ Thần thì bất lợi, vì Tàng Thần đang nuôi dưỡng yếu tố gây hại."
+              },
+              "khac_phuc_than": {
+                "giai_nghia": "Nếu Tàng Thần (hào hiện) khắc Phục Thần (hào ẩn): Tàng Thần đang áp chế Phục Thần. Điều này tốt nếu Phục Thần là Kỵ Thần (giúp Kỵ Thần khó phát huy tác dụng, giảm bớt tai họa tiềm ẩn). Ngược lại, nếu Phục Thần là Dụng Thần/Nguyên Thần thì bất lợi, vì hào ẩn bị kìm hãm, khó có cơ hội xuất hiện hoặc phát huy sức mạnh, làm cho 'Tiềm long' càng khó thể hiện và tích lũy."
+              },
+              "cung_ngu_hanh": {
+                "giai_nghia": "Nếu Tàng Thần (hào hiện) cùng ngũ hành với Phục Thần (hào ẩn): Tàng Thần giúp Phục Thần tăng thêm sức mạnh. Điều này tốt nếu Phục Thần là Dụng Thần/Nguyên Thần, củng cố tiềm năng của 'Tiềm long', giúp bạn vững vàng hơn trong giai đoạn ẩn mình. Ngược lại, nếu Phục Thần là Kỵ Thần thì bất lợi, vì yếu tố gây hại được tăng cường."
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
