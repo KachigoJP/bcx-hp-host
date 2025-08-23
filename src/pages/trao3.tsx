@@ -85,7 +85,7 @@ const HomePage: React.FC = () => {
     console.log("Searching for code:", code, "and search:", inputSearch);
     if (users[code]) {
       let isFound =
-        users[code].phone_number.replace(/[^0-9a-zA-Z]/g, "") ===
+        users[code].phone.replace(/[^0-9a-zA-Z]/g, "") ===
         inputSearch.trim().replace(/[^0-9a-zA-Z]/g, "");
       isFound = isFound || users[code].email === inputSearch;
 
@@ -255,7 +255,7 @@ const HomePage: React.FC = () => {
                           Số người: {searchResult.num_person}
                         </li>
                         <li className="info">
-                          Điện thoại: {searchResult.phone_number}
+                          Điện thoại: {searchResult.phone}
                         </li>
                         <li className="info">Nơi ngủ: {searchResult.stay}</li>
 
