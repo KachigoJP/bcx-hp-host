@@ -23,7 +23,8 @@ function MyApp({ Component, pageProps }: AppProps) {
     <div>
       <Head>
         <title>
-          Bàn Chân Xanh - Tổ chức phi lợi nhuận về các hoạt động cho người Việt ở Nhật.
+          Bàn Chân Xanh - Tổ chức phi lợi nhuận về các hoạt động cho người Việt
+          ở Nhật.
         </title>
       </Head>
       <Component {...pageProps} />
