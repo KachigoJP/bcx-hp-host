@@ -13,6 +13,7 @@ import {
   DocumentData,
 } from "firebase/firestore";
 import { useTranslation } from "react-i18next";
+import { Spinner } from "reactstrap";
 
 // Source
 const firebaseConfig = {
@@ -34,6 +35,7 @@ const firestore = getFirestore(app);
 const HomePage: React.FC = () => {
   const { t } = useTranslation();
 
+  const [showError, setShowError] = React.useState(false);
   const [isRuleShow, setIsRuleShow] = React.useState(false);
   const [isDetailShow, setIsDetailShow] = React.useState(false);
   const [isMapShow, setIsMapShow] = React.useState(false);
@@ -44,6 +46,7 @@ const HomePage: React.FC = () => {
   >(undefined);
   const [users, setUsers] = React.useState<any>({});
   const [validUsers, setValidUsers] = React.useState<any>({});
+  const [imageLoadStatus, setImageLoadStatus] = React.useState<any>({});
 
   React.useEffect(() => {
     const getData = async () => {
@@ -92,7 +95,7 @@ const HomePage: React.FC = () => {
   const onClickSearch = () => {
     // Handle search logic here
     const code = inputCode.trim();
-    console.log("Searching for code:", code, "and search:", inputSearch);
+
     if (users[code]) {
       let isFound =
         users[code].phone.replace(/[^0-9a-zA-Z]/g, "") ===
@@ -101,12 +104,15 @@ const HomePage: React.FC = () => {
 
       if (isFound) {
         setSearchResult(users[code]);
+        setShowError(false);
       } else {
         setSearchResult(undefined);
+        setShowError(true);
       }
     } else {
-      console.log("User not found");
+      console.log("Not found");
       setSearchResult(undefined);
+      setShowError(true);
     }
   };
 
@@ -119,7 +125,6 @@ const HomePage: React.FC = () => {
   const onClickConfirmUse = async (index: number) => {
     if (searchResult) {
       const userRef = doc(firestore, "trao2025", searchResult.code);
-      console.log("Updating ticket:", index, "for user:", searchResult.code);
       await updateDoc(userRef, {
         [`ticket_${index}`]: 1,
         updated_at: Timestamp.now(),
@@ -129,6 +134,10 @@ const HomePage: React.FC = () => {
         [`ticket_${index}`]: 1,
       });
     }
+  };
+
+  const onLoadingComplete = async (name: string) => {
+    setImageLoadStatus((prev: any) => ({ ...prev, [name]: true }));
   };
 
   return (
@@ -143,12 +152,14 @@ const HomePage: React.FC = () => {
                     src="/assets/images/trao3.png"
                     width={581}
                     height={576}
+                    loading="lazy"
                     alt=""
                     style={{
                       width: 400,
                       height: 500,
                     }}
                   />
+
                   <div className="round-ball-1"></div>
                   <div className="round-ball-2"></div>
                   <div className="round-ball-3"></div>
@@ -207,18 +218,23 @@ const HomePage: React.FC = () => {
               }`}
             >
               <div className="container">
-                <div className="row justify-content-center">
+                <div className="row justify-content-center text-center">
                   <div className="col-lg-6">
+                    {!imageLoadStatus["rule"] ? (
+                      <Spinner>
+                        <span>Loading...</span>
+                      </Spinner>
+                    ) : null}
                     <Image
                       src="/assets/images/trao_rule.png"
                       width={412}
-                      height={582}
+                      height={566}
                       alt=""
                       style={{
                         width: 412,
-                        height: 582,
+                        height: 566,
                       }}
-                      unoptimized
+                      onLoadingComplete={() => onLoadingComplete("rule")}
                     />
                   </div>
                 </div>
@@ -244,6 +260,11 @@ const HomePage: React.FC = () => {
               <div className="container">
                 <div className="row justify-content-center">
                   <div className="col-lg-6">
+                    {!imageLoadStatus["schedule"] ? (
+                      <Spinner>
+                        <span>Loading...</span>
+                      </Spinner>
+                    ) : null}
                     <Image
                       src="/assets/images/trao_schedule.jpg"
                       width={400}
@@ -253,7 +274,7 @@ const HomePage: React.FC = () => {
                         width: 400,
                         height: 200,
                       }}
-                      unoptimized
+                      onLoadingComplete={() => onLoadingComplete("schedule")}
                     />
                   </div>
                 </div>
@@ -275,6 +296,11 @@ const HomePage: React.FC = () => {
               <div className="container">
                 <div className="row justify-content-center">
                   <div className="col-lg-6">
+                    {!imageLoadStatus["map"] ? (
+                      <Spinner>
+                        <span>Loading...</span>
+                      </Spinner>
+                    ) : null}
                     <Image
                       src="/assets/images/trao_map.png"
                       width={400}
@@ -284,7 +310,7 @@ const HomePage: React.FC = () => {
                         width: 400,
                         height: 283,
                       }}
-                      unoptimized
+                      onLoadingComplete={() => onLoadingComplete("map")}
                     />
                   </div>
                 </div>
@@ -371,7 +397,7 @@ const HomePage: React.FC = () => {
                     </div>
                   </div>
                 ) : (
-                  <div className="row m-2 text-danger">
+                  <div className="row m-2 text-danger" hidden={!showError}>
                     Không tìm thấy thông tin
                   </div>
                 )}
