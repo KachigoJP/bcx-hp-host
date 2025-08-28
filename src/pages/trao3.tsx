@@ -97,11 +97,17 @@ const HomePage: React.FC = () => {
     const code = inputCode.trim();
 
     if (users[code]) {
-      let isFound =
-        users[code].phone.replace(/[^0-9a-zA-Z]/g, "") ===
-        inputSearch.trim().replace(/[^0-9a-zA-Z]/g, "");
-      isFound = isFound || users[code].email === inputSearch;
-
+      let isFound = false;
+      if (users[code].phone && users[code].email) {
+        isFound =
+          isFound ||
+          users[code].phone.replace(/[^0-9a-zA-Z]/g, "") ===
+            inputSearch.trim().replace(/[^0-9a-zA-Z]/g, "");
+        isFound = isFound || users[code].email === inputSearch;
+      } else {
+        isFound = true;
+      }
+      console.log("isFound", isFound);
       if (isFound) {
         setSearchResult(users[code]);
         setShowError(false);
@@ -110,7 +116,6 @@ const HomePage: React.FC = () => {
         setShowError(true);
       }
     } else {
-      console.log("Not found");
       setSearchResult(undefined);
       setShowError(true);
     }
@@ -391,7 +396,7 @@ const HomePage: React.FC = () => {
 
                         {Array.from({ length: searchResult.num_person }).map(
                           (_, i) => (
-                            <li className="info">
+                            <li className="info" key={i}>
                               Phiếu ăn sáng:
                               <input
                                 type="button"
