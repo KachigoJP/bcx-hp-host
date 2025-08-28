@@ -205,6 +205,7 @@ const HomePage: React.FC = () => {
                   </li>
                   <li>
                     <b>Thông tin liên hệ:</b> 080-5988-2754 (Anh Chiến)
+                    080-4734-3979 (Chị Giang)
                   </li>
                 </ul>
                 <div>
