@@ -218,6 +218,11 @@ const HomePage: React.FC = () => {
                     Và sẽ được thu trực tiếp tại bãi trại, các bạn vui lòng
                     chuẩn bị sẵn tiền mặt.
                   </p>
+                  <p className="text-primary text-bold">
+                    Chúng mình sẽ bán thêm các đồ thiện nguyện tại sự kiện, và
+                    sẽ nhận quyên góp. Các bạn vui lòng mang theo tiền mặt để
+                    ủng hộ nhé!
+                  </p>
                 </div>
               </div>
             </div>
