@@ -180,21 +180,39 @@ const HomePage: React.FC = () => {
                   giản là những người muốn tìm kiếm sự cho đi và kết nối.
                 </p>
                 <ul>
-                  <li>Đơn vị tổ chức: BÀN CHÂN XANH</li>
-                  <li>Ngày tổ chức: 30-31 tháng 8 2025</li>
                   <li>
-                    Địa điểm: 老谷の森 川のほとりのキャンプ場 -{" "}
+                    <b>Đơn vị tổ chức:</b> BÀN CHÂN XANH
+                  </li>
+                  <li>
+                    <b>Ngày tổ chức:</b> 30-31 tháng 8 2025
+                  </li>
+                  <li>
+                    <b>Địa điểm:</b> 老谷の森 川のほとりのキャンプ場 -{" "}
                     <a href="https://maps.app.goo.gl/J2aqKPwjrC1BFPn68">
                       Google Map
                     </a>
                   </li>
                   <li>
-                    Địa điểm onsen gần nhất: ： 明宝温泉 湯星館 -{" "}
+                    <b>Địa điểm onsen gần nhất:</b> 明宝温泉 湯星館 -{" "}
                     <a href="https://maps.app.goo.gl/kFyQe4L2gXfffSrD9?g_st=com.google.maps.preview.cop/">
                       Google Map
                     </a>
                   </li>
+                  <li>
+                    <b>Thông tin liên hệ:</b> 080-5988-2754 (Anh Chiến)
+                  </li>
                 </ul>
+                <div>
+                  <b>LƯU Ý:</b>
+                  <p>
+                    Thành viên xe bus Tokyo cần chuẩn bị{" "}
+                    <span style={{ display: "unset" }}>
+                      9000 Yên (Phí di chuyển).{" "}
+                    </span>
+                    Và sẽ được thu trực tiếp tại bãi trại, các bạn vui lòng
+                    chuẩn bị sẵn tiền mặt.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
