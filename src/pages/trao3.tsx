@@ -34,7 +34,9 @@ const firestore = getFirestore(app);
 const HomePage: React.FC = () => {
   const { t } = useTranslation();
 
+  const [isRuleShow, setIsRuleShow] = React.useState(false);
   const [isDetailShow, setIsDetailShow] = React.useState(false);
+  const [isMapShow, setIsMapShow] = React.useState(false);
   const [inputCode, setInputCode] = React.useState("");
   const [inputSearch, setInputSearch] = React.useState("");
   const [searchResult, setSearchResult] = React.useState<
@@ -69,6 +71,14 @@ const HomePage: React.FC = () => {
 
   const onClickDetail = () => {
     setIsDetailShow(!isDetailShow);
+  };
+
+  const onClickMap = () => {
+    setIsMapShow(!isMapShow);
+  };
+
+  const onClickRule = () => {
+    setIsRuleShow(!isRuleShow);
   };
 
   const onChangeInputCode = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -167,47 +177,123 @@ const HomePage: React.FC = () => {
                       Google Map
                     </a>
                   </li>
+                  <li>
+                    Địa điểm onsen gần nhất: ： 明宝温泉 湯星館 -{" "}
+                    <a href="https://maps.app.goo.gl/kFyQe4L2gXfffSrD9?g_st=com.google.maps.preview.cop/">
+                      Google Map
+                    </a>
+                  </li>
                 </ul>
-                <p>
-                  <a
-                    className={`collapsible-trigger ${
-                      isDetailShow ? "expanded" : ""
-                    }`}
-                    onClick={onClickDetail}
-                  >
-                    Xem Lịch Trình Sự Kiện
-                  </a>
-                </p>
               </div>
             </div>
           </div>
         </div>
-        <div
-          className={`collapsible-container ${isDetailShow ? "expanded" : ""}`}
-        >
-          <div className="container">
-            <div className="row justify-content-center">
-              <div className="col-lg-6">
-                <div className="wpo-trao-text">
-                  <h4>
-                    Chương trình sẽ được cập nhật thường xuyên, hãy theo dõi để
-                    không bỏ lỡ bất kỳ thông tin nào nhé!
-                  </h4>
-                  <p>Ngày 30/08/2025</p>
-                  <ul>
-                    <li>12:00: Checkin</li>
-                  </ul>
-                  <p>Ngày 31/08/2025</p>
-                  <ul>
-                    <li>6:00: Ăn sáng</li>
-                  </ul>
+
+        <div className={"section-padding"}>
+          <p>
+            <a
+              className={`collapsible-trigger ${
+                isRuleShow ? "expanded" : ""
+              } text-danger`}
+              onClick={onClickRule}
+            >
+              Xem Nội Quy Bãi Trại (Quan Trọng)
+            </a>
+          </p>
+          {isRuleShow ? (
+            <div
+              className={`collapsible-container ${
+                isRuleShow ? "expanded" : ""
+              }`}
+            >
+              <div className="container">
+                <div className="row justify-content-center">
+                  <div className="col-lg-6">
+                    <Image
+                      src="/assets/images/trao_rule.png"
+                      width={412}
+                      height={582}
+                      alt=""
+                      style={{
+                        width: 412,
+                        height: 582,
+                      }}
+                      unoptimized
+                    />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          ) : null}
+          <p>
+            <a
+              className={`collapsible-trigger ${
+                isDetailShow ? "expanded" : ""
+              }`}
+              onClick={onClickDetail}
+            >
+              Xem Lịch Trình Sự Kiện
+            </a>
+          </p>
+          {isDetailShow ? (
+            <div
+              className={`collapsible-container ${
+                isDetailShow ? "expanded" : ""
+              }`}
+            >
+              <div className="container">
+                <div className="row justify-content-center">
+                  <div className="col-lg-6">
+                    <Image
+                      src="/assets/images/trao_schedule.jpg"
+                      width={400}
+                      height={200}
+                      alt=""
+                      style={{
+                        width: 400,
+                        height: 200,
+                      }}
+                      unoptimized
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          ) : null}
+          <p>
+            <a
+              className={`collapsible-trigger ${isMapShow ? "expanded" : ""}`}
+              onClick={onClickMap}
+            >
+              Xem Bản Đồ Sự Kiện
+            </a>
+          </p>
+          {isMapShow ? (
+            <div
+              className={`collapsible-container ${isMapShow ? "expanded" : ""}`}
+            >
+              <div className="container">
+                <div className="row justify-content-center">
+                  <div className="col-lg-6">
+                    <Image
+                      src="/assets/images/trao_map.png"
+                      width={400}
+                      height={283}
+                      alt=""
+                      style={{
+                        width: 400,
+                        height: 283,
+                      }}
+                      unoptimized
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          ) : null}
         </div>
       </section>
-      <div className="wpo-features-section-s6">
+      <div className="wpo-features-section-s6 section-padding">
         <div className="container">
           <div className="row justify-content-center">
             <div className="col-lg-6 col-md-12 col-12">
