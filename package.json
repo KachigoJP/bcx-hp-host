@@ -20,6 +20,7 @@
     "eslint-config-next": "^13.0.7",
     "firebase": "^11.8.1",
     "hotkeys-js": "^3.10.1",
+    "i18next": "^25.5.2",
     "next": "^15.1.7",
     "next-redux-wrapper": "^8.1.0",
     "react": "^19.0.0",
