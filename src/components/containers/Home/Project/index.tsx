@@ -1,8 +1,8 @@
-import React from 'react'
-import { StaticImageData } from 'next/image'
 import ProjectItem from '@components/common/ProjectItem';
+import { StaticImageData } from 'next/image';
+import React from 'react';
 
-export interface ProjectItem{
+export interface ProjectItem {
     image: string | StaticImageData;
     slug: string;
     title: string;

@@ -1,13 +1,14 @@
-import { ToastContainer } from "react-toastify";
-import Head from "next/head";
 import type { AppProps } from "next/app";
+import Head from "next/head";
+import { HelmetProvider } from "react-helmet-async";
+import { ToastContainer } from "react-toastify";
 
 // import 3rd CSS
+import "bootstrap/dist/css/bootstrap.min.css";
 import "react-toastify/dist/ReactToastify.css";
 import "react-toastify/dist/ReactToastify.min.css";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import "slick-carousel/slick/slick.css";
 
 // import them CSS
 import "@utils/theme/styles/animate.css";
@@ -20,16 +21,18 @@ import "@styles/sass/style.scss";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <div>
-      <Head>
-        <title>
-          Bàn Chân Xanh - Tổ chức phi lợi nhuận về các hoạt động cho người Việt
-          ở Nhật.
-        </title>
-      </Head>
-      <Component {...pageProps} />
-      <ToastContainer />
-    </div>
+    <HelmetProvider>
+      <div>
+        <Head>
+          <title>
+            Bàn Chân Xanh - Tổ chức phi lợi nhuận về các hoạt động cho người Việt
+            ở Nhật.
+          </title>
+        </Head>
+        <Component {...pageProps} />
+        <ToastContainer />
+      </div>
+    </HelmetProvider>
   );
 }
 

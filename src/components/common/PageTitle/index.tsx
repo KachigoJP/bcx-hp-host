@@ -1,5 +1,5 @@
-import React from 'react';
 import Link from 'next/link';
+import React from 'react';
 
 interface PageTitleProps {
     pageTitle: string;
@@ -15,7 +15,7 @@ const PageTitle: React.FC<PageTitleProps> = (props) => {
                         <div className="wpo-breadcumb-wrap">
                             <h2>{props.pageTitle}</h2>
                             <ul>
-                                <li><Link href="/home">Home</Link></li>
+                                <li><Link href="/">Home</Link></li>
                                 <li><span>{props.pagesub}</span></li>
                             </ul>
                         </div>

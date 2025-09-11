@@ -1,7 +1,7 @@
-import React from 'react';
-import Layout from '@components/layout';
 import PageTitle from '@components/common/PageTitle';
 import Error from '@components/containers/404';
+import Layout from '@components/layout';
+import React from 'react';
 
 interface PageProps { }
 
@@ -11,7 +11,7 @@ const Page404: React.FC<PageProps> = (props) => {
             logo: "/assets/images/logo.png",
             slogan: "",
             footerSlogan:
-                "Welcome and open yourself to your truest love this year with us! With the Release Process",
+                "Cùng chúng tôi khám phá vẻ đẹp thiên nhiên Nhật Bản và xây dựng cộng đồng người Việt gắn kết.",
             facebook: "",
             instagram: "",
             google: "",

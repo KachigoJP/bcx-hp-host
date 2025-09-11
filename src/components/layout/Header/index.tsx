@@ -1,9 +1,9 @@
-import React, { useState, useEffect, MouseEvent, FormEvent } from "react";
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
+import React, { FormEvent, MouseEvent, useEffect, useState } from "react";
 
-import MobileMenu from "@components/layout/MobileMenu";
 import MenuItem from "@components/common/MenuItem";
+import MobileMenu from "@components/layout/MobileMenu";
 import { IMenuItem } from "@utils/interfaces/index";
 
 export interface HeaderData {
@@ -60,7 +60,7 @@ const Header: React.FC<HeaderProps> = (props) => {
                     <Link
                       onClick={clickHandler}
                       className="navbar-brand"
-                      href="/home"
+                      href="/"
                     >
                       <Image src={data.logo} width={178} height={55} alt="" />
                     </Link>

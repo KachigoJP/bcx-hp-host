@@ -1,7 +1,7 @@
-import React from "react";
-import Image, { StaticImageData } from "next/image";
-import Link from "next/link";
 import { IMenuItem } from "@utils/interfaces/index.jsx";
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
 
 export interface FooterData {
   logo: string;
@@ -53,7 +53,7 @@ const Footer: React.FC<FooterProps> = ({ data }) => {
             <div className="col col-lg-3 col-md-6 col-sm-12 col-12">
               <div className="widget link-widget">
                 <div className="widget-title">
-                  <h3>Latest News</h3>
+                  <h3>Tin Tức Mới Nhất</h3>
                 </div>
                 <ul>
                   {data.menus.map((item, i) => (
@@ -67,7 +67,7 @@ const Footer: React.FC<FooterProps> = ({ data }) => {
             <div className="col col-lg-3 col-md-6 col-sm-12 col-12">
               <div className="widget link-widget">
                 <div className="widget-title">
-                  <h3>Quick Links</h3>
+                  <h3>Liên Kết Nhanh</h3>
                 </div>
                 <ul>
                   {data.quicklinks.map((item, i) => (
@@ -81,11 +81,11 @@ const Footer: React.FC<FooterProps> = ({ data }) => {
             <div className="col col-lg-3 col-md-6 col-sm-12 col-12">
               <div className="widget wpo-service-link-widget">
                 <div className="widget-title">
-                  <h3>Contact </h3>
+                  <h3>Liên Hệ</h3>
                 </div>
                 <div className="contact-ft">
                   <p>
-                    Would you have any enquiries.Please feel free to contact us
+                    Nếu bạn có bất kỳ thắc mắc nào, vui lòng liên hệ với chúng tôi
                   </p>
                   <ul>
                     <li>
@@ -109,8 +109,7 @@ const Footer: React.FC<FooterProps> = ({ data }) => {
             <div className="col col-xs-12">
               <p className="copyright">
                 {" "}
-                &copy; 2025 Design By <Link href="/">Chien Kieu</Link>. All
-                Rights Reserved.
+                &copy; 2025 Bàn Chân Xanh. Tất cả quyền được bảo lưu.
               </p>
             </div>
           </div>

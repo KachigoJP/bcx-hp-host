@@ -1,5 +1,5 @@
-import React from 'react';
 import ServiceItem, { ServiceItemProps } from '@components/common/ServiceItem';
+import React from 'react';
 
 export interface ServiceProps {
     title: string;
@@ -26,7 +26,7 @@ const Service: React.FC<ServiceProps> = ({ services, title, subtitle, descriptio
                     </div>
                 </div>
                 <div className="row">
-                    {services.slice(13, 16).map((service, index) => (
+                    {services.slice(0, 3).map((service, index) => (
                         <ServiceItem key={index} {...service} handler={clickHandler} />
                     ))}
                 </div>

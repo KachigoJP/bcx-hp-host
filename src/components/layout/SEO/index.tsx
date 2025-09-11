@@ -1,9 +1,9 @@
 import React from "react";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 // Source
-import { SEOProps } from "./interface";
 import defaultProps from "@data/seo.json";
+import { SEOProps } from "./interface";
 
 const SEO: React.FC<SEOProps> = (props) => {
   const { metadata } = { ...defaultProps, ...props };

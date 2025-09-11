@@ -1,6 +1,6 @@
-import React from 'react';
+import { ImagePresets, OptimizedImage } from '@utils/imageUtils';
 import Link from 'next/link';
-import Image from 'next/image';
+import React from 'react';
 import erimg from '/public/images/error-404.png';
 
 const Error: React.FC = () => {
@@ -15,12 +15,16 @@ const Error: React.FC = () => {
                     <div className="col col-xs-12">
                         <div className="content clearfix">
                             <div className="error">
-                                <Image src={erimg} alt=""/>
+                                <OptimizedImage
+                                    src={erimg}
+                                    alt="Lỗi 404 - Không tìm thấy trang"
+                                    {...ImagePresets.error}
+                                />
                             </div>
                             <div className="error-message">
-                                <h3>Oops! Page Not Found!</h3>
-                                <p>We’re sorry but we can’t seem to find the page you requested. This might be because you have typed the web address incorrectly.</p>
-                                <Link onClick={ClickHandler} href="/home" className="theme-btn"> Back to home</Link>
+                                <h3>Ôi! Không tìm thấy trang!</h3>
+                                <p>Xin lỗi, chúng tôi không thể tìm thấy trang bạn yêu cầu. Điều này có thể do bạn đã nhập sai địa chỉ web.</p>
+                                <Link onClick={ClickHandler} href="/" className="theme-btn">Về trang chủ</Link>
                             </div>
                         </div>
                     </div>
