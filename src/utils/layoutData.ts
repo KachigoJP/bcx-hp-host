@@ -3,81 +3,81 @@ import { LayoutProps } from "@components/layout";
 export const getDefaultLayoutData = (): LayoutProps => {
   const headerMenus = [
     {
-      id: 1,
+      id: "1",
       title: "Trang chủ",
       link: "/",
     },
     {
-      id: 2,
+      id: "2",
       title: "Giới thiệu",
       link: "/about",
       submenu: [
         {
-          id: 21,
+          id: "21",
           title: "Về chúng tôi",
           link: "/about",
         },
         {
-          id: 22,
+          id: "22",
           title: "Đội ngũ",
           link: "/team",
         },
         {
-          id: 23,
+          id: "23",
           title: "Thành tựu",
           link: "/achievements",
         },
         {
-          id: 24,
+          id: "24",
           title: "Báo cáo hoạt động",
           link: "/reports",
         },
         {
-          id: 25,
+          id: "25",
           title: "Chính sách hoạt động",
           link: "/policy",
         },
       ],
     },
     {
-      id: 3,
+      id: "3",
       title: "Hoạt động",
       link: "/activities",
       submenu: [
         {
-          id: 31,
+          id: "31",
           title: "Hiking (Leo núi)",
           link: "/hiking",
         },
         {
-          id: 32,
+          id: "32",
           title: "Camping (Cắm trại)",
           link: "/camping",
         },
         {
-          id: 33,
+          id: "33",
           title: "Workshop",
           link: "/workshop",
         },
       ],
     },
     {
-      id: 4,
+      id: "4",
       title: "Tin tức",
       link: "/news",
     },
     {
-      id: 5,
+      id: "5",
       title: "Liên hệ",
       link: "/contact",
     },
     {
-      id: 6,
+      id: "6",
       title: "Tham gia cùng chúng tôi",
       link: "/join",
     },
     {
-      id: 7,
+      id: "7",
       title: "Đóng góp",
       link: "/donate",
     },
@@ -85,22 +85,22 @@ export const getDefaultLayoutData = (): LayoutProps => {
 
   const footerMenus = [
     {
-      id: 1,
+      id: "1",
       title: "Trang chủ",
       link: "/",
     },
     {
-      id: 2,
+      id: "2",
       title: "Hoạt động",
       link: "/activities",
     },
     {
-      id: 3,
+      id: "3",
       title: "Tin tức",
       link: "/news",
     },
     {
-      id: 4,
+      id: "4",
       title: "Liên hệ",
       link: "/contact",
     },
@@ -108,12 +108,12 @@ export const getDefaultLayoutData = (): LayoutProps => {
 
   const quickLinks = [
     {
-      id: 1,
+      id: "1",
       title: "Điều khoản sử dụng",
       link: "/terms",
     },
     {
-      id: 2,
+      id: "2",
       title: "Chính sách bảo mật",
       link: "/privacy",
     },

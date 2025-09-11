@@ -496,12 +496,14 @@ const JoinPage: React.FC<JoinProps> = (props) => {
                                                         overflow: 'hidden'
                                                     }}
                                                     onMouseOver={(e) => {
-                                                        e.target.style.transform = 'translateY(-3px)';
-                                                        e.target.style.boxShadow = '0 15px 40px rgba(46, 204, 113, 0.4)';
+                                                        const target = e.target as HTMLButtonElement;
+                                                        target.style.transform = 'translateY(-3px)';
+                                                        target.style.boxShadow = '0 15px 40px rgba(46, 204, 113, 0.4)';
                                                     }}
                                                     onMouseOut={(e) => {
-                                                        e.target.style.transform = 'translateY(0)';
-                                                        e.target.style.boxShadow = '0 10px 30px rgba(46, 204, 113, 0.3)';
+                                                        const target = e.target as HTMLButtonElement;
+                                                        target.style.transform = 'translateY(0)';
+                                                        target.style.boxShadow = '0 10px 30px rgba(46, 204, 113, 0.3)';
                                                     }}
                                                 >
                                                     🚀 Đăng Ký Tham Gia Ngay
