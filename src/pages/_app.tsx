@@ -1,6 +1,5 @@
 import type { AppProps } from "next/app";
 import Head from "next/head";
-import { HelmetProvider } from "react-helmet-async";
 import { ToastContainer } from "react-toastify";
 
 // import 3rd CSS
@@ -21,18 +20,16 @@ import "@styles/sass/style.scss";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <HelmetProvider>
-      <div>
-        <Head>
-          <title>
-            Bàn Chân Xanh - Tổ chức phi lợi nhuận về các hoạt động cho người Việt
-            ở Nhật.
-          </title>
-        </Head>
-        <Component {...pageProps} />
-        <ToastContainer />
-      </div>
-    </HelmetProvider>
+    <div>
+      <Head>
+        <title>
+          Bàn Chân Xanh - Tổ chức phi lợi nhuận về các hoạt động cho người Việt
+          ở Nhật.
+        </title>
+      </Head>
+      <Component {...pageProps} />
+      <ToastContainer />
+    </div>
   );
 }
 

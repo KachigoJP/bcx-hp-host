@@ -65,7 +65,7 @@ jobs:
         BUILD_IMAGE=${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ github.ref_name }}/${{ steps.build_value.outputs.REPOSITORY_NAME }}:latest
         echo "Building image: $BUILD_IMAGE"  # Debugging
         docker buildx create --use
-        docker buildx build --push -t "${BUILD_IMAGE}" . --file Dockerfile.prod
+        docker buildx build --push -t "${BUILD_IMAGE}" . --file Dockerfile.prod --platform linux/amd64
         echo "BUILD_IMAGE=$BUILD_IMAGE" >> $GITHUB_OUTPUT #export build image for later use
 
     # - name: Set up GKE credentials
