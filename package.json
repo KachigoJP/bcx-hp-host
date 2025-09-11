@@ -30,7 +30,7 @@
     "react-datepicker": "^8.1.0",
     "react-dom": "^19.0.0",
     "react-fontawesome": "^1.7.1",
-    "react-helmet-async": "^2.0.5",
+    "next-seo": "^6.4.0",
     "react-i18next": "^15.4.0",
     "react-medium-image-zoom": "^5.2.14",
     "react-modal": "^3.16.3",
