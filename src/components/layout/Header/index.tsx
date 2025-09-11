@@ -1,9 +1,9 @@
-import React, { useState, useEffect, MouseEvent, FormEvent } from "react";
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
+import React, { FormEvent, MouseEvent, useEffect, useState } from "react";
 
-import MobileMenu from "@components/layout/MobileMenu";
 import MenuItem from "@components/common/MenuItem";
+import MobileMenu from "@components/layout/MobileMenu";
 import { IMenuItem } from "@utils/interfaces/index";
 
 export interface HeaderData {
@@ -60,7 +60,7 @@ const Header: React.FC<HeaderProps> = (props) => {
                     <Link
                       onClick={clickHandler}
                       className="navbar-brand"
-                      href="/home"
+                      href="/"
                     >
                       <Image src={data.logo} width={178} height={55} alt="" />
                     </Link>
@@ -69,13 +69,13 @@ const Header: React.FC<HeaderProps> = (props) => {
                 <div className="col-lg-6 col-md-1 col-1">
                   <div
                     id="navbar"
-                    className="collapse navbar-collapse navigation-holder"
+                    className="collapse navbar-collapse navigation-holder d-flex justify-content-center"
                   >
                     <button className="menu-close">
                       <i className="ti-close"></i>
                     </button>
-                    <ul className="nav navbar-nav mb-2 mb-lg-0">
-                      {data.menus.map((item, index) => (
+                    <ul className="nav navbar-nav mb-2 mb-lg-0 d-flex justify-content-center align-items-center">
+                      {data.menus && data.menus.length > 0 && data.menus.map((item, index) => (
                         <MenuItem
                           key={index}
                           id={item.id}
@@ -96,7 +96,7 @@ const Header: React.FC<HeaderProps> = (props) => {
                         className="theme-btn"
                         href="/donate"
                       >
-                        Donate Now
+                        Ủng hộ
                       </Link>
                     </div>
                     <div className="header-search-form-wrapper">

@@ -223,6 +223,70 @@
   .wpo-site-header #navbar {
     /*** hover effect ***/
     justify-content: center;
+    display: flex !important;
+  }
+  
+  .wpo-site-header #navbar .navbar-nav {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100%;
+    flex-wrap: nowrap !important;
+  }
+  
+  .wpo-site-header #navbar .navbar-nav li {
+    display: inline-block;
+    margin: 0 4px;
+    white-space: nowrap;
+  }
+  
+  .wpo-site-header #navbar .navbar-nav li a {
+    padding: 20px 16px !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    color: #232f4b !important;
+    text-decoration: none !important;
+    transition: all 0.3s ease !important;
+  }
+  
+  .wpo-site-header #navbar .navbar-nav li a:hover {
+    color: $theme-primary-color !important;
+  }
+  
+  /* Sub-menu specific styles to override main menu styles */
+  .wpo-site-header #navbar .navbar-nav li .sub-menu a {
+    padding: 10px 15px !important;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    color: $dark-gray !important;
+  }
+  
+  .wpo-site-header #navbar .navbar-nav li .sub-menu a:hover {
+    color: $theme-primary-color !important;
+  }
+  
+  /* Responsive adjustments for different screen sizes */
+  @media (max-width: 1200px) {
+    .wpo-site-header #navbar .navbar-nav li a {
+      padding: 18px 6px !important;
+      font-size: 13px !important;
+    }
+    
+    .wpo-site-header #navbar .navbar-nav li {
+      margin: 0 2px;
+    }
+  }
+  
+  @media (max-width: 1100px) {
+    .wpo-site-header #navbar .navbar-nav li a {
+      padding: 16px 4px !important;
+      font-size: 12px !important;
+    }
+    
+    .wpo-site-header #navbar .navbar-nav li {
+      margin: 0 1px;
+    }
   }
 
   .wpo-site-header #navbar li {
@@ -453,7 +517,7 @@
 .wpo-site-header .header-right {
   .close-form {
     .theme-btn {
-      padding: 10px 25px;
+      padding: 5px 20px;
     }
   }
 }
@@ -485,8 +549,8 @@
   background-color: #c9f0eb;
   line-height: 0.66em;
   color: #232f4b;
-  width: 55px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   border: 0;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
@@ -778,17 +842,27 @@
         visibility: hidden;
         opacity: 0;
         @include transition-time(0.3s);
+        display: block !important;
+        flex-direction: column !important;
+        flex-wrap: wrap !important;
       }
 
+      > ul > li .sub-menu li {
+        display: block !important;
+        width: 100% !important;
+        margin: 0 !important;
+      }
+      
       > ul > li .sub-menu a {
-        font-size: 18px;
-        font-size: calc-rem-value(18);
+        font-size: 16px;
+        font-size: calc-rem-value(16);
         display: block;
-        padding: 10px 20px;
+        padding: 10px 15px !important;
         color: $dark-gray;
         position: relative;
         overflow: hidden;
         font-weight: 500;
+        width: 100% !important;
 
         &:after {
           position: absolute;
@@ -865,12 +939,34 @@
         border-bottom: 0;
       }
 
+      > ul > li > .sub-menu {
+        display: block !important;
+        position: static !important;
+        width: 100% !important;
+        box-shadow: none !important;
+        background: transparent !important;
+        padding: 0 !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+      }
+      
+      > ul > li > .sub-menu li {
+        display: block !important;
+        width: 100% !important;
+      }
+      
       > ul > li > .sub-menu a {
-        padding: 8px 15px 8px 45px;
+        padding: 10px 15px 10px 45px !important;
+        width: 100% !important;
+        display: block !important;
+        font-size: 14px !important;
       }
 
       > ul > li > .sub-menu .sub-menu a {
-        padding: 8px 15px 8px 65px;
+        padding: 10px 15px 10px 65px !important;
+        width: 100% !important;
+        display: block !important;
+        font-size: 14px !important;
       }
 
       > ul .menu-item-has-children > a {
@@ -926,6 +1022,14 @@
   @include media-query(991px) {
     .container {
       width: 100%;
+    }
+    
+    #navbar {
+      display: none !important;
+    }
+    
+    #navbar.show {
+      display: block !important;
     }
 
     .mobile-menu button {

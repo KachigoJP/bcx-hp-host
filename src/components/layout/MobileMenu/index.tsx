@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { Collapse, CardBody, Card } from "reactstrap";
-import Link from "next/link";
 import { IMenuItem } from "@utils/interfaces/index";
+import Link from "next/link";
+import React, { useState } from "react";
+import { Card, CardBody, Collapse } from "reactstrap";
 
 export interface MobileMenuProps {
   menus: IMenuItem[];
@@ -33,7 +33,7 @@ const MobileMenu: React.FC<MobileMenuProps> = (props) => {
         </div>
 
         <ul className="responsivemenu">
-          {props.menus.map((item) => (
+          {props.menus && props.menus.length > 0 && props.menus.map((item) => (
             <li key={item.id}>
               {item.submenu ? (
                 <p onClick={handleSetIsOpen(item.id)}>

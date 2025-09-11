@@ -1,25 +1,26 @@
-import React, { Fragment } from "react";
+import React from "react";
 
 // Source
-import Layout, { LayoutProps } from "@components/layout";
-import SEO from "@components/layout/SEO";
+import About, { AboutProps } from "@components/containers/Home/About";
+import Achievements, { AchievementsProps } from "@components/containers/Home/Achievements";
+import CTA, { CTAProps } from "@components/containers/Home/CTA";
 import Hero, { HeroProps } from "@components/containers/Home/Hero";
 import Partner, { PartnerProps } from "@components/containers/Home/Partner";
-import Service, { ServiceProps } from "@components/containers/Home/Service";
-import About, { AboutProps } from "@components/containers/Home/About";
-import Team, { TeamProps } from "@components/containers/Home/Team";
 import Project, { ProjectProps } from "@components/containers/Home/Project";
+import Service, { ServiceProps } from "@components/containers/Home/Service";
+import Team, { TeamProps } from "@components/containers/Home/Team";
 import Testimonial, {
   TestimonialProps,
 } from "@components/containers/Home/Testimonial";
-import Blog from "@components/containers/Home/Blog";
-import Event from "@components/containers/Home/Event";
+import Layout, { LayoutProps } from "@components/layout";
+import SEO from "@components/layout/SEO";
 
 // Data
-import Services from "@api/service";
-import TeamsData from "@api/team";
+import Activities from "@api/activities";
 import ProjectsData from "@api/projects";
+import TeamsData from "@api/team";
 import { SEOProps } from "@components/layout/SEO/interface";
+import { getDefaultLayoutData } from "@utils/layoutData";
 
 interface HomeProps {
   layout: LayoutProps;
@@ -30,74 +31,78 @@ interface HomeProps {
   teams: TeamProps;
   projects: ProjectProps;
   testimonials: TestimonialProps;
+  achievements: AchievementsProps;
+  cta: CTAProps;
   partner: PartnerProps;
 }
 
 export const getServerSideProps = async () => {
+  const layoutData = getDefaultLayoutData();
+
   const webSiteInfo = {
-    title: "Ban Chan Xanh",
-    description: "Ban Chan Xanh",
+    title: "Bàn Chân Xanh",
+    description: "Kết nối con người - Gắn bó thiên nhiên",
   };
   const aboutData: AboutProps = {
     totalRaised: 25000,
     about: {
-      title: "We Can Save More Lifes With Your Helping Hand.",
+      title: "Về Tổ Chức Bàn Chân Xanh",
       description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.",
+        "Bàn Chân Xanh là tổ chức phi lợi nhuận dành cho người Việt Nam ở Nhật Bản. Chúng tôi lan tỏa tình yêu thiên nhiên và kết nối cộng đồng thông qua các hoạt động ngoài trời ý nghĩa.",
       points: [
-        "The standard chunk of Lorem Ipsum used since.",
-        "Randomised words which don't look even slightly believable.",
-        "Making this the first true generator on the Internet.",
+        "Tổ chức các hoạt động hiking, camping và workshop",
+        "Kết nối cộng đồng người Việt tại Nhật Bản",
+        "Lan tỏa tình yêu thiên nhiên và bảo vệ môi trường",
       ],
-      linkText: "More About",
+      linkText: "Tìm hiểu thêm",
       linkHref: "/about",
     },
-    image: "/assets/images/default/about.png",
-    totalNeed: 1000000,
+    image: "/images/about-community-vietnamese.jpg",
+    totalNeed: 1000,
   };
 
   const heroData: HeroProps = {
     items: [
       {
-        backgroundImage: "/images/slider/slide-3.jpg",
-        title: "Green is for hope just as gray is for death.",
+        backgroundImage: "/images/hero-nature-mountain.jpg",
+        title: "Kết nối con người - Gắn bó thiên nhiên",
         subtitle:
-          "We help local nonprofits access the funding, and support they need to become more.",
+          "Cùng chúng tôi khám phá vẻ đẹp thiên nhiên Nhật Bản và xây dựng cộng đồng người Việt gắn kết.",
         link: "/about",
-        text: "Get Started",
+        text: "Khám phá ngay",
       },
       {
-        backgroundImage: "/images/slider/slide-5.jpg",
-        title: "Green is for hope just as gray is for death.",
+        backgroundImage: "/images/hero-camping-group.jpg",
+        title: "Trải nghiệm thiên nhiên tuyệt vời",
         subtitle:
-          "We help local nonprofits access the funding, and support they need to become more.",
+          "Tham gia các hoạt động hiking, camping và workshop để kết nối với thiên nhiên và cộng đồng.",
         link: "/about",
-        text: "Get Started",
+        text: "Tham gia ngay",
       },
       {
-        backgroundImage: "/images/slider/slide-6.jpg",
-        title: "Green is for hope just as gray is for death.",
+        backgroundImage: "/images/hero-hiking-trail.jpg",
+        title: "Xây dựng cộng đồng bền vững",
         subtitle:
-          "We help local nonprofits access the funding, and support they need to become more.",
+          "Cùng nhau bảo vệ môi trường và tạo ra những trải nghiệm ý nghĩa cho cộng đồng người Việt.",
         link: "/about",
-        text: "Get Started",
+        text: "Đóng góp",
       },
     ],
   };
 
   const serviceData: ServiceProps = {
-    title: "Our Services",
-    subtitle: "What We Do",
+    title: "Hoạt Động Chính",
+    subtitle: "Các hoạt động của chúng tôi",
     description:
-      "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, ",
-    services: Services,
+      "Chúng tôi tổ chức các hoạt động đa dạng để kết nối cộng đồng và lan tỏa tình yêu thiên nhiên.",
+    services: Activities,
   };
 
   const teamData = {
-    title: "Meet Our Volunteer Team",
-    subtitle: "Expert Team",
+    title: "Đội Ngũ Tình Nguyện Viên",
+    subtitle: "Đội ngũ chuyên nghiệp",
     description:
-      "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form,",
+      "Đội ngũ tình nguyện viên nhiệt tình và giàu kinh nghiệm, luôn sẵn sàng hỗ trợ và đồng hành cùng các thành viên trong mọi hoạt động.",
     items: TeamsData,
   };
 
@@ -106,40 +111,77 @@ export const getServerSideProps = async () => {
   };
 
   const testimonialsData = {
-    title: "What People Say About Us",
-    subtitle: "Testimonial",
+    title: "Cảm Nghĩ Của Người Tham Gia",
+    subtitle: "Chia sẻ từ cộng đồng",
     description:
-      "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form",
+      "Những trải nghiệm và cảm nghĩ chân thực từ các thành viên đã tham gia hoạt động cùng Bàn Chân Xanh",
     items: [
       {
-        image: "/images/testimonial/img-1.jpg",
+        image: "/images/testimonial-member-1.jpg",
         description:
-          "Lorem ipsum dolor sit amet, consectetur adiping elit,  do eiusmod tempor incididunt ut labore et doliore magna aliqjtua. Quis ipsum suspendisse ultrices gravida. Risus commodo maepac cenas.",
-        title: "Harverd Tommy",
-        subtitle: "Maneger Of MNTR",
+          "Tham gia hoạt động hiking cùng Bàn Chân Xanh đã mang lại cho tôi những trải nghiệm tuyệt vời. Không chỉ được khám phá thiên nhiên đẹp mà còn kết bạn với nhiều người Việt tuyệt vời.",
+        title: "Nguyễn Minh Anh",
+        subtitle: "Thành viên từ 2022",
       },
       {
-        image: "/images/testimonial/img-1.jpg",
+        image: "/images/testimonial-member-2.jpg",
         description:
-          "Lorem ipsum dolor sit amet, consectetur adiping elit,  do eiusmod tempor incididunt ut labore et doliore magna aliqjtua. Quis ipsum suspendisse ultrices gravida. Risus commodo maepac cenas.",
-        title: "Marry Jenefer",
-        subtitle: "CEO Of Golden Bravo",
+          "Các workshop về bảo vệ môi trường rất bổ ích. Tôi đã học được nhiều kiến thức và cách sống xanh hơn. Cảm ơn Bàn Chân Xanh đã tạo ra cộng đồng ý nghĩa này.",
+        title: "Trần Thị Lan",
+        subtitle: "Thành viên từ 2021",
       },
       {
-        image: "/images/testimonial/img-1.jpg",
+        image: "/images/testimonial-member-3.jpg",
         description:
-          "Lorem ipsum dolor sit amet, consectetur adiping elit,  do eiusmod tempor incididunt ut labore et doliore magna aliqjtua. Quis ipsum suspendisse ultrices gravida. Risus commodo maepac cenas.",
-        title: "William Robert",
-        subtitle: "CEO Of Bexima",
+          "Camping cùng nhóm là trải nghiệm khó quên nhất của tôi ở Nhật. Mọi người rất thân thiện và hỗ trợ lẫn nhau. Đây thực sự là một gia đình thứ hai của tôi.",
+        title: "Lê Văn Hùng",
+        subtitle: "Thành viên từ 2020",
       },
     ],
   };
 
-  const partnerData = {
-    title: "Our Partners & Donors",
-    subtitle: "Who help us",
+  const achievementsData: AchievementsProps = {
+    title: "Thành Tựu Của Chúng Tôi",
+    subtitle: "Những con số ấn tượng",
     description:
-      "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.",
+      "Những thành tựu đạt được trong hành trình xây dựng cộng đồng và lan tỏa tình yêu thiên nhiên.",
+    achievements: [
+      {
+        number: "500+",
+        label: "Thành viên đã tham gia",
+        icon: "fi flaticon-user"
+      },
+      {
+        number: "50+",
+        label: "Sự kiện đã tổ chức",
+        icon: "fi flaticon-calendar"
+      },
+      {
+        number: "20+",
+        label: "Đối tác đồng hành",
+        icon: "fi flaticon-checked"
+      },
+      {
+        number: "15+",
+        label: "Năm hoạt động",
+        icon: "fi flaticon-forest"
+      }
+    ]
+  };
+
+  const ctaData: CTAProps = {
+    backgroundImage: "/images/cta-group-hiking.jpg",
+    title: "Hãy cùng chúng tôi trải nghiệm và bảo vệ thiên nhiên",
+    subtitle: "Tham gia cộng đồng Bàn Chân Xanh để khám phá vẻ đẹp thiên nhiên Nhật Bản và kết nối với những người bạn cùng chí hướng.",
+    buttonText: "Tham gia ngay",
+    buttonLink: "/join"
+  };
+
+  const partnerData = {
+    title: "Đối Tác Đồng Hành",
+    subtitle: "Những người bạn đồng hành",
+    description:
+      "Chúng tôi rất biết ơn sự hỗ trợ và đồng hành của các tổ chức, doanh nghiệp và cá nhân trong hành trình lan tỏa tình yêu thiên nhiên.",
     items: [
       "/assets/images/default/partner.jpg",
       "/assets/images/default/partner.jpg",
@@ -152,123 +194,7 @@ export const getServerSideProps = async () => {
 
   const seoData = {
     metadata: {
-      title: "Ban Chan Xanh",
-    },
-  };
-
-  const headerMenus = [
-    {
-      id: 1,
-      title: "Home",
-      link: "/home",
-    },
-    {
-      id: 4,
-      title: "Event",
-      link: "/event",
-      submenu: [
-        {
-          id: 41,
-          title: "Hiking",
-          link: "/hiking",
-        },
-        {
-          id: 42,
-          title: "Camping",
-          link: "/camping",
-        },
-        {
-          id: 43,
-          title: "Workshop",
-          link: "/workshop",
-        },
-      ],
-    },
-
-    {
-      id: 3,
-      title: "Pages",
-      link: "/",
-      submenu: [
-        {
-          id: 31,
-          title: "Term & Condition",
-          link: "/terms",
-        },
-        {
-          id: 32,
-          title: "Privacy Policy",
-          link: "/policy",
-        },
-      ],
-    },
-    {
-      id: 5,
-      title: "Blog",
-      link: "/blog",
-    },
-    {
-      id: 88,
-      title: "Contact",
-      link: "/contact",
-    },
-  ];
-
-  const footerMenus = [
-    {
-      id: 1,
-      title: "Blogs",
-      link: "/blogs",
-    },
-    {
-      id: 2,
-      title: "Latest News",
-      link: "/news",
-    },
-    {
-      id: 3,
-      title: "Events",
-      link: "/events",
-    },
-    {
-      id: 4,
-      title: "About Us",
-      link: "/about",
-    },
-    {
-      id: 5,
-      title: "Contact Us",
-      link: "/contact",
-    },
-  ];
-
-  const quickLinks = [
-    {
-      id: 1,
-      title: "Term & Condition",
-      link: "/term",
-    },
-    {
-      id: 2,
-      title: "Privacy Policy",
-      link: "/policy",
-    },
-  ];
-
-  const layoutData = {
-    data: {
-      logo: "/assets/images/logo.png",
-      slogan: "",
-      footerSlogan:
-        "Welcome and open yourself to your truest love this year with us! With the Release Process",
-      facebook: "",
-      instagram: "",
-      google: "",
-      email: "thongbao@banchanxanh.com",
-      phone: "(+081) 080-5988-2754",
-      headerHenu: headerMenus,
-      footerQuicklinks: quickLinks,
-      footerMenu: footerMenus,
+      title: "Bàn Chân Xanh - Kết nối con người, gắn bó thiên nhiên",
     },
   };
 
@@ -283,6 +209,8 @@ export const getServerSideProps = async () => {
       teams: teamData,
       projects: projectData,
       testimonials: testimonialsData,
+      achievements: achievementsData,
+      cta: ctaData,
       partner: partnerData,
     },
   };
@@ -292,14 +220,34 @@ const HomePage: React.FC<HomeProps> = (props) => {
   return (
     <Layout data={props.layout.data}>
       <SEO {...props.seo} />
+      {/* 1. Hero Section */}
       <Hero {...props.hero} />
+
+      {/* 2. Giới thiệu dự án */}
       <About {...props.about} />
+
+      {/* 3. Các hoạt động chính */}
       <Service {...props.services} />
-      <Team {...props.teams} />
-      <Project {...props.projects} />
+
+      {/* 4. Thành tựu */}
+      <Achievements {...props.achievements} />
+
+      {/* 5. Kêu gọi tham gia */}
+      <CTA {...props.cta} />
+
+      {/* 6. Tin tức mới nhất - có thể thêm Blog component sau */}
+      {/* <Blog /> */}
+
+      {/* 7. Cảm nghĩ của người tham gia */}
       <Testimonial {...props.testimonials} />
-      {/* <Event />
-      <Blog /> */}
+
+      {/* 8. Đội ngũ */}
+      <Team {...props.teams} />
+
+      {/* 9. Dự án/hoạt động nổi bật */}
+      <Project {...props.projects} />
+
+      {/* 10. Đối tác đồng hành */}
       <Partner {...props.partner} />
     </Layout>
   );

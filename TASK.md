@@ -1,0 +1,9 @@
+- tạo trang Home
+  - giới thiệu về bàn chân xanh
+- tạo trang Event
+- tạo trang Event > Hiking
+- tạo trang Event > Cammping
+- tạo trang Event > Workshop
+- tạo trang Pages > Terms
+- tạo trang Pages > Privacy Policy
+- tạo trang Contact

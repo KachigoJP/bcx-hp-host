@@ -2,31 +2,31 @@
   "data": {
     "logo": "/assets/images/logo.png",
     "slogan": "",
-    "footerSlogan": "Welcome and open yourself to your truest love this year with us! With the Release Process",
-    "facebook": "",
-    "instagram": "",
-    "google": "",
+    "footerSlogan": "Cùng chúng tôi khám phá vẻ đẹp thiên nhiên Nhật Bản và xây dựng cộng đồng người Việt gắn kết.",
+    "facebook": "https://facebook.com/banchanxanh",
+    "instagram": "https://instagram.com/banchanxanh",
+    "google": "https://plus.google.com/banchanxanh",
     "email": "thongbao@banchanxanh.com",
     "phone": "(+081) 080-5988-2754",
     "headerHenu": [
       {
         "id": 1,
-        "title": "Home",
-        "link": "/home"
+        "title": "Trang chủ",
+        "link": "/"
       },
       {
         "id": 4,
-        "title": "Event",
+        "title": "Hoạt động",
         "link": "/event",
         "submenu": [
           {
             "id": 41,
-            "title": "Hiking",
+            "title": "Hiking (Leo núi)",
             "link": "/hiking"
           },
           {
             "id": 42,
-            "title": "Camping",
+            "title": "Camping (Cắm trại)",
             "link": "/camping"
           },
           {
@@ -39,68 +39,68 @@
 
       {
         "id": 3,
-        "title": "Pages",
+        "title": "Trang",
         "link": "/",
         "submenu": [
           {
             "id": 31,
-            "title": "Term & Condition",
+            "title": "Điều khoản sử dụng",
             "link": "/terms"
           },
           {
             "id": 32,
-            "title": "Privacy Policy",
+            "title": "Chính sách bảo mật",
             "link": "/policy"
           }
         ]
       },
       {
         "id": 5,
-        "title": "Blog",
+        "title": "Tin tức",
         "link": "/blog"
       },
       {
         "id": 88,
-        "title": "Contact",
+        "title": "Liên hệ",
         "link": "/contact"
       }
     ],
     "footerQuicklinks": [
       {
         "id": 1,
-        "title": "Term & Condition",
+        "title": "Điều khoản sử dụng",
         "link": "/term"
       },
       {
         "id": 2,
-        "title": "Privacy Policy",
+        "title": "Chính sách bảo mật",
         "link": "/policy"
       }
     ],
     "footerMenu": [
       {
         "id": 1,
-        "title": "Blogs",
+        "title": "Tin tức",
         "link": "/blogs"
       },
       {
         "id": 2,
-        "title": "Latest News",
+        "title": "Tin tức mới nhất",
         "link": "/news"
       },
       {
         "id": 3,
-        "title": "Events",
+        "title": "Sự kiện",
         "link": "/events"
       },
       {
         "id": 4,
-        "title": "About Us",
+        "title": "Về chúng tôi",
         "link": "/about"
       },
       {
         "id": 5,
-        "title": "Contact Us",
+        "title": "Liên hệ",
         "link": "/contact"
       }
     ]

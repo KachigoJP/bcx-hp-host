@@ -1,0 +1,59 @@
+### Mô tả Trang Chủ – Bàn Chân Xanh 🌱
+**Ngôn ngữ hiển thị:** Tiếng Việt
+**Phong cách:** UI/UX hiện đại, tối giản, hình ảnh đẹp, truyền cảm hứng thiên nhiên và cộng đồng.
+#### Cấu trúc trang chủ:
+1. **Header / Menu điều hướng (Navbar)**
+   * Logo dự án (trái) + tên “Bàn Chân Xanh”
+   * Các mục chính:
+     * Trang chủ
+     * Giới thiệu
+       * Về chúng tôi
+       * Đội ngũ
+       * Thành tựu
+       * Báo cáo hoạt động
+       * Chính sách hoạt động
+     * Hoạt động
+       * Hiking (Leo núi)
+       * Camping (Cắm trại)
+       * Workshop
+     * Tin tức
+     * Liên hệ
+     * Tham gia cùng chúng tôi
+     * Đóng góp
+   * Icon chuyển đổi ngôn ngữ (có thể thêm sau, hiện tại mặc định tiếng Việt)
+2. **Hero Section (Ảnh nổi bật + slogan)**
+   * Hình ảnh thiên nhiên đẹp (núi, rừng, cắm trại) toàn màn hình
+   * Logo + Slogan: *“Kết nối con người – Gắn bó thiên nhiên”*
+   * Nút CTA: “Khám phá ngay” → dẫn tới phần Giới thiệu
+3. **Giới thiệu dự án**
+   * Đoạn văn ngắn gọn giới thiệu “Bàn Chân Xanh” là tổ chức phi lợi nhuận dành cho người Việt Nam ở Nhật Bản.
+   * Nêu rõ sứ mệnh: lan tỏa tình yêu thiên nhiên, kết nối cộng đồng thông qua các hoạt động ngoài trời.
+4. **Các hoạt động chính**
+   * Hiển thị 3 card có hình minh họa:
+     * Hiking (Leo núi) 🏔️
+     * Camping (Cắm trại) ⛺
+     * Workshop 🎨
+   * Mỗi card có ảnh đẹp + mô tả ngắn + nút “Tìm hiểu thêm”.
+5. **Thành tựu**
+   * Phần hiển thị các con số/infographic hiện đại:
+     * Số thành viên đã tham gia
+     * Số sự kiện đã tổ chức
+     * Số đối tác đồng hành
+6. **Kêu gọi tham gia**
+   * Banner toàn chiều ngang, nền hình ảnh đoàn người hiking/camping
+   * Nội dung: “Hãy cùng chúng tôi trải nghiệm và bảo vệ thiên nhiên”
+   * Nút CTA: “Tham gia ngay”
+7. **Tin tức mới nhất**
+   * Grid hiển thị 3–4 bài viết gần nhất với ảnh + tiêu đề + ngày đăng.
+8. **Cảm nghĩ của người tham gia (Testimonials)**
+   * Carousel trượt ngang với hình + trích dẫn của những người từng tham gia hoạt động.
+9. **Đối tác đồng hành**
+   * Logo các tổ chức đồng hành (display dạng grid với màu xám nhẹ, hover sáng).
+10. **Footer**
+    * Thông tin liên hệ: email, Facebook group, Instagram
+    * Link nhanh: Trang chủ, Hoạt động, Tin tức, Liên hệ
+    * Copyright © Bàn Chân Xanh
+---
+👉 Với mô tả này:
+**“Hãy tạo trang chủ Next.js + ReactJS theo mô tả dưới đây bằng tiếng Việt, UIUX hiện đại, có hình ảnh minh họa placeholder”**
+---
