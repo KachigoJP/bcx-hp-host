@@ -2,6 +2,7 @@ import Layout, { LayoutProps } from "@components/layout";
 import SEO from "@components/layout/SEO";
 import { SEOProps } from "@components/layout/SEO/interface";
 import React from "react";
+import { getDefaultLayoutData } from "@utils/layoutData";
 
 interface ReportsProps {
     layout: LayoutProps;
@@ -9,12 +10,22 @@ interface ReportsProps {
 }
 
 export const getServerSideProps = async () => {
+    const layoutData = getDefaultLayoutData();
+
     const seoData = {
         metadata: {
             title: "Báo cáo hoạt động - Bàn Chân Xanh",
-            description: "Xem các báo cáo hoạt động chi tiết của tổ chức Bàn Chân Xanh, bao gồm thống kê, kết quả và tác động của các hoạt động",
+            description: "Báo cáo hoạt động và tài chính của tổ chức Bàn Chân Xanh",
         },
     };
+
+    return {
+        props: {
+            layout: layoutData,
+            seo: seoData,
+        },
+    };
+};
 
     const headerMenus = [
         {

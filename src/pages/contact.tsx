@@ -2,6 +2,7 @@ import styles from "@components/containers/Contact/ContactForm.module.scss";
 import Layout, { LayoutProps } from "@components/layout";
 import SEO from "@components/layout/SEO";
 import { SEOProps } from "@components/layout/SEO/interface";
+import { getDefaultLayoutData } from "@utils/layoutData";
 import React from "react";
 
 interface ContactProps {
@@ -10,145 +11,12 @@ interface ContactProps {
 }
 
 export const getServerSideProps = async () => {
+    const layoutData = getDefaultLayoutData();
+
     const seoData = {
         metadata: {
             title: "Liên hệ - Bàn Chân Xanh",
-            description: "Liên hệ với Bàn Chân Xanh để tham gia hoạt động hoặc đóng góp cho cộng đồng",
-        },
-    };
-
-    const headerMenus = [
-        {
-            id: 1,
-            title: "Trang chủ",
-            link: "/",
-        },
-        {
-            id: 2,
-            title: "Giới thiệu",
-            link: "/about",
-            submenu: [
-                {
-                    id: 21,
-                    title: "Về chúng tôi",
-                    link: "/about",
-                },
-                {
-                    id: 22,
-                    title: "Đội ngũ",
-                    link: "/team",
-                },
-                {
-                    id: 23,
-                    title: "Thành tựu",
-                    link: "/achievements",
-                },
-                {
-                    id: 24,
-                    title: "Báo cáo hoạt động",
-                    link: "/reports",
-                },
-                {
-                    id: 25,
-                    title: "Chính sách hoạt động",
-                    link: "/policy",
-                },
-            ],
-        },
-        {
-            id: 3,
-            title: "Hoạt động",
-            link: "/activities",
-            submenu: [
-                {
-                    id: 31,
-                    title: "Hiking (Leo núi)",
-                    link: "/hiking",
-                },
-                {
-                    id: 32,
-                    title: "Camping (Cắm trại)",
-                    link: "/camping",
-                },
-                {
-                    id: 33,
-                    title: "Workshop",
-                    link: "/workshop",
-                },
-            ],
-        },
-        {
-            id: 4,
-            title: "Tin tức",
-            link: "/news",
-        },
-        {
-            id: 5,
-            title: "Liên hệ",
-            link: "/contact",
-        },
-        {
-            id: 6,
-            title: "Tham gia cùng chúng tôi",
-            link: "/join",
-        },
-        {
-            id: 7,
-            title: "Đóng góp",
-            link: "/donate",
-        },
-    ];
-
-    const footerMenus = [
-        {
-            id: 1,
-            title: "Trang chủ",
-            link: "/",
-        },
-        {
-            id: 2,
-            title: "Hoạt động",
-            link: "/activities",
-        },
-        {
-            id: 3,
-            title: "Tin tức",
-            link: "/news",
-        },
-        {
-            id: 4,
-            title: "Liên hệ",
-            link: "/contact",
-        },
-    ];
-
-    const quickLinks = [
-        {
-            id: 1,
-            title: "Điều khoản sử dụng",
-            link: "/terms",
-        },
-        {
-            id: 2,
-            title: "Chính sách bảo mật",
-            link: "/privacy",
-        },
-    ];
-
-    const layoutData = {
-        data: {
-            logo: "/assets/images/logo.png",
-            slogan: "Kết nối con người - Gắn bó thiên nhiên",
-            footerSlogan:
-                "Cùng chúng tôi khám phá vẻ đẹp thiên nhiên Nhật Bản và xây dựng cộng đồng người Việt gắn kết.",
-            facebook: "https://facebook.com/banchanxanh",
-            instagram: "https://instagram.com/banchanxanh",
-            google: "",
-            email: "info@banchanxanh.com",
-            phone: "(+81) 080-5988-2754",
-            headerHenu: headerMenus,
-            footerQuicklinks: quickLinks,
-            footerMenu: footerMenus,
+            description: "Liên hệ với Bàn Chân Xanh để tham gia hoạt động hoặc đóng góp",
         },
     };
 

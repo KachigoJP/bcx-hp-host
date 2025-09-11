@@ -3,6 +3,7 @@ import Layout, { LayoutProps } from "@components/layout";
 import SEO from "@components/layout/SEO";
 import { SEOProps } from "@components/layout/SEO/interface";
 import React from "react";
+import { getDefaultLayoutData } from "@utils/layoutData";
 
 interface ActivitiesProps {
     layout: LayoutProps;
@@ -11,12 +12,22 @@ interface ActivitiesProps {
 }
 
 export const getServerSideProps = async () => {
+    const layoutData = getDefaultLayoutData();
+
     const seoData = {
         metadata: {
-            title: "Hoạt động - Bàn Chân Xanh",
-            description: "Khám phá các hoạt động đa dạng của Bàn Chân Xanh: Hiking, Camping, Workshop và nhiều hơn nữa",
+            title: "Hoạt động chính - Bàn Chân Xanh",
+            description: "Khám phá các hoạt động chính của Bàn Chân Xanh - hiking, camping và workshop",
         },
     };
+
+    return {
+        props: {
+            layout: layoutData,
+            seo: seoData,
+        },
+    };
+};
 
     const headerMenus = [
         {

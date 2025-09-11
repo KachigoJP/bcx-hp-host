@@ -2,6 +2,7 @@ import Layout, { LayoutProps } from "@components/layout";
 import SEO from "@components/layout/SEO";
 import { SEOProps } from "@components/layout/SEO/interface";
 import React from "react";
+import { getDefaultLayoutData } from "@utils/layoutData";
 
 interface JoinProps {
     layout: LayoutProps;
@@ -9,12 +10,22 @@ interface JoinProps {
 }
 
 export const getServerSideProps = async () => {
+    const layoutData = getDefaultLayoutData();
+
     const seoData = {
         metadata: {
             title: "Tham gia cùng chúng tôi - Bàn Chân Xanh",
-            description: "Tham gia cộng đồng Bàn Chân Xanh để khám phá vẻ đẹp thiên nhiên Nhật Bản và kết nối với những người bạn cùng chí hướng",
+            description: "Tham gia cộng đồng Bàn Chân Xanh để kết nối và bảo vệ thiên nhiên",
         },
     };
+
+    return {
+        props: {
+            layout: layoutData,
+            seo: seoData,
+        },
+    };
+};
 
     const headerMenus = [
         {

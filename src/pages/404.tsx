@@ -12,14 +12,30 @@ const Page404: React.FC<PageProps> = (props) => {
             slogan: "",
             footerSlogan:
                 "Cùng chúng tôi khám phá vẻ đẹp thiên nhiên Nhật Bản và xây dựng cộng đồng người Việt gắn kết.",
-            facebook: "",
-            instagram: "",
-            google: "",
+            facebook: "https://facebook.com/banchanxanh",
+            instagram: "https://instagram.com/banchanxanh",
+            google: "https://plus.google.com/banchanxanh",
             email: "thongbao@banchanxanh.com",
             phone: "(+081) 080-5988-2754",
-            headerHenu: [],
-            footerQuicklinks: [],
-            footerMenu: [],
+            headerHenu: [
+                { id: 1, title: "Trang chủ", link: "/" },
+                { id: 2, title: "Về chúng tôi", link: "/about" },
+                { id: 3, title: "Hoạt động", link: "/activities" },
+                { id: 4, title: "Tin tức", link: "/news" },
+                { id: 5, title: "Liên hệ", link: "/contact" }
+            ],
+            footerQuicklinks: [
+                { id: 1, title: "Về chúng tôi", link: "/about" },
+                { id: 2, title: "Hoạt động", link: "/activities" },
+                { id: 3, title: "Tin tức", link: "/news" },
+                { id: 4, title: "Liên hệ", link: "/contact" }
+            ],
+            footerMenu: [
+                { id: 1, title: "Chính sách", link: "/policy" },
+                { id: 2, title: "Báo cáo", link: "/reports" },
+                { id: 3, title: "Thành tựu", link: "/achievements" },
+                { id: 4, title: "Tham gia", link: "/join" }
+            ],
         }}>
             <PageTitle pageTitle={'404'} pagesub={'404'} />
             <Error />

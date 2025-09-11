@@ -2,6 +2,7 @@ import Layout, { LayoutProps } from "@components/layout";
 import SEO from "@components/layout/SEO";
 import { SEOProps } from "@components/layout/SEO/interface";
 import React from "react";
+import { getDefaultLayoutData } from "@utils/layoutData";
 
 interface PolicyProps {
     layout: LayoutProps;
@@ -9,12 +10,22 @@ interface PolicyProps {
 }
 
 export const getServerSideProps = async () => {
+    const layoutData = getDefaultLayoutData();
+
     const seoData = {
         metadata: {
             title: "Chính sách hoạt động - Bàn Chân Xanh",
-            description: "Tìm hiểu về các chính sách hoạt động, quy định và nguyên tắc của tổ chức Bàn Chân Xanh",
+            description: "Chính sách hoạt động và quy định của tổ chức Bàn Chân Xanh",
         },
     };
+
+    return {
+        props: {
+            layout: layoutData,
+            seo: seoData,
+        },
+    };
+};
 
     const headerMenus = [
         {

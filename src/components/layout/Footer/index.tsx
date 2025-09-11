@@ -32,21 +32,27 @@ const Footer: React.FC<FooterProps> = ({ data }) => {
                 </div>
                 <p>{data.footerSlogan}</p>
                 <ul>
-                  <li>
-                    <Link href={data.facebook}>
-                      <i className="ti-facebook"></i>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href={data.instagram}>
-                      <i className="ti-instagram"></i>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href={data.google}>
-                      <i className="ti-google"></i>
-                    </Link>
-                  </li>
+                  {data.facebook && (
+                    <li>
+                      <Link href={data.facebook}>
+                        <i className="ti-facebook"></i>
+                      </Link>
+                    </li>
+                  )}
+                  {data.instagram && (
+                    <li>
+                      <Link href={data.instagram}>
+                        <i className="ti-instagram"></i>
+                      </Link>
+                    </li>
+                  )}
+                  {data.google && (
+                    <li>
+                      <Link href={data.google}>
+                        <i className="ti-google"></i>
+                      </Link>
+                    </li>
+                  )}
                 </ul>
               </div>
             </div>
