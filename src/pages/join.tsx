@@ -1,8 +1,9 @@
+import styles from "@components/containers/Join/Join.module.scss";
 import Layout, { LayoutProps } from "@components/layout";
 import SEO from "@components/layout/SEO";
 import { SEOProps } from "@components/layout/SEO/interface";
-import React from "react";
 import { getDefaultLayoutData } from "@utils/layoutData";
+import React from "react";
 
 interface JoinProps {
     layout: LayoutProps;
@@ -27,175 +28,15 @@ export const getServerSideProps = async () => {
     };
 };
 
-    const headerMenus = [
-        {
-            id: 1,
-            title: "Trang chủ",
-            link: "/",
-        },
-        {
-            id: 2,
-            title: "Giới thiệu",
-            link: "/about",
-            submenu: [
-                {
-                    id: 21,
-                    title: "Về chúng tôi",
-                    link: "/about",
-                },
-                {
-                    id: 22,
-                    title: "Đội ngũ",
-                    link: "/team",
-                },
-                {
-                    id: 23,
-                    title: "Thành tựu",
-                    link: "/achievements",
-                },
-                {
-                    id: 24,
-                    title: "Báo cáo hoạt động",
-                    link: "/reports",
-                },
-                {
-                    id: 25,
-                    title: "Chính sách hoạt động",
-                    link: "/policy",
-                },
-            ],
-        },
-        {
-            id: 3,
-            title: "Hoạt động",
-            link: "/activities",
-            submenu: [
-                {
-                    id: 31,
-                    title: "Hiking (Leo núi)",
-                    link: "/hiking",
-                },
-                {
-                    id: 32,
-                    title: "Camping (Cắm trại)",
-                    link: "/camping",
-                },
-                {
-                    id: 33,
-                    title: "Workshop",
-                    link: "/workshop",
-                },
-            ],
-        },
-        {
-            id: 4,
-            title: "Tin tức",
-            link: "/news",
-        },
-        {
-            id: 5,
-            title: "Liên hệ",
-            link: "/contact",
-        },
-        {
-            id: 6,
-            title: "Tham gia cùng chúng tôi",
-            link: "/join",
-        },
-        {
-            id: 7,
-            title: "Đóng góp",
-            link: "/donate",
-        },
-    ];
 
-    const footerMenus = [
-        {
-            id: 1,
-            title: "Trang chủ",
-            link: "/",
-        },
-        {
-            id: 2,
-            title: "Hoạt động",
-            link: "/activities",
-        },
-        {
-            id: 3,
-            title: "Tin tức",
-            link: "/news",
-        },
-        {
-            id: 4,
-            title: "Liên hệ",
-            link: "/contact",
-        },
-    ];
-
-    const quickLinks = [
-        {
-            id: 1,
-            title: "Điều khoản sử dụng",
-            link: "/terms",
-        },
-        {
-            id: 2,
-            title: "Chính sách bảo mật",
-            link: "/privacy",
-        },
-    ];
-
-    const layoutData = {
-        data: {
-            logo: "/assets/images/logo.png",
-            slogan: "Kết nối con người - Gắn bó thiên nhiên",
-            footerSlogan:
-                "Cùng chúng tôi khám phá vẻ đẹp thiên nhiên Nhật Bản và xây dựng cộng đồng người Việt gắn kết.",
-            facebook: "https://facebook.com/banchanxanh",
-            instagram: "https://instagram.com/banchanxanh",
-            google: "",
-            email: "info@banchanxanh.com",
-            phone: "(+81) 080-5988-2754",
-            headerHenu: headerMenus,
-            footerQuicklinks: quickLinks,
-            footerMenu: footerMenus,
-        },
-    };
-
-    return {
-        props: {
-            layout: layoutData,
-            seo: seoData,
-        },
-    };
-};
 
 const JoinPage: React.FC<JoinProps> = (props) => {
     return (
         <Layout data={props.layout.data}>
             <SEO {...props.seo} />
 
-            {/* Page Title Section */}
-            <section className="wpo-page-title-section">
-                <div className="container">
-                    <div className="row">
-                        <div className="col col-xs-12">
-                            <div className="wpo-page-title">
-                                <h2>Tham gia cùng chúng tôi</h2>
-                                <div className="wpo-breadcumb-wrap">
-                                    <ol className="wpo-breadcumb-wrap">
-                                        <li><a href="/">Trang chủ</a></li>
-                                        <li>Tham gia cùng chúng tôi</li>
-                                    </ol>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
             {/* Join Intro Section */}
-            <section className="wpo-join-intro-section section-padding">
+            <section className="wpo-join-intro-section section-padding section-padding-top">
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-8 offset-lg-2">
@@ -269,96 +110,421 @@ const JoinPage: React.FC<JoinProps> = (props) => {
             <section className="wpo-registration-section section-padding">
                 <div className="container">
                     <div className="row">
-                        <div className="col-lg-8 offset-lg-2">
-                            <div className="wpo-registration-form-wrap">
-                                <div className="wpo-section-title text-center">
-                                    <span>Đăng ký tham gia</span>
-                                    <h2>Form đăng ký thành viên</h2>
-                                    <p>Điền thông tin vào form bên dưới để trở thành thành viên của Bàn Chân Xanh</p>
+                        <div className="col-lg-10 offset-lg-1">
+                            <div className="wpo-registration-form-wrap" style={{
+                                background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)',
+                                borderRadius: '25px',
+                                padding: '50px',
+                                boxShadow: '0 20px 40px rgba(0,0,0,0.1)',
+                                border: '1px solid rgba(255,255,255,0.3)',
+                                position: 'relative',
+                                overflow: 'hidden'
+                            }}>
+                                {/* Decorative Elements */}
+                                <div style={{
+                                    position: 'absolute',
+                                    top: '-50px',
+                                    right: '-50px',
+                                    width: '100px',
+                                    height: '100px',
+                                    background: 'linear-gradient(45deg, #27ae60, #2ecc71)',
+                                    borderRadius: '50%',
+                                    opacity: '0.1'
+                                }}></div>
+                                <div style={{
+                                    position: 'absolute',
+                                    bottom: '-30px',
+                                    left: '-30px',
+                                    width: '60px',
+                                    height: '60px',
+                                    background: 'linear-gradient(45deg, #3498db, #2980b9)',
+                                    borderRadius: '50%',
+                                    opacity: '0.1'
+                                }}></div>
+
+                                <div className="wpo-section-title text-center" style={{ marginBottom: '40px' }}>
+                                    <span style={{
+                                        display: 'inline-block',
+                                        background: 'linear-gradient(135deg, #27ae60, #2ecc71)',
+                                        color: '#fff',
+                                        padding: '8px 20px',
+                                        borderRadius: '20px',
+                                        fontSize: '14px',
+                                        fontWeight: '500',
+                                        marginBottom: '15px'
+                                    }}>
+                                        ✨ Đăng ký tham gia
+                                    </span>
+                                    <h2 style={{
+                                        color: '#2c3e50',
+                                        fontWeight: '700',
+                                        fontSize: '32px',
+                                        marginBottom: '15px',
+                                        lineHeight: '1.3'
+                                    }}>
+                                        🚀 Trở Thành Thành Viên Bàn Chân Xanh
+                                    </h2>
+                                    <p style={{
+                                        color: '#6c757d',
+                                        fontSize: '16px',
+                                        lineHeight: '1.6',
+                                        maxWidth: '600px',
+                                        margin: '0 auto'
+                                    }}>
+                                        Hãy điền thông tin bên dưới để tham gia cộng đồng những người yêu thiên nhiên và bảo vệ môi trường
+                                    </p>
                                 </div>
+
                                 <form className="wpo-registration-form">
                                     <div className="row">
                                         <div className="col-lg-6 col-md-6 col-12">
-                                            <div className="form-group">
-                                                <label>Họ và tên *</label>
-                                                <input type="text" className="form-control" placeholder="Nhập họ và tên" required />
+                                            <div className="form-group" style={{ marginBottom: '25px' }}>
+                                                <label style={{
+                                                    display: 'block',
+                                                    marginBottom: '8px',
+                                                    fontWeight: '600',
+                                                    color: '#2c3e50',
+                                                    fontSize: '14px'
+                                                }}>
+                                                    👤 Họ và tên <span style={{ color: '#e74c3c' }}>*</span>
+                                                </label>
+                                                <input
+                                                    type="text"
+                                                    className="form-control"
+                                                    placeholder="Nhập họ và tên đầy đủ của bạn"
+                                                    required
+                                                    style={{
+                                                        border: '2px solid #e9ecef',
+                                                        borderRadius: '12px',
+                                                        padding: '14px 18px',
+                                                        fontSize: '15px',
+                                                        transition: 'all 0.3s ease',
+                                                        background: '#fff',
+                                                        boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
+                                                    }}
+                                                />
                                             </div>
                                         </div>
+
                                         <div className="col-lg-6 col-md-6 col-12">
-                                            <div className="form-group">
-                                                <label>Email *</label>
-                                                <input type="email" className="form-control" placeholder="Nhập email" required />
+                                            <div className="form-group" style={{ marginBottom: '25px' }}>
+                                                <label style={{
+                                                    display: 'block',
+                                                    marginBottom: '8px',
+                                                    fontWeight: '600',
+                                                    color: '#2c3e50',
+                                                    fontSize: '14px'
+                                                }}>
+                                                    📧 Email <span style={{ color: '#e74c3c' }}>*</span>
+                                                </label>
+                                                <input
+                                                    type="email"
+                                                    className="form-control"
+                                                    placeholder="example@email.com"
+                                                    required
+                                                    style={{
+                                                        border: '2px solid #e9ecef',
+                                                        borderRadius: '12px',
+                                                        padding: '14px 18px',
+                                                        fontSize: '15px',
+                                                        transition: 'all 0.3s ease',
+                                                        background: '#fff',
+                                                        boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
+                                                    }}
+                                                />
                                             </div>
                                         </div>
+
                                         <div className="col-lg-6 col-md-6 col-12">
-                                            <div className="form-group">
-                                                <label>Số điện thoại *</label>
-                                                <input type="tel" className="form-control" placeholder="Nhập số điện thoại" required />
+                                            <div className="form-group" style={{ marginBottom: '25px' }}>
+                                                <label style={{
+                                                    display: 'block',
+                                                    marginBottom: '8px',
+                                                    fontWeight: '600',
+                                                    color: '#2c3e50',
+                                                    fontSize: '14px'
+                                                }}>
+                                                    📱 Số điện thoại <span style={{ color: '#e74c3c' }}>*</span>
+                                                </label>
+                                                <input
+                                                    type="tel"
+                                                    className="form-control"
+                                                    placeholder="0901234567"
+                                                    required
+                                                    style={{
+                                                        border: '2px solid #e9ecef',
+                                                        borderRadius: '12px',
+                                                        padding: '14px 18px',
+                                                        fontSize: '15px',
+                                                        transition: 'all 0.3s ease',
+                                                        background: '#fff',
+                                                        boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
+                                                    }}
+                                                />
                                             </div>
                                         </div>
+
                                         <div className="col-lg-6 col-md-6 col-12">
-                                            <div className="form-group">
-                                                <label>Tuổi</label>
-                                                <input type="number" className="form-control" placeholder="Nhập tuổi" />
+                                            <div className="form-group" style={{ marginBottom: '25px' }}>
+                                                <label style={{
+                                                    display: 'block',
+                                                    marginBottom: '8px',
+                                                    fontWeight: '600',
+                                                    color: '#2c3e50',
+                                                    fontSize: '14px'
+                                                }}>
+                                                    🎂 Tuổi
+                                                </label>
+                                                <input
+                                                    type="number"
+                                                    className="form-control"
+                                                    placeholder="25"
+                                                    min="16"
+                                                    max="80"
+                                                    style={{
+                                                        border: '2px solid #e9ecef',
+                                                        borderRadius: '12px',
+                                                        padding: '14px 18px',
+                                                        fontSize: '15px',
+                                                        transition: 'all 0.3s ease',
+                                                        background: '#fff',
+                                                        boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
+                                                    }}
+                                                />
                                             </div>
                                         </div>
+
                                         <div className="col-lg-6 col-md-6 col-12">
-                                            <div className="form-group">
-                                                <label>Thành phố</label>
-                                                <select className="form-control">
-                                                    <option value="">Chọn thành phố</option>
-                                                    <option value="tokyo">Tokyo</option>
-                                                    <option value="osaka">Osaka</option>
-                                                    <option value="kyoto">Kyoto</option>
-                                                    <option value="yokohama">Yokohama</option>
-                                                    <option value="nagoya">Nagoya</option>
-                                                    <option value="other">Khác</option>
+                                            <div className="form-group" style={{ marginBottom: '25px' }}>
+                                                <label style={{
+                                                    display: 'block',
+                                                    marginBottom: '8px',
+                                                    fontWeight: '600',
+                                                    color: '#2c3e50',
+                                                    fontSize: '14px'
+                                                }}>
+                                                    🏙️ Thành phố
+                                                </label>
+                                                <select
+                                                    className="form-control"
+                                                    style={{
+                                                        border: '2px solid #e9ecef',
+                                                        borderRadius: '12px',
+                                                        padding: '14px 18px',
+                                                        fontSize: '15px',
+                                                        transition: 'all 0.3s ease',
+                                                        background: '#fff',
+                                                        boxShadow: '0 2px 4px rgba(0,0,0,0.05)',
+                                                        cursor: 'pointer'
+                                                    }}
+                                                >
+                                                    <option value="">-- Chọn thành phố --</option>
+                                                    <option value="tokyo">🏙️ Tokyo</option>
+                                                    <option value="osaka">🏢 Osaka</option>
+                                                    <option value="kyoto">🏯 Kyoto</option>
+                                                    <option value="yokohama">🌊 Yokohama</option>
+                                                    <option value="nagoya">🏭 Nagoya</option>
+                                                    <option value="other">📍 Khác</option>
                                                 </select>
                                             </div>
                                         </div>
+
                                         <div className="col-lg-6 col-md-6 col-12">
-                                            <div className="form-group">
-                                                <label>Hoạt động quan tâm</label>
-                                                <select className="form-control">
-                                                    <option value="">Chọn hoạt động</option>
-                                                    <option value="hiking">Hiking (Leo núi)</option>
-                                                    <option value="camping">Camping (Cắm trại)</option>
-                                                    <option value="workshop">Workshop</option>
-                                                    <option value="all">Tất cả hoạt động</option>
+                                            <div className="form-group" style={{ marginBottom: '25px' }}>
+                                                <label style={{
+                                                    display: 'block',
+                                                    marginBottom: '8px',
+                                                    fontWeight: '600',
+                                                    color: '#2c3e50',
+                                                    fontSize: '14px'
+                                                }}>
+                                                    🎯 Hoạt động quan tâm
+                                                </label>
+                                                <select
+                                                    className="form-control"
+                                                    style={{
+                                                        border: '2px solid #e9ecef',
+                                                        borderRadius: '12px',
+                                                        padding: '14px 18px',
+                                                        fontSize: '15px',
+                                                        transition: 'all 0.3s ease',
+                                                        background: '#fff',
+                                                        boxShadow: '0 2px 4px rgba(0,0,0,0.05)',
+                                                        cursor: 'pointer'
+                                                    }}
+                                                >
+                                                    <option value="">-- Chọn hoạt động --</option>
+                                                    <option value="hiking">🥾 Hiking (Leo núi)</option>
+                                                    <option value="camping">🏕️ Camping (Cắm trại)</option>
+                                                    <option value="workshop">🎓 Workshop</option>
+                                                    <option value="all">🌟 Tất cả hoạt động</option>
                                                 </select>
                                             </div>
                                         </div>
+
                                         <div className="col-lg-12">
-                                            <div className="form-group">
-                                                <label>Kinh nghiệm</label>
-                                                <textarea className="form-control" rows={4} placeholder="Chia sẻ kinh nghiệm về hoạt động ngoài trời (nếu có)"></textarea>
+                                            <div className="form-group" style={{ marginBottom: '25px' }}>
+                                                <label style={{
+                                                    display: 'block',
+                                                    marginBottom: '8px',
+                                                    fontWeight: '600',
+                                                    color: '#2c3e50',
+                                                    fontSize: '14px'
+                                                }}>
+                                                    🎒 Kinh nghiệm hoạt động ngoài trời
+                                                </label>
+                                                <textarea
+                                                    className="form-control"
+                                                    rows={4}
+                                                    placeholder="Chia sẻ kinh nghiệm về hiking, camping, hoặc các hoạt động ngoài trời khác mà bạn đã tham gia..."
+                                                    style={{
+                                                        border: '2px solid #e9ecef',
+                                                        borderRadius: '12px',
+                                                        padding: '14px 18px',
+                                                        fontSize: '15px',
+                                                        transition: 'all 0.3s ease',
+                                                        background: '#fff',
+                                                        boxShadow: '0 2px 4px rgba(0,0,0,0.05)',
+                                                        resize: 'vertical'
+                                                    }}
+                                                ></textarea>
                                             </div>
                                         </div>
+
                                         <div className="col-lg-12">
-                                            <div className="form-group">
-                                                <label>Lý do tham gia</label>
-                                                <textarea className="form-control" rows={4} placeholder="Tại sao bạn muốn tham gia Bàn Chân Xanh?"></textarea>
+                                            <div className="form-group" style={{ marginBottom: '30px' }}>
+                                                <label style={{
+                                                    display: 'block',
+                                                    marginBottom: '8px',
+                                                    fontWeight: '600',
+                                                    color: '#2c3e50',
+                                                    fontSize: '14px'
+                                                }}>
+                                                    💭 Lý do tham gia Bàn Chân Xanh
+                                                </label>
+                                                <textarea
+                                                    className="form-control"
+                                                    rows={4}
+                                                    placeholder="Tại sao bạn muốn tham gia Bàn Chân Xanh? Bạn mong đợi gì từ cộng đồng này?"
+                                                    style={{
+                                                        border: '2px solid #e9ecef',
+                                                        borderRadius: '12px',
+                                                        padding: '14px 18px',
+                                                        fontSize: '15px',
+                                                        transition: 'all 0.3s ease',
+                                                        background: '#fff',
+                                                        boxShadow: '0 2px 4px rgba(0,0,0,0.05)',
+                                                        resize: 'vertical'
+                                                    }}
+                                                ></textarea>
                                             </div>
                                         </div>
+
                                         <div className="col-lg-12">
-                                            <div className="form-group">
+                                            <div className="form-group" style={{ marginBottom: '30px' }}>
                                                 <div className="form-check">
-                                                    <input type="checkbox" className="form-check-input" id="agreeTerms" required />
-                                                    <label className="form-check-label" htmlFor="agreeTerms">
-                                                        Tôi đồng ý với <a href="/terms" target="_blank">Điều khoản sử dụng</a> và <a href="/privacy" target="_blank">Chính sách bảo mật</a> *
+                                                    <input
+                                                        type="checkbox"
+                                                        className="form-check-input"
+                                                        id="agreeTerms"
+                                                        required
+                                                        style={{
+                                                            width: '18px',
+                                                            height: '18px',
+                                                            marginTop: '2px',
+                                                        }}
+                                                    />
+                                                    <label
+                                                        className="form-check-label"
+                                                        htmlFor="agreeTerms"
+                                                        style={{
+                                                            fontSize: '14px',
+                                                            color: '#495057',
+                                                            lineHeight: '1.5',
+                                                            marginLeft: '10px'
+                                                        }}
+                                                    >
+                                                        Tôi đồng ý với{' '}
+                                                        <a
+                                                            href="/terms"
+                                                            target="_blank"
+                                                            style={{
+                                                                color: '#27ae60',
+                                                                textDecoration: 'none',
+                                                                fontWeight: '600'
+                                                            }}
+                                                        >
+                                                            Điều khoản sử dụng
+                                                        </a>{' '}
+                                                        và{' '}
+                                                        <a
+                                                            href="/privacy"
+                                                            target="_blank"
+                                                            style={{
+                                                                color: '#27ae60',
+                                                                textDecoration: 'none',
+                                                                fontWeight: '600'
+                                                            }}
+                                                        >
+                                                            Chính sách bảo mật
+                                                        </a>{' '}
+                                                        <span style={{ color: '#e74c3c' }}>*</span>
                                                     </label>
                                                 </div>
                                             </div>
                                         </div>
+
                                         <div className="col-lg-12">
                                             <div className="form-group text-center">
-                                                <button type="submit" className="theme-btn">
-                                                    Đăng ký tham gia
+                                                <button
+                                                    type="submit"
+                                                    className="theme-btn"
+                                                    style={{
+                                                        background: 'linear-gradient(135deg, #27ae60 0%, #2ecc71 100%)',
+                                                        border: 'none',
+                                                        borderRadius: '50px',
+                                                        padding: '18px 50px',
+                                                        fontSize: '16px',
+                                                        fontWeight: '700',
+                                                        color: '#fff',
+                                                        cursor: 'pointer',
+                                                        transition: 'all 0.3s ease',
+                                                        boxShadow: '0 10px 30px rgba(46, 204, 113, 0.3)',
+                                                        textTransform: 'none',
+                                                        letterSpacing: '0.5px',
+                                                        position: 'relative',
+                                                        overflow: 'hidden'
+                                                    }}
+                                                    onMouseOver={(e) => {
+                                                        e.target.style.transform = 'translateY(-3px)';
+                                                        e.target.style.boxShadow = '0 15px 40px rgba(46, 204, 113, 0.4)';
+                                                    }}
+                                                    onMouseOut={(e) => {
+                                                        e.target.style.transform = 'translateY(0)';
+                                                        e.target.style.boxShadow = '0 10px 30px rgba(46, 204, 113, 0.3)';
+                                                    }}
+                                                >
+                                                    🚀 Đăng Ký Tham Gia Ngay
                                                 </button>
                                             </div>
                                         </div>
                                     </div>
                                 </form>
+
+                                <div className="text-center mt-4">
+                                    <p style={{
+                                        color: '#6c757d',
+                                        fontSize: '14px',
+                                        marginBottom: '0',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        gap: '8px'
+                                    }}>
+                                        <i className="ti-shield" style={{ fontSize: '16px', color: '#27ae60' }}></i>
+                                        Thông tin của bạn được bảo mật tuyệt đối và chỉ sử dụng cho mục đích liên lạc
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -392,7 +558,7 @@ const JoinPage: React.FC<JoinProps> = (props) => {
                                         <li><i className="fi flaticon-checked"></i> Tham gia cộng đồng online</li>
                                     </ul>
                                 </div>
-                                <div className="wpo-membership-btn">
+                                <div className={`wpo-membership-btn ${styles.joinBtn}`}>
                                     <a href="#" className="theme-btn">Chọn gói này</a>
                                 </div>
                             </div>
@@ -411,7 +577,7 @@ const JoinPage: React.FC<JoinProps> = (props) => {
                                         <li><i className="fi flaticon-checked"></i> Chứng chỉ tình nguyện viên</li>
                                     </ul>
                                 </div>
-                                <div className="wpo-membership-btn">
+                                <div className={`wpo-membership-btn ${styles.joinBtn}`}>
                                     <a href="#" className="theme-btn">Chọn gói này</a>
                                 </div>
                             </div>
@@ -430,7 +596,7 @@ const JoinPage: React.FC<JoinProps> = (props) => {
                                         <li><i className="fi flaticon-checked"></i> Báo cáo hoạt động chi tiết</li>
                                     </ul>
                                 </div>
-                                <div className="wpo-membership-btn">
+                                <div className={`wpo-membership-btn ${styles.joinBtn}`}>
                                     <a href="/donate" className="theme-btn">Chọn gói này</a>
                                 </div>
                             </div>
@@ -453,7 +619,7 @@ const JoinPage: React.FC<JoinProps> = (props) => {
                                         đừng ngần ngại liên hệ với chúng tôi. Chúng tôi luôn sẵn sàng hỗ trợ bạn.
                                     </p>
                                 </div>
-                                <div className="wpo-contact-info-btns">
+                                <div className={`wpo-contact-info-btns ${styles.contactInfoBtns}`}>
                                     <a href="/contact" className="theme-btn">
                                         Liên hệ ngay
                                     </a>

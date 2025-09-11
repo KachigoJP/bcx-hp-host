@@ -1,8 +1,9 @@
+import RegistrationForm from "@components/common/RegistrationForm";
 import Layout, { LayoutProps } from "@components/layout";
 import SEO from "@components/layout/SEO";
 import { SEOProps } from "@components/layout/SEO/interface";
-import React from "react";
 import { getDefaultLayoutData } from "@utils/layoutData";
+import React from "react";
 
 interface WorkshopProps {
     layout: LayoutProps;
@@ -15,7 +16,7 @@ export const getServerSideProps = async () => {
     const seoData = {
         metadata: {
             title: "Workshop & Đào tạo - Bàn Chân Xanh",
-            description: "Tham gia các workshop và chương trình đào tạo về môi trường",
+            description: "Tham gia các workshop và chương trình đào tạo về bảo vệ môi trường, kỹ năng sống xanh và phát triển bền vững cùng Bàn Chân Xanh.",
         },
     };
 
@@ -27,54 +28,13 @@ export const getServerSideProps = async () => {
     };
 };
 
-    const seoData = {
-        title: "Workshop & Đào tạo - Bàn Chân Xanh",
-        meta: [
-            {
-                name: "description",
-                content: "Tham gia các workshop và chương trình đào tạo về bảo vệ môi trường, kỹ năng sống xanh và phát triển bền vững cùng Bàn Chân Xanh."
-            },
-            {
-                name: "keywords",
-                content: "workshop, đào tạo, bảo vệ môi trường, sống xanh, phát triển bền vững, kỹ năng, Bàn Chân Xanh, giáo dục môi trường"
-            }
-        ]
-    };
-
-    return {
-        props: {
-            layout: {
-                data: layoutData,
-            },
-            seo: seoData,
-        },
-    };
-};
-
 const WorkshopPage: React.FC<WorkshopProps> = (props) => {
     return (
         <Layout data={props.layout.data}>
             <SEO {...props.seo} />
 
-            {/* Page Title Section */}
-            <section className="wpo-page-title-section">
-                <div className="container">
-                    <div className="row">
-                        <div className="col col-xs-12">
-                            <div className="wpo-page-title-wrap">
-                                <h2>Workshop & Đào tạo</h2>
-                                <ol className="wpo-breadcumb-wrap">
-                                    <li><a href="/">Trang chủ</a></li>
-                                    <li>Workshop & Đào tạo</li>
-                                </ol>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
             {/* Hero Section */}
-            <section className="wpo-about-section section-padding">
+            <section className="wpo-about-section section-padding section-padding-top">
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-6 col-md-6 col-12">
@@ -409,77 +369,19 @@ const WorkshopPage: React.FC<WorkshopProps> = (props) => {
             </section>
 
             {/* Registration Section */}
-            <section className="wpo-join-section section-padding">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-12">
-                            <div className="wpo-section-title text-center">
-                                <span>Đăng ký ngay</span>
-                                <h2>Tham gia workshop tiếp theo</h2>
-                                <p>Nâng cao kiến thức và kỹ năng về bảo vệ môi trường cùng các chuyên gia hàng đầu.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-lg-8 col-md-10 col-12 mx-auto">
-                            <div className="wpo-join-form">
-                                <form>
-                                    <div className="row">
-                                        <div className="col-lg-6 col-md-6 col-12">
-                                            <div className="form-group">
-                                                <input type="text" className="form-control" placeholder="Họ và tên *" required />
-                                            </div>
-                                        </div>
-                                        <div className="col-lg-6 col-md-6 col-12">
-                                            <div className="form-group">
-                                                <input type="email" className="form-control" placeholder="Email *" required />
-                                            </div>
-                                        </div>
-                                        <div className="col-lg-6 col-md-6 col-12">
-                                            <div className="form-group">
-                                                <input type="tel" className="form-control" placeholder="Số điện thoại *" required />
-                                            </div>
-                                        </div>
-                                        <div className="col-lg-6 col-md-6 col-12">
-                                            <div className="form-group">
-                                                <select className="form-control" required>
-                                                    <option value="">Chọn workshop</option>
-                                                    <option value="climate">Biến Đổi Khí Hậu & Hành Động</option>
-                                                    <option value="waste">Giảm Thiểu Rác Thải & Tái Chế</option>
-                                                    <option value="energy">Năng Lượng Tái Tạo & Tiết Kiệm</option>
-                                                    <option value="biodiversity">Bảo Tồn Đa Dạng Sinh Học</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div className="col-lg-6 col-md-6 col-12">
-                                            <div className="form-group">
-                                                <input type="text" className="form-control" placeholder="Nghề nghiệp" />
-                                            </div>
-                                        </div>
-                                        <div className="col-lg-6 col-md-6 col-12">
-                                            <div className="form-group">
-                                                <input type="text" className="form-control" placeholder="Tổ chức/Công ty" />
-                                            </div>
-                                        </div>
-                                        <div className="col-lg-12">
-                                            <div className="form-group">
-                                                <textarea className="form-control" rows={4} placeholder="Mục tiêu học tập và kinh nghiệm liên quan"></textarea>
-                                            </div>
-                                        </div>
-                                        <div className="col-lg-12">
-                                            <div className="form-group text-center">
-                                                <button type="submit" className="theme-btn">
-                                                    Đăng ký tham gia
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            <RegistrationForm
+                activityType="workshop"
+                title="Tham gia workshop tiếp theo"
+                description="Nâng cao kiến thức và kỹ năng về bảo vệ môi trường cùng các chuyên gia hàng đầu."
+                emoji="🎓"
+                activityOptions={[
+                    { value: "climate", label: "Biến Đổi Khí Hậu & Hành Động", emoji: "🌡️" },
+                    { value: "waste", label: "Giảm Thiểu Rác Thải & Tái Chế", emoji: "♻️" },
+                    { value: "energy", label: "Năng Lượng Tái Tạo & Tiết Kiệm", emoji: "⚡" },
+                    { value: "biodiversity", label: "Bảo Tồn Đa Dạng Sinh Học", emoji: "🦋" }
+                ]}
+                placeholder="Chia sẻ mục tiêu học tập, kinh nghiệm hiện tại và những gì bạn mong muốn đạt được từ workshop..."
+            />
         </Layout>
     );
 };

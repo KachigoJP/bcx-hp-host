@@ -62,7 +62,7 @@ const Footer: React.FC<FooterProps> = ({ data }) => {
                   <h3>Tin Tức Mới Nhất</h3>
                 </div>
                 <ul>
-                  {data.menus.map((item, i) => (
+                  {data.menus && data.menus.length > 0 && data.menus.map((item, i) => (
                     <li key={i}>
                       <Link href={item.link}>{item.title}</Link>
                     </li>
@@ -76,7 +76,7 @@ const Footer: React.FC<FooterProps> = ({ data }) => {
                   <h3>Liên Kết Nhanh</h3>
                 </div>
                 <ul>
-                  {data.quicklinks.map((item, i) => (
+                  {data.quicklinks && data.quicklinks.length > 0 && data.quicklinks.map((item, i) => (
                     <li key={i}>
                       <Link href={item.link}>{item.title}</Link>
                     </li>

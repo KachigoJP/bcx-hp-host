@@ -36,28 +36,8 @@ const TeamPage: React.FC<TeamProps> = (props) => {
         <Layout data={props.layout.data}>
             <SEO {...props.seo} />
 
-            {/* Page Title Section */}
-            <section className="wpo-page-title-section">
-                <div className="container">
-                    <div className="row">
-                        <div className="col col-xs-12">
-                            <div className="wpo-page-title">
-                                <h2>Đội ngũ</h2>
-                                <div className="wpo-breadcumb-wrap">
-                                    <ol className="wpo-breadcumb-wrap">
-                                        <li><a href="/">Trang chủ</a></li>
-                                        <li><a href="/about">Giới thiệu</a></li>
-                                        <li>Đội ngũ</li>
-                                    </ol>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
             {/* Team Intro Section */}
-            <section className="wpo-team-intro-section section-padding">
+            <section className="wpo-team-intro-section section-padding section-padding-top">
                 <div className="container">
                     <div className="row justify-content-center">
                         <div className="col-lg-8">

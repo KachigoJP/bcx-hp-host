@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "ES2017",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -21,9 +17,7 @@
     "paths": {
       // "@assets": ["./src/assets"],
       // "@components": ["./src/components"],
-      "@components/*": [
-        "./src/components/*"
-      ],
+      "@components/*": ["./src/components/*"],
       // "@config": ["./src/config"],
       // "@data": ["./src/data"],
       // "@pages": ["./src/pages"],
@@ -33,45 +27,21 @@
       // "@constants": path.resolve(__dirname, "./src/constants"),
       // "@hooks": path.resolve(__dirname, "./src/hooks"),
       // "@i18n": ["./src/i18n"],
-      "@assets/*": [
-        "./src/assets/*"
-      ],
+      "@assets/*": ["./src/assets/*"],
       // "@config/*": ["./src/config/*"],
-      "@data/*": [
-        "./src/data/*"
-      ],
+      "@data/*": ["./src/data/*"],
       // "@pages/*": ["./src/pages/*"],
-      "@theme/*": [
-        "./src/utils/theme/*"
-      ],
-      "@utils/*": [
-        "./src/utils/*"
-      ],
+      "@theme/*": ["./src/utils/theme/*"],
+      "@utils/*": ["./src/utils/*"],
       // "@constants": path.resolve(__dirname, "./src/constants"),
       // "@hooks": path.resolve(__dirname, "./src/hooks"),
-      "@i18n/*": [
-        "./src/utils/i18n/*"
-      ],
-      "@interfaces/*": [
-        "./src/utils/interfaces/*"
-      ],
-      "@styles/*": [
-        "./src/utils/theme/styles/*"
-      ],
-      "@store/*": [
-        "./src/store/*"
-      ],
-      "@api/*": [
-        "./src/api/*"
-      ]
+      "@i18n/*": ["./src/utils/i18n/*"],
+      "@interfaces/*": ["./src/utils/interfaces/*"],
+      "@styles/*": ["./src/utils/theme/styles/*"],
+      "@store/*": ["./src/store/*"],
+      "@api/*": ["./src/api/*"]
     }
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
 }

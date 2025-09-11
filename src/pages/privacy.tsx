@@ -1,8 +1,8 @@
 import Layout, { LayoutProps } from "@components/layout";
 import SEO from "@components/layout/SEO";
 import { SEOProps } from "@components/layout/SEO/interface";
-import React from "react";
 import { getDefaultLayoutData } from "@utils/layoutData";
+import React from "react";
 
 interface PrivacyProps {
     layout: LayoutProps;
@@ -15,7 +15,7 @@ export const getServerSideProps = async () => {
     const seoData = {
         metadata: {
             title: "Chính sách bảo mật - Bàn Chân Xanh",
-            description: "Chính sách bảo mật thông tin cá nhân của Bàn Chân Xanh",
+            description: "Chính sách bảo mật thông tin cá nhân của tổ chức Bàn Chân Xanh. Cam kết bảo vệ quyền riêng tư và thông tin cá nhân của người dùng.",
         },
     };
 
@@ -27,54 +27,13 @@ export const getServerSideProps = async () => {
     };
 };
 
-    const seoData = {
-        title: "Chính sách bảo mật - Bàn Chân Xanh",
-        meta: [
-            {
-                name: "description",
-                content: "Chính sách bảo mật thông tin cá nhân của tổ chức Bàn Chân Xanh. Cam kết bảo vệ quyền riêng tư và thông tin cá nhân của người dùng."
-            },
-            {
-                name: "keywords",
-                content: "chính sách bảo mật, quyền riêng tư, thông tin cá nhân, Bàn Chân Xanh, bảo vệ dữ liệu, GDPR"
-            }
-        ]
-    };
-
-    return {
-        props: {
-            layout: {
-                data: layoutData,
-            },
-            seo: seoData,
-        },
-    };
-};
-
 const PrivacyPage: React.FC<PrivacyProps> = (props) => {
     return (
         <Layout data={props.layout.data}>
             <SEO {...props.seo} />
 
-            {/* Page Title Section */}
-            <section className="wpo-page-title-section">
-                <div className="container">
-                    <div className="row">
-                        <div className="col col-xs-12">
-                            <div className="wpo-page-title-wrap">
-                                <h2>Chính sách bảo mật</h2>
-                                <ol className="wpo-breadcumb-wrap">
-                                    <li><a href="/">Trang chủ</a></li>
-                                    <li>Chính sách bảo mật</li>
-                                </ol>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
             {/* Privacy Content Section */}
-            <section className="wpo-about-section section-padding">
+            <section className="wpo-about-section section-padding section-padding-top">
                 <div className="container">
                     <div className="row">
                         <div className="col-12">

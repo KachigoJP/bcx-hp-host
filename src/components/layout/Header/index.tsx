@@ -69,13 +69,13 @@ const Header: React.FC<HeaderProps> = (props) => {
                 <div className="col-lg-6 col-md-1 col-1">
                   <div
                     id="navbar"
-                    className="collapse navbar-collapse navigation-holder"
+                    className="collapse navbar-collapse navigation-holder d-flex justify-content-center"
                   >
                     <button className="menu-close">
                       <i className="ti-close"></i>
                     </button>
-                    <ul className="nav navbar-nav mb-2 mb-lg-0">
-                      {data.menus.map((item, index) => (
+                    <ul className="nav navbar-nav mb-2 mb-lg-0 d-flex justify-content-center align-items-center">
+                      {data.menus && data.menus.length > 0 && data.menus.map((item, index) => (
                         <MenuItem
                           key={index}
                           id={item.id}
@@ -96,7 +96,7 @@ const Header: React.FC<HeaderProps> = (props) => {
                         className="theme-btn"
                         href="/donate"
                       >
-                        Donate Now
+                        Ủng hộ
                       </Link>
                     </div>
                     <div className="header-search-form-wrapper">

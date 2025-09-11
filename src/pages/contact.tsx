@@ -67,27 +67,8 @@ const ContactPage: React.FC<ContactProps> = (props) => {
         <Layout data={props.layout.data}>
             <SEO {...props.seo} />
 
-            {/* Page Title Section */}
-            <section className="wpo-page-title-section">
-                <div className="container">
-                    <div className="row">
-                        <div className="col col-xs-12">
-                            <div className="wpo-page-title">
-                                <h2>Liên hệ</h2>
-                                <div className="wpo-breadcumb-wrap">
-                                    <ol className="wpo-breadcumb-wrap">
-                                        <li><a href="/">Trang chủ</a></li>
-                                        <li>Liên hệ</li>
-                                    </ol>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
             {/* Contact Info Section */}
-            <section className="wpo-contact-info-section section-padding">
+            <section className="wpo-contact-info-section section-padding section-padding-top">
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-12">

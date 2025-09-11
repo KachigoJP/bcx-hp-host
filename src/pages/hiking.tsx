@@ -1,3 +1,4 @@
+import RegistrationForm from "@components/common/RegistrationForm";
 import Layout, { LayoutProps } from "@components/layout";
 import SEO from "@components/layout/SEO";
 import { SEOProps } from "@components/layout/SEO/interface";
@@ -32,25 +33,8 @@ const HikingPage: React.FC<HikingProps> = (props) => {
         <Layout data={props.layout.data}>
             <SEO {...props.seo} />
 
-            {/* Page Title Section */}
-            <section className="wpo-page-title-section">
-                <div className="container">
-                    <div className="row">
-                        <div className="col col-xs-12">
-                            <div className="wpo-page-title-wrap">
-                                <h2>Hoạt động Hiking</h2>
-                                <ol className="wpo-breadcumb-wrap">
-                                    <li><a href="/">Trang chủ</a></li>
-                                    <li>Hoạt động Hiking</li>
-                                </ol>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
             {/* Hero Section */}
-            <section className="wpo-about-section section-padding">
+            <section className="wpo-about-section section-padding section-padding-top">
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-6 col-md-6 col-12">
@@ -284,7 +268,7 @@ const HikingPage: React.FC<HikingProps> = (props) => {
             </section>
 
             {/* Environmental Impact Section */}
-            <section className="wpo-cta-section">
+            <section className="wpo-cta-section section-padding">
                 <div className="container">
                     <div className="row">
                         <div className="col-12">
@@ -312,66 +296,18 @@ const HikingPage: React.FC<HikingProps> = (props) => {
             </section>
 
             {/* Registration Section */}
-            <section className="wpo-join-section section-padding">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-12">
-                            <div className="wpo-section-title text-center">
-                                <span>Tham gia ngay</span>
-                                <h2>Đăng ký chuyến hiking tiếp theo</h2>
-                                <p>Khám phá thiên nhiên và góp phần bảo vệ môi trường cùng Bàn Chân Xanh.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-lg-8 col-md-10 col-12 mx-auto">
-                            <div className="wpo-join-form">
-                                <form>
-                                    <div className="row">
-                                        <div className="col-lg-6 col-md-6 col-12">
-                                            <div className="form-group">
-                                                <input type="text" className="form-control" placeholder="Họ và tên *" required />
-                                            </div>
-                                        </div>
-                                        <div className="col-lg-6 col-md-6 col-12">
-                                            <div className="form-group">
-                                                <input type="email" className="form-control" placeholder="Email *" required />
-                                            </div>
-                                        </div>
-                                        <div className="col-lg-6 col-md-6 col-12">
-                                            <div className="form-group">
-                                                <input type="tel" className="form-control" placeholder="Số điện thoại *" required />
-                                            </div>
-                                        </div>
-                                        <div className="col-lg-6 col-md-6 col-12">
-                                            <div className="form-group">
-                                                <select className="form-control" required>
-                                                    <option value="">Chọn cấp độ hiking</option>
-                                                    <option value="easy">Hiking Dễ</option>
-                                                    <option value="medium">Hiking Trung Bình</option>
-                                                    <option value="hard">Hiking Khó</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div className="col-lg-12">
-                                            <div className="form-group">
-                                                <textarea className="form-control" rows={4} placeholder="Kinh nghiệm hiking và lý do tham gia"></textarea>
-                                            </div>
-                                        </div>
-                                        <div className="col-lg-12">
-                                            <div className="form-group text-center">
-                                                <button type="submit" className="theme-btn">
-                                                    Đăng ký tham gia
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            <RegistrationForm
+                activityType="hiking"
+                title="Đăng ký chuyến hiking tiếp theo"
+                description="Khám phá thiên nhiên và góp phần bảo vệ môi trường cùng Bàn Chân Xanh."
+                emoji="🥾"
+                activityOptions={[
+                    { value: "easy", label: "Hiking Dễ", emoji: "🌿" },
+                    { value: "medium", label: "Hiking Trung Bình", emoji: "⛰️" },
+                    { value: "hard", label: "Hiking Khó", emoji: "🏔️" }
+                ]}
+                placeholder="Chia sẻ kinh nghiệm hiking của bạn, yêu cầu đặc biệt về thiết bị, sức khỏe, hoặc bất kỳ điều gì khác..."
+            />
         </Layout>
     );
 };

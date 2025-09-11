@@ -32,27 +32,8 @@ const AboutPage: React.FC<AboutProps> = (props) => {
         <Layout data={props.layout.data}>
             <SEO {...props.seo} />
 
-            {/* Page Title Section */}
-            <section className="wpo-page-title-section">
-                <div className="container">
-                    <div className="row">
-                        <div className="col col-xs-12">
-                            <div className="wpo-page-title">
-                                <h2>Về chúng tôi</h2>
-                                <div className="wpo-breadcumb-wrap">
-                                    <ol className="wpo-breadcumb-wrap">
-                                        <li><a href="/">Trang chủ</a></li>
-                                        <li>Về chúng tôi</li>
-                                    </ol>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
             {/* About Content Section */}
-            <section className="wpo-about-section section-padding">
+            <section className="wpo-about-section section-padding section-padding-top">
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-6 col-md-6 col-12">

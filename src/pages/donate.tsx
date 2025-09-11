@@ -29,9 +29,7 @@ export const getServerSideProps = async () => {
 
     return {
         props: {
-            layout: {
-                data: layoutData,
-            },
+            layout: layoutData,
             seo: seoData,
         },
     };
@@ -76,7 +74,7 @@ const DonatePage: React.FC<DonateProps> = (props) => {
         <Layout data={props.layout.data}>
             <SEO {...props.seo} />
             {/* Hero Section */}
-            <section className="wpo-about-section section-padding">
+            <section className="wpo-about-section section-padding section-padding-top">
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-6 col-md-6 col-12">
@@ -416,7 +414,7 @@ const DonatePage: React.FC<DonateProps> = (props) => {
             </section>
 
             {/* Transparency Section */}
-            <section className="wpo-cta-section">
+            <section className="wpo-cta-section section-padding">
                 <div className="container">
                     <div className="row">
                         <div className="col-12">

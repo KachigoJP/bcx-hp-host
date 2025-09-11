@@ -1,8 +1,9 @@
+import RegistrationForm from "@components/common/RegistrationForm";
 import Layout, { LayoutProps } from "@components/layout";
 import SEO from "@components/layout/SEO";
 import { SEOProps } from "@components/layout/SEO/interface";
-import React from "react";
 import { getDefaultLayoutData } from "@utils/layoutData";
+import React from "react";
 
 interface CampingProps {
     layout: LayoutProps;
@@ -15,7 +16,7 @@ export const getServerSideProps = async () => {
     const seoData = {
         metadata: {
             title: "Hoạt động Camping - Bàn Chân Xanh",
-            description: "Trải nghiệm camping và cắm trại trong thiên nhiên",
+            description: "Tham gia các hoạt động camping khám phá thiên nhiên cùng Bàn Chân Xanh. Trải nghiệm cuộc sống ngoài trời và góp phần bảo vệ môi trường.",
         },
     };
 
@@ -27,54 +28,13 @@ export const getServerSideProps = async () => {
     };
 };
 
-    const seoData = {
-        title: "Hoạt động Camping - Bàn Chân Xanh",
-        meta: [
-            {
-                name: "description",
-                content: "Tham gia các hoạt động camping khám phá thiên nhiên cùng Bàn Chân Xanh. Trải nghiệm cuộc sống ngoài trời và góp phần bảo vệ môi trường."
-            },
-            {
-                name: "keywords",
-                content: "camping, cắm trại, thiên nhiên, bảo vệ môi trường, Bàn Chân Xanh, hoạt động ngoài trời, sinh hoạt cộng đồng"
-            }
-        ]
-    };
-
-    return {
-        props: {
-            layout: {
-                data: layoutData,
-            },
-            seo: seoData,
-        },
-    };
-};
-
 const CampingPage: React.FC<CampingProps> = (props) => {
     return (
         <Layout data={props.layout.data}>
             <SEO {...props.seo} />
 
-            {/* Page Title Section */}
-            <section className="wpo-page-title-section">
-                <div className="container">
-                    <div className="row">
-                        <div className="col col-xs-12">
-                            <div className="wpo-page-title-wrap">
-                                <h2>Hoạt động Camping</h2>
-                                <ol className="wpo-breadcumb-wrap">
-                                    <li><a href="/">Trang chủ</a></li>
-                                    <li>Hoạt động Camping</li>
-                                </ol>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
             {/* Hero Section */}
-            <section className="wpo-about-section section-padding">
+            <section className="wpo-about-section section-padding section-padding-top">
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-6 col-md-6 col-12">
@@ -374,7 +334,7 @@ const CampingPage: React.FC<CampingProps> = (props) => {
             </section>
 
             {/* Environmental Impact Section */}
-            <section className="wpo-cta-section">
+            <section className="wpo-cta-section section-padding">
                 <div className="container">
                     <div className="row">
                         <div className="col-12">
@@ -410,76 +370,18 @@ const CampingPage: React.FC<CampingProps> = (props) => {
             </section>
 
             {/* Registration Section */}
-            <section className="wpo-join-section section-padding">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-12">
-                            <div className="wpo-section-title text-center">
-                                <span>Tham gia ngay</span>
-                                <h2>Đăng ký chuyến camping tiếp theo</h2>
-                                <p>Trải nghiệm cuộc sống ngoài trời và góp phần bảo vệ môi trường cùng Bàn Chân Xanh.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-lg-8 col-md-10 col-12 mx-auto">
-                            <div className="wpo-join-form">
-                                <form>
-                                    <div className="row">
-                                        <div className="col-lg-6 col-md-6 col-12">
-                                            <div className="form-group">
-                                                <input type="text" className="form-control" placeholder="Họ và tên *" required />
-                                            </div>
-                                        </div>
-                                        <div className="col-lg-6 col-md-6 col-12">
-                                            <div className="form-group">
-                                                <input type="email" className="form-control" placeholder="Email *" required />
-                                            </div>
-                                        </div>
-                                        <div className="col-lg-6 col-md-6 col-12">
-                                            <div className="form-group">
-                                                <input type="tel" className="form-control" placeholder="Số điện thoại *" required />
-                                            </div>
-                                        </div>
-                                        <div className="col-lg-6 col-md-6 col-12">
-                                            <div className="form-group">
-                                                <select className="form-control" required>
-                                                    <option value="">Chọn loại camping</option>
-                                                    <option value="family">Camping Gia Đình</option>
-                                                    <option value="adventure">Camping Phiêu Lưu</option>
-                                                    <option value="eco">Camping Sinh Thái</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div className="col-lg-6 col-md-6 col-12">
-                                            <div className="form-group">
-                                                <input type="number" className="form-control" placeholder="Số người tham gia" min="1" />
-                                            </div>
-                                        </div>
-                                        <div className="col-lg-6 col-md-6 col-12">
-                                            <div className="form-group">
-                                                <input type="date" className="form-control" />
-                                            </div>
-                                        </div>
-                                        <div className="col-lg-12">
-                                            <div className="form-group">
-                                                <textarea className="form-control" rows={4} placeholder="Kinh nghiệm camping và yêu cầu đặc biệt"></textarea>
-                                            </div>
-                                        </div>
-                                        <div className="col-lg-12">
-                                            <div className="form-group text-center">
-                                                <button type="submit" className="theme-btn">
-                                                    Đăng ký tham gia
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            <RegistrationForm
+                activityType="camping"
+                title="Đăng ký chuyến camping tiếp theo"
+                description="Trải nghiệm cuộc sống ngoài trời và góp phần bảo vệ môi trường cùng Bàn Chân Xanh."
+                emoji="🏕️"
+                activityOptions={[
+                    { value: "family", label: "Camping Gia Đình", emoji: "🏠" },
+                    { value: "adventure", label: "Camping Phiêu Lưu", emoji: "⛰️" },
+                    { value: "eco", label: "Camping Sinh Thái", emoji: "🌱" }
+                ]}
+                placeholder="Chia sẻ kinh nghiệm camping của bạn, yêu cầu đặc biệt về thức ăn, chỗ ở, hoặc bất kỳ điều gì khác..."
+            />
         </Layout>
     );
 };

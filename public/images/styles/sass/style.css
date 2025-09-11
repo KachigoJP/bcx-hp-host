@@ -203,14 +203,16 @@ h2.hidden {
 }
 
 .section-padding {
-  padding: 120px 0;
+  padding: 20px 0;
 }
 @media (max-width: 767px) {
   .section-padding {
-    padding: 80px 0;
+    padding: 10px 0;
   }
 }
-
+.section-padding-top {
+  padding-top: 80px;
+}
 /*** contact form error handling ***/
 .contact-validation-active .error-handling-messages {
   width: 100% !important;
@@ -3847,16 +3849,16 @@ wpo-hero-section-6
   position: relative;
 }
 .wpo-site-footer .wpo-upper-footer {
-  padding: 90px 0;
+  padding: 30px 0;
 }
 @media (max-width: 991px) {
   .wpo-site-footer .wpo-upper-footer {
-    padding: 60px 0 0;
+    padding: 20px 0 0;
   }
 }
 @media (max-width: 767px) {
   .wpo-site-footer .wpo-upper-footer {
-    padding: 60px 0 0;
+    padding: 20px 0 0;
   }
 }
 @media (max-width: 991px) {

@@ -1,8 +1,8 @@
 import Layout, { LayoutProps } from "@components/layout";
 import SEO from "@components/layout/SEO";
 import { SEOProps } from "@components/layout/SEO/interface";
-import React from "react";
 import { getDefaultLayoutData } from "@utils/layoutData";
+import React from "react";
 
 interface TermsProps {
     layout: LayoutProps;
@@ -11,21 +11,6 @@ interface TermsProps {
 
 export const getServerSideProps = async () => {
     const layoutData = getDefaultLayoutData();
-
-    const seoData = {
-        metadata: {
-            title: "Điều khoản sử dụng - Bàn Chân Xanh",
-            description: "Điều khoản sử dụng website và dịch vụ của Bàn Chân Xanh",
-        },
-    };
-
-    return {
-        props: {
-            layout: layoutData,
-            seo: seoData,
-        },
-    };
-};
 
     const seoData = {
         title: "Điều khoản sử dụng - Bàn Chân Xanh",
@@ -43,9 +28,7 @@ export const getServerSideProps = async () => {
 
     return {
         props: {
-            layout: {
-                data: layoutData,
-            },
+            layout: layoutData,
             seo: seoData,
         },
     };
@@ -56,25 +39,8 @@ const TermsPage: React.FC<TermsProps> = (props) => {
         <Layout data={props.layout.data}>
             <SEO {...props.seo} />
 
-            {/* Page Title Section */}
-            <section className="wpo-page-title-section">
-                <div className="container">
-                    <div className="row">
-                        <div className="col col-xs-12">
-                            <div className="wpo-page-title-wrap">
-                                <h2>Điều khoản sử dụng</h2>
-                                <ol className="wpo-breadcumb-wrap">
-                                    <li><a href="/">Trang chủ</a></li>
-                                    <li>Điều khoản sử dụng</li>
-                                </ol>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
             {/* Terms Content Section */}
-            <section className="wpo-about-section section-padding">
+            <section className="wpo-about-section section-padding section-padding-top">
                 <div className="container">
                     <div className="row">
                         <div className="col-12">
