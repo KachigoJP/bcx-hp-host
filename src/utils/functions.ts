@@ -1,12 +1,12 @@
 export const slugify = function (text: string) {
-    return text
-        .toString()
-        .toLowerCase()
-        .replace(/\s+/g, "-") // Replace spaces with -
-        .replace(/[^\w-]+/g, "") // Remove all non-word chars
-        .replace(/--+/g, "-") // Replace multiple - with single -
-        .replace(/^-+/, "") // Trim - from start of text
-        .replace(/-+$/, ""); // Trim - from end of text
+  return text
+    .toString()
+    .toLowerCase()
+    .replace(/\s+/g, "-") // Replace spaces with -
+    .replace(/[^\w-]+/g, "") // Remove all non-word chars
+    .replace(/--+/g, "-") // Replace multiple - with single -
+    .replace(/^-+/, "") // Trim - from start of text
+    .replace(/-+$/, ""); // Trim - from end of text
 };
 
 // const getSiblings = function (elem) {
@@ -40,12 +40,12 @@ export const slugify = function (text: string) {
 // };
 
 export const flatDeep = (arr: any, d = 1) => {
-    return d > 0
-        ? arr.reduce((acc: any, val: any) => {
-              const value = Array.isArray(val) ? flatDeep(val, d - 1) : val;
-              return acc.concat(value);
-          }, [])
-        : arr.slice();
+  return d > 0
+    ? arr.reduce((acc: any, val: any) => {
+        const value = Array.isArray(val) ? flatDeep(val, d - 1) : val;
+        return acc.concat(value);
+      }, [])
+    : arr.slice();
 };
 
 // function truncateString(str, num, dots = true) {

@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint .",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
@@ -24,6 +24,7 @@
     "i18next": "^25.5.2",
     "next": "^15.1.7",
     "next-redux-wrapper": "^8.1.0",
+    "next-seo": "^6.4.0",
     "react": "^19.0.0",
     "react-anchor-link-smooth-scroll": "^1.0.12",
     "react-awesome-reveal": "^4.1.0",
@@ -31,7 +32,6 @@
     "react-datepicker": "^8.1.0",
     "react-dom": "^19.0.0",
     "react-fontawesome": "^1.7.1",
-    "next-seo": "^6.4.0",
     "react-i18next": "^15.4.0",
     "react-medium-image-zoom": "^5.2.14",
     "react-modal": "^3.16.3",
@@ -67,6 +67,8 @@
     "@types/styled-system__theme-get": "^5.0.4",
     "eslint": "^9",
     "eslint-config-next": "15.1.6",
+    "eslint-plugin-typescript": "^0.14.0",
+    "git-hooks-plus": "^1.0.1",
     "typescript": "^5.7.3"
   }
 }

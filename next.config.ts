@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 import { Configuration, container } from "webpack";
-const deps = require("./package.json").dependencies;
+import packageJson from "./package.json";
+const deps = packageJson.dependencies;
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,

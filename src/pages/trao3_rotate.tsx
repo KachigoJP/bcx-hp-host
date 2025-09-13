@@ -71,13 +71,12 @@ const HomePage: React.FC = () => {
     setWinner(null);
 
     // Simulate a drawing animation/delay
-    let highlightInterval: NodeJS.Timeout;
-    let selectedIndex = -1;
+    const selectedIndex = -1;
 
     const animationDuration = 3000; // Total animation duration (3 seconds)
     const intervalTime = 80; // How fast to change the displayed participant (80ms)
 
-    highlightInterval = setInterval(() => {
+    const highlightInterval: NodeJS.Timeout = setInterval(() => {
       const randomIndex = Math.floor(Math.random() * Object.keys(users).length);
       setDisplayLottery(Object.values(users)[randomIndex]);
     }, intervalTime);
