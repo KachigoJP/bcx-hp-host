@@ -18,9 +18,11 @@ const MenuItem: React.FC<MenuItemProps> = ({
 }) => {
   return (
     <li className={`${submenu ? "menu-item-has-children has-submenu" : ""}`}>
-      <Link onClick={clickHandler} href={link}>
-        {title}
-      </Link>
+      {link && (
+        <Link onClick={clickHandler} href={link}>
+          {title}
+        </Link>
+      )}
       {submenu && submenu.length > 0 && (
         <ul className="sub-menu">
           {submenu.map((item, index) => (

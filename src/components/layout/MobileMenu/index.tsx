@@ -45,9 +45,11 @@ const MobileMenu: React.FC<MobileMenuProps> = (props) => {
                   )}
                 </p>
               ) : (
-                <Link onClick={ClickHandler} href={item.link}>
-                  {item.title}
-                </Link>
+                item.link && (
+                  <Link onClick={ClickHandler} href={item.link}>
+                    {item.title}
+                  </Link>
+                )
               )}
               {Array.isArray(item.subMenuItems) && item.subMenuItems.length > 0 && (
                 <Collapse isOpen={item.menuId === isOpen}>
@@ -56,13 +58,15 @@ const MobileMenu: React.FC<MobileMenuProps> = (props) => {
                       <ul>
                         {item.subMenuItems.map((submenu: IMenuItem) => (
                           <li key={submenu.menuId}>
-                            <Link
-                              onClick={ClickHandler}
-                              className="active"
-                              href={submenu.link}
-                            >
-                              {submenu.title}
-                            </Link>
+                            {submenu.link && (
+                              <Link
+                                onClick={ClickHandler}
+                                className="active"
+                                href={submenu.link}
+                              >
+                                {submenu.title}
+                              </Link>
+                            )}
                           </li>
                         ))}
                       </ul>
