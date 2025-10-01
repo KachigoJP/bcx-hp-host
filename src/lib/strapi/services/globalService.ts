@@ -1,11 +1,11 @@
-import axios from 'axios';
-import { getStrapiHeaders, getStrapiUrl } from '../config';
+import axios from "axios";
+import { getStrapiHeaders, getStrapiUrl } from "../config";
 import {
-    Global,
-    StrapiError,
-    StrapiQueryParams,
-    StrapiSingleResponse,
-} from '../types';
+  GlobalInfo,
+  StrapiError,
+  StrapiQueryParams,
+  StrapiSingleResponse,
+} from "../types";
 
 /**
  * Global Service
@@ -13,21 +13,21 @@ import {
  */
 
 class GlobalService {
-  private readonly endpoint = '/api/global';
+  private readonly endpoint = "/api/global";
 
   /**
    * Get global settings
    */
-  async get(params?: StrapiQueryParams): Promise<Global> {
+  async get(params?: StrapiQueryParams): Promise<GlobalInfo> {
     try {
-      const response = await axios.get<StrapiSingleResponse<Global>>(
+      const response = await axios.get<StrapiSingleResponse<GlobalInfo>>(
         getStrapiUrl(this.endpoint),
         {
           headers: getStrapiHeaders(),
           params: this.buildQueryParams(params),
         }
       );
-      
+
       // For single types, return the attributes directly
       return response.data.data?.attributes || (response.data.data as any);
     } catch (error: any) {
@@ -38,16 +38,16 @@ class GlobalService {
   /**
    * Update global settings (requires authentication)
    */
-  async update(data: Partial<Global>, token?: string): Promise<Global> {
+  async update(data: Partial<GlobalInfo>, token?: string): Promise<GlobalInfo> {
     try {
-      const response = await axios.put<StrapiSingleResponse<Global>>(
+      const response = await axios.put<StrapiSingleResponse<GlobalInfo>>(
         getStrapiUrl(this.endpoint),
         { data },
         {
           headers: getStrapiHeaders(token),
         }
       );
-      
+
       return response.data.data?.attributes || (response.data.data as any);
     } catch (error: any) {
       throw this.handleError(error);
@@ -60,10 +60,13 @@ class GlobalService {
   private buildQueryParams(params?: StrapiQueryParams): any {
     if (!params) return {};
 
-    const queryParams: any = {};
+    let queryParams: any = {};
 
     if (params.populate) {
-      queryParams.populate = params.populate;
+      queryParams = {
+        ...queryParams,
+        ...params.populate,
+      };
     }
 
     if (params.fields) {
@@ -86,11 +89,10 @@ class GlobalService {
     }
     return {
       status: error.response?.status || 500,
-      name: error.name || 'Error',
-      message: error.message || 'An unexpected error occurred',
+      name: error.name || "Error",
+      message: error.message || "An unexpected error occurred",
     };
   }
 }
 
 export default new GlobalService();
-

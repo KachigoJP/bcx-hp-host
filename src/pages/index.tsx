@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 // Source
 import About, { AboutProps } from "@components/containers/Home/About";
@@ -20,6 +20,9 @@ import Activities from "@api/activities";
 import ProjectsData from "@api/projects";
 import TeamsData from "@api/team";
 import { SEOProps } from "@components/layout/SEO/interface";
+import globalService from "@lib/strapi/services/globalService";
+import { GlobalInfo } from "@lib/strapi/types";
+import { convertGlobalInfoToLayoutData } from "@utils/apps";
 import { getDefaultLayoutData } from "@utils/layoutData";
 
 interface HomeProps {
@@ -217,8 +220,24 @@ export const getServerSideProps = async () => {
 };
 
 const HomePage: React.FC<HomeProps> = (props) => {
+  const [globalData, setGlobalData] = useState<GlobalInfo | null>(null);
+  useEffect(() => {
+    const fetchGlobalData = async () => {
+      const globalData = await globalService.get({
+        populate: {
+          'populate[logo][populate]': '*',
+          'populate[headerMenus][populate]': '*',
+          'populate[footerMenus][populate]': '*',
+          'populate[footerQuicklinks][populate]': '*',
+        },
+      });
+      setGlobalData(globalData);
+    };
+    fetchGlobalData();
+  }, []);
+
   return (
-    <Layout data={props.layout.data}>
+    <Layout data={globalData ? convertGlobalInfoToLayoutData(globalData) : props.layout.data}>
       <SEO {...props.seo} />
       {/* 1. Hero Section */}
       <Hero {...props.hero} />

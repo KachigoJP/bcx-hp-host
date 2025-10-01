@@ -1,8 +1,8 @@
 // Source
 
 export interface IMenuItem {
-  id: string;
+  menuId: string;
   title: string;
   link: string;
-  submenu?: IMenuItem[];
+  subMenuItems?: IMenuItem[];
 }

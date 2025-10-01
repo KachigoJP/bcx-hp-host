@@ -19,9 +19,13 @@ export interface LayoutData {
   google: string;
   email: string;
   phone: string;
-  headerHenu: IMenuItem[];
+  headerMenus: IMenuItem[];
+  footerQuicklinksTitle: string;
   footerQuicklinks: IMenuItem[];
-  footerMenu: IMenuItem[];
+  footerContactTitle: string;
+  footerContactDescription: string;
+  footerMenusTitle: string;
+  footerMenus: IMenuItem[];
 }
 
 export interface LayoutProps {
@@ -32,11 +36,11 @@ const Layout: React.FC<React.PropsWithChildren<LayoutProps>> = ({
   children,
   data,
 }) => {
-  const layoutData = { ...defaultProps, ...data };
+  const layoutData = data ?? defaultProps.data;
 
   const headerData = {
     logo: layoutData.logo,
-    menus: layoutData.headerHenu,
+    headerMenus: layoutData.headerMenus,
   };
 
   const footerData = {
@@ -47,8 +51,12 @@ const Layout: React.FC<React.PropsWithChildren<LayoutProps>> = ({
     google: layoutData.google,
     email: layoutData.email,
     phone: layoutData.phone,
-    quicklinks: layoutData.footerQuicklinks,
-    menus: layoutData.footerMenu,
+    footerQuicklinks: layoutData.footerQuicklinks,
+    footerContactTitle: layoutData.footerContactTitle,
+    footerContactDescription: layoutData.footerContactDescription,
+    footerQuicklinksTitle: layoutData.footerQuicklinksTitle,
+    footerMenus: layoutData.footerMenus,
+    footerMenusTitle: layoutData.footerMenusTitle,
   };
 
   return (

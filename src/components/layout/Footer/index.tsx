@@ -1,9 +1,7 @@
 import { IMenuItem } from "@utils/interfaces/index.jsx";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
-import type { Global } from "../../../lib/strapi";
-import { globalService } from "../../../lib/strapi";
+import React from "react";
 
 export interface FooterData {
   logo: string;
@@ -13,30 +11,19 @@ export interface FooterData {
   facebook: string;
   instagram: string;
   google: string;
-  quicklinks: IMenuItem[];
-  menus: IMenuItem[];
+  footerQuicklinksTitle: string;
+  footerQuicklinks: IMenuItem[];
+  footerMenusTitle: string;
+  footerMenus: IMenuItem[];
+  footerContactTitle: string;
+  footerContactDescription: string;
 }
 
 interface FooterProps {
   data: FooterData;
 }
+
 const Footer: React.FC<FooterProps> = ({ data }) => {
-  const [sampleData, setSampleData] = useState<Global | undefined>();
-
-  useEffect(() => {
-    // Using the new Strapi service instead of direct axios call
-    globalService
-      .get({ populate: "*" })
-      .then((globalData: Global) => {
-        console.log("Global data from Strapi:", globalData);
-        setSampleData(globalData);
-      })
-      .catch((error: any) => {
-        console.error("Error fetching global data:", error);
-      });
-  }, []);
-
-  console.log("Sample data:", sampleData);
   return (
     <footer className="wpo-site-footer">
       <div className="wpo-upper-footer">
@@ -76,44 +63,39 @@ const Footer: React.FC<FooterProps> = ({ data }) => {
             <div className="col col-lg-3 col-md-6 col-sm-12 col-12">
               <div className="widget link-widget">
                 <div className="widget-title">
-                  <h3>{(sampleData as any)?.siteName || "here"}</h3>
+                  <h3>{data.footerMenusTitle}</h3>
                 </div>
                 <ul>
-                  {data.menus &&
-                    data.menus.length > 0 &&
-                    data.menus.map((item, i) => (
-                      <li key={i}>
-                        <Link href={item.link}>{item.title}</Link>
-                      </li>
-                    ))}
+                  {data.footerMenus && data.footerMenus.length > 0 && data.footerMenus.map((item, i) => (
+                    <li key={i}>
+                      <Link href={item.link}>{item.title}</Link>
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>
             <div className="col col-lg-3 col-md-6 col-sm-12 col-12">
               <div className="widget link-widget">
                 <div className="widget-title">
-                  <h3>Liên Kết Nhanh</h3>
+                  <h3>{data.footerQuicklinksTitle}</h3>
                 </div>
                 <ul>
-                  {data.quicklinks &&
-                    data.quicklinks.length > 0 &&
-                    data.quicklinks.map((item, i) => (
-                      <li key={i}>
-                        <Link href={item.link}>{item.title}</Link>
-                      </li>
-                    ))}
+                  {data.footerQuicklinks && data.footerQuicklinks.length > 0 && data.footerQuicklinks.map((item, i) => (
+                    <li key={i}>
+                      <Link href={item.link}>{item.title}</Link>
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>
             <div className="col col-lg-3 col-md-6 col-sm-12 col-12">
               <div className="widget wpo-service-link-widget">
                 <div className="widget-title">
-                  <h3>Liên Hệ</h3>
+                  <h3>{data.footerContactTitle}</h3>
                 </div>
                 <div className="contact-ft">
                   <p>
-                    Nếu bạn có bất kỳ thắc mắc nào, vui lòng liên hệ với chúng
-                    tôi
+                    {data.footerContactDescription}
                   </p>
                   <ul>
                     <li>
