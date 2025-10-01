@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import React, { FormEvent, MouseEvent, useEffect, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 
 import MenuItem from "@components/common/MenuItem";
 import MobileMenu from "@components/layout/MobileMenu";
@@ -8,7 +8,7 @@ import { IMenuItem } from "@utils/interfaces/index";
 
 export interface HeaderData {
   logo: string;
-  menus: IMenuItem[];
+  headerMenus: IMenuItem[];
 }
 interface HeaderProps {
   topbarNone?: string;
@@ -17,7 +17,7 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = (props) => {
-  const { data, topbarNone, hclass } = props;
+  const { data, topbarNone, hclass = "wpo-header-style-2" } = props;
   const [scroll, setScroll] = useState<number>(0);
   const [isSearchShow, setIsSearchShow] = useState<boolean>(false);
 
@@ -37,7 +37,7 @@ const Header: React.FC<HeaderProps> = (props) => {
     e.preventDefault();
   };
 
-  const clickHandler = (e: MouseEvent<HTMLAnchorElement>): void => {
+  const clickHandler = (): void => {
     window.scrollTo(10, 0);
   };
 
@@ -46,13 +46,13 @@ const Header: React.FC<HeaderProps> = (props) => {
   return (
     <div className={className}>
       <header id="header" className={topbarNone}>
-        <div className={`wpo-site-header ${hclass}`}>
+        <div className={hclass ? `wpo-site-header ${hclass}` : "wpo-site-header"}>
           <nav className="navigation navbar navbar-expand-lg navbar-light">
             <div className="container-fluid">
               <div className="row align-items-center">
                 <div className="col-lg-3 col-md-3 col-3 d-lg-none dl-block">
                   <div className="mobile-menu">
-                    <MobileMenu menus={data.menus} />
+                    <MobileMenu menus={data.headerMenus} />
                   </div>
                 </div>
                 <div className="col-lg-3 col-md-6 col-6">
@@ -75,13 +75,13 @@ const Header: React.FC<HeaderProps> = (props) => {
                       <i className="ti-close"></i>
                     </button>
                     <ul className="nav navbar-nav mb-2 mb-lg-0 d-flex justify-content-center align-items-center">
-                      {data.menus && data.menus.length > 0 && data.menus.map((item, index) => (
+                      {data.headerMenus && data.headerMenus.length > 0 && data.headerMenus.map((item, index) => (
                         <MenuItem
                           key={index}
-                          id={item.id}
+                          id={item.menuId}
                           title={item.title}
                           link={item.link}
-                          submenu={item.submenu}
+                          submenu={item.subMenuItems}
                           clickHandler={clickHandler}
                         />
                       ))}

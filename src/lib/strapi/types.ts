@@ -45,7 +45,7 @@ export interface StrapiCollectionResponse<T> {
 export interface StrapiQueryParams {
   filters?: Record<string, any>;
   sort?: string | string[];
-  populate?: string | string[] | Record<string, any>;
+  populate?: any;
   fields?: string[];
   pagination?: {
     page?: number;
@@ -53,7 +53,7 @@ export interface StrapiQueryParams {
     start?: number;
     limit?: number;
   };
-  publicationState?: 'live' | 'preview';
+  publicationState?: "live" | "preview";
   locale?: string;
 }
 
@@ -129,10 +129,12 @@ export interface User {
   updatedAt: string;
 }
 
-export interface Global {
+export interface GlobalInfo {
   siteName?: string;
   siteDescription?: string;
-  logo?: string;
+  logo?: {
+    url: string;
+  };
   footerSlogan?: string;
   email?: string;
   phone?: string;
@@ -141,4 +143,3 @@ export interface Global {
   google?: string;
   [key: string]: any;
 }
-

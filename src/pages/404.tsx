@@ -16,24 +16,28 @@ const Page404: React.FC<unknown> = (props) => {
         google: "https://plus.google.com/banchanxanh",
         email: "thongbao@banchanxanh.com",
         phone: "(+081) 080-5988-2754",
-        headerHenu: [
-          { id: "1", title: "Trang chủ", link: "/" },
-          { id: "2", title: "Về chúng tôi", link: "/about" },
-          { id: "3", title: "Hoạt động", link: "/activities" },
-          { id: "4", title: "Tin tức", link: "/news" },
-          { id: "5", title: "Liên hệ", link: "/contact" },
+        headerMenus: [
+          { menuId: "1", title: "Trang chủ", link: "/" },
+          { menuId: "2", title: "Về chúng tôi", link: "/about" },
+          { menuId: "3", title: "Hoạt động", link: "/activities" },
+          { menuId: "4", title: "Tin tức", link: "/news" },
+          { menuId: "5", title: "Liên hệ", link: "/contact" },
         ],
+        footerQuicklinksTitle: "Liên kết nhanh",
+        footerContactTitle: "Liên hệ",
+        footerContactDescription: "Nếu bạn có bất kỳ thắc mắc nào, vui lòng liên hệ với chúng tôi",
+        footerMenusTitle: "Liên kết nhanh",
         footerQuicklinks: [
-          { id: "1", title: "Về chúng tôi", link: "/about" },
-          { id: "2", title: "Hoạt động", link: "/activities" },
-          { id: "3", title: "Tin tức", link: "/news" },
-          { id: "4", title: "Liên hệ", link: "/contact" },
+          { menuId: "1", title: "Về chúng tôi", link: "/about" },
+          { menuId: "2", title: "Hoạt động", link: "/activities" },
+          { menuId: "3", title: "Tin tức", link: "/news" },
+          { menuId: "4", title: "Liên hệ", link: "/contact" },
         ],
-        footerMenu: [
-          { id: "1", title: "Chính sách", link: "/policy" },
-          { id: "2", title: "Báo cáo", link: "/reports" },
-          { id: "3", title: "Thành tựu", link: "/achievements" },
-          { id: "4", title: "Tham gia", link: "/join" },
+        footerMenus: [
+          { menuId: "1", title: "Chính sách", link: "/policy" },
+          { menuId: "2", title: "Báo cáo", link: "/reports" },
+          { menuId: "3", title: "Thành tựu", link: "/achievements" },
+          { menuId: "4", title: "Tham gia", link: "/join" },
         ],
       }}
     >
