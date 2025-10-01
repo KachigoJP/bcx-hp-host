@@ -16,7 +16,7 @@ import "@utils/theme/styles/font-awesome.min.css";
 import "@utils/theme/styles/themify-icons.css";
 
 // import custom CSS
-import "@styles/sass/style.scss";
+import "@utils/theme/styles/sass/style.scss";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

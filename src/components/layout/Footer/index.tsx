@@ -1,8 +1,9 @@
-import axios from "axios";
 import { IMenuItem } from "@utils/interfaces/index.jsx";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import type { Global } from "../../../lib/strapi";
+import { globalService } from "../../../lib/strapi";
 
 export interface FooterData {
   logo: string;
@@ -20,20 +21,22 @@ interface FooterProps {
   data: FooterData;
 }
 const Footer: React.FC<FooterProps> = ({ data }) => {
-  const [sampleData, setSampleData] = useState<FooterData | undefined>();
+  const [sampleData, setSampleData] = useState<Global | undefined>();
 
   useEffect(() => {
-    axios("http://localhost:1337/api/global", {
-      headers: {
-        Authorization:
-          "Bearer e6da340acf8ce35b0103dc7c3a740747365a08317032da63ad72146ab76861ed1157bc8ca434d95f513fe820c5c44a822aa64432b0e059718e60f2e21be853fad6879a2a24e8649b55537f6f60c69be8c3cc5f5b5dbc2ba90207fefa283d3fae6ce4f1a19049aba30e31f2c8494167116ccebfc19f548ede42f0d3191748e2a0",
-      },
-    }).then((data) => {
-      setSampleData(data.data.data as any);
-    });
+    // Using the new Strapi service instead of direct axios call
+    globalService
+      .get({ populate: "*" })
+      .then((globalData: Global) => {
+        console.log("Global data from Strapi:", globalData);
+        setSampleData(globalData);
+      })
+      .catch((error: any) => {
+        console.error("Error fetching global data:", error);
+      });
   }, []);
 
-  console.log(sampleData);
+  console.log("Sample data:", sampleData);
   return (
     <footer className="wpo-site-footer">
       <div className="wpo-upper-footer">
