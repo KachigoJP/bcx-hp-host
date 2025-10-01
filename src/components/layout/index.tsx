@@ -1,13 +1,13 @@
-import React from "react";
+import { ThemeProvider } from "@emotion/react";
 import "@utils/i18n/index";
 import { themeDefault } from "@utils/theme/index";
-import { ThemeProvider } from "@emotion/react";
+import React from "react";
 
 // Source
 import { IMenuItem } from "@utils/interfaces/index";
-import defaultProps from "@data/layout.json";
-import Header from "./Header";
+import defaultProps from "../../data/layout.json";
 import Footer from "./Footer";
+import Header from "./Header";
 import Scrollbar from "./Scrollbar";
 
 export interface LayoutData {

@@ -2,7 +2,7 @@ import { NextSeo } from "next-seo";
 import React from "react";
 
 // Source
-import defaultProps from "@data/seo.json";
+import defaultProps from "../../../data/seo.json";
 import { SEOProps } from "./interface";
 
 const SEO: React.FC<SEOProps> = (props) => {
