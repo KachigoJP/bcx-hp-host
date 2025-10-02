@@ -1,12 +1,12 @@
-import axios from 'axios';
-import { getStrapiHeaders, getStrapiUrl } from '../config';
 import {
-    Article,
-    StrapiCollectionResponse,
-    StrapiError,
-    StrapiQueryParams,
-    StrapiSingleResponse,
-} from '../types';
+  Article,
+  StrapiCollectionResponse,
+  StrapiError,
+  StrapiQueryParams,
+  StrapiSingleResponse,
+} from "@/utils/interfaces/strapi_types";
+import axios from "axios";
+import { getStrapiHeaders, getStrapiUrl } from "../config";
 
 /**
  * Article Service
@@ -14,12 +14,14 @@ import {
  */
 
 class ArticleService {
-  private readonly endpoint = '/api/articles';
+  private readonly endpoint = "/api/articles";
 
   /**
    * Get all articles with optional filters
    */
-  async getAll(params?: StrapiQueryParams): Promise<StrapiCollectionResponse<Article>> {
+  async getAll(
+    params?: StrapiQueryParams
+  ): Promise<StrapiCollectionResponse<Article>> {
     try {
       const response = await axios.get<StrapiCollectionResponse<Article>>(
         getStrapiUrl(this.endpoint),
@@ -76,9 +78,9 @@ class ArticleService {
           }),
         }
       );
-      
+
       if (response.data.data.length === 0) {
-        throw new Error('Article not found');
+        throw new Error("Article not found");
       }
 
       return {
@@ -93,7 +95,10 @@ class ArticleService {
   /**
    * Create a new article (requires authentication)
    */
-  async create(data: Partial<Article>, token?: string): Promise<StrapiSingleResponse<Article>> {
+  async create(
+    data: Partial<Article>,
+    token?: string
+  ): Promise<StrapiSingleResponse<Article>> {
     try {
       const response = await axios.post<StrapiSingleResponse<Article>>(
         getStrapiUrl(this.endpoint),
@@ -191,11 +196,10 @@ class ArticleService {
     }
     return {
       status: error.response?.status || 500,
-      name: error.name || 'Error',
-      message: error.message || 'An unexpected error occurred',
+      name: error.name || "Error",
+      message: error.message || "An unexpected error occurred",
     };
   }
 }
 
 export default new ArticleService();
-

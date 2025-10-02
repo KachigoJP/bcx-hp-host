@@ -18,7 +18,7 @@
       "description": "Ban Chan Xanh",
       "image": "https://banchanxanh.com/images/logo.png",
       "url": "https://banchanxanh.com",
-      "locale": "vi_VN"
+      "ogLocale": "vi_VN"
     }
   }
 }

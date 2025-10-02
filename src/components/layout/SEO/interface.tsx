@@ -3,6 +3,7 @@ export interface SEOProps {
 }
 
 export interface SEOMetadata {
+  page_code: string;
   url: string;
   title: string;
   description: string;
@@ -22,7 +23,7 @@ export interface OpenGraph {
   title?: string;
   description?: string;
   type?: string;
-  locale?: string;
+  ogLocale?: string;
   image?: string;
   secure_url?: string;
   img_width?: string;

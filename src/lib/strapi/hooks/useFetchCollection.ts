@@ -1,5 +1,9 @@
-import { useCallback, useEffect, useState } from 'react';
-import { StrapiCollectionResponse, StrapiError, StrapiQueryParams } from '../types';
+import {
+  StrapiCollectionResponse,
+  StrapiError,
+  StrapiQueryParams,
+} from "@/utils/interfaces/strapi_types";
+import { useCallback, useEffect, useState } from "react";
 
 /**
  * Reusable hook for fetching Strapi collections
@@ -27,11 +31,15 @@ interface UseFetchCollectionReturn<T> {
 }
 
 export function useFetchCollection<T>(
-  fetchFunction: (params?: StrapiQueryParams) => Promise<StrapiCollectionResponse<T>>,
+  fetchFunction: (
+    params?: StrapiQueryParams
+  ) => Promise<StrapiCollectionResponse<T>>,
   params?: StrapiQueryParams,
   options: UseFetchCollectionOptions = { autoFetch: true }
 ): UseFetchCollectionReturn<T> {
-  const [data, setData] = useState<Array<{ id: number; attributes: T }> | null>(null);
+  const [data, setData] = useState<Array<{ id: number; attributes: T }> | null>(
+    null
+  );
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<StrapiError | null>(null);
   const [pagination, setPagination] = useState<{
@@ -53,7 +61,7 @@ export function useFetchCollection<T>(
       }
     } catch (err: any) {
       setError(err as StrapiError);
-      console.error('Error fetching collection:', err);
+      console.error("Error fetching collection:", err);
     } finally {
       setLoading(false);
     }
@@ -75,4 +83,3 @@ export function useFetchCollection<T>(
 }
 
 export default useFetchCollection;
-

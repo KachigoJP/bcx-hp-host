@@ -16,12 +16,12 @@ import Layout, { LayoutProps } from "@components/layout";
 import SEO from "@components/layout/SEO";
 
 // Data
+import { GlobalInfo } from "@/utils/interfaces";
 import Activities from "@api/activities";
 import ProjectsData from "@api/projects";
 import TeamsData from "@api/team";
 import { SEOProps } from "@components/layout/SEO/interface";
 import globalService from "@lib/strapi/services/globalService";
-import { GlobalInfo } from "@lib/strapi/types";
 import { convertGlobalInfoToLayoutData } from "@utils/apps";
 import { getDefaultLayoutData } from "@utils/layoutData";
 

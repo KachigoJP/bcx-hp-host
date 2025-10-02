@@ -1,12 +1,16 @@
 // convert globalInfo to layoutData
+import { GlobalInfo } from "@/utils/interfaces";
 import { LayoutData } from "@components/layout";
-import { GlobalInfo } from "@lib/strapi/types";
 import { IMenuItem } from "./interfaces";
+
+export const getStrapiImageUrl = (url: string): string => {
+  return `${process.env.NEXT_PUBLIC_STRAPI_URL}${url}`;
+};
 
 export const convertGlobalInfoToLayoutData = (
   globalInfo: GlobalInfo
 ): LayoutData => {
-  const logo = `${process.env.NEXT_PUBLIC_STRAPI_URL}${globalInfo.logo?.url}`;
+  const logo = getStrapiImageUrl(globalInfo.logo?.url ?? "");
   return {
     logo,
     slogan: globalInfo.slogan ?? "",

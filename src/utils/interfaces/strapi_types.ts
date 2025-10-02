@@ -129,17 +129,27 @@ export interface User {
   updatedAt: string;
 }
 
-export interface GlobalInfo {
-  siteName?: string;
-  siteDescription?: string;
-  logo?: {
-    url: string;
+// Image có sampe như dưới hãy tạo interface cho nó
+export interface StrapiImage {
+  name?: string;
+  alternativeText?: string;
+  caption?: string;
+  width?: number;
+  height?: number;
+  formats?: {
+    small?: {
+      url: string;
+    };
+    thumbnail?: {
+      url: string;
+    };
   };
-  footerSlogan?: string;
-  email?: string;
-  phone?: string;
-  facebook?: string;
-  instagram?: string;
-  google?: string;
-  [key: string]: any;
+  url?: string;
+  hash?: string;
+  ext?: string;
+  mime?: string;
+  size?: number;
+  provider?: string;
+  provider_metadata?: any;
+  previewUrl?: string;
 }
