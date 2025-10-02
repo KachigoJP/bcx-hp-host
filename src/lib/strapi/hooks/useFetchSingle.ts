@@ -1,5 +1,9 @@
-import { useCallback, useEffect, useState } from 'react';
-import { StrapiError, StrapiQueryParams, StrapiSingleResponse } from '../types';
+import {
+  StrapiError,
+  StrapiQueryParams,
+  StrapiSingleResponse,
+} from "@/utils/interfaces/strapi_types";
+import { useCallback, useEffect, useState } from "react";
 
 /**
  * Reusable hook for fetching a single Strapi entry
@@ -22,7 +26,10 @@ interface UseFetchSingleReturn<T> {
 }
 
 export function useFetchSingle<T>(
-  fetchFunction: (id: number | string, params?: StrapiQueryParams) => Promise<StrapiSingleResponse<T>>,
+  fetchFunction: (
+    id: number | string,
+    params?: StrapiQueryParams
+  ) => Promise<StrapiSingleResponse<T>>,
   id: number | string,
   params?: StrapiQueryParams,
   options: UseFetchSingleOptions = { autoFetch: true }
@@ -42,7 +49,7 @@ export function useFetchSingle<T>(
       setData(response.data);
     } catch (err: any) {
       setError(err as StrapiError);
-      console.error('Error fetching single entry:', err);
+      console.error("Error fetching single entry:", err);
     } finally {
       setLoading(false);
     }
@@ -63,4 +70,3 @@ export function useFetchSingle<T>(
 }
 
 export default useFetchSingle;
-

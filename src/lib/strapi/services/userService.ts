@@ -1,9 +1,6 @@
-import axios from 'axios';
-import { getStrapiHeaders, getStrapiUrl } from '../config';
-import {
-    StrapiError,
-    User
-} from '../types';
+import { StrapiError, User } from "@/utils/interfaces/strapi_types";
+import axios from "axios";
+import { getStrapiHeaders, getStrapiUrl } from "../config";
 
 /**
  * User Service
@@ -11,7 +8,7 @@ import {
  */
 
 class UserService {
-  private readonly endpoint = '/api/users';
+  private readonly endpoint = "/api/users";
 
   /**
    * Get all users (requires authentication and appropriate permissions)
@@ -49,7 +46,7 @@ class UserService {
    */
   async getMe(token: string): Promise<User> {
     try {
-      const response = await axios.get<User>(getStrapiUrl('/api/users/me'), {
+      const response = await axios.get<User>(getStrapiUrl("/api/users/me"), {
         headers: getStrapiHeaders(token),
       });
       return response.data;
@@ -61,7 +58,11 @@ class UserService {
   /**
    * Update user profile (requires authentication)
    */
-  async update(id: number | string, data: Partial<User>, token: string): Promise<User> {
+  async update(
+    id: number | string,
+    data: Partial<User>,
+    token: string
+  ): Promise<User> {
     try {
       const response = await axios.put<User>(
         getStrapiUrl(`${this.endpoint}/${id}`),
@@ -115,11 +116,10 @@ class UserService {
     }
     return {
       status: error.response?.status || 500,
-      name: error.name || 'Error',
-      message: error.message || 'An unexpected error occurred',
+      name: error.name || "Error",
+      message: error.message || "An unexpected error occurred",
     };
   }
 }
 
 export default new UserService();
-

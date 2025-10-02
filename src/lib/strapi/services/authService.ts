@@ -1,11 +1,11 @@
-import axios from 'axios';
-import { getStrapiUrl } from '../config';
 import {
-    AuthResponse,
-    LoginCredentials,
-    RegisterCredentials,
-    StrapiError,
-} from '../types';
+  AuthResponse,
+  LoginCredentials,
+  RegisterCredentials,
+  StrapiError,
+} from "@/utils/interfaces/strapi_types";
+import axios from "axios";
+import { getStrapiUrl } from "../config";
 
 /**
  * Auth Service
@@ -19,15 +19,15 @@ class AuthService {
   async login(credentials: LoginCredentials): Promise<AuthResponse> {
     try {
       const response = await axios.post<AuthResponse>(
-        getStrapiUrl('/api/auth/local'),
+        getStrapiUrl("/api/auth/local"),
         credentials
       );
-      
+
       // Store JWT in localStorage or cookie
       if (response.data.jwt) {
-        localStorage.setItem('strapi_jwt', response.data.jwt);
+        localStorage.setItem("strapi_jwt", response.data.jwt);
       }
-      
+
       return response.data;
     } catch (error: any) {
       throw this.handleError(error);
@@ -40,15 +40,15 @@ class AuthService {
   async register(credentials: RegisterCredentials): Promise<AuthResponse> {
     try {
       const response = await axios.post<AuthResponse>(
-        getStrapiUrl('/api/auth/local/register'),
+        getStrapiUrl("/api/auth/local/register"),
         credentials
       );
-      
+
       // Store JWT in localStorage or cookie
       if (response.data.jwt) {
-        localStorage.setItem('strapi_jwt', response.data.jwt);
+        localStorage.setItem("strapi_jwt", response.data.jwt);
       }
-      
+
       return response.data;
     } catch (error: any) {
       throw this.handleError(error);
@@ -59,14 +59,14 @@ class AuthService {
    * Logout user
    */
   logout(): void {
-    localStorage.removeItem('strapi_jwt');
+    localStorage.removeItem("strapi_jwt");
   }
 
   /**
    * Get current JWT token
    */
   getToken(): string | null {
-    return localStorage.getItem('strapi_jwt');
+    return localStorage.getItem("strapi_jwt");
   }
 
   /**
@@ -83,10 +83,10 @@ class AuthService {
     try {
       const token = this.getToken();
       if (!token) {
-        throw new Error('No authentication token found');
+        throw new Error("No authentication token found");
       }
 
-      const response = await axios.get(getStrapiUrl('/api/users/me'), {
+      const response = await axios.get(getStrapiUrl("/api/users/me"), {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -103,9 +103,12 @@ class AuthService {
    */
   async forgotPassword(email: string): Promise<{ ok: boolean }> {
     try {
-      const response = await axios.post(getStrapiUrl('/api/auth/forgot-password'), {
-        email,
-      });
+      const response = await axios.post(
+        getStrapiUrl("/api/auth/forgot-password"),
+        {
+          email,
+        }
+      );
       return response.data;
     } catch (error: any) {
       throw this.handleError(error);
@@ -122,18 +125,18 @@ class AuthService {
   ): Promise<AuthResponse> {
     try {
       const response = await axios.post<AuthResponse>(
-        getStrapiUrl('/api/auth/reset-password'),
+        getStrapiUrl("/api/auth/reset-password"),
         {
           code,
           password,
           passwordConfirmation,
         }
       );
-      
+
       if (response.data.jwt) {
-        localStorage.setItem('strapi_jwt', response.data.jwt);
+        localStorage.setItem("strapi_jwt", response.data.jwt);
       }
-      
+
       return response.data;
     } catch (error: any) {
       throw this.handleError(error);
@@ -151,11 +154,11 @@ class AuthService {
     try {
       const token = this.getToken();
       if (!token) {
-        throw new Error('No authentication token found');
+        throw new Error("No authentication token found");
       }
 
       const response = await axios.post(
-        getStrapiUrl('/api/auth/change-password'),
+        getStrapiUrl("/api/auth/change-password"),
         {
           currentPassword,
           password: newPassword,
@@ -183,11 +186,10 @@ class AuthService {
     }
     return {
       status: error.response?.status || 500,
-      name: error.name || 'Error',
-      message: error.message || 'An unexpected error occurred',
+      name: error.name || "Error",
+      message: error.message || "An unexpected error occurred",
     };
   }
 }
 
 export default new AuthService();
-

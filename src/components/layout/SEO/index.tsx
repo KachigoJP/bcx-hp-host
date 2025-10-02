@@ -33,7 +33,7 @@ const SEO: React.FC<SEOProps> = (props) => {
             alt: metadata.og.img_alt,
           },
         ] : [],
-        locale: metadata.lang,
+        locale: metadata.og?.ogLocale,
       }}
       robotsProps={{
         nosnippet: metadata.robots?.includes('nosnippet'),

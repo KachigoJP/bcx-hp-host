@@ -6,6 +6,7 @@
  */
 
 import React, { useState } from 'react';
+import type { Article } from '../../../utils/interfaces/strapi_types';
 import {
     articleService,
     authService,
@@ -13,7 +14,6 @@ import {
     useFetchCollection,
     useFetchSingle,
 } from '../index';
-import type { Article } from '../types';
 
 // ============================================================================
 // Example 1: Fetch Collection with Hook
