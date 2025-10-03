@@ -13,4 +13,5 @@ export * from "./global";
 export * from "./response";
 export * from "./seo";
 export * from "./strapi_types";
+export * from "./team";
 
