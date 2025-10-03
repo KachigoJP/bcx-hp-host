@@ -4,7 +4,7 @@ import { SEOProps } from "@components/layout/SEO/interface";
 import { getDefaultLayoutData } from "@utils/layoutData";
 import React from "react";
 
-interface ReportsProps {
+interface ReportProps {
     layout: LayoutProps;
     seo: SEOProps;
 }
@@ -27,13 +27,13 @@ export const getServerSideProps = async () => {
     };
 };
 
-const ReportsPage: React.FC<ReportsProps> = (props) => {
+const ReportPage: React.FC<ReportProps> = (props) => {
     return (
         <Layout data={props.layout.data}>
             <SEO {...props.seo} />
 
-            {/* Reports Intro Section */}
-            <section className="wpo-reports-intro-section section-padding section-padding-top">
+            {/* Report Intro Section */}
+            <section className="wpo-report-intro-section section-padding section-padding-top">
                 <div className="container">
                     <div className="row justify-content-center">
                         <div className="col-lg-8">
@@ -108,8 +108,8 @@ const ReportsPage: React.FC<ReportsProps> = (props) => {
                 </div>
             </section>
 
-            {/* Monthly Reports Section */}
-            <section className="wpo-monthly-reports-section section-padding">
+            {/* Monthly Report Section */}
+            <section className="wpo-monthly-report-section section-padding">
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-12">
@@ -336,4 +336,4 @@ const ReportsPage: React.FC<ReportsProps> = (props) => {
     );
 };
 
-export default ReportsPage;
+export default ReportPage;

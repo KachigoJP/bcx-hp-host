@@ -5,7 +5,7 @@ import { SEOProps } from "@components/layout/SEO/interface";
 import { getDefaultLayoutData } from "@utils/layoutData";
 import React from "react";
 
-interface NewsProps {
+interface NewProps {
     layout: LayoutProps;
     seo: SEOProps;
 }
@@ -28,7 +28,7 @@ export const getServerSideProps = async () => {
     };
 };
 
-const NewsPage: React.FC<NewsProps> = (props) => {
+const NewPage: React.FC<NewProps> = (props) => {
     const handleNewsletterSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const form = e.currentTarget;
@@ -53,7 +53,7 @@ const NewsPage: React.FC<NewsProps> = (props) => {
         <Layout data={props.layout.data}>
             <SEO {...props.seo} />
 
-            {/* News Intro Section */}
+            {/* New Intro Section */}
             <section className="wpo-news-intro-section section-padding section-padding-top">
                 <div className="container">
                     <div className="row justify-content-center">
@@ -397,4 +397,4 @@ const NewsPage: React.FC<NewsProps> = (props) => {
     );
 };
 
-export default NewsPage;
+export default NewPage;

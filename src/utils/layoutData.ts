@@ -26,12 +26,12 @@ export const getDefaultLayoutData = (): LayoutProps => {
         {
           menuId: "23",
           title: "Thành tựu",
-          link: "/achievements",
+          link: "/achievement",
         },
         {
           menuId: "24",
           title: "Báo cáo hoạt động",
-          link: "/reports",
+          link: "/report",
         },
         {
           menuId: "25",
@@ -43,7 +43,7 @@ export const getDefaultLayoutData = (): LayoutProps => {
     {
       menuId: "3",
       title: "Hoạt động",
-      link: "/activities",
+      link: "/activity",
       subMenuItems: [
         {
           menuId: "31",
@@ -65,7 +65,7 @@ export const getDefaultLayoutData = (): LayoutProps => {
     {
       menuId: "4",
       title: "Tin tức",
-      link: "/news",
+      link: "/new",
     },
     {
       menuId: "5",
@@ -93,12 +93,12 @@ export const getDefaultLayoutData = (): LayoutProps => {
     {
       menuId: "2",
       title: "Hoạt động",
-      link: "/activities",
+      link: "/activity",
     },
     {
       menuId: "3",
       title: "Tin tức",
-      link: "/news",
+      link: "/new",
     },
     {
       menuId: "4",
@@ -111,7 +111,7 @@ export const getDefaultLayoutData = (): LayoutProps => {
     {
       menuId: "1",
       title: "Điều khoản sử dụng",
-      link: "/terms",
+      link: "/term",
     },
     {
       menuId: "2",

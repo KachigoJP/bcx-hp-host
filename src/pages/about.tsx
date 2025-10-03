@@ -49,9 +49,11 @@ export const getServerSideProps = async () => {
     ];
 
     const history: HistorySection = {
-        tag: "Hành trình",
-        title: "Lịch sử phát triển",
-        subtitle: "Những cột mốc quan trọng trong hành trình xây dựng cộng đồng Bàn Chân Xanh",
+        sectionIntro: {
+            tag: "Hành trình",
+            title: "Lịch sử phát triển",
+            subtitle: "Những cột mốc quan trọng trong hành trình xây dựng cộng đồng Bàn Chân Xanh",
+        },
         items: [
             {
                 year: "2020",
@@ -234,16 +236,16 @@ const AboutPage: React.FC<AboutProps> = (props) => {
                     <div className="row">
                         <div className="col-lg-12">
                             <div className="wpo-section-title text-center">
-                                <span>{(aboutContent?.history || props?.history)?.tag}</span>
-                                <h2>{(aboutContent?.history || props?.history)?.title}</h2>
-                                <p>{(aboutContent?.history || props?.history)?.subtitle}</p>
+                                <span>{(aboutContent?.history || props?.history)?.sectionIntro.tag}</span>
+                                <h2>{(aboutContent?.history || props?.history)?.sectionIntro.title}</h2>
+                                <p>{(aboutContent?.history || props?.history)?.sectionIntro.subtitle}</p>
                             </div>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-lg-12">
                             <div className="wpo-history-wrap">
-                                {(aboutContent?.history || props?.history)?.items &&
+                                {(aboutContent?.history || props?.history)?.items.length > 0 &&
                                     (aboutContent?.history || props?.history)?.items.length > 0 &&
                                     (aboutContent?.history || props?.history)?.items.map((item, index) => (
                                         <div className="wpo-history-item" key={index}>

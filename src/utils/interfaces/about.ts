@@ -2,6 +2,7 @@
  * About page related interfaces and types
  */
 
+import { HistoryItem, SectionIntro } from "./common";
 import { StrapiImage } from "./strapi_types";
 
 export interface AboutContent {
@@ -20,17 +21,7 @@ export interface MissionItem {
   description: string;
 }
 
-export interface HistoryItem {
-  year: string;
-  month?: string;
-  day?: string;
-  title: string;
-  description: string;
-}
-
 export interface HistorySection {
-  tag: string;
-  title: string;
-  subtitle: string;
+  sectionIntro: SectionIntro;
   items: HistoryItem[];
 }

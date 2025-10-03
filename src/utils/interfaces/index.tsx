@@ -9,6 +9,8 @@ export interface IMenuItem {
 
 // Re-export all interfaces for easy importing
 export * from "./about";
+export * from "./achievement";
+export * from "./common";
 export * from "./global";
 export * from "./response";
 export * from "./seo";
