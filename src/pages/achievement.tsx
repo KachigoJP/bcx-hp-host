@@ -12,7 +12,7 @@ import Layout, { LayoutProps } from "@components/layout";
 import SEO from "@components/layout/SEO";
 import { SEOProps } from "@components/layout/SEO/interface";
 import { getDefaultLayoutData } from "@utils/layoutData";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 interface AchievementProps {
     layout: LayoutProps;
@@ -70,7 +70,7 @@ export const getServerSideProps = async () => {
             title: "Lịch sử thành tựu",
             subtitle: "Những cột mốc quan trọng trong quá trình xây dựng và phát triển tổ chức",
         },
-        historyItems: [
+        timelineItems: [
             {
                 year: "2020",
                 month: "12",
@@ -109,7 +109,7 @@ export const getServerSideProps = async () => {
         },
         awardItems: [
             {
-                icon: "fi flaticon-badge",
+                icon: "fi flaticon-graduation-cap",
                 title: "Giải thưởng Cộng đồng",
                 description: "Được vinh danh là tổ chức cộng đồng người Việt tích cực nhất tại Tokyo năm 2023",
             },
@@ -173,6 +173,9 @@ const AchievementPage: React.FC<AchievementProps> = (props) => {
     const [globalData, setGlobalData] = useState<GlobalInfo | null>(null);
     const [achievementContent, setAchievementContent] = useState<AchievementContent | null>(null);
     const [seoData, setSeoData] = useState<SEOProps | null>(null);
+    const achievementsRef = useRef<HTMLDivElement>(null);
+    const timelineRef = useRef<HTMLDivElement>(null);
+    const awardsRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const fetchGlobalData = async () => {
@@ -191,9 +194,12 @@ const AchievementPage: React.FC<AchievementProps> = (props) => {
                 populate: {
                     'populate[pageIntro][populate]': '*',
                     'populate[achievementItems][populate]': '*',
-                    'populate[timelineSection][populate][historyItems][populate]': '*',
+                    'populate[timelineSection][populate][timelineItems][populate]': '*',
+                    'populate[timelineSection][populate][sectionIntro][populate]': '*',
                     'populate[awardSection][populate][awardItems][populate]': '*',
+                    'populate[awardSection][populate][sectionIntro][populate]': '*',
                     'populate[futureGoalSection][populate][futureGoalItems][populate]': '*',
+                    'populate[futureGoalSection][populate][sectionIntro][populate]': '*',
                 },
             });
             setAchievementContent(achievementContent);
@@ -210,6 +216,86 @@ const AchievementPage: React.FC<AchievementProps> = (props) => {
         fetchAchievementContent();
         fetchSeoData();
     }, []);
+
+    useEffect(() => {
+        // Achievement items animation observer
+        const achievementsObserver = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate');
+                    }
+                });
+            },
+            {
+                threshold: 0.2,
+                rootMargin: '0px 0px -50px 0px'
+            }
+        );
+
+        // Timeline animation observer
+        const timelineObserver = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate');
+                    }
+                });
+            },
+            {
+                threshold: 0.3,
+                rootMargin: '0px 0px -50px 0px'
+            }
+        );
+
+        // Awards animation observer
+        const awardsObserver = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate');
+                    }
+                });
+            },
+            {
+                threshold: 0.2,
+                rootMargin: '0px 0px -50px 0px'
+            }
+        );
+
+        // Observe achievement items
+        if (achievementsRef.current) {
+            const achievementItems = achievementsRef.current.querySelectorAll('.wpo-achievement-item');
+            achievementItems.forEach((item, index) => {
+                (item as HTMLElement).style.transitionDelay = `${index * 0.15}s`;
+                achievementsObserver.observe(item);
+            });
+        }
+
+        // Observe timeline items
+        if (timelineRef.current) {
+            const timelineItems = timelineRef.current.querySelectorAll('.wpo-timeline-item');
+            timelineItems.forEach((item, index) => {
+                (item as HTMLElement).style.transitionDelay = `${index * 0.2}s`;
+                timelineObserver.observe(item);
+            });
+        }
+
+        // Observe award items
+        if (awardsRef.current) {
+            const awardItems = awardsRef.current.querySelectorAll('.wpo-award-item');
+            awardItems.forEach((item, index) => {
+                (item as HTMLElement).style.transitionDelay = `${index * 0.1}s`;
+                awardsObserver.observe(item);
+            });
+        }
+
+        return () => {
+            achievementsObserver.disconnect();
+            timelineObserver.disconnect();
+            awardsObserver.disconnect();
+        };
+    }, [achievementContent, props.achievementContent]);
 
     return (
         <Layout data={globalData ? convertGlobalInfoToLayoutData(globalData) : props.layout.data}>
@@ -233,7 +319,7 @@ const AchievementPage: React.FC<AchievementProps> = (props) => {
             {/* Key Achievement Section */}
             <section className="wpo-key-achievements-section section-padding">
                 <div className="container">
-                    <div className="row">
+                    <div className="row" ref={achievementsRef}>
                         {(achievementContent?.achievementItems || props.achievementContent.achievementItems).length > 0 &&
                             (achievementContent?.achievementItems || props.achievementContent.achievementItems).map((achievement, index) => (
                                 <div key={index} className="col-lg-3 col-md-6 col-12">
@@ -265,12 +351,14 @@ const AchievementPage: React.FC<AchievementProps> = (props) => {
                     </div>
                     <div className="row">
                         <div className="col-lg-12">
-                            <div className="wpo-timeline">
-                                {(achievementContent?.timelineSection || props.achievementContent.timelineSection).historyItems.length > 0 &&
-                                    (achievementContent?.timelineSection || props.achievementContent.timelineSection).historyItems.length > 0 &&
-                                    (achievementContent?.timelineSection || props.achievementContent.timelineSection).historyItems.map((item, index) => (
+                            <div className="wpo-timeline" ref={timelineRef}>
+                                {(achievementContent?.timelineSection || props.achievementContent.timelineSection).timelineItems.length > 0 &&
+                                    (achievementContent?.timelineSection || props.achievementContent.timelineSection).timelineItems.length > 0 &&
+                                    (achievementContent?.timelineSection || props.achievementContent.timelineSection).timelineItems.map((item, index) => (
                                         <div key={index} className="wpo-timeline-item">
-                                            <div className="wpo-timeline-year">{item.year}</div>
+                                            <div className="wpo-timeline-year">
+                                                <span>{item.year}</span>
+                                            </div>
                                             <div className="wpo-timeline-content">
                                                 <h4>{item.title}</h4>
                                                 <p>{item.description}</p>
@@ -295,7 +383,7 @@ const AchievementPage: React.FC<AchievementProps> = (props) => {
                             </div>
                         </div>
                     </div>
-                    <div className="row">
+                    <div className="row" ref={awardsRef}>
                         {(achievementContent?.awardSection || props.achievementContent.awardSection).awardItems.length > 0 &&
                             (achievementContent?.awardSection || props.achievementContent.awardSection).awardItems.length > 0 &&
                             (achievementContent?.awardSection || props.achievementContent.awardSection).awardItems.map((award, index) => (

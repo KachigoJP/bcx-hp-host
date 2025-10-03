@@ -9,7 +9,7 @@ import SEO from "@components/layout/SEO";
 import { SEOProps } from "@components/layout/SEO/interface";
 import { getDefaultLayoutData } from "@utils/layoutData";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 interface AboutProps {
     layout: LayoutProps;
@@ -129,6 +129,8 @@ const AboutPage: React.FC<AboutProps> = (props) => {
     const [globalData, setGlobalData] = useState<GlobalInfo | null>(null);
     const [aboutContent, setAboutContent] = useState<AboutContent | null>(null);
     const [seoData, setSeoData] = useState<SEOProps | null>(null);
+    const timelineRef = useRef<HTMLDivElement>(null);
+    const missionRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const fetchGlobalData = async () => {
@@ -164,6 +166,68 @@ const AboutPage: React.FC<AboutProps> = (props) => {
         fetchAboutContent();
         fetchSeoData();
     }, []);
+
+    useEffect(() => {
+        // Timeline animation observer
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate');
+                    }
+                });
+            },
+            {
+                threshold: 0.3,
+                rootMargin: '0px 0px -50px 0px'
+            }
+        );
+
+        // Observe all timeline items
+        if (timelineRef.current) {
+            const timelineItems = timelineRef.current.querySelectorAll('.wpo-history-item');
+            timelineItems.forEach((item, index) => {
+                // Stagger animation for each item
+                (item as HTMLElement).style.transitionDelay = `${index * 0.2}s`;
+                observer.observe(item);
+            });
+        }
+
+        return () => {
+            observer.disconnect();
+        };
+    }, [aboutContent, props.aboutContent]);
+
+    useEffect(() => {
+        // Mission animation observer
+        const missionObserver = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate');
+                    }
+                });
+            },
+            {
+                threshold: 0.2,
+                rootMargin: '0px 0px -50px 0px'
+            }
+        );
+
+        // Observe all mission items
+        if (missionRef.current) {
+            const missionItems = missionRef.current.querySelectorAll('.wpo-mission-item');
+            missionItems.forEach((item, index) => {
+                // Stagger animation for each item
+                (item as HTMLElement).style.transitionDelay = `${index * 0.15}s`;
+                missionObserver.observe(item);
+            });
+        }
+
+        return () => {
+            missionObserver.disconnect();
+        };
+    }, [aboutContent, props.aboutContent]);
 
     const imageSrcUrl = aboutContent?.imageSrc
         ? (typeof aboutContent.imageSrc === 'string'
@@ -213,7 +277,7 @@ const AboutPage: React.FC<AboutProps> = (props) => {
             {/* Mission & Vision Section */}
             <section className="wpo-mission-section section-padding">
                 <div className="container">
-                    <div className="row">
+                    <div className="row" ref={missionRef}>
                         {(aboutContent?.missions || props.missions) && (aboutContent?.missions || props.missions)!.length > 0 &&
                             (aboutContent?.missions || props.missions)!.map((item, index) => (
                                 <div className="col-lg-4 col-md-6 col-12" key={index}>
@@ -244,12 +308,13 @@ const AboutPage: React.FC<AboutProps> = (props) => {
                     </div>
                     <div className="row">
                         <div className="col-lg-12">
-                            <div className="wpo-history-wrap">
+                            <div className="wpo-history-wrap" ref={timelineRef}>
                                 {(aboutContent?.history || props?.history)?.items.length > 0 &&
-                                    (aboutContent?.history || props?.history)?.items.length > 0 &&
                                     (aboutContent?.history || props?.history)?.items.map((item, index) => (
                                         <div className="wpo-history-item" key={index}>
-                                            <div className="wpo-history-year">{item.year}</div>
+                                            <div className="wpo-history-year">
+                                                <span>{item.year}</span>
+                                            </div>
                                             <div className="wpo-history-content">
                                                 <h4>{item.title}</h4>
                                                 <p>{item.description}</p>

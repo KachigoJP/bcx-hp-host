@@ -11,7 +11,7 @@ import SEO from "@components/layout/SEO";
 import { SEOProps } from "@components/layout/SEO/interface";
 import { getDefaultLayoutData } from "@utils/layoutData";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 interface TeamProps {
     layout: LayoutProps;
@@ -99,6 +99,8 @@ const TeamPage: React.FC<TeamProps> = (props) => {
     const [globalData, setGlobalData] = useState<GlobalInfo | null>(null);
     const [teamContent, setTeamContent] = useState<TeamContent | null>(null);
     const [seoData, setSeoData] = useState<SEOProps | null>(null);
+    const teamMembersRef = useRef<HTMLDivElement>(null);
+    const teamValuesRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const fetchGlobalData = async () => {
@@ -136,6 +138,61 @@ const TeamPage: React.FC<TeamProps> = (props) => {
         fetchSeoData();
     }, []);
 
+    useEffect(() => {
+        // Team members animation observer
+        const teamMembersObserver = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate');
+                    }
+                });
+            },
+            {
+                threshold: 0.2,
+                rootMargin: '0px 0px -50px 0px'
+            }
+        );
+
+        // Team values animation observer
+        const teamValuesObserver = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate');
+                    }
+                });
+            },
+            {
+                threshold: 0.2,
+                rootMargin: '0px 0px -50px 0px'
+            }
+        );
+
+        // Observe team members
+        if (teamMembersRef.current) {
+            const teamItems = teamMembersRef.current.querySelectorAll('.wpo-team-item');
+            teamItems.forEach((item, index) => {
+                (item as HTMLElement).style.transitionDelay = `${index * 0.15}s`;
+                teamMembersObserver.observe(item);
+            });
+        }
+
+        // Observe team values
+        if (teamValuesRef.current) {
+            const valueItems = teamValuesRef.current.querySelectorAll('.wpo-team-value-item');
+            valueItems.forEach((item, index) => {
+                (item as HTMLElement).style.transitionDelay = `${index * 0.1}s`;
+                teamValuesObserver.observe(item);
+            });
+        }
+
+        return () => {
+            teamMembersObserver.disconnect();
+            teamValuesObserver.disconnect();
+        };
+    }, [teamContent, props.teamContent]);
+
     return (
         <Layout data={globalData ? convertGlobalInfoToLayoutData(globalData) : props.layout.data}>
             <SEO {...(seoData || props.seo)} />
@@ -158,7 +215,7 @@ const TeamPage: React.FC<TeamProps> = (props) => {
             {/* Team Members Section */}
             <section className="wpo-team-section section-padding">
                 <div className="container">
-                    <div className="row">
+                    <div className="row" ref={teamMembersRef}>
                         {(teamContent?.teamMembers || props.teamContent.teamMembers).map((member, index) => {
                             const imageSrc = typeof member.image === 'string'
                                 ? member.image
@@ -248,7 +305,7 @@ const TeamPage: React.FC<TeamProps> = (props) => {
                             </div>
                         </div>
                     </div>
-                    <div className="row">
+                    <div className="row" ref={teamValuesRef}>
                         {(teamContent?.teamValues || props.teamContent.teamValues).map((value, index) => (
                             <div key={index} className="col-lg-3 col-md-6 col-12">
                                 <div className="wpo-team-value-item">
