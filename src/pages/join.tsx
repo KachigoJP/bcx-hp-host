@@ -446,7 +446,7 @@ const JoinPage: React.FC<JoinProps> = (props) => {
                                                     >
                                                         Tôi đồng ý với{' '}
                                                         <a
-                                                            href="/terms"
+                                                            href="/term"
                                                             target="_blank"
                                                             style={{
                                                                 color: '#27ae60',

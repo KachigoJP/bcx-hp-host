@@ -4,7 +4,7 @@ import { SEOProps } from "@components/layout/SEO/interface";
 import { getDefaultLayoutData } from "@utils/layoutData";
 import React from "react";
 
-interface TermsProps {
+interface TermProps {
     layout: LayoutProps;
     seo: SEOProps;
 }
@@ -34,12 +34,12 @@ export const getServerSideProps = async () => {
     };
 };
 
-const TermsPage: React.FC<TermsProps> = (props) => {
+const TermPage: React.FC<TermProps> = (props) => {
     return (
         <Layout data={props.layout.data}>
             <SEO {...props.seo} />
 
-            {/* Terms Content Section */}
+            {/* Term Content Section */}
             <section className="wpo-about-section section-padding section-padding-top">
                 <div className="container">
                     <div className="row">
@@ -275,4 +275,4 @@ const TermsPage: React.FC<TermsProps> = (props) => {
     );
 };
 
-export default TermsPage;
+export default TermPage;

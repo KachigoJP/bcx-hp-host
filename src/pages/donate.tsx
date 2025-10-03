@@ -394,7 +394,7 @@ const DonatePage: React.FC<DonateProps> = (props) => {
                                             <div className={styles.formGroup}>
                                                 <label className={styles.checkboxLabel}>
                                                     <input type="checkbox" required />
-                                                    <span>Tôi đồng ý với <a href="/terms">Điều khoản sử dụng</a> và <a href="/privacy">Chính sách bảo mật</a></span>
+                                                    <span>Tôi đồng ý với <a href="/term">Điều khoản sử dụng</a> và <a href="/privacy">Chính sách bảo mật</a></span>
                                                 </label>
                                             </div>
                                         </div>

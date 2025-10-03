@@ -5,7 +5,7 @@ import { SEOProps } from "@components/layout/SEO/interface";
 import { getDefaultLayoutData } from "@utils/layoutData";
 import React from "react";
 
-interface ActivitiesProps {
+interface ActivityProps {
     layout: LayoutProps;
     seo: SEOProps;
     activities: any[];
@@ -30,7 +30,7 @@ export const getServerSideProps = async () => {
     };
 };
 
-const ActivitiesPage: React.FC<ActivitiesProps> = (props) => {
+const ActivityPage: React.FC<ActivityProps> = (props) => {
     return (
         <Layout data={props.layout.data}>
             <SEO {...props.seo} />
@@ -184,5 +184,5 @@ const ActivitiesPage: React.FC<ActivitiesProps> = (props) => {
     );
 };
 
-export default ActivitiesPage;
+export default ActivityPage;
 
