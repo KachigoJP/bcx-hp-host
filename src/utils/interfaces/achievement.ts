@@ -13,7 +13,7 @@ export interface AchievementItem {
 
 export interface TimelineSection {
   sectionIntro: SectionIntro;
-  historyItems: HistoryItem[];
+  timelineItems: HistoryItem[];
 }
 
 export interface AwardItem {
