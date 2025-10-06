@@ -4,7 +4,6 @@ Theme Name:     charitio - Multipurpose Charity Nonprofit HTML5 Template
 Version:        1.0.0
 -------------------------------------------------------------------*/
 
-
 /*--------------------------------------------------------------
 >>> TABLE OF CONTENTS:
 ----------------------------------------------------------------
@@ -91,7 +90,6 @@ Version:        1.0.0
 
 ----------------------------------------------------------------*/
 
-
 /*------------------------------------------------------------------
 1. General
 ----------------------------------------------------------------*/
@@ -103,7 +101,6 @@ Version:        1.0.0
 
 // base
 @import "base/base";
-
 
 // components
 @import "components/section-title";
@@ -124,7 +121,6 @@ Version:        1.0.0
 // components
 @import "components/sticky-header";
 @import "components/collapsible";
-
 
 // page
 @import "page/home-default";
@@ -153,7 +149,11 @@ Version:        1.0.0
 
 @import "page/_service";
 
+@import "page/_policy";
+
 @import "page/_project";
+
+@import "page/_report";
 
 @import "page/_trao3";
 

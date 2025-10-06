@@ -19,9 +19,7 @@ class ArticleService {
   /**
    * Get all articles with optional filters
    */
-  async getAll(
-    params?: StrapiQueryParams
-  ): Promise<StrapiCollectionResponse<Article>> {
+  async getAll(params?: StrapiQueryParams): Promise<StrapiCollectionResponse<Article>> {
     try {
       const response = await axios.get<StrapiCollectionResponse<Article>>(
         getStrapiUrl(this.endpoint),
@@ -95,10 +93,7 @@ class ArticleService {
   /**
    * Create a new article (requires authentication)
    */
-  async create(
-    data: Partial<Article>,
-    token?: string
-  ): Promise<StrapiSingleResponse<Article>> {
+  async create(data: Partial<Article>, token?: string): Promise<StrapiSingleResponse<Article>> {
     try {
       const response = await axios.post<StrapiSingleResponse<Article>>(
         getStrapiUrl(this.endpoint),

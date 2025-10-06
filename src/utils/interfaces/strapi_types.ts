@@ -153,3 +153,7 @@ export interface StrapiImage {
   provider_metadata?: any;
   previewUrl?: string;
 }
+
+export interface StrapiListText {
+  text: string;
+}

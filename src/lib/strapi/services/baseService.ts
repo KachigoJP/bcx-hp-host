@@ -24,13 +24,10 @@ export class BaseService<T> {
    */
   async get(params?: StrapiQueryParams): Promise<T> {
     try {
-      const response = await axios.get<StrapiSingleResponse<T>>(
-        getStrapiUrl(this.endpoint),
-        {
-          headers: getStrapiHeaders(),
-          params: this.buildQueryParams(params),
-        }
-      );
+      const response = await axios.get<StrapiSingleResponse<T>>(getStrapiUrl(this.endpoint), {
+        headers: getStrapiHeaders(),
+        params: this.buildQueryParams(params),
+      });
 
       // For single types, return the attributes directly
       return response.data.data?.attributes || (response.data.data as any);
@@ -42,11 +39,7 @@ export class BaseService<T> {
   /**
    * Get content by field filter
    */
-  async getByField(
-    field: string,
-    value: string,
-    params?: StrapiQueryParams
-  ): Promise<T> {
+  async getByField(field: string, value: string, params?: StrapiQueryParams): Promise<T> {
     try {
       const response = await axios.get<StrapiSingleResponse<T>>(
         getStrapiUrl(`${this.endpoint}?filters[${field}][$eq]=${value}`),
