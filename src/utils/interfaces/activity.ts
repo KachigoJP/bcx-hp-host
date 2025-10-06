@@ -2,25 +2,25 @@
  * Activity page related interfaces and types
  */
 
-import { PageIntro, SectionIntro } from "./common";
-import { StrapiImage } from "./strapi_types";
+import {
+  BaseDetail,
+  ButtonDetail,
+  HistoryItem,
+  SectionButton,
+  SectionIntro,
+  StrapiImage,
+} from "@/utils/interfaces";
 
-export interface ActivityItem {
-  title: string;
-  description: string;
+export interface ActivityItem extends BaseDetail {
   image: string | StrapiImage;
   icon: string;
   slug: string;
 }
 
-export interface ActivityScheduleItem {
-  date: string;
-  title: string;
-  description: string;
+export interface ActivityScheduleItem extends HistoryItem {
   location: string;
   participants: string;
-  buttonText: string;
-  buttonLink: string;
+  button: ButtonDetail;
 }
 
 export interface ActivityScheduleSection {
@@ -28,15 +28,9 @@ export interface ActivityScheduleSection {
   scheduleItems: ActivityScheduleItem[];
 }
 
-export interface JoinActivitySection {
-  sectionIntro: SectionIntro;
-  buttonText: string;
-  buttonLink: string;
-}
-
 export interface ActivityContent {
-  pageIntro: PageIntro;
-  activityItems: ActivityItem[];
-  scheduleSection: ActivityScheduleSection;
-  joinSection: JoinActivitySection;
+  pageIntro?: SectionIntro;
+  activityItems?: ActivityItem[];
+  scheduleSection?: ActivityScheduleSection;
+  joinSection?: SectionButton;
 }

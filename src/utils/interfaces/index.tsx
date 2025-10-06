@@ -13,8 +13,9 @@ export * from "./achievement";
 export * from "./activity";
 export * from "./common";
 export * from "./global";
+export * from "./policy";
+export * from "./report";
 export * from "./response";
 export * from "./seo";
 export * from "./strapi_types";
 export * from "./team";
-

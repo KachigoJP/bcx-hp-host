@@ -131,14 +131,13 @@ export const getDefaultLayoutData = (): LayoutProps => {
       google: "",
       email: "info@banchanxanh.com",
       phone: "080-4734-3979",
-      headerMenus: headerMenus,
+      headerMenus,
       footerQuicklinksTitle: "Liên kết nhanh",
       footerContactTitle: "Liên hệ",
-      footerContactDescription:
-        "Nếu bạn có bất kỳ thắc mắc nào, vui lòng liên hệ với chúng tôi",
+      footerContactDescription: "Nếu bạn có bất kỳ thắc mắc nào, vui lòng liên hệ với chúng tôi",
       footerMenusTitle: "Liên kết nhanh",
-      footerQuicklinks: footerQuicklinks,
-      footerMenus: footerMenus,
+      footerQuicklinks,
+      footerMenus,
     },
   };
 };

@@ -6,8 +6,7 @@ import { strapi } from "@strapi/client";
  */
 
 // Get Strapi configuration from environment variables
-const STRAPI_URL =
-  process.env.NEXT_PUBLIC_STRAPI_URL || "https://dev.cms.banchanxanh.com";
+const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || "https://dev.cms.banchanxanh.com";
 const STRAPI_TOKEN = process.env.NEXT_PUBLIC_STRAPI_TOKEN || "";
 
 /**

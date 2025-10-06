@@ -9,9 +9,7 @@ import Partner, { PartnerProps } from "@components/containers/Home/Partner";
 import Project, { ProjectProps } from "@components/containers/Home/Project";
 import Service, { ServiceProps } from "@components/containers/Home/Service";
 import Team, { TeamProps } from "@components/containers/Home/Team";
-import Testimonial, {
-  TestimonialProps,
-} from "@components/containers/Home/Testimonial";
+import Testimonial, { TestimonialProps } from "@components/containers/Home/Testimonial";
 import Layout, { LayoutProps } from "@components/layout";
 import SEO from "@components/layout/SEO";
 
@@ -152,32 +150,33 @@ export const getServerSideProps = async () => {
       {
         number: "500+",
         label: "Thành viên đã tham gia",
-        icon: "fi flaticon-user"
+        icon: "fi flaticon-user",
       },
       {
         number: "50+",
         label: "Sự kiện đã tổ chức",
-        icon: "fi flaticon-calendar"
+        icon: "fi flaticon-calendar",
       },
       {
         number: "20+",
         label: "Đối tác đồng hành",
-        icon: "fi flaticon-checked"
+        icon: "fi flaticon-checked",
       },
       {
         number: "15+",
         label: "Năm hoạt động",
-        icon: "fi flaticon-forest"
-      }
-    ]
+        icon: "fi flaticon-forest",
+      },
+    ],
   };
 
   const ctaData: CTAProps = {
     backgroundImage: "/images/cta-group-hiking.jpg",
     title: "Hãy cùng chúng tôi trải nghiệm và bảo vệ thiên nhiên",
-    subtitle: "Tham gia cộng đồng Bàn Chân Xanh để khám phá vẻ đẹp thiên nhiên Nhật Bản và kết nối với những người bạn cùng chí hướng.",
+    subtitle:
+      "Tham gia cộng đồng Bàn Chân Xanh để khám phá vẻ đẹp thiên nhiên Nhật Bản và kết nối với những người bạn cùng chí hướng.",
     buttonText: "Tham gia ngay",
-    buttonLink: "/join"
+    buttonLink: "/join",
   };
 
   const partnerData = {
@@ -219,16 +218,16 @@ export const getServerSideProps = async () => {
   };
 };
 
-const HomePage: React.FC<HomeProps> = (props) => {
+const HomePage: React.FC<HomeProps> = props => {
   const [globalData, setGlobalData] = useState<GlobalInfo | null>(null);
   useEffect(() => {
     const fetchGlobalData = async () => {
       const globalData = await globalService.get({
         populate: {
-          'populate[logo][populate]': '*',
-          'populate[headerMenus][populate]': '*',
-          'populate[footerMenus][populate]': '*',
-          'populate[footerQuicklinks][populate]': '*',
+          "populate[logo][populate]": "*",
+          "populate[headerMenus][populate]": "*",
+          "populate[footerMenus][populate]": "*",
+          "populate[footerQuicklinks][populate]": "*",
         },
       });
       setGlobalData(globalData);

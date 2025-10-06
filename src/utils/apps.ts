@@ -7,9 +7,7 @@ export const getStrapiImageUrl = (url: string): string => {
   return `${process.env.NEXT_PUBLIC_STRAPI_URL}${url}`;
 };
 
-export const convertGlobalInfoToLayoutData = (
-  globalInfo: GlobalInfo
-): LayoutData => {
+export const convertGlobalInfoToLayoutData = (globalInfo: GlobalInfo): LayoutData => {
   const logo = getStrapiImageUrl(globalInfo.logo?.url ?? "");
   return {
     logo,
@@ -28,4 +26,16 @@ export const convertGlobalInfoToLayoutData = (
     footerQuicklinksTitle: globalInfo.footerQuicklinksTitle ?? "",
     footerQuicklinks: globalInfo.footerQuicklinks ?? ([] as IMenuItem[]),
   };
+};
+
+export const getYearFromDate = (date: string): string => {
+  return date.split("/")[0];
+};
+
+export const getMonthFromDate = (date: string): string => {
+  return date.split("/")[1];
+};
+
+export const getDayFromDate = (date: string): string => {
+  return date.split("/")[2];
 };
