@@ -3,11 +3,13 @@ import seoService from "@/lib/strapi/services/seoService";
 import workshopService from "@/lib/strapi/services/workshopService";
 import { convertGlobalInfoToLayoutData, getStrapiImageUrl } from "@/utils/apps";
 import {
-    ExpertTrainersSection,
     GlobalInfo,
+    ListItems,
+    ListSectionItems,
+    SectionIcon,
     TrainingMethodsSection,
-    UpcomingWorkshopsSection,
-    WorkshopCategoriesSection,
+    UpcomingWorkshopItem,
+    WorkshopCategoryItem,
     WorkshopContent
 } from "@/utils/interfaces";
 import RegistrationForm from "@components/common/RegistrationForm";
@@ -52,7 +54,7 @@ export const getServerSideProps = async () => {
         ]
     };
 
-    const workshopCategoriesSection: WorkshopCategoriesSection = {
+    const workshopCategoriesSection: ListSectionItems<WorkshopCategoryItem> = {
         sectionIntro: {
             tag: "Chuyên đề workshop",
             title: "Đa dạng chủ đề học tập",
@@ -101,7 +103,7 @@ export const getServerSideProps = async () => {
         ]
     };
 
-    const upcomingWorkshopsSection: UpcomingWorkshopsSection = {
+    const upcomingWorkshopsSection: ListSectionItems<UpcomingWorkshopItem> = {
         sectionIntro: {
             tag: "Workshop sắp tới",
             title: "Chương trình đào tạo",
@@ -178,7 +180,7 @@ export const getServerSideProps = async () => {
         ]
     };
 
-    const expertTrainersSection: ExpertTrainersSection = {
+    const expertTrainersSection: ListSectionItems<SectionIcon> = {
         sectionIntro: {
             tag: "Chuyên gia đào tạo",
             title: "Đội ngũ giảng viên chuyên nghiệp",
@@ -208,10 +210,10 @@ export const getServerSideProps = async () => {
         ]
     };
 
-    const certificationSection = {
+    const certificationSection: ListItems<SectionIcon> = {
         title: "Chứng chỉ hoàn thành",
         description: "Sau khi hoàn thành workshop, bạn sẽ nhận được chứng chỉ chính thức từ Bàn Chân Xanh, giúp nâng cao hồ sơ cá nhân và cơ hội nghề nghiệp.",
-        benefits: [
+        items: [
             {
                 title: "Chứng chỉ chính thức",
                 description: "Được công nhận bởi các tổ chức môi trường",
@@ -507,7 +509,7 @@ const WorkshopPage: React.FC<WorkshopProps> = (props) => {
                             <h2 className="cert-title">{certificationSection?.title}</h2>
                             <p className="cert-description">{certificationSection?.description}</p>
                             <div className="benefits-grid">
-                                {certificationSection?.benefits.map((benefit, index) => (
+                                {certificationSection?.items.map((benefit, index) => (
                                     <div key={index} className="benefit-card" style={{ animationDelay: `${index * 0.1}s` }}>
                                         <div className="benefit-icon">
                                             <i className={benefit.icon}></i>

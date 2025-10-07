@@ -4,30 +4,29 @@
 
 import {
   ActivityHeroSection,
+  ActivityType,
   BaseDetail,
   ButtonDetail,
+  HasIcon,
+  HasImage,
+  ListSectionItems,
   SectionButton,
+  SectionIcon,
+  SectionIconListText,
   SectionIntro,
-  StrapiImage,
   StrapiListText,
 } from "@/utils/interfaces";
 
-export interface CampingTypeItem extends BaseDetail {
-  image: string | StrapiImage;
-  icon: string;
+export interface CampingTypeItem extends BaseDetail, HasImage, HasIcon {
   duration: string;
   ageGroup: string;
   activities: StrapiListText[];
   equipment: StrapiListText[];
 }
 
-export interface CampingTypesSection {
-  sectionIntro: SectionIntro;
-  items: CampingTypeItem[];
-}
+export type CampingTypesSection = ListSectionItems<CampingTypeItem>;
 
-export interface CampingSiteItem extends BaseDetail {
-  image: string | StrapiImage;
+export interface CampingSiteItem extends BaseDetail, HasImage {
   location: string;
   duration: string;
   participants: string;
@@ -35,41 +34,18 @@ export interface CampingSiteItem extends BaseDetail {
   button?: ButtonDetail;
 }
 
-export interface CampingSitesSection {
-  sectionIntro: SectionIntro;
-  items: CampingSiteItem[];
-}
+export type CampingSitesSection = ListSectionItems<CampingSiteItem>;
 
-export interface ActivitySkillItem extends BaseDetail {
-  icon: string;
-  items: StrapiListText[];
-}
+export interface ActivitiesSkillsSection
+  extends ListSectionItems<SectionIconListText>,
+    HasImage {}
 
-export interface ActivitiesSkillsSection {
-  sectionIntro: SectionIntro;
-  items: ActivitySkillItem[];
-  image: string | StrapiImage;
-}
+export type EquipmentSection = ListSectionItems<SectionIcon>;
 
-export interface EquipmentItem extends BaseDetail {
-  icon: string;
-}
-
-export interface EquipmentSection {
-  sectionIntro: SectionIntro;
-  items: EquipmentItem[];
-}
-
-export interface EnvironmentalPrincipleItem extends BaseDetail {
-  icon: string;
-}
-
-export interface EnvironmentalPrinciplesSection {
-  sectionIntro: SectionIntro;
-  items: EnvironmentalPrincipleItem[];
-}
+export type EnvironmentalPrinciplesSection = ListSectionItems<SectionIcon>;
 
 export interface CampingContent {
+  activityType?: ActivityType;
   pageIntro?: SectionIntro;
   heroSection?: ActivityHeroSection;
   campingTypesSection?: CampingTypesSection;

@@ -4,63 +4,48 @@
 
 import {
   ActivityHeroSection,
+  ActivityType,
   BaseDetail,
-  ButtonDetail,
+  HasButton,
+  HasIcon,
+  HasImage,
+  HasListText,
+  ListSectionItems,
   SectionButton,
+  SectionIcon,
+  SectionIconListText,
   SectionIntro,
-  StrapiImage,
-  StrapiListText,
 } from "@/utils/interfaces";
 
-export interface HikingRouteItem extends BaseDetail {
-  image: string | StrapiImage;
-  icon: string;
+export interface HikingRouteItem
+  extends BaseDetail,
+    HasImage,
+    HasIcon,
+    HasListText {
   difficulty: string;
   duration: string;
   distance: string;
   ageGroup: string;
-  features: StrapiListText[];
 }
 
-export interface HikingRouteSection {
-  sectionIntro: SectionIntro;
-  items: HikingRouteItem[];
-}
+export type HikingRouteSection = ListSectionItems<HikingRouteItem>;
 
-export interface PopularRouteItem extends BaseDetail {
-  image: string | StrapiImage;
-  location: string;
+export interface PopularRouteItem extends BaseDetail, HasImage, HasButton {
   duration: string;
+  location: string;
   participants: string;
-  button: ButtonDetail;
 }
 
-export interface PopularRouteSection {
-  sectionIntro: SectionIntro;
-  items: PopularRouteItem[];
-}
+export type PopularRouteSection = ListSectionItems<PopularRouteItem>;
 
-export interface SafetyEquipmentItem extends BaseDetail {
-  icon: string;
-  items: StrapiListText[];
-}
+export interface SafetyEquipmentSection
+  extends ListSectionItems<SectionIconListText>,
+    HasImage {}
 
-export interface SafetyEquipmentSection {
-  sectionIntro: SectionIntro;
-  items: SafetyEquipmentItem[];
-  image: string | StrapiImage;
-}
-
-export interface EnvironmentalActionItem extends BaseDetail {
-  icon: string;
-}
-
-export interface EnvironmentalSection {
-  sectionIntro: SectionIntro;
-  items: EnvironmentalActionItem[];
-}
+export type EnvironmentalSection = ListSectionItems<SectionIcon>;
 
 export interface HikingContent {
+  activityType?: ActivityType;
   pageIntro?: SectionIntro;
   heroSection?: ActivityHeroSection;
   hikingRoutesSection?: HikingRouteSection;

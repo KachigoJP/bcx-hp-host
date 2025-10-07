@@ -6,9 +6,9 @@ import {
   ButtonDetail,
   GlobalInfo,
   PolicyContent,
-  SectionDetailIconItems,
   SectionDetailItems,
   SectionIcon,
+  SectionIconItems,
   SectionIntro,
   SectionItems,
 } from "@/utils/interfaces";
@@ -225,7 +225,7 @@ export const getServerSideProps = async () => {
     coreValuesSection: {
       sectionIntro: coreValuesSectionIntro,
       items: valueItems,
-    } as SectionDetailIconItems,
+    } as SectionIconItems,
     activityPoliciesSection: {
       sectionIntro: activityPoliciesSectionIntro,
       items: policyDetails,
@@ -237,7 +237,7 @@ export const getServerSideProps = async () => {
     codeOfConductSection: {
       sectionIntro: codeOfConductSectionIntro,
       items: conductItems,
-    } as SectionDetailIconItems,
+    } as SectionIconItems,
     contactPolicySection: {
       sectionIntro: contactPolicySectionIntro,
       items: contactPolicyItems,
