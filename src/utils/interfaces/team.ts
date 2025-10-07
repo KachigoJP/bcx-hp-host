@@ -3,10 +3,11 @@
  */
 
 import {
+  HasImage,
+  HasTitle,
   SectionButton,
+  SectionIconItems,
   SectionIntro,
-  SectionIntroItems,
-  StrapiImage,
 } from "@/utils/interfaces";
 
 export interface TeamSocialLinks {
@@ -16,10 +17,8 @@ export interface TeamSocialLinks {
   linkedin?: string;
 }
 
-export interface TeamMember {
+export interface TeamMember extends HasTitle, HasImage {
   name: string;
-  title: string;
-  image: string | StrapiImage;
   socialLinks?: TeamSocialLinks;
 }
 
@@ -27,5 +26,5 @@ export interface TeamContent {
   pageIntro?: SectionIntro;
   teamMembers?: TeamMember[];
   joinSection?: SectionButton;
-  teamValuesSection?: SectionIntroItems;
+  teamValuesSection?: SectionIconItems;
 }

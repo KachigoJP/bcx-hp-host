@@ -4,15 +4,13 @@ import seoService from "@/lib/strapi/services/seoService";
 import { convertGlobalInfoToLayoutData } from "@/utils/apps";
 import {
   BaseDetail,
-  FinancialItem,
-  FinancialResult,
   FinancialSummary,
   GlobalInfo,
   MonthlyReportItem,
   ReportContent,
   SectionDetailIconNumber,
   SectionIcon,
-  SectionIntro,
+  SectionIntro
 } from "@/utils/interfaces";
 import Layout, { LayoutProps } from "@components/layout";
 import SEO from "@components/layout/SEO";
@@ -177,7 +175,7 @@ export const getServerSideProps = async () => {
         { label: "Đóng góp từ thành viên", amount: "2,200,000 JPY" },
         { label: "Tổng thu", amount: "11,000,000 JPY" },
       ],
-    } as FinancialItem,
+    },
     expenses: {
       title: "Chi phí",
       items: [
@@ -185,12 +183,12 @@ export const getServerSideProps = async () => {
         { label: "Chi phí quản lý", amount: "1,100,000 JPY" },
         { label: "Tổng chi", amount: "8,800,000 JPY" },
       ],
-    } as FinancialItem,
+    },
     result: {
       label: "Lợi nhuận để tái đầu tư",
       amount: "2,200,000 JPY",
       percentage: "20%",
-    } as FinancialResult,
+    },
     downloadLink: "#",
   };
 
@@ -200,8 +198,8 @@ export const getServerSideProps = async () => {
       title: "Báo cáo hoạt động",
       description:
         "Chúng tôi cam kết minh bạch trong mọi hoạt động và thường xuyên cập nhật các báo cáo chi tiết về tình hình hoạt động, kết quả đạt được và tác động tích cực đến cộng đồng.",
-    } as SectionIntro,
-    statistics: statistics as SectionDetailIconNumber[],
+    },
+    statistics,
     monthlyReportSection: {
       sectionIntro: monthlyReportSectionIntro,
       items: reportItems,

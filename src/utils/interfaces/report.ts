@@ -5,51 +5,42 @@
 import {
   FinancialItemAmount,
   FinancialResult,
-  SectionDetailIconItems,
+  HasDate,
+  HasDownloadLink,
+  HasSectionIntro,
+  ListItems,
+  ListSectionItems,
   SectionDetailIconNumber,
+  SectionIconItems,
   SectionIntro,
   StrapiListText,
 } from "@/utils/interfaces";
 
-export interface MonthlyReportItem {
+export interface MonthlyReportItem extends HasDate, HasDownloadLink {
   month: string;
-  date: string;
   activities: StrapiListText[];
   participants: string;
-  downloadLink: string;
 }
 
-export interface MonthlyReportSection {
-  sectionIntro: SectionIntro;
-  items: MonthlyReportItem[];
-}
+export interface AnnualReportSection
+  extends SectionIconItems,
+    HasDownloadLink {}
 
-export interface AnnualReportSection extends SectionDetailIconItems {
-  downloadLink: string;
-}
-
-export interface FinancialItem {
-  title: string;
-  items: FinancialItemAmount[];
-}
-
-export interface FinancialSummary {
-  income: FinancialItem;
-  expenses: FinancialItem;
+export interface FinancialSummary extends HasDownloadLink {
+  income: ListItems<FinancialItemAmount>;
+  expenses: ListItems<FinancialItemAmount>;
   result: FinancialResult;
-  downloadLink: string;
 }
 
-export interface FinancialReportSection {
-  sectionIntro: SectionIntro;
+export interface FinancialReportSection extends HasSectionIntro {
   financialSummary: FinancialSummary;
 }
 
 export interface ReportContent {
   pageIntro?: SectionIntro;
   statistics?: SectionDetailIconNumber[];
-  monthlyReportSection?: MonthlyReportSection;
+  monthlyReportSection?: ListSectionItems<MonthlyReportItem>;
   annualReportSection?: AnnualReportSection;
-  impactReportSection?: SectionDetailIconItems;
+  impactReportSection?: SectionIconItems;
   financialReportSection?: FinancialReportSection;
 }

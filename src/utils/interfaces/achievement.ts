@@ -4,13 +4,13 @@
 
 import {
   SectionDetailIconNumber,
+  SectionIconItems,
   SectionIntro,
-  SectionIntroItems,
 } from "@/utils/interfaces";
 
 export interface AchievementContent {
   pageIntro?: SectionIntro;
   achievementItems?: SectionDetailIconNumber[];
-  awardSection?: SectionIntroItems;
-  futureGoalSection?: SectionIntroItems;
+  awardSection?: SectionIconItems;
+  futureGoalSection?: SectionIconItems;
 }

@@ -111,7 +111,7 @@ export const getServerSideProps = async () => {
     activityItems,
     scheduleSection: {
       sectionIntro: scheduleSectionIntro,
-      scheduleItems,
+      items: scheduleItems,
     },
     joinSection,
   };
@@ -201,7 +201,7 @@ const ActivityPage: React.FC<ActivityProps> = props => {
                 const imageSrc =
                   typeof activity.image === "string"
                     ? activity.image
-                    : getStrapiImageUrl(activity.image.url!);
+                    : getStrapiImageUrl(activity.image?.url || "");
 
                 return (
                   <div key={index} className="col-lg-4 col-md-6 col-12 mb-4">
@@ -257,7 +257,7 @@ const ActivityPage: React.FC<ActivityProps> = props => {
           <div className="row">
             <div className="col-lg-12">
               <div className="wpo-schedule-wrap">
-                {scheduleSection?.scheduleItems && scheduleSection?.scheduleItems.length > 0 && scheduleSection?.scheduleItems.map((schedule, index) => (
+                {scheduleSection?.items && scheduleSection?.items.length > 0 && scheduleSection?.items.map((schedule, index) => (
                   <div key={index} className="schedule-card">
                     <div className="schedule-date">
                       <span className="date">{schedule.date}</span>

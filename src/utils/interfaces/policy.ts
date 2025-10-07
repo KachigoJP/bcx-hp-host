@@ -4,57 +4,33 @@
 
 import {
   ButtonDetail,
-  SectionDetailIconItems,
+  HasSectionIntro,
+  ListSectionItems,
   SectionDetailItems,
   SectionIcon,
+  SectionIconItems,
   SectionIntro,
   SectionItems,
 } from "@/utils/interfaces";
 
-export interface ActivityPoliciesSection {
-  sectionIntro: SectionIntro;
-  policyDetails: SectionDetailIconItems[];
-}
+export interface CoreValuesSection
+  extends HasSectionIntro,
+    ListSectionItems<SectionIcon> {}
 
-export interface PolicyValueItem {
-  icon: string;
-  title: string;
-  description: string;
-}
+export interface FinancialPolicySection
+  extends HasSectionIntro,
+    ListSectionItems<SectionIconItems> {}
 
-export interface CoreValuesSection {
-  sectionIntro: SectionIntro;
-  valueItems: PolicyValueItem[];
-}
-
-export interface FinancialPolicySection {
-  sectionIntro: SectionIntro;
-  policyItems: SectionDetailIconItems[];
-}
-
-export interface ConductItem {
-  icon: string;
-  title: string;
-  description: string;
-}
-
-export interface CodeOfConductSection {
-  sectionIntro: SectionIntro;
-  conductItems: ConductItem[];
-}
-
-export interface ContactPolicySection {
-  sectionIntro: SectionIntro;
-  items: SectionItems[];
+export interface ContactPolicySection extends ListSectionItems<SectionItems> {
   actionButton: ButtonDetail;
 }
 
 export interface PolicyContent {
   pageIntro?: SectionIntro;
   missionVision?: SectionIcon[];
-  coreValuesSection?: SectionDetailIconItems;
+  coreValuesSection?: SectionIconItems;
   activityPoliciesSection?: SectionDetailItems;
   financialPolicySection?: SectionDetailItems;
-  codeOfConductSection?: SectionDetailIconItems;
+  codeOfConductSection?: SectionIconItems;
   contactPolicySection?: ContactPolicySection;
 }

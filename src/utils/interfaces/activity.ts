@@ -3,18 +3,19 @@
  */
 
 import {
-  BaseDetail,
+  ActivityType,
   ButtonDetail,
+  HasImage,
   HistoryItem,
+  ListSectionItems,
   SectionButton,
+  SectionIcon,
   SectionIntro,
   StrapiImage,
   StrapiListText,
 } from "@/utils/interfaces";
 
-export interface ActivityItem extends BaseDetail {
-  image: string | StrapiImage;
-  icon: string;
+export interface ActivityItem extends SectionIcon, HasImage {
   slug: string;
 }
 
@@ -24,12 +25,10 @@ export interface ActivityScheduleItem extends HistoryItem {
   button: ButtonDetail;
 }
 
-export interface ActivityScheduleSection {
-  sectionIntro: SectionIntro;
-  scheduleItems: ActivityScheduleItem[];
-}
+export type ActivityScheduleSection = ListSectionItems<ActivityScheduleItem>;
 
 export interface ActivityContent {
+  activityType?: ActivityType;
   pageIntro?: SectionIntro;
   activityItems?: ActivityItem[];
   scheduleSection?: ActivityScheduleSection;

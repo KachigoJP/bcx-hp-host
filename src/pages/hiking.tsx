@@ -69,7 +69,7 @@ export const getServerSideProps = async () => {
                 duration: "2-4 giờ",
                 distance: "3-8 km",
                 ageGroup: "Mọi lứa tuổi",
-                features: [
+                items: [
                     {
                         text: "Độ dài: 3-8 km"
                     },
@@ -93,7 +93,7 @@ export const getServerSideProps = async () => {
                 duration: "4-6 giờ",
                 distance: "8-15 km",
                 ageGroup: "16+ tuổi",
-                features: [
+                items: [
                     {
                         text: "Độ dài: 8-15 km"
                     },
@@ -117,7 +117,7 @@ export const getServerSideProps = async () => {
                 duration: "6-8 giờ",
                 distance: "15+ km",
                 ageGroup: "18+ tuổi, có kinh nghiệm",
-                features: [
+                items: [
                     {
                         text: "Độ dài: 15+ km"
                     },
@@ -440,7 +440,7 @@ const HikingPage: React.FC<HikingProps> = (props) => {
                             && hikingRoutesSection?.items?.map((route, index) => {
                                 const imageSrc = typeof route.image === "string"
                                     ? route.image
-                                    : getStrapiImageUrl(route.image.url || '');
+                                    : getStrapiImageUrl(route.image?.url || '');
 
                                 return (
                                     <div key={index} className="col-lg-4 col-md-6 col-12">
@@ -457,7 +457,7 @@ const HikingPage: React.FC<HikingProps> = (props) => {
                                                 <h3>{route.title}</h3>
                                                 <p>{route.description}</p>
                                                 <ul>
-                                                    {route.features.map((feature, featureIndex) => (
+                                                    {route.items.map((feature, featureIndex) => (
                                                         <li key={featureIndex}>{feature.text}</li>
                                                     ))}
                                                 </ul>
@@ -488,7 +488,7 @@ const HikingPage: React.FC<HikingProps> = (props) => {
                             && popularRoutesSection?.items?.map((route, index) => {
                                 const imageSrc = typeof route.image === "string"
                                     ? route.image
-                                    : getStrapiImageUrl(route.image.url!);
+                                    : getStrapiImageUrl(route.image?.url || '');
 
                                 return (
                                     <div key={index} className="col-lg-6 col-md-6 col-12">

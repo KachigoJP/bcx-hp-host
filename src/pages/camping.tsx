@@ -422,7 +422,7 @@ const CampingPage: React.FC<CampingProps> = (props) => {
                             && campingTypesSection?.items?.map((campingType, index) => {
                                 const imageSrc = typeof campingType.image === "string"
                                     ? campingType.image
-                                    : getStrapiImageUrl(campingType.image.url || '');
+                                    : getStrapiImageUrl(campingType.image?.url || '');
 
                                 return (
                                     <div key={index} className="col-lg-4 col-md-6 col-12">
@@ -471,7 +471,7 @@ const CampingPage: React.FC<CampingProps> = (props) => {
                             && campingSitesSection?.items?.map((site, index) => {
                                 const imageSrc = typeof site.image === "string"
                                     ? site.image
-                                    : getStrapiImageUrl(site.image.url!);
+                                    : getStrapiImageUrl(site.image?.url || '');
 
                                 return (
                                     <div key={index} className="col-lg-6 col-md-6 col-12">

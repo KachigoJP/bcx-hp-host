@@ -5,8 +5,8 @@ import { convertGlobalInfoToLayoutData, getStrapiImageUrl } from "@/utils/apps";
 import {
   GlobalInfo,
   SectionButton,
+  SectionIconItems,
   SectionIntro,
-  SectionIntroItems,
   TeamContent,
   TeamMember,
 } from "@/utils/interfaces";
@@ -69,13 +69,13 @@ export const getServerSideProps = async () => {
     },
   };
 
-  const teamValuesSection: SectionIntroItems = {
+  const teamValuesSection: SectionIconItems = {
     sectionIntro: {
       tag: "Giá trị",
       title: "Giá trị của đội ngũ",
       description: "Những giá trị cốt lõi mà đội ngũ Bàn Chân Xanh luôn hướng tới",
     },
-    sectionItems: [
+    items: [
       {
         icon: "fi flaticon-user",
         title: "Đoàn kết",
@@ -242,7 +242,7 @@ const TeamPage: React.FC<TeamProps> = props => {
               const imageSrc =
                 typeof member.image === "string"
                   ? member.image
-                  : getStrapiImageUrl(member.image.url!);
+                  : getStrapiImageUrl(member.image?.url || '');
 
               return (
                 <div key={index} className="col-lg-3 col-md-6 col-sm-6 col-12">
@@ -350,9 +350,9 @@ const TeamPage: React.FC<TeamProps> = props => {
             </div>
           </div>
           <div className="row" ref={teamValuesRef}>
-            {teamValuesSection?.sectionItems &&
-              teamValuesSection.sectionItems.length > 0 &&
-              teamValuesSection.sectionItems.map((item, index) => (
+            {teamValuesSection?.items &&
+              teamValuesSection.items.length > 0 &&
+              teamValuesSection.items.map((item, index) => (
                 <div key={index} className="col-lg-3 col-md-6 col-12">
                   <div className="wpo-team-value-item">
                     <div className="wpo-team-value-icon">

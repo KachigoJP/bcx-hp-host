@@ -9,8 +9,8 @@ import {
   GlobalInfo,
   SectionDetailIconNumber,
   SectionIcon,
-  SectionIntro,
-  SectionIntroItems
+  SectionIconItems,
+  SectionIntro
 } from "@/utils/interfaces";
 import Layout, { LayoutProps } from "@components/layout";
 import SEO from "@components/layout/SEO";
@@ -71,13 +71,13 @@ export const getServerSideProps = async () => {
     },
   ];
 
-  const awardSection: SectionIntroItems = {
+  const awardSection: SectionIconItems = {
     sectionIntro: {
       tag: "Ghi nhận",
       title: "Giải thưởng và chứng nhận",
       description: "Những ghi nhận và đánh giá cao từ cộng đồng và các tổ chức",
     },
-    sectionItems: [
+    items: [
       {
         icon: "fi flaticon-graduation-cap",
         title: "Giải thưởng Cộng đồng",
@@ -98,14 +98,14 @@ export const getServerSideProps = async () => {
     ],
   };
 
-  const futureGoalSection: SectionIntroItems = {
+  const futureGoalSection: SectionIconItems = {
     sectionIntro: {
       tag: "Tương lai",
       title: "Mục tiêu phát triển",
       description:
         "Chúng tôi đang hướng tới những mục tiêu lớn hơn trong tương lai, tiếp tục xây dựng một cộng đồng người Việt mạnh mẽ và gắn kết tại Nhật Bản.",
     },
-    sectionItems: [
+    items: [
       {
         title: "1000+ Thành viên",
         description: "Mục tiêu đạt 1000 thành viên tích cực vào cuối năm 2024",
@@ -180,9 +180,9 @@ const AchievementPage: React.FC<AchievementProps> = props => {
         populate: {
           "populate[pageIntro][populate]": "*",
           "populate[achievementItems][populate]": "*",
-          "populate[awardSection][populate][sectionItems][populate]": "*",
+          "populate[awardSection][populate][items][populate]": "*",
           "populate[awardSection][populate][sectionIntro][populate]": "*",
-          "populate[futureGoalSection][populate][sectionItems][populate]": "*",
+          "populate[futureGoalSection][populate][items][populate]": "*",
           "populate[futureGoalSection][populate][sectionIntro][populate]": "*",
         },
       });
@@ -407,8 +407,8 @@ const AchievementPage: React.FC<AchievementProps> = props => {
             </div>
           </div>
           <div className="row" ref={awardsRef}>
-            {awardSection && awardSection.sectionItems && awardSection.sectionItems.length > 0 &&
-              awardSection.sectionItems.map((award, index) => (
+            {awardSection && awardSection.items && awardSection.items.length > 0 &&
+              awardSection.items.map((award, index) => (
                 <div key={index} className="col-lg-4 col-md-6 col-12">
                   <div className="wpo-award-item text-center">
                     <div className="wpo-award-icon">
@@ -448,9 +448,9 @@ const AchievementPage: React.FC<AchievementProps> = props => {
                 </div>
                 <div className="wpo-goals-list">
                   <div className="row">
-                    {futureGoalSection?.sectionItems &&
-                      futureGoalSection.sectionItems.length > 0 &&
-                      futureGoalSection.sectionItems.map((goal, index) => (
+                    {futureGoalSection?.items &&
+                      futureGoalSection.items.length > 0 &&
+                      futureGoalSection.items.map((goal, index) => (
                         <div key={index} className="col-lg-6 col-md-6 col-12">
                           <div className="wpo-goal-item">
                             <h4>{goal.title}</h4>
