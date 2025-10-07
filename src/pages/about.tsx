@@ -1,7 +1,7 @@
 import aboutService from "@/lib/strapi/services/aboutService";
 import globalService from "@/lib/strapi/services/globalService";
 import seoService from "@/lib/strapi/services/seoService";
-import { convertGlobalInfoToLayoutData, getStrapiImageUrl } from "@/utils/apps";
+import { convertGlobalInfoToLayoutData, getStrapiImageUrl, getYearFromDate } from "@/utils/apps";
 import {
   AboutContent,
   GlobalInfo,
@@ -32,31 +32,31 @@ export const history: HistorySection = {
   },
   items: [
     {
-      date: "2020/01/01",
+      date: "2020-01-01",
       title: "Thành lập tổ chức",
       description:
         "Bàn Chân Xanh được thành lập bởi nhóm bạn trẻ người Việt tại Tokyo với mong muốn kết nối cộng đồng.",
     },
     {
-      date: "2021/01/01",
+      date: "2021-01-01",
       title: "Mở rộng hoạt động",
       description:
         "Bắt đầu tổ chức các hoạt động hiking và camping thường xuyên, thu hút hơn 100 thành viên tham gia.",
     },
     {
-      date: "2022/01/01",
+      date: "2022-01-01",
       title: "Phát triển workshop",
       description:
         "Mở rộng sang các hoạt động workshop về bảo vệ môi trường và kỹ năng sống xanh.",
     },
     {
-      date: "2023/01/01",
+      date: "2023-01-01",
       title: "Hợp tác đối tác",
       description:
         "Thiết lập quan hệ hợp tác với các tổ chức môi trường và cộng đồng tại Nhật Bản.",
     },
     {
-      date: "2024/01/01",
+      date: "2024-01-01",
       title: "Phát triển bền vững",
       description:
         "Đạt được 500+ thành viên và tổ chức hơn 50 sự kiện, trở thành cộng đồng người Việt lớn nhất tại Nhật Bản.",
@@ -320,7 +320,7 @@ const AboutPage: React.FC<AboutProps> = props => {
                   (aboutContent?.history || props?.history)?.items.map((item, index) => (
                     <div className="wpo-history-item" key={index}>
                       <div className="wpo-history-year">
-                        <span>{item.date}</span>
+                        <span>{getYearFromDate(item.date)}</span>
                       </div>
                       <div className="wpo-history-content">
                         <h4>{item.title}</h4>

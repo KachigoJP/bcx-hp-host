@@ -2,12 +2,11 @@ import activityService from "@/lib/strapi/services/activityService";
 import globalService from "@/lib/strapi/services/globalService";
 import seoService from "@/lib/strapi/services/seoService";
 import { convertGlobalInfoToLayoutData, getStrapiImageUrl } from "@/utils/apps";
-import { GlobalInfo, SectionButton } from "@/utils/interfaces";
+import { GlobalInfo, SectionButton, SectionIntro } from "@/utils/interfaces";
 import {
   ActivityContent,
   ActivityItem,
-  ActivityScheduleItem,
-  ActivityScheduleSection,
+  ActivityScheduleItem
 } from "@/utils/interfaces/activity";
 import Activities from "@api/activities";
 import Layout, { LayoutProps } from "@components/layout";
@@ -49,9 +48,15 @@ export const getServerSideProps = async () => {
     slug: activity.slug,
   }));
 
+  const scheduleSectionIntro: SectionIntro = {
+    tag: "Lịch hoạt động",
+    title: "Lịch trình sắp tới",
+    description: "Tham gia các hoạt động sắp diễn ra của Bàn Chân Xanh",
+  };
+
   const scheduleItems: ActivityScheduleItem[] = [
     {
-      date: "15/Th12/2025",
+      date: "2025-12-15",
       title: "Hiking Núi Takao",
       description:
         "Chuyến leo núi Takao - ngọn núi gần Tokyo, phù hợp cho người mới bắt đầu và gia đình.",
@@ -63,7 +68,7 @@ export const getServerSideProps = async () => {
       },
     },
     {
-      date: "22/Th12/2025",
+      date: "2025-12-22",
       title: "Camping Hồ Kawaguchi",
       description:
         "Hoạt động cắm trại bên hồ Kawaguchi, trải nghiệm cuộc sống ngoài trời và học hỏi kỹ năng sinh tồn.",
@@ -75,7 +80,7 @@ export const getServerSideProps = async () => {
       },
     },
     {
-      date: "29/Th12/2025",
+      date: "2025-12-29",
       title: "Workshop Bảo Vệ Môi Trường",
       description:
         "Tổ chức workshop giáo dục về bảo vệ môi trường và phát triển bền vững cho cộng đồng.",
@@ -87,15 +92,6 @@ export const getServerSideProps = async () => {
       },
     },
   ];
-
-  const scheduleSection: ActivityScheduleSection = {
-    sectionIntro: {
-      tag: "Lịch hoạt động",
-      title: "Lịch trình sắp tới",
-      description: "Tham gia các hoạt động sắp diễn ra của Bàn Chân Xanh",
-    },
-    scheduleItems,
-  };
 
   const joinSection: SectionButton = {
     sectionIntro: {
@@ -113,7 +109,10 @@ export const getServerSideProps = async () => {
   const activityContent: ActivityContent = {
     pageIntro,
     activityItems,
-    scheduleSection,
+    scheduleSection: {
+      sectionIntro: scheduleSectionIntro,
+      scheduleItems,
+    },
     joinSection,
   };
 
@@ -151,6 +150,7 @@ const ActivityPage: React.FC<ActivityProps> = props => {
           "populate[scheduleSection][populate][sectionIntro][populate]": "*",
           "populate[scheduleSection][populate][scheduleItems][populate]": "*",
           "populate[joinSection][populate][sectionIntro][populate]": "*",
+          "populate[joinSection][populate][button][populate]": "*",
         },
       });
       setActivityContent(activityContent);

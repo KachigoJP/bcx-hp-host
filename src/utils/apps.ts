@@ -28,14 +28,14 @@ export const convertGlobalInfoToLayoutData = (globalInfo: GlobalInfo): LayoutDat
   };
 };
 
-export const getYearFromDate = (date: string): string => {
-  return date.split("/")[0];
+export const getYearFromDate = (date: string, split = "-"): string => {
+  return date.split(split)[0];
 };
 
-export const getMonthFromDate = (date: string): string => {
-  return date.split("/")[1];
+export const getMonthFromDate = (date: string, split = "-"): string => {
+  return date.split(split)[1];
 };
 
-export const getDayFromDate = (date: string): string => {
-  return date.split("/")[2];
+export const getDayFromDate = (date: string, split = "-"): string => {
+  return date.split(split)[2];
 };
