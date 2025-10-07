@@ -62,7 +62,11 @@ const Header: React.FC<HeaderProps> = (props) => {
                       className="navbar-brand"
                       href="/"
                     >
-                      <Image src={data.logo} width={178} height={55} alt="" />
+                      {
+                        data.logo && (
+                          <Image src={data.logo} width={178} height={55} alt="" />
+                        )
+                      }
                     </Link>
                   </div>
                 </div>
