@@ -9,6 +9,7 @@ import {
   SectionButton,
   SectionIntro,
   StrapiImage,
+  StrapiListText,
 } from "@/utils/interfaces";
 
 export interface ActivityItem extends BaseDetail {
@@ -33,4 +34,9 @@ export interface ActivityContent {
   activityItems?: ActivityItem[];
   scheduleSection?: ActivityScheduleSection;
   joinSection?: SectionButton;
+}
+
+export interface ActivityHeroSection {
+  image: string | StrapiImage;
+  features: StrapiListText[];
 }

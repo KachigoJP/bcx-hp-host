@@ -1,0 +1,607 @@
+// Hiking Page Styles
+
+// Hero Section
+.wpo-hiking-hero-section {
+  .wpo-about-img {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+
+    img {
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 100px;
+      background: linear-gradient(transparent, rgba(0, 0, 0, 0.3));
+      pointer-events: none;
+    }
+  }
+
+  .wpo-about-text {
+    padding-left: 30px;
+
+    @media (max-width: 991px) {
+      padding-left: 0;
+      margin-top: 40px;
+    }
+
+    .wpo-section-title {
+      h2 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #2d5a27;
+        margin-bottom: 20px;
+        line-height: 1.2;
+
+        @media (max-width: 768px) {
+          font-size: 2rem;
+        }
+      }
+
+      span {
+        display: inline-block;
+        padding: 8px 20px;
+        background-color: #f8f9fa;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: #2d5a27;
+        margin-bottom: 15px;
+        border: 2px solid #2d5a27;
+      }
+
+      p {
+        font-size: 1.1rem;
+        line-height: 1.7;
+        color: #666;
+        margin-bottom: 30px;
+      }
+    }
+
+    .wpo-about-content {
+      ul {
+        li {
+          display: flex;
+          align-items: center;
+          margin-bottom: 15px;
+          padding: 12px 0;
+          border-bottom: 1px solid #f0f0f0;
+
+          &:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+          }
+
+          i {
+            font-size: 20px;
+            color: #2d5a27;
+            margin-right: 15px;
+            width: 24px;
+            text-align: center;
+          }
+
+          span {
+            font-size: 1rem;
+            color: #555;
+            font-weight: 500;
+          }
+        }
+
+        .hero-feature {
+          &:before {
+            display: none !important;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Hiking Routes Section
+.wpo-hiking-routes-section {
+  background-color: #f8f9fa;
+  padding: 80px 0;
+
+  .wpo-service-item {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: all 0.4s ease;
+    height: 100%;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+
+    &:hover {
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
+      transform: translateY(-8px);
+    }
+
+    .wpo-service-img {
+      position: relative;
+      height: 250px;
+      overflow: hidden;
+
+      img {
+        width: 100%;
+                        height: 100%;
+        object-fit: cover;
+        transition: transform 0.4s ease;
+
+        &:hover {
+          transform: scale(1.1);
+        }
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 60px;
+        background: linear-gradient(transparent, rgba(0, 0, 0, 0.3));
+      }
+    }
+
+    .wpo-service-text {
+      padding: 30px 25px;
+
+      h3 {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: #2d5a27;
+        margin-bottom: 15px;
+        line-height: 1.3;
+      }
+
+      p {
+        color: #666;
+        font-size: 1rem;
+        line-height: 1.7;
+        margin-bottom: 20px;
+      }
+
+      ul {
+        li {
+          display: flex;
+          align-items: center;
+          margin-bottom: 8px;
+          font-size: 0.95rem;
+          color: #555;
+
+          &:before {
+            content: '•';
+            color: #2d5a27;
+            font-weight: bold;
+            margin-right: 10px;
+            font-size: 1.2rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Popular Routes Section
+.wpo-popular-routes-section {
+  padding: 80px 0;
+
+  .wpo-project-item {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: all 0.4s ease;
+    margin-bottom: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+
+    &:hover {
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
+      transform: translateY(-8px);
+    }
+
+    .wpo-project-img {
+      position: relative;
+      height: 280px;
+      overflow: hidden;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.4s ease;
+
+        &:hover {
+          transform: scale(1.1);
+        }
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 80px;
+        background: linear-gradient(transparent, rgba(0, 0, 0, 0.4));
+      }
+    }
+
+    .wpo-project-text {
+      padding: 30px 25px;
+
+      h3 {
+        font-size: 1.7rem;
+        font-weight: 700;
+        color: #2d5a27;
+        margin-bottom: 15px;
+        line-height: 1.3;
+      }
+
+      p {
+        color: #666;
+        font-size: 1rem;
+        line-height: 1.7;
+        margin-bottom: 20px;
+      }
+
+      .route-info {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+
+        @media (max-width: 576px) {
+          flex-direction: column;
+          gap: 10px;
+        }
+
+        span {
+          display: flex;
+          align-items: center;
+          font-size: 0.9rem;
+          color: #777;
+          background-color: #f8f9fa;
+          padding: 8px 12px;
+          border-radius: 20px;
+          border: 1px solid #e9ecef;
+
+          i {
+            color: #2d5a27;
+            margin-right: 8px;
+            font-size: 14px;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Safety & Equipment Section
+.wpo-safety-equipment-section {
+  background-color: #f8f9fa;
+  padding: 80px 0;
+
+  .wpo-about-text {
+    padding-right: 30px;
+
+    @media (max-width: 991px) {
+      padding-right: 0;
+      margin-bottom: 40px;
+    }
+
+    .wpo-section-title {
+      h2 {
+        font-size: 2.3rem;
+        font-weight: 700;
+        color: #2d5a27;
+        margin-bottom: 20px;
+        line-height: 1.2;
+
+        @media (max-width: 768px) {
+          font-size: 1.9rem;
+        }
+      }
+
+      span {
+        display: inline-block;
+        padding: 8px 20px;
+        background-color: white;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: #2d5a27;
+        margin-bottom: 15px;
+        border: 2px solid #2d5a27;
+      }
+
+      p {
+        font-size: 1.1rem;
+        line-height: 1.7;
+        color: #666;
+        margin-bottom: 30px;
+      }
+    }
+
+    .wpo-about-content {
+      .safety-item {
+        margin-bottom: 30px;
+
+        h4 {
+          display: flex;
+          align-items: center;
+          font-size: 1.3rem;
+          font-weight: 600;
+          color: #2d5a27;
+          margin-bottom: 15px;
+
+          i {
+            font-size: 20px;
+            color: #2d5a27;
+            margin-right: 12px;
+          }
+        }
+
+        ul {
+          li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            color: #555;
+            font-size: 0.95rem;
+
+            &:before {
+              content: '✓';
+              color: #2d5a27;
+              font-weight: bold;
+              margin-right: 10px;
+              font-size: 1rem;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .wpo-about-img {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+
+    img {
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
+  }
+}
+
+// Environmental Impact Section
+.wpo-environmental-section {
+  background: linear-gradient(135deg, #2d5a27 0%, #1e3f1a 100%);
+  padding: 80px 0;
+  color: white;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 300px;
+    height: 300px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -80px;
+    left: -80px;
+    width: 200px;
+    height: 200px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 50%;
+  }
+
+  .wpo-cta-text {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+
+    h2 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      margin-bottom: 25px;
+      line-height: 1.2;
+
+      @media (max-width: 768px) {
+        font-size: 2.2rem;
+      }
+
+      @media (max-width: 576px) {
+        font-size: 1.9rem;
+      }
+    }
+
+    p {
+      font-size: 1.2rem;
+      line-height: 1.7;
+      opacity: 0.9;
+      max-width: 800px;
+      margin: 0 auto 40px auto;
+
+      @media (max-width: 576px) {
+        font-size: 1.1rem;
+      }
+    }
+
+    .environmental-actions {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+
+      @media (max-width: 768px) {
+        gap: 30px;
+      }
+
+      @media (max-width: 576px) {
+        flex-direction: column;
+        gap: 25px;
+      }
+
+      .action-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 30px 20px;
+        border-radius: 20px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
+        min-width: 150px;
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.15);
+          transform: translateY(-5px);
+        }
+
+        i {
+          font-size: 3rem;
+          color: #fff;
+          margin-bottom: 15px;
+          opacity: 0.9;
+        }
+
+        span {
+          font-size: 1.1rem;
+          font-weight: 600;
+          color: #fff;
+        }
+      }
+    }
+  }
+}
+
+// Registration Form Section
+.wpo-registration-section {
+  padding: 80px 0;
+  background-color: #f8f9fa;
+
+  .registration-form-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 24px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+    padding: 50px 40px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+
+    @media (max-width: 768px) {
+      padding: 40px 30px;
+      border-radius: 20px;
+    }
+
+    @media (max-width: 576px) {
+      padding: 30px 20px;
+      border-radius: 16px;
+    }
+
+    .form-header {
+      text-align: center;
+      margin-bottom: 40px;
+
+      h3 {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #2d5a27;
+        margin-bottom: 15px;
+        line-height: 1.2;
+
+        @media (max-width: 768px) {
+          font-size: 1.7rem;
+        }
+      }
+
+      p {
+        font-size: 1.1rem;
+        color: #666;
+        line-height: 1.6;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+    }
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 1200px) {
+  .wpo-hiking-hero-section {
+    .wpo-about-text {
+      padding-left: 20px;
+    }
+  }
+
+  .wpo-safety-equipment-section {
+    .wpo-about-text {
+      padding-right: 20px;
+    }
+  }
+}
+
+@media (max-width: 991px) {
+  .wpo-hiking-hero-section,
+  .wpo-hiking-routes-section,
+  .wpo-popular-routes-section,
+  .wpo-safety-equipment-section,
+  .wpo-environmental-section,
+  .wpo-registration-section {
+    padding: 60px 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .wpo-hiking-hero-section,
+  .wpo-hiking-routes-section,
+  .wpo-popular-routes-section,
+  .wpo-safety-equipment-section,
+  .wpo-environmental-section,
+  .wpo-registration-section {
+    padding: 50px 0;
+  }
+}
+
+@media (max-width: 576px) {
+  .wpo-hiking-hero-section,
+  .wpo-hiking-routes-section,
+  .wpo-popular-routes-section,
+  .wpo-safety-equipment-section,
+  .wpo-environmental-section,
+  .wpo-registration-section {
+    padding: 40px 0;
+  }
+}
