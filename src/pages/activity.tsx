@@ -145,7 +145,8 @@ const ActivityPage: React.FC<ActivityProps> = props => {
         populate: {
           "populate[pageIntro][populate]": "*",
           "populate[activityItems][populate]": "*",
-          "populate[scheduleSection][populate]": "*",
+          "populate[scheduleSection][populate][sectionIntro][populate]": "*",
+          "populate[scheduleSection][populate][items][populate][button][populate]": "*",
           "populate[joinSection][populate]": "*",
         },
       });

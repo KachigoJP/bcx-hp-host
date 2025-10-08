@@ -3,14 +3,13 @@
  */
 
 import {
-    SectionDetailSectionIconItems,
-    SectionIconNumber,
-    SectionIntro,
+  SectionIconNumber,
+  SectionIntro,
+  StrapiSection,
 } from "@/utils/interfaces";
 
 export interface AchievementContent {
   pageIntro?: SectionIntro;
   achievementItems?: SectionIconNumber[];
-  awardSection?: SectionDetailSectionIconItems;
-  futureGoalSection?: SectionDetailSectionIconItems;
+  sections?: StrapiSection[];
 }

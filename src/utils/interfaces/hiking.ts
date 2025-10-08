@@ -18,10 +18,15 @@ import {
   SectionDetailItems,
   SectionDetailSectionIconItems,
   SectionIntro,
-  StrapiListText
+  StrapiListText,
 } from "@/utils/interfaces";
 
-export interface HikingRouteItem extends BaseDetail, HasImage, HasIcon, HasItems<StrapiListText>, HasDuration {
+export interface HikingRouteItem
+  extends BaseDetail,
+    HasImage,
+    HasIcon,
+    HasItems<StrapiListText>,
+    HasDuration {
   difficulty: string;
   distance: string;
   ageGroup: string;
@@ -29,7 +34,13 @@ export interface HikingRouteItem extends BaseDetail, HasImage, HasIcon, HasItems
 
 export type HikingRouteSection = SectionDetailItems<HikingRouteItem>;
 
-export interface PopularRouteItem extends BaseDetail, HasImage, HasButton, HasDuration, HasLocation, HasParticipants { }
+export interface PopularRouteItem
+  extends BaseDetail,
+    HasImage,
+    HasButton,
+    HasDuration,
+    HasLocation,
+    HasParticipants {}
 
 export type PopularRouteSection = SectionDetailItems<PopularRouteItem>;
 

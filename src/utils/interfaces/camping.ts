@@ -13,14 +13,17 @@ import {
   HasParticipants,
   ImageListTextItems,
   SectionDetailButton,
-  SectionDetailImageSectionIconListTextItems,
   SectionDetailItems,
-  SectionDetailSectionIconItems,
   SectionIntro,
-  StrapiListText
+  StrapiListText,
+  StrapiSection,
 } from "@/utils/interfaces";
 
-export interface CampingTypeItem extends BaseDetail, HasImage, HasIcon, HasDuration {
+export interface CampingTypeItem
+  extends BaseDetail,
+    HasImage,
+    HasIcon,
+    HasDuration {
   ageGroup: string;
   activities: StrapiListText[];
   equipments: StrapiListText[];
@@ -28,7 +31,13 @@ export interface CampingTypeItem extends BaseDetail, HasImage, HasIcon, HasDurat
 
 export type CampingTypesSection = SectionDetailItems<CampingTypeItem>;
 
-export interface CampingSiteItem extends BaseDetail, HasImage, HasLocation, HasButton, HasParticipants, HasDuration {
+export interface CampingSiteItem
+  extends BaseDetail,
+    HasImage,
+    HasLocation,
+    HasButton,
+    HasParticipants,
+    HasDuration {
   environment: string;
 }
 
@@ -38,10 +47,6 @@ export interface CampingContent {
   activityType?: ActivityType;
   pageIntro?: SectionIntro;
   heroSection?: ImageListTextItems;
-  campingTypesSection?: CampingTypesSection;
-  campingSitesSection?: CampingSitesSection;
-  activitiesSkillsSection?: SectionDetailImageSectionIconListTextItems;
-  equipmentSection?: SectionDetailSectionIconItems;
-  environmentalPrinciplesSection?: SectionDetailSectionIconItems;
+  sections?: StrapiSection[];
   joinSection?: SectionDetailButton;
 }

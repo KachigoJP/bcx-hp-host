@@ -20,7 +20,7 @@
     }
 
     &::after {
-      content: '';
+      content: "";
       position: absolute;
       bottom: 0;
       left: 0;
@@ -137,7 +137,7 @@
 
       img {
         width: 100%;
-                        height: 100%;
+        height: 100%;
         object-fit: cover;
         transition: transform 0.4s ease;
 
@@ -147,7 +147,7 @@
       }
 
       &::after {
-        content: '';
+        content: "";
         position: absolute;
         bottom: 0;
         left: 0;
@@ -184,7 +184,7 @@
           color: #555;
 
           &:before {
-            content: '•';
+            content: "•";
             color: #2d5a27;
             font-weight: bold;
             margin-right: 10px;
@@ -231,7 +231,7 @@
       }
 
       &::after {
-        content: '';
+        content: "";
         position: absolute;
         bottom: 0;
         left: 0;
@@ -263,6 +263,7 @@
         display: flex;
         flex-wrap: wrap;
         gap: 15px;
+        margin-bottom: 30px;
 
         @media (max-width: 576px) {
           flex-direction: column;
@@ -284,6 +285,27 @@
             margin-right: 8px;
             font-size: 14px;
           }
+        }
+      }
+
+      .hiking-button {
+        background: linear-gradient(135deg, #2c5530, #1e3a21);
+        color: white;
+        padding: 15px 35px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: 600;
+        display: inline-block;
+        transition: all 0.3s ease;
+        border: none;
+        cursor: pointer;
+        font-size: 1rem;
+        box-shadow: 0 8px 20px rgba(44, 85, 48, 0.2);
+
+        &:hover {
+          background: linear-gradient(135deg, #1e3a21, #2c5530);
+          transform: translateY(-2px);
+          box-shadow: 0 12px 25px rgba(44, 85, 48, 0.3);
         }
       }
     }
@@ -364,7 +386,7 @@
             font-size: 0.95rem;
 
             &:before {
-              content: '✓';
+              content: "✓";
               color: #2d5a27;
               font-weight: bold;
               margin-right: 10px;
@@ -404,7 +426,7 @@
   overflow: hidden;
 
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     top: -100px;
     right: -100px;
@@ -415,7 +437,7 @@
   }
 
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     bottom: -80px;
     left: -80px;
@@ -446,6 +468,7 @@
     }
 
     p {
+      color: #fff;
       font-size: 1.2rem;
       line-height: 1.7;
       opacity: 0.9;

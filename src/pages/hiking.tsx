@@ -332,7 +332,7 @@ const HikingPage: React.FC<HikingProps> = (props) => {
         };
 
         const fetchWorkshopContent = async () => {
-            const workshopContent = await hikingService.get({
+            const hikingContent = await hikingService.get({
                 populate: {
                     "populate[pageIntro][populate]": "*",
                     "populate[heroSection][populate][image][populate]": "*",
@@ -374,8 +374,6 @@ const HikingPage: React.FC<HikingProps> = (props) => {
     const safetyEquipmentSection = hikingContent?.safetyEquipmentSection || props.hikingContent.safetyEquipmentSection;
     const environmentalSection = hikingContent?.environmentalSection || props.hikingContent.environmentalSection;
     const joinSection = hikingContent?.joinSection || props.hikingContent.joinSection;
-
-    console.log(heroSection?.items);
 
     return (
         <Layout data={globalData ? convertGlobalInfoToLayoutData(globalData) : props.layout.data}>
@@ -509,6 +507,9 @@ const HikingPage: React.FC<HikingProps> = (props) => {
                                                     <span><i className="flaticon-calendar"></i> {route.duration}</span>
                                                     <span><i className="flaticon-user"></i> {route.participants}</span>
                                                 </div>
+                                                <a href={route.button?.link || "#"} className="hiking-button">
+                                                    {route.button?.text}
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
