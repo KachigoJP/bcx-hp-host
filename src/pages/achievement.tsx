@@ -132,8 +132,7 @@ export const getServerSideProps = async () => {
   const achievementContent: AchievementContent = {
     pageIntro,
     achievementItems,
-    awardSection,
-    futureGoalSection,
+    sections: [awardSection, futureGoalSection],
   };
 
   return {
@@ -180,8 +179,6 @@ const AchievementPage: React.FC<AchievementProps> = props => {
         populate: {
           "populate[pageIntro][populate]": "*",
           "populate[achievementItems][populate]": "*",
-          "populate[awardSection][populate]": "*",
-          "populate[futureGoalSection][populate]": "*",
           "populate[sections][populate]": "*",
         },
       });
@@ -282,8 +279,9 @@ const AchievementPage: React.FC<AchievementProps> = props => {
   }, [achievementContent, props.achievementContent]);
 
   const achievementItems = achievementContent?.achievementItems || props.achievementContent.achievementItems;
-  const awardSection = achievementContent?.awardSection || props.achievementContent.awardSection;
-  const futureGoalSection = achievementContent?.futureGoalSection || props.achievementContent.futureGoalSection;
+  const sections = achievementContent?.sections || props.achievementContent.sections;
+  const awardSection = sections?.[0] as SectionDetailSectionIconItems;
+  const futureGoalSection = sections?.[1] as SectionDetailSectionIconItems;
   const history = aboutContent?.history || props.aboutContent.history;
 
   return (

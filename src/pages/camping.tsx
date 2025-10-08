@@ -3,6 +3,7 @@ import globalService from "@/lib/strapi/services/globalService";
 import seoService from "@/lib/strapi/services/seoService";
 import { convertGlobalInfoToLayoutData, getStrapiImageUrl } from "@/utils/apps";
 import {
+    BaseStrapiSection,
     CampingContent,
     CampingSitesSection,
     CampingTypesSection,
@@ -11,6 +12,7 @@ import {
     SectionDetailImageSectionIconListTextItems,
     SectionDetailSectionIconItems
 } from "@/utils/interfaces";
+import { buildCampingPopulateQuery } from "@/utils/strapiQuery";
 import RegistrationForm from "@components/common/RegistrationForm";
 import Layout, { LayoutProps } from "@components/layout";
 import SEO from "@components/layout/SEO";
@@ -61,7 +63,8 @@ export const getServerSideProps = async () => {
         ]
     };
 
-    const campingTypesSection: CampingTypesSection = {
+    const campingTypesSection: CampingTypesSection & BaseStrapiSection = {
+        __component: "ui.camping-types-section",
         sectionIntro: {
             tag: "Các loại hình camping",
             title: "Trải nghiệm đa dạng",
@@ -121,7 +124,8 @@ export const getServerSideProps = async () => {
         ]
     };
 
-    const campingSitesSection: CampingSitesSection = {
+    const campingSitesSection: CampingSitesSection & BaseStrapiSection = {
+        __component: "ui.camping-sites-section",
         sectionIntro: {
             tag: "Địa điểm camping",
             title: "Những địa điểm tuyệt đẹp",
@@ -135,7 +139,11 @@ export const getServerSideProps = async () => {
                 location: "Đồng Nai",
                 duration: "2 ngày 1 đêm",
                 participants: "15-20 người",
-                environment: "Rừng nhiệt đới"
+                environment: "Rừng nhiệt đới",
+                button: {
+                    text: "Đăng ký",
+                    link: "/join"
+                }
             },
             {
                 title: "Bà Nà Hills",
@@ -144,7 +152,11 @@ export const getServerSideProps = async () => {
                 location: "Đà Nẵng",
                 duration: "1 ngày 1 đêm",
                 participants: "12-16 người",
-                environment: "Núi cao"
+                environment: "Núi cao",
+                button: {
+                    text: "Đăng ký",
+                    link: "/join"
+                }
             },
             {
                 title: "Đảo Phú Quốc",
@@ -153,7 +165,11 @@ export const getServerSideProps = async () => {
                 location: "Kiên Giang",
                 duration: "2 ngày 1 đêm",
                 participants: "10-15 người",
-                environment: "Bờ biển"
+                environment: "Bờ biển",
+                button: {
+                    text: "Đăng ký",
+                    link: "/join"
+                }
             },
             {
                 title: "Đà Lạt",
@@ -162,12 +178,17 @@ export const getServerSideProps = async () => {
                 location: "Lâm Đồng",
                 duration: "1 ngày 1 đêm",
                 participants: "8-12 người",
-                environment: "Rừng thông"
+                environment: "Rừng thông",
+                button: {
+                    text: "Đăng ký",
+                    link: "/join"
+                }
             }
         ]
     };
 
-    const activitiesSkillsSection: SectionDetailImageSectionIconListTextItems = {
+    const activitiesSkillsSection: SectionDetailImageSectionIconListTextItems & BaseStrapiSection = {
+        __component: "common.section-detail-image-section-icon-list-text-items",
         sectionIntro: {
             tag: "Hoạt động & Kỹ năng",
             title: "Học hỏi kỹ năng sinh tồn",
@@ -202,7 +223,8 @@ export const getServerSideProps = async () => {
         image: "/images/camping-activities.jpg"
     };
 
-    const equipmentSection: SectionDetailSectionIconItems = {
+    const equipmentSection: SectionDetailSectionIconItems & BaseStrapiSection = {
+        __component: "common.section-detail-section-icon-items",
         sectionIntro: {
             tag: "Thiết bị & An toàn",
             title: "Chuẩn bị đầy đủ cho chuyến camping",
@@ -232,7 +254,8 @@ export const getServerSideProps = async () => {
         ]
     };
 
-    const environmentalPrinciplesSection: SectionDetailSectionIconItems = {
+    const environmentalPrinciplesSection: SectionDetailSectionIconItems & BaseStrapiSection = {
+        __component: "common.section-detail-section-icon-items",
         sectionIntro: {
             tag: "Trách nhiệm với môi trường",
             title: "Camping có trách nhiệm với môi trường",
@@ -275,13 +298,10 @@ export const getServerSideProps = async () => {
     };
 
     const campingContent: CampingContent = {
+        activityType: "camping",
         pageIntro,
         heroSection,
-        campingTypesSection,
-        campingSitesSection,
-        activitiesSkillsSection,
-        equipmentSection,
-        environmentalPrinciplesSection,
+        sections: [campingTypesSection, campingSitesSection, activitiesSkillsSection, equipmentSection, environmentalPrinciplesSection],
         joinSection,
     };
 
@@ -313,18 +333,9 @@ const CampingPage: React.FC<CampingProps> = (props) => {
         };
 
         const fetchCampingContent = async () => {
-            const campingContent = await campingService.get({
-                populate: {
-                    "populate[pageIntro][populate]": "*",
-                    "populate[heroSection][populate]": "*",
-                    "populate[campingTypesSection][populate]": "*",
-                    "populate[campingSitesSection][populate]": "*",
-                    "populate[activitiesSkillsSection][populate]": "*",
-                    "populate[equipmentSection][populate]": "*",
-                    "populate[environmentalPrinciplesSection][populate]": "*",
-                    "populate[joinSection][populate]": "*",
-                },
-            });
+            // Use qs-built query string for dynamic zone populate with 'on' syntax
+            const queryString = buildCampingPopulateQuery();
+            const campingContent = await campingService.getWithQueryString(queryString);
             setCampingContent(campingContent);
         };
 
@@ -343,11 +354,13 @@ const CampingPage: React.FC<CampingProps> = (props) => {
 
     const pageIntro = campingContent?.pageIntro || props.campingContent.pageIntro;
     const heroSection = campingContent?.heroSection || props.campingContent.heroSection;
-    const campingTypesSection = campingContent?.campingTypesSection || props.campingContent.campingTypesSection;
-    const campingSitesSection = campingContent?.campingSitesSection || props.campingContent.campingSitesSection;
-    const activitiesSkillsSection = campingContent?.activitiesSkillsSection || props.campingContent.activitiesSkillsSection;
-    const equipmentSection = campingContent?.equipmentSection || props.campingContent.equipmentSection;
-    const environmentalPrinciplesSection = campingContent?.environmentalPrinciplesSection || props.campingContent.environmentalPrinciplesSection;
+    const sections = campingContent?.sections || props.campingContent.sections;
+    const campingTypesSection = sections?.find(section => section.__component === "ui.camping-types-section") as CampingTypesSection;
+    const campingSitesSection = sections?.find(section => section.__component === "ui.camping-sites-section") as CampingSitesSection;
+    const activitiesSkillsSection = sections?.find(section => section.__component === "common.section-detail-image-section-icon-list-text-items") as SectionDetailImageSectionIconListTextItems;
+    const sectionDetailSectionIconItems = sections?.filter(section => section.__component === "common.section-detail-section-icon-items") as SectionDetailSectionIconItems[];
+    const equipmentSection = sectionDetailSectionIconItems?.[0];
+    const environmentalPrinciplesSection = sectionDetailSectionIconItems?.[1];
     const joinSection = campingContent?.joinSection || props.campingContent.joinSection;
 
     return (
@@ -432,8 +445,8 @@ const CampingPage: React.FC<CampingProps> = (props) => {
                                                 <ul>
                                                     <li>Thời gian: {campingType.duration}</li>
                                                     <li>Độ tuổi: {campingType.ageGroup}</li>
-                                                    <li>Hoạt động: {campingType.activities.map(a => a.text).join(", ")}</li>
-                                                    <li>Thiết bị: {campingType.equipments.map(e => e.text).join(", ")}</li>
+                                                    <li>Hoạt động: {campingType.activities && campingType.activities.length > 0 && campingType.activities.map(a => a.text).join(", ")}</li>
+                                                    <li>Thiết bị: {campingType.equipments && campingType.equipments.length > 0 && campingType.equipments.map(e => e.text).join(", ")}</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -484,6 +497,9 @@ const CampingPage: React.FC<CampingProps> = (props) => {
                                                     <span><i className="flaticon-user"></i> {site.participants}</span>
                                                     <span><i className="flaticon-forest"></i> {site.environment}</span>
                                                 </div>
+                                                <a href={site.button?.link || "#"} className="camping-button">
+                                                    {site.button?.text}
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
@@ -511,7 +527,7 @@ const CampingPage: React.FC<CampingProps> = (props) => {
                                             <div key={index} className="activity-item">
                                                 <h4><i className={activity.icon}></i> {activity.title}</h4>
                                                 <ul>
-                                                    {activity.items.map((item, itemIndex) => (
+                                                    {activity && activity.items && activity.items.length > 0 && activity.items.map((item, itemIndex) => (
                                                         <li key={itemIndex}>{item.text}</li>
                                                     ))}
                                                 </ul>
@@ -523,9 +539,11 @@ const CampingPage: React.FC<CampingProps> = (props) => {
                         <div className="col-lg-6 col-md-6 col-12">
                             <div className="wpo-about-img">
                                 <Image
-                                    src={typeof activitiesSkillsSection?.image === "string"
-                                        ? activitiesSkillsSection.image
-                                        : getStrapiImageUrl(activitiesSkillsSection?.image?.url || '') || "/images/camping-activities.jpg"}
+                                    src={activitiesSkillsSection?.image
+                                        ? typeof activitiesSkillsSection?.image === "string"
+                                            ? activitiesSkillsSection?.image
+                                            : getStrapiImageUrl(activitiesSkillsSection?.image?.url || '/images/camping-activities.jpg')
+                                        : "/images/camping-activities.jpg"}
                                     alt="Hoạt động camping"
                                     width={600}
                                     height={500}

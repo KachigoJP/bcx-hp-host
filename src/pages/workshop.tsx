@@ -117,7 +117,11 @@ export const getServerSideProps = async () => {
                 date: "15/12/2024",
                 time: "9:00 - 17:00",
                 participants: "20-30 người",
-                location: "Hà Nội"
+                location: "Hà Nội",
+                button: {
+                    text: "Đăng ký",
+                    link: "/join"
+                }
             },
             {
                 title: "Giảm Thiểu Rác Thải & Tái Chế",
@@ -126,7 +130,11 @@ export const getServerSideProps = async () => {
                 date: "22/12/2024",
                 time: "14:00 - 18:00",
                 participants: "15-25 người",
-                location: "TP.HCM"
+                location: "TP.HCM",
+                button: {
+                    text: "Đăng ký",
+                    link: "/join"
+                }
             },
             {
                 title: "Năng Lượng Tái Tạo & Tiết Kiệm",
@@ -135,7 +143,11 @@ export const getServerSideProps = async () => {
                 date: "05/01/2025",
                 time: "9:00 - 16:00",
                 participants: "25-35 người",
-                location: "Đà Nẵng"
+                location: "Đà Nẵng",
+                button: {
+                    text: "Đăng ký",
+                    link: "/join"
+                }
             },
             {
                 title: "Bảo Tồn Đa Dạng Sinh Học",
@@ -144,7 +156,11 @@ export const getServerSideProps = async () => {
                 date: "12/01/2025",
                 time: "8:00 - 17:00",
                 participants: "20-30 người",
-                location: "Cát Tiên"
+                location: "Cát Tiên",
+                button: {
+                    text: "Đăng ký",
+                    link: "/join"
+                }
             }
         ]
     };
@@ -430,7 +446,9 @@ const WorkshopPage: React.FC<WorkshopProps> = (props) => {
                                                 <span>{workshop.location}</span>
                                             </div>
                                         </div>
-                                        <a href="#" className="workshop-button">Đăng ký tham gia</a>
+                                        <a href={workshop.button?.link || "#"} className="workshop-button">
+                                            {workshop.button?.text}
+                                        </a>
                                     </div>
                                 </div>
                             ))}
