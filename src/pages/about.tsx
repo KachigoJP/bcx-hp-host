@@ -5,8 +5,8 @@ import { convertGlobalInfoToLayoutData, getStrapiImageUrl, getYearFromDate } fro
 import {
   AboutContent,
   GlobalInfo,
-  HistoryItem,
-  HistorySection,
+  SectionDate,
+  SectionDetailSectionDateItems,
   SectionIcon
 } from "@/utils/interfaces";
 import Layout, { LayoutProps } from "@components/layout";
@@ -20,11 +20,9 @@ interface AboutProps {
   layout: LayoutProps;
   seo: SEOProps;
   aboutContent: AboutContent;
-  missions: SectionIcon[];
-  history: HistorySection;
 }
 
-export const history: HistorySection = {
+export const history: SectionDetailSectionDateItems = {
   sectionIntro: {
     tag: "Hành trình",
     title: "Lịch sử phát triển",
@@ -61,7 +59,7 @@ export const history: HistorySection = {
       description:
         "Đạt được 500+ thành viên và tổ chức hơn 50 sự kiện, trở thành cộng đồng người Việt lớn nhất tại Nhật Bản.",
     },
-  ] as HistoryItem[],
+  ] as SectionDate[],
 };
 
 export const getServerSideProps = async () => {
@@ -98,12 +96,13 @@ export const getServerSideProps = async () => {
   ];
 
   const aboutContent: AboutContent = {
-    title: "Bàn Chân Xanh",
-    imageSrc: {
-      url: "/images/about-community-vietnamese.jpg",
+    pageIntro: {
+      tag: "Về tổ chức",
+      title: "Bàn Chân Xanh",
+      description: "",
     },
+    image: "/images/about-community-vietnamese.jpg",
     imageAlt: "Về Bàn Chân Xanh",
-    sectionTag: "Về tổ chức",
     paragraphs: `
             <p>Bàn Chân Xanh là tổ chức phi lợi nhuận dành cho người Việt Nam ở Nhật Bản. Chúng tôi được thành lập với sứ mệnh kết nối cộng đồng người Việt thông qua các hoạt động ngoài trời và lan tỏa tình yêu thiên nhiên.</p>
             <p>ừ những chuyến hiking khám phá núi Phú Sĩ, camping bên hồ Kawaguchi, đến các workshop về bảo vệ môi trường, chúng tôi tạo ra những trải nghiệm ý nghĩa giúp mọi người gắn kết với thiên nhiên và với nhau.</p>
@@ -233,15 +232,16 @@ const AboutPage: React.FC<AboutProps> = props => {
     };
   }, [aboutContent, props.aboutContent]);
 
-  const imageSrcUrl = aboutContent?.imageSrc
-    ? typeof aboutContent.imageSrc === "string"
-      ? aboutContent.imageSrc
-      : getStrapiImageUrl(aboutContent.imageSrc.url!)
-    : typeof props.aboutContent.imageSrc === "string"
-      ? props.aboutContent.imageSrc
-      : props.aboutContent.imageSrc?.url || "";
+  const imageSrcUrl = aboutContent?.image
+    ? typeof aboutContent.image === "string"
+      ? aboutContent.image
+      : getStrapiImageUrl(aboutContent.image?.url || "")
+    : typeof props.aboutContent.image === "string"
+      ? props.aboutContent.image
+      : props.aboutContent.image?.url || "";
 
-  const missions = aboutContent?.missions || props.missions;
+  const missions = aboutContent?.missions || props.aboutContent?.missions;
+  const history = aboutContent?.history || props.aboutContent?.history;
 
   return (
     <Layout data={globalData ? convertGlobalInfoToLayoutData(globalData) : props.layout.data}>
@@ -266,8 +266,8 @@ const AboutPage: React.FC<AboutProps> = props => {
             <div className="col-lg-6 col-md-6 col-12">
               <div className="wpo-about-content">
                 <div className="wpo-section-title">
-                  <span>{aboutContent?.sectionTag || props.aboutContent.sectionTag}</span>
-                  <h2>{aboutContent?.title || props.aboutContent.title}</h2>
+                  <span>{aboutContent?.pageIntro?.tag || props.aboutContent.pageIntro?.tag}</span>
+                  <h2>{aboutContent?.pageIntro?.title || props.aboutContent.pageIntro?.title}</h2>
                 </div>
                 <div
                   dangerouslySetInnerHTML={{
@@ -307,17 +307,17 @@ const AboutPage: React.FC<AboutProps> = props => {
           <div className="row">
             <div className="col-lg-12">
               <div className="wpo-section-title text-center">
-                <span>{(aboutContent?.history || props?.history)?.sectionIntro.tag}</span>
-                <h2>{(aboutContent?.history || props?.history)?.sectionIntro.title}</h2>
-                <p>{(aboutContent?.history || props?.history)?.sectionIntro.description}</p>
+                <span>{history?.sectionIntro?.tag}</span>
+                <h2>{history?.sectionIntro?.title}</h2>
+                <p>{history?.sectionIntro?.description}</p>
               </div>
             </div>
           </div>
           <div className="row">
             <div className="col-lg-12">
               <div className="wpo-history-wrap" ref={timelineRef}>
-                {(aboutContent?.history || props?.history)?.items.length > 0 &&
-                  (aboutContent?.history || props?.history)?.items.map((item, index) => (
+                {history?.items && history?.items.length > 0 &&
+                  history?.items.map((item, index) => (
                     <div className="wpo-history-item" key={index}>
                       <div className="wpo-history-year">
                         <span>{getYearFromDate(item.date)}</span>

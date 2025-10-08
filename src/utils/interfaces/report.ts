@@ -7,13 +7,14 @@ import {
   FinancialResult,
   HasDate,
   HasDownloadLink,
+  HasItems,
   HasSectionIntro,
-  ListItems,
-  ListSectionItems,
-  SectionDetailIconNumber,
-  SectionIconItems,
+  HasTitle,
+  SectionDetailItems,
+  SectionDetailSectionIconItems,
+  SectionIconNumber,
   SectionIntro,
-  StrapiListText,
+  StrapiListText
 } from "@/utils/interfaces";
 
 export interface MonthlyReportItem extends HasDate, HasDownloadLink {
@@ -22,13 +23,13 @@ export interface MonthlyReportItem extends HasDate, HasDownloadLink {
   participants: string;
 }
 
-export interface AnnualReportSection
-  extends SectionIconItems,
-    HasDownloadLink {}
+export interface FinancialItem extends HasTitle, HasItems<FinancialItemAmount> { }
+
+export interface AnnualReportSection extends SectionDetailSectionIconItems, HasDownloadLink { }
 
 export interface FinancialSummary extends HasDownloadLink {
-  income: ListItems<FinancialItemAmount>;
-  expenses: ListItems<FinancialItemAmount>;
+  income: FinancialItem;
+  expenses: FinancialItem;
   result: FinancialResult;
 }
 
@@ -38,9 +39,9 @@ export interface FinancialReportSection extends HasSectionIntro {
 
 export interface ReportContent {
   pageIntro?: SectionIntro;
-  statistics?: SectionDetailIconNumber[];
-  monthlyReportSection?: ListSectionItems<MonthlyReportItem>;
+  statistics?: SectionIconNumber[];
+  monthlyReportSection?: SectionDetailItems<MonthlyReportItem>;
   annualReportSection?: AnnualReportSection;
-  impactReportSection?: SectionIconItems;
+  impactReportSection?: SectionDetailSectionIconItems;
   financialReportSection?: FinancialReportSection;
 }

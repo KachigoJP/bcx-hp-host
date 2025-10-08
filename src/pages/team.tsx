@@ -4,8 +4,8 @@ import teamService from "@/lib/strapi/services/teamService";
 import { convertGlobalInfoToLayoutData, getStrapiImageUrl } from "@/utils/apps";
 import {
   GlobalInfo,
-  SectionButton,
-  SectionIconItems,
+  SectionDetailButton,
+  SectionDetailSectionIconItems,
   SectionIntro,
   TeamContent,
   TeamMember,
@@ -56,7 +56,7 @@ export const getServerSideProps = async () => {
     },
   }));
 
-  const joinSection: SectionButton = {
+  const joinSection: SectionDetailButton = {
     sectionIntro: {
       tag: "Tham gia cùng chúng tôi",
       title: "Trở thành tình nguyện viên",
@@ -69,7 +69,7 @@ export const getServerSideProps = async () => {
     },
   };
 
-  const teamValuesSection: SectionIconItems = {
+  const teamValuesSection: SectionDetailSectionIconItems = {
     sectionIntro: {
       tag: "Giá trị",
       title: "Giá trị của đội ngũ",

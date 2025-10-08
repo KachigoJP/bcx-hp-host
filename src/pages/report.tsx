@@ -8,8 +8,8 @@ import {
   GlobalInfo,
   MonthlyReportItem,
   ReportContent,
-  SectionDetailIconNumber,
   SectionIcon,
+  SectionIconNumber,
   SectionIntro
 } from "@/utils/interfaces";
 import Layout, { LayoutProps } from "@components/layout";
@@ -35,7 +35,7 @@ export const getServerSideProps = async () => {
     },
   };
 
-  const statistics: SectionDetailIconNumber[] = [
+  const statistics: SectionIconNumber[] = [
     {
       icon: "fi flaticon-forest",
       number: "24",
@@ -254,15 +254,10 @@ const ReportPage: React.FC<ReportProps> = props => {
         populate: {
           "populate[pageIntro][populate]": "*",
           "populate[statistics][populate]": "*",
-          "populate[monthlyReportSection][populate][items][populate]": "*",
-          "populate[monthlyReportSection][populate][sectionIntro][populate]": "*",
-          "populate[annualReportSection][populate][items][populate]":
-            "*",
-          "populate[annualReportSection][populate][sectionIntro][populate]": "*",
-          "populate[impactReportSection][populate][items][populate]": "*",
-          "populate[impactReportSection][populate][sectionIntro][populate]": "*",
-          "populate[financialReportSection][populate][financialSummary][populate]": "*",
-          "populate[financialReportSection][populate][sectionIntro][populate]": "*",
+          "populate[monthlyReportSection][populate]": "*",
+          "populate[annualReportSection][populate]": "*",
+          "populate[impactReportSection][populate]": "*",
+          "populate[financialReportSection][populate]": "*",
         },
       });
       setReportContent(reportContent);

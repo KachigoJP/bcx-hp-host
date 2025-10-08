@@ -3,48 +3,56 @@
  */
 
 import {
-  ActivityHeroSection,
   ActivityType,
   BaseDetail,
   HasButton,
   HasDate,
+  HasDuration,
   HasIcon,
   HasImage,
-  ListItems,
-  ListSectionItems,
-  SectionButton,
-  SectionIcon,
+  HasItems,
+  HasLocation,
+  HasParticipants,
+  ImageListTextItems,
+  SectionDetailButton,
+  SectionDetailImageSectionIconItems,
+  SectionDetailItems,
+  SectionDetailSectionIconItems,
   SectionIntro,
+  SectionSectionIconItems,
   StrapiListText,
 } from "@/utils/interfaces";
 
-export interface WorkshopCategoryItem extends BaseDetail, HasImage, HasIcon {
-  duration: string;
-  topics: StrapiListText[];
-}
+export interface WorkshopCategoryItem
+  extends BaseDetail,
+    HasImage,
+    HasIcon,
+    HasDuration,
+    HasItems<StrapiListText> {}
 
 export interface UpcomingWorkshopItem
   extends BaseDetail,
     HasImage,
     HasDate,
-    HasButton {
+    HasButton,
+    HasParticipants,
+    HasLocation {
   time: string;
-  participants: string;
-  location: string;
 }
 
-export interface TrainingMethodsSection
-  extends ListSectionItems<SectionIcon>,
-    HasImage {}
+export type WorkshopCategoriesSection =
+  SectionDetailItems<WorkshopCategoryItem>;
+
+export type UpcomingWorkshopsSection = SectionDetailItems<UpcomingWorkshopItem>;
 
 export interface WorkshopContent {
   activityType?: ActivityType;
   pageIntro?: SectionIntro;
-  heroSection?: ActivityHeroSection;
-  workshopCategoriesSection?: ListSectionItems<WorkshopCategoryItem>;
-  upcomingWorkshopsSection?: ListSectionItems<UpcomingWorkshopItem>;
-  trainingMethodsSection?: TrainingMethodsSection;
-  expertTrainersSection?: ListSectionItems<SectionIcon>;
-  certificationSection?: ListItems<SectionIcon>;
-  joinSection?: SectionButton;
+  heroSection?: ImageListTextItems;
+  workshopCategoriesSection?: WorkshopCategoriesSection;
+  upcomingWorkshopsSection?: UpcomingWorkshopsSection;
+  trainingMethodsSection?: SectionDetailImageSectionIconItems;
+  expertTrainersSection?: SectionDetailSectionIconItems;
+  certificationSection?: SectionSectionIconItems;
+  joinSection?: SectionDetailButton;
 }

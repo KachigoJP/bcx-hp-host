@@ -4,10 +4,10 @@ import workshopService from "@/lib/strapi/services/workshopService";
 import { convertGlobalInfoToLayoutData, getStrapiImageUrl } from "@/utils/apps";
 import {
     GlobalInfo,
-    ListItems,
-    ListSectionItems,
+    SectionDetailImageSectionIconItems,
+    SectionDetailItems,
     SectionIcon,
-    TrainingMethodsSection,
+    SectionSectionIconItems,
     UpcomingWorkshopItem,
     WorkshopCategoryItem,
     WorkshopContent
@@ -46,7 +46,7 @@ export const getServerSideProps = async () => {
 
     const heroSection = {
         image: "/images/workshop-hero.jpg",
-        features: [
+        items: [
             { text: "Chuyên gia giàu kinh nghiệm" },
             { text: "Phương pháp học tương tác" },
             { text: "Chứng chỉ hoàn thành" },
@@ -54,7 +54,7 @@ export const getServerSideProps = async () => {
         ]
     };
 
-    const workshopCategoriesSection: ListSectionItems<WorkshopCategoryItem> = {
+    const workshopCategoriesSection: SectionDetailItems<WorkshopCategoryItem> = {
         sectionIntro: {
             tag: "Chuyên đề workshop",
             title: "Đa dạng chủ đề học tập",
@@ -67,7 +67,7 @@ export const getServerSideProps = async () => {
                 image: "/images/workshop-environment.jpg",
                 icon: "flaticon-ecology",
                 duration: "4-6 giờ",
-                topics: [
+                items: [
                     { text: "Biến đổi khí hậu" },
                     { text: "Ô nhiễm không khí & nước" },
                     { text: "Bảo tồn đa dạng sinh học" },
@@ -80,7 +80,7 @@ export const getServerSideProps = async () => {
                 image: "/images/workshop-green-living.jpg",
                 icon: "flaticon-ecology",
                 duration: "3-4 giờ",
-                topics: [
+                items: [
                     { text: "Giảm thiểu rác thải" },
                     { text: "Tiết kiệm năng lượng" },
                     { text: "Thực phẩm hữu cơ" },
@@ -93,7 +93,7 @@ export const getServerSideProps = async () => {
                 image: "/images/workshop-sustainability.jpg",
                 icon: "flaticon-placeholder",
                 duration: "6-8 giờ",
-                topics: [
+                items: [
                     { text: "Mục tiêu SDGs" },
                     { text: "Kinh tế tuần hoàn" },
                     { text: "Trách nhiệm xã hội" },
@@ -103,7 +103,7 @@ export const getServerSideProps = async () => {
         ]
     };
 
-    const upcomingWorkshopsSection: ListSectionItems<UpcomingWorkshopItem> = {
+    const upcomingWorkshopsSection: SectionDetailItems<UpcomingWorkshopItem> = {
         sectionIntro: {
             tag: "Workshop sắp tới",
             title: "Chương trình đào tạo",
@@ -149,7 +149,7 @@ export const getServerSideProps = async () => {
         ]
     };
 
-    const trainingMethodsSection: TrainingMethodsSection = {
+    const trainingMethodsSection: SectionDetailImageSectionIconItems = {
         sectionIntro: {
             tag: "Phương pháp đào tạo",
             title: "Học tập hiệu quả",
@@ -180,7 +180,7 @@ export const getServerSideProps = async () => {
         ]
     };
 
-    const expertTrainersSection: ListSectionItems<SectionIcon> = {
+    const expertTrainersSection: SectionDetailItems<SectionIcon> = {
         sectionIntro: {
             tag: "Chuyên gia đào tạo",
             title: "Đội ngũ giảng viên chuyên nghiệp",
@@ -210,7 +210,7 @@ export const getServerSideProps = async () => {
         ]
     };
 
-    const certificationSection: ListItems<SectionIcon> = {
+    const certificationSection: SectionSectionIconItems = {
         title: "Chứng chỉ hoàn thành",
         description: "Sau khi hoàn thành workshop, bạn sẽ nhận được chứng chỉ chính thức từ Bàn Chân Xanh, giúp nâng cao hồ sơ cá nhân và cơ hội nghề nghiệp.",
         items: [
@@ -291,21 +291,13 @@ const WorkshopPage: React.FC<WorkshopProps> = (props) => {
             const workshopContent = await workshopService.get({
                 populate: {
                     "populate[pageIntro][populate]": "*",
-                    "populate[heroSection][populate][image][populate]": "*",
-                    "populate[heroSection][populate][features][populate]": "*",
-                    "populate[workshopCategoriesSection][populate][sectionIntro][populate]": "*",
-                    "populate[workshopCategoriesSection][populate][items][populate][image][populate]": "*",
-                    "populate[workshopCategoriesSection][populate][items][populate][topics][populate]": "*",
-                    "populate[upcomingWorkshopsSection][populate][sectionIntro][populate]": "*",
-                    "populate[upcomingWorkshopsSection][populate][items][populate][image][populate]": "*",
-                    "populate[trainingMethodsSection][populate][sectionIntro][populate]": "*",
-                    "populate[trainingMethodsSection][populate][items][populate]": "*",
-                    "populate[trainingMethodsSection][populate][image][populate]": "*",
-                    "populate[expertTrainersSection][populate][sectionIntro][populate]": "*",
-                    "populate[expertTrainersSection][populate][items][populate]": "*",
-                    "populate[certificationSection][populate][benefits][populate]": "*",
-                    "populate[joinSection][populate][sectionIntro][populate]": "*",
-                    "populate[joinSection][populate][button][populate]": "*",
+                    "populate[heroSection][populate]": "*",
+                    "populate[workshopCategoriesSection][populate]": "*",
+                    "populate[upcomingWorkshopsSection][populate]": "*",
+                    "populate[trainingMethodsSection][populate]": "*",
+                    "populate[expertTrainersSection][populate]": "*",
+                    "populate[certificationSection][populate]": "*",
+                    "populate[joinSection][populate]": "*",
                 },
             });
             setWorkshopContent(workshopContent);
@@ -348,7 +340,7 @@ const WorkshopPage: React.FC<WorkshopProps> = (props) => {
                             <h1 className="hero-title">{pageIntro?.title}</h1>
                             <p className="hero-description">{pageIntro?.description}</p>
                             <div className="hero-features">
-                                {heroSection?.features.map((feature, index) => (
+                                {heroSection?.items && heroSection?.items.length > 0 && heroSection?.items.map((feature, index) => (
                                     <div key={index} className="feature-item" style={{ animationDelay: `${index * 0.1}s` }}>
                                         <div className="feature-icon">
                                             <i className="flaticon-checked"></i>
@@ -387,7 +379,7 @@ const WorkshopPage: React.FC<WorkshopProps> = (props) => {
                                         <p className="category-description">{category.description}</p>
                                         <div className="category-duration">{category.duration}</div>
                                         <ul className="topics-list">
-                                            {category.topics.map((topic, topicIndex) => (
+                                            {category.items.map((topic, topicIndex) => (
                                                 <li key={topicIndex}>{topic.text}</li>
                                             ))}
                                         </ul>
