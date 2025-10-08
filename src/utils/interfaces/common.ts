@@ -2,94 +2,93 @@
  * Common interfaces for page and section intro
  */
 
-import { StrapiImage, StrapiListText } from "./strapi_types";
+import { StrapiImage } from "@/utils/interfaces";
 
-export interface HasTitle {
+
+// ------------------------------------------------
+// Common interfaces, types for code readability
+export type HasTitle = {
   title: string;
 }
 
-export interface HasDescription {
+export type HasText = {
+  text: string;
+}
+
+export type HasDescription = {
   description?: string;
 }
 
-export interface HasTag {
+export type HasTag = {
   tag: string;
 }
 
-export interface HasItems<TItem> {
-  items: TItem[];
-}
-
-export interface HasIcon {
+export type HasIcon = {
   icon?: string;
 }
 
-export interface HasImage {
+export type HasImage = {
   image?: string | StrapiImage;
 }
 
-export interface HasDownloadLink {
-  downloadLink?: string;
-}
-
-export interface HasButton {
-  button?: ButtonDetail;
-}
-
-export type HasListText = HasItems<StrapiListText>;
-
-export interface SectionListText extends BaseDetail, HasItems<StrapiListText> {}
-
-export interface SectionIconListText
-  extends BaseDetail,
-    HasIcon,
-    HasItems<StrapiListText> {}
-
-export interface HasNumber {
-  number?: string;
-}
-
-export interface HasDate {
-  date: string;
-}
-
-export interface BaseDetail extends HasTitle, HasDescription {}
-
-export interface ButtonDetail {
-  text: string;
+export type HasLink = {
   link: string;
 }
 
-export interface HasItems<TItem> {
-  items: TItem[];
+export type HasDownloadLink = {
+  downloadLink?: string;
 }
 
-export interface SectionIntro extends BaseDetail, HasTag {}
+export type HasButton = {
+  button?: ButtonDetail;
+}
 
-export interface HasSectionIntro {
+export type HasNumber = {
+  number?: string;
+}
+
+export type HasDate = {
+  date: string;
+}
+
+export type HasSlug = {
+  slug: string;
+}
+
+export type HasLocation = {
+  location: string;
+}
+
+export type HasParticipants = {
+  participants: string;
+}
+
+export type HasDuration = {
+  duration: string;
+}
+
+export type HasSectionIntro = {
   sectionIntro: SectionIntro;
 }
 
-export interface SectionIcon extends BaseDetail, HasIcon {}
+export type HasItems<TItem> = {
+  items: TItem[];
+}
 
-export interface SectionDetailIconNumber extends SectionIcon, HasNumber {}
+export type ActivityType = "hiking" | "camping" | "workshop";
 
-export interface SectionButton extends HasSectionIntro, HasButton {}
+export type BaseStrapiSection = {
+  __component?: string;
+}
 
-export interface HistoryItem extends BaseDetail, HasDate {}
+// ------------------------------------------------
 
-export type HistorySection = ListSectionItems<HistoryItem>;
+// ------------------------------------------------
+// Common interfaces, types for strapi data
 
-export interface SectionItems extends HasTitle, HasListText {}
-
-export type SectionDetailItems = ListSectionItems<SectionItems>;
-
-export type SectionIconItems = ListSectionItems<SectionIcon>;
-
-// Generic section helpers (reusable across modules)
-export type ListSectionItems<TItem> = HasSectionIntro & HasItems<TItem> & {};
-
-export type ListItems<TItem> = HasTitle & HasDescription & HasItems<TItem> & {};
+export interface StrapiListText {
+  text: string;
+}
 
 export interface FinancialItemAmount {
   label: string;
@@ -100,4 +99,71 @@ export interface FinancialResult extends FinancialItemAmount {
   percentage: string;
 }
 
-export type ActivityType = "hiking" | "camping" | "workshop";
+export interface SocialLinks {
+  facebook?: string;
+  twitter?: string;
+  instagram?: string;
+  linkedin?: string;
+}
+
+export interface BaseDetail extends HasTitle, HasDescription { }
+
+export type SectionItems<TItem> = BaseDetail & HasItems<TItem>;
+
+export type SectionDetailItems<TItem> = HasSectionIntro & HasItems<TItem>;
+
+export interface ButtonDetail extends HasText, HasLink { }
+
+export interface ImageListTextItems extends HasImage, HasItems<StrapiListText> { }
+
+export interface SectionIntro extends BaseStrapiSection, BaseDetail, HasTag { }
+
+export interface SectionListText extends BaseStrapiSection, BaseDetail, HasItems<StrapiListText> { }
+
+export interface SectionIconListText extends BaseStrapiSection, SectionListText, HasIcon { }
+
+export interface SectionIcon extends BaseStrapiSection, BaseDetail, HasIcon { }
+
+export interface SectionDate extends BaseStrapiSection, BaseDetail, HasDate { }
+
+export interface SectionIconNumber extends BaseStrapiSection, SectionIcon, HasNumber { }
+
+export interface SectionIconImage extends BaseStrapiSection, SectionIcon, HasImage { }
+
+export interface SectionIconImageSlug extends BaseStrapiSection, SectionIcon, HasImage, HasSlug { }
+
+export interface SectionListTextItems extends BaseStrapiSection, HasTitle, HasItems<StrapiListText> { }
+
+export interface SectionDetailButton extends BaseStrapiSection, HasSectionIntro, HasButton { }
+
+export interface SectionSectionIconItems extends BaseStrapiSection, SectionItems<SectionIcon> { }
+
+export interface SectionDetailSectionIconListTextItems extends BaseStrapiSection, SectionDetailItems<SectionIconListText> { }
+
+export interface SectionDetailImageSectionIconListTextItems extends BaseStrapiSection, SectionDetailItems<SectionIconListText>, HasImage { }
+
+export interface SectionDetailSectionDateItems extends BaseStrapiSection, SectionDetailItems<SectionDate> { };
+
+export interface SectionDetailSectionIconItems extends BaseStrapiSection, SectionDetailItems<SectionIcon> { }
+
+export interface SectionDetailImageSectionIconItems extends BaseStrapiSection, SectionDetailItems<SectionIcon>, HasImage { }
+
+export interface SectionDetailSectionListTextItemsItems extends BaseStrapiSection, SectionDetailItems<SectionListTextItems> { }
+
+export interface SectionDetailButtonSectionListTextItemsItems extends BaseStrapiSection, SectionDetailItems<SectionListTextItems>, HasButton { }
+
+// ------------------------------------------------
+
+export type StrapiSection =
+  | SectionListText
+  | SectionIntro
+  | SectionListText
+  | SectionIconListText
+  | SectionIcon
+  | SectionDate
+  | SectionIconNumber
+  | SectionListTextItems
+  | SectionDetailButton
+  | SectionSectionIconItems
+  | SectionDetailSectionDateItems
+  | SectionDetailSectionIconItems;

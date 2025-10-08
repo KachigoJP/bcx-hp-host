@@ -2,14 +2,13 @@
  * About page related interfaces and types
  */
 
-import { HistorySection, SectionIcon, StrapiImage } from "@/utils/interfaces";
+import { SectionDetailSectionDateItems, SectionIcon, SectionIntro, StrapiImage } from "@/utils/interfaces";
 
 export interface AboutContent {
-  title?: string;
-  imageSrc?: string | StrapiImage;
+  pageIntro?: SectionIntro;
+  image?: string | StrapiImage;
   imageAlt?: string;
-  sectionTag?: string;
   paragraphs?: string;
   missions?: SectionIcon[];
-  history?: HistorySection;
+  history?: SectionDetailSectionDateItems;
 }

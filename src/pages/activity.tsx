@@ -2,12 +2,10 @@ import activityService from "@/lib/strapi/services/activityService";
 import globalService from "@/lib/strapi/services/globalService";
 import seoService from "@/lib/strapi/services/seoService";
 import { convertGlobalInfoToLayoutData, getStrapiImageUrl } from "@/utils/apps";
-import { GlobalInfo, SectionButton, SectionIntro } from "@/utils/interfaces";
 import {
   ActivityContent,
-  ActivityItem,
-  ActivityScheduleItem
-} from "@/utils/interfaces/activity";
+  ActivityScheduleItem, GlobalInfo, SectionDetailButton, SectionIconImageSlug, SectionIntro
+} from "@/utils/interfaces";
 import Activities from "@api/activities";
 import Layout, { LayoutProps } from "@components/layout";
 import SEO from "@components/layout/SEO";
@@ -40,7 +38,7 @@ export const getServerSideProps = async () => {
       "Chúng tôi tổ chức các hoạt động đa dạng để kết nối cộng đồng và lan tỏa tình yêu thiên nhiên. Từ những chuyến hiking khám phá núi non, camping dưới bầu trời đầy sao, đến các workshop giáo dục về bảo vệ môi trường.",
   };
 
-  const activityItems: ActivityItem[] = Activities.map(activity => ({
+  const activityItems: SectionIconImageSlug[] = Activities.map(activity => ({
     title: activity.title,
     description: activity.description,
     image: activity.simg1,
@@ -93,7 +91,7 @@ export const getServerSideProps = async () => {
     },
   ];
 
-  const joinSection: SectionButton = {
+  const joinSection: SectionDetailButton = {
     sectionIntro: {
       tag: "Tham gia cùng chúng tôi",
       title: "Đăng ký tham gia hoạt động",
@@ -146,11 +144,9 @@ const ActivityPage: React.FC<ActivityProps> = props => {
       const activityContent = await activityService.get({
         populate: {
           "populate[pageIntro][populate]": "*",
-          "populate[activityItems][populate][image][populate]": "*",
-          "populate[scheduleSection][populate][sectionIntro][populate]": "*",
-          "populate[scheduleSection][populate][scheduleItems][populate]": "*",
-          "populate[joinSection][populate][sectionIntro][populate]": "*",
-          "populate[joinSection][populate][button][populate]": "*",
+          "populate[activityItems][populate]": "*",
+          "populate[scheduleSection][populate]": "*",
+          "populate[joinSection][populate]": "*",
         },
       });
       setActivityContent(activityContent);
@@ -277,8 +273,8 @@ const ActivityPage: React.FC<ActivityProps> = props => {
                       </div>
                     </div>
                     <div className="schedule-button">
-                      <a href={schedule.button.link} className="theme-btn">
-                        {schedule.button.text}
+                      <a href={schedule.button?.link} className="theme-btn">
+                        {schedule.button?.text}
                       </a>
                     </div>
                   </div>

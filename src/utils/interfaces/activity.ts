@@ -4,38 +4,24 @@
 
 import {
   ActivityType,
-  ButtonDetail,
-  HasImage,
-  HistoryItem,
-  ListSectionItems,
-  SectionButton,
-  SectionIcon,
-  SectionIntro,
-  StrapiImage,
-  StrapiListText,
+  HasButton,
+  HasLocation,
+  HasParticipants,
+  SectionDate,
+  SectionDetailButton,
+  SectionDetailItems,
+  SectionIconImageSlug,
+  SectionIntro
 } from "@/utils/interfaces";
 
-export interface ActivityItem extends SectionIcon, HasImage {
-  slug: string;
-}
+export interface ActivityScheduleItem extends SectionDate, HasButton, HasLocation, HasParticipants { }
 
-export interface ActivityScheduleItem extends HistoryItem {
-  location: string;
-  participants: string;
-  button: ButtonDetail;
-}
-
-export type ActivityScheduleSection = ListSectionItems<ActivityScheduleItem>;
+export type ActivityScheduleSection = SectionDetailItems<ActivityScheduleItem>;
 
 export interface ActivityContent {
   activityType?: ActivityType;
   pageIntro?: SectionIntro;
-  activityItems?: ActivityItem[];
+  activityItems?: SectionIconImageSlug[];
   scheduleSection?: ActivityScheduleSection;
-  joinSection?: SectionButton;
-}
-
-export interface ActivityHeroSection {
-  image: string | StrapiImage;
-  features: StrapiListText[];
+  joinSection?: SectionDetailButton;
 }

@@ -3,6 +3,7 @@
  * Common TypeScript interfaces for Strapi responses
  */
 
+
 // Base Strapi response structure
 export interface StrapiResponse<T> {
   data: T;
@@ -152,8 +153,4 @@ export interface StrapiImage {
   provider?: string;
   provider_metadata?: any;
   previewUrl?: string;
-}
-
-export interface StrapiListText {
-  text: string;
 }

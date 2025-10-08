@@ -3,55 +3,45 @@
  */
 
 import {
-  ActivityHeroSection,
   ActivityType,
   BaseDetail,
-  ButtonDetail,
+  HasButton,
+  HasDuration,
   HasIcon,
   HasImage,
-  ListSectionItems,
-  SectionButton,
-  SectionIcon,
-  SectionIconListText,
+  HasLocation,
+  HasParticipants,
+  ImageListTextItems,
+  SectionDetailButton,
+  SectionDetailImageSectionIconListTextItems,
+  SectionDetailItems,
+  SectionDetailSectionIconItems,
   SectionIntro,
-  StrapiListText,
+  StrapiListText
 } from "@/utils/interfaces";
 
-export interface CampingTypeItem extends BaseDetail, HasImage, HasIcon {
-  duration: string;
+export interface CampingTypeItem extends BaseDetail, HasImage, HasIcon, HasDuration {
   ageGroup: string;
   activities: StrapiListText[];
-  equipment: StrapiListText[];
+  equipments: StrapiListText[];
 }
 
-export type CampingTypesSection = ListSectionItems<CampingTypeItem>;
+export type CampingTypesSection = SectionDetailItems<CampingTypeItem>;
 
-export interface CampingSiteItem extends BaseDetail, HasImage {
-  location: string;
-  duration: string;
-  participants: string;
+export interface CampingSiteItem extends BaseDetail, HasImage, HasLocation, HasButton, HasParticipants, HasDuration {
   environment: string;
-  button?: ButtonDetail;
 }
 
-export type CampingSitesSection = ListSectionItems<CampingSiteItem>;
-
-export interface ActivitiesSkillsSection
-  extends ListSectionItems<SectionIconListText>,
-    HasImage {}
-
-export type EquipmentSection = ListSectionItems<SectionIcon>;
-
-export type EnvironmentalPrinciplesSection = ListSectionItems<SectionIcon>;
+export type CampingSitesSection = SectionDetailItems<CampingSiteItem>;
 
 export interface CampingContent {
   activityType?: ActivityType;
   pageIntro?: SectionIntro;
-  heroSection?: ActivityHeroSection;
+  heroSection?: ImageListTextItems;
   campingTypesSection?: CampingTypesSection;
   campingSitesSection?: CampingSitesSection;
-  activitiesSkillsSection?: ActivitiesSkillsSection;
-  equipmentSection?: EquipmentSection;
-  environmentalPrinciplesSection?: EnvironmentalPrinciplesSection;
-  joinSection?: SectionButton;
+  activitiesSkillsSection?: SectionDetailImageSectionIconListTextItems;
+  equipmentSection?: SectionDetailSectionIconItems;
+  environmentalPrinciplesSection?: SectionDetailSectionIconItems;
+  joinSection?: SectionDetailButton;
 }

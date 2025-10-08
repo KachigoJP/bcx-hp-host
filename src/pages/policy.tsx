@@ -6,13 +6,10 @@ import {
   ButtonDetail,
   GlobalInfo,
   PolicyContent,
-  SectionDetailItems,
   SectionIcon,
-  SectionIconItems,
   SectionIntro,
-  SectionItems,
+  SectionListTextItems
 } from "@/utils/interfaces";
-import { ContactPolicySection } from "@/utils/interfaces/policy";
 import Layout, { LayoutProps } from "@components/layout";
 import SEO from "@components/layout/SEO";
 import { SEOProps } from "@components/layout/SEO/interface";
@@ -57,7 +54,7 @@ export const getServerSideProps = async () => {
     description: "Các quy định và nguyên tắc khi tham gia các hoạt động của tổ chức",
   }
 
-  const valueItems: SectionIcon[] = [
+  const coreValueSectionItems: SectionIcon[] = [
     {
       icon: "fi flaticon-user",
       title: "Đoàn kết",
@@ -86,7 +83,7 @@ export const getServerSideProps = async () => {
     description: "Các quy định và nguyên tắc khi tham gia các hoạt động của tổ chức",
   };
 
-  const policyDetails: SectionItems[] = [
+  const activityPoliciesSectionItems: SectionListTextItems[] = [
     {
       title: "1. Quy định tham gia",
       items: [
@@ -132,7 +129,7 @@ export const getServerSideProps = async () => {
       "Chúng tôi cam kết minh bạch và trách nhiệm trong việc quản lý tài chính, đảm bảo mọi khoản thu chi đều được sử dụng đúng mục đích và có báo cáo rõ ràng.",
   }
 
-  const policyItems: SectionItems[] = [
+  const financialPolicySectionItems: SectionListTextItems[] = [
     {
       title: "Nguyên tắc thu chi",
       items: [
@@ -159,7 +156,7 @@ export const getServerSideProps = async () => {
     description: "Bộ quy tắc ứng xử mà tất cả thành viên và tình nguyện viên phải tuân thủ",
   };
 
-  const conductItems: SectionIcon[] = [
+  const codeOfConductSectionItems: SectionIcon[] = [
     {
       icon: "fi flaticon-user",
       title: "Tôn trọng",
@@ -188,7 +185,7 @@ export const getServerSideProps = async () => {
   };
 
 
-  const contactPolicyItems: SectionItems[] = [
+  const contactPolicySectionItems: SectionListTextItems[] = [
     {
       title: "Quy trình xử lý",
       items: [
@@ -224,25 +221,25 @@ export const getServerSideProps = async () => {
     missionVision,
     coreValuesSection: {
       sectionIntro: coreValuesSectionIntro,
-      items: valueItems,
-    } as SectionIconItems,
+      items: coreValueSectionItems,
+    },
     activityPoliciesSection: {
       sectionIntro: activityPoliciesSectionIntro,
-      items: policyDetails,
-    } as SectionDetailItems,
+      items: activityPoliciesSectionItems,
+    },
     financialPolicySection: {
       sectionIntro: financialPolicySectionIntro,
-      items: policyItems,
-    } as SectionDetailItems,
+      items: financialPolicySectionItems,
+    },
     codeOfConductSection: {
       sectionIntro: codeOfConductSectionIntro,
-      items: conductItems,
-    } as SectionIconItems,
+      items: codeOfConductSectionItems,
+    },
     contactPolicySection: {
       sectionIntro: contactPolicySectionIntro,
-      items: contactPolicyItems,
-      actionButton: contactPolicyActionButton,
-    } as ContactPolicySection,
+      items: contactPolicySectionItems,
+      button: contactPolicyActionButton,
+    },
   };
 
   return {
@@ -282,17 +279,11 @@ const PolicyPage: React.FC<PolicyProps> = props => {
         populate: {
           "populate[pageIntro][populate]": "*",
           "populate[missionVision][populate]": "*",
-          "populate[coreValuesSection][populate][items][populate]": "*",
-          "populate[coreValuesSection][populate][sectionIntro][populate]": "*",
-          "populate[activityPoliciesSection][populate][items][populate]": "*",
-          "populate[activityPoliciesSection][populate][sectionIntro][populate]": "*",
-          "populate[financialPolicySection][populate][items][populate]": "*",
-          "populate[financialPolicySection][populate][sectionIntro][populate]": "*",
-          "populate[codeOfConductSection][populate][items][populate]": "*",
-          "populate[codeOfConductSection][populate][sectionIntro][populate]": "*",
-          "populate[contactPolicySection][populate][items][populate]": "*",
-          "populate[contactPolicySection][populate][actionButton][populate]": "*",
-          "populate[contactPolicySection][populate][sectionIntro][populate]": "*",
+          "populate[coreValuesSection][populate]": "*",
+          "populate[activityPoliciesSection][populate]": "*",
+          "populate[financialPolicySection][populate]": "*",
+          "populate[codeOfConductSection][populate]": "*",
+          "populate[contactPolicySection][populate]": "*",
         },
       });
       setPolicyContent(policyContent);
@@ -728,12 +719,12 @@ const PolicyPage: React.FC<PolicyProps> = props => {
                 <div className="wpo-contact-policy-action">
                   <a
                     href={
-                      contactPolicySection?.actionButton?.link
+                      contactPolicySection?.button?.link
                     }
                     className="theme-btn"
                   >
                     {
-                      contactPolicySection?.actionButton?.text
+                      contactPolicySection?.button?.text
                     }
                   </a>
                 </div>

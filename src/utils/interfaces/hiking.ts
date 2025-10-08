@@ -3,54 +3,43 @@
  */
 
 import {
-  ActivityHeroSection,
   ActivityType,
   BaseDetail,
   HasButton,
+  HasDuration,
   HasIcon,
   HasImage,
-  HasListText,
-  ListSectionItems,
-  SectionButton,
-  SectionIcon,
-  SectionIconListText,
+  HasItems,
+  HasLocation,
+  HasParticipants,
+  ImageListTextItems,
+  SectionDetailButton,
+  SectionDetailImageSectionIconListTextItems,
+  SectionDetailItems,
+  SectionDetailSectionIconItems,
   SectionIntro,
+  StrapiListText
 } from "@/utils/interfaces";
 
-export interface HikingRouteItem
-  extends BaseDetail,
-    HasImage,
-    HasIcon,
-    HasListText {
+export interface HikingRouteItem extends BaseDetail, HasImage, HasIcon, HasItems<StrapiListText>, HasDuration {
   difficulty: string;
-  duration: string;
   distance: string;
   ageGroup: string;
 }
 
-export type HikingRouteSection = ListSectionItems<HikingRouteItem>;
+export type HikingRouteSection = SectionDetailItems<HikingRouteItem>;
 
-export interface PopularRouteItem extends BaseDetail, HasImage, HasButton {
-  duration: string;
-  location: string;
-  participants: string;
-}
+export interface PopularRouteItem extends BaseDetail, HasImage, HasButton, HasDuration, HasLocation, HasParticipants { }
 
-export type PopularRouteSection = ListSectionItems<PopularRouteItem>;
-
-export interface SafetyEquipmentSection
-  extends ListSectionItems<SectionIconListText>,
-    HasImage {}
-
-export type EnvironmentalSection = ListSectionItems<SectionIcon>;
+export type PopularRouteSection = SectionDetailItems<PopularRouteItem>;
 
 export interface HikingContent {
   activityType?: ActivityType;
   pageIntro?: SectionIntro;
-  heroSection?: ActivityHeroSection;
+  heroSection?: ImageListTextItems;
   hikingRoutesSection?: HikingRouteSection;
   popularRoutesSection?: PopularRouteSection;
-  safetyEquipmentSection?: SafetyEquipmentSection;
-  environmentalSection?: EnvironmentalSection;
-  joinSection?: SectionButton;
+  safetyEquipmentSection?: SectionDetailImageSectionIconListTextItems;
+  environmentalSection?: SectionDetailSectionIconItems;
+  joinSection?: SectionDetailButton;
 }

@@ -2,7 +2,7 @@ import globalService from "@/lib/strapi/services/globalService";
 import hikingService from "@/lib/strapi/services/hikingService";
 import seoService from "@/lib/strapi/services/seoService";
 import { convertGlobalInfoToLayoutData, getStrapiImageUrl } from "@/utils/apps";
-import { ActivityHeroSection, EnvironmentalSection, GlobalInfo, HikingContent, HikingRouteSection, PopularRouteSection, SafetyEquipmentSection } from "@/utils/interfaces";
+import { GlobalInfo, HikingContent, HikingRouteSection, ImageListTextItems, PopularRouteSection, SectionDetailImageSectionIconListTextItems, SectionDetailSectionIconItems } from "@/utils/interfaces";
 import RegistrationForm from "@components/common/RegistrationForm";
 import Layout, { LayoutProps } from "@components/layout";
 import SEO from "@components/layout/SEO";
@@ -35,9 +35,9 @@ export const getServerSideProps = async () => {
         description: "Tham gia các chuyến hiking khám phá những cung đường tuyệt đẹp của Việt Nam. Chúng tôi tổ chức các hoạt động hiking an toàn, thú vị và có ý nghĩa bảo vệ môi trường.",
     };
 
-    const heroSection: ActivityHeroSection = {
+    const heroSection: ImageListTextItems = {
         image: "/images/hiking-hero.jpg",
-        features: [
+        items: [
             {
                 text: "Hướng dẫn viên chuyên nghiệp"
             },
@@ -193,7 +193,7 @@ export const getServerSideProps = async () => {
         ]
     };
 
-    const safetyEquipmentSection: SafetyEquipmentSection = {
+    const safetyEquipmentSection: SectionDetailImageSectionIconListTextItems = {
         sectionIntro: {
             tag: "An toàn & Thiết bị",
             title: "Chuẩn bị cho chuyến hiking an toàn",
@@ -257,7 +257,7 @@ export const getServerSideProps = async () => {
         image: "/images/hiking-equipment.jpg"
     };
 
-    const environmentalSection: EnvironmentalSection = {
+    const environmentalSection: SectionDetailSectionIconItems = {
         sectionIntro: {
             tag: "Trách nhiệm với môi trường",
             title: "Hiking có trách nhiệm với môi trường",
@@ -375,7 +375,7 @@ const HikingPage: React.FC<HikingProps> = (props) => {
     const environmentalSection = hikingContent?.environmentalSection || props.hikingContent.environmentalSection;
     const joinSection = hikingContent?.joinSection || props.hikingContent.joinSection;
 
-    console.log(heroSection?.features);
+    console.log(heroSection?.items);
 
     return (
         <Layout data={globalData ? convertGlobalInfoToLayoutData(globalData) : props.layout.data}>
@@ -406,9 +406,9 @@ const HikingPage: React.FC<HikingProps> = (props) => {
                                 </div>
                                 <div className="wpo-about-content">
                                     <ul>
-                                        {heroSection?.features
-                                            && heroSection?.features?.length > 0
-                                            && heroSection?.features?.map((feature, index) => (
+                                        {heroSection?.items
+                                            && heroSection?.items?.length > 0
+                                            && heroSection?.items?.map((feature, index) => (
                                                 <li key={index} className="hero-feature">
                                                     <i className="flaticon-checked"></i>
                                                     <span>{feature.text}</span>

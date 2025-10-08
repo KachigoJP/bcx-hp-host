@@ -7,9 +7,9 @@ import {
   AboutContent,
   AchievementContent,
   GlobalInfo,
-  SectionDetailIconNumber,
+  SectionDetailSectionIconItems,
   SectionIcon,
-  SectionIconItems,
+  SectionIconNumber,
   SectionIntro
 } from "@/utils/interfaces";
 import Layout, { LayoutProps } from "@components/layout";
@@ -44,7 +44,7 @@ export const getServerSideProps = async () => {
       "Trong suốt hành trình phát triển, Bàn Chân Xanh đã đạt được nhiều thành tựu đáng tự hào, góp phần xây dựng một cộng đồng người Việt gắn kết và yêu thiên nhiên tại Nhật Bản",
   };
 
-  const achievementItems: SectionDetailIconNumber[] = [
+  const achievementItems: SectionIconNumber[] = [
     {
       icon: "fi flaticon-user",
       number: "500+",
@@ -71,7 +71,7 @@ export const getServerSideProps = async () => {
     },
   ];
 
-  const awardSection: SectionIconItems = {
+  const awardSection: SectionDetailSectionIconItems = {
     sectionIntro: {
       tag: "Ghi nhận",
       title: "Giải thưởng và chứng nhận",
@@ -98,7 +98,7 @@ export const getServerSideProps = async () => {
     ],
   };
 
-  const futureGoalSection: SectionIconItems = {
+  const futureGoalSection: SectionDetailSectionIconItems = {
     sectionIntro: {
       tag: "Tương lai",
       title: "Mục tiêu phát triển",
@@ -180,10 +180,9 @@ const AchievementPage: React.FC<AchievementProps> = props => {
         populate: {
           "populate[pageIntro][populate]": "*",
           "populate[achievementItems][populate]": "*",
-          "populate[awardSection][populate][items][populate]": "*",
-          "populate[awardSection][populate][sectionIntro][populate]": "*",
-          "populate[futureGoalSection][populate][items][populate]": "*",
-          "populate[futureGoalSection][populate][sectionIntro][populate]": "*",
+          "populate[awardSection][populate]": "*",
+          "populate[futureGoalSection][populate]": "*",
+          "populate[sections][populate]": "*",
         },
       });
       setAchievementContent(achievementContent);

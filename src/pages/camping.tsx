@@ -3,14 +3,13 @@ import globalService from "@/lib/strapi/services/globalService";
 import seoService from "@/lib/strapi/services/seoService";
 import { convertGlobalInfoToLayoutData, getStrapiImageUrl } from "@/utils/apps";
 import {
-    ActivitiesSkillsSection,
-    ActivityHeroSection,
     CampingContent,
     CampingSitesSection,
     CampingTypesSection,
-    EnvironmentalPrinciplesSection,
-    EquipmentSection,
-    GlobalInfo
+    GlobalInfo,
+    ImageListTextItems,
+    SectionDetailImageSectionIconListTextItems,
+    SectionDetailSectionIconItems
 } from "@/utils/interfaces";
 import RegistrationForm from "@components/common/RegistrationForm";
 import Layout, { LayoutProps } from "@components/layout";
@@ -44,9 +43,9 @@ export const getServerSideProps = async () => {
         description: "Tham gia các hoạt động camping để trải nghiệm cuộc sống ngoài trời, kết nối với thiên nhiên và học hỏi kỹ năng sinh tồn. Chúng tôi tổ chức các chuyến camping an toàn, thú vị và có ý nghĩa bảo vệ môi trường.",
     };
 
-    const heroSection: ActivityHeroSection = {
+    const heroSection: ImageListTextItems = {
         image: "/images/camping-hero.jpg",
-        features: [
+        items: [
             {
                 text: "Thiết bị camping đầy đủ"
             },
@@ -81,7 +80,7 @@ export const getServerSideProps = async () => {
                     { text: "Kể chuyện" },
                     { text: "Quan sát thiên nhiên" }
                 ],
-                equipment: [
+                equipments: [
                     { text: "Lều gia đình" },
                     { text: "Đồ chơi an toàn" }
                 ]
@@ -98,7 +97,7 @@ export const getServerSideProps = async () => {
                     { text: "Bơi lội" },
                     { text: "Sinh tồn" }
                 ],
-                equipment: [
+                equipments: [
                     { text: "Lều cá nhân" },
                     { text: "Dụng cụ sinh tồn" }
                 ]
@@ -114,7 +113,7 @@ export const getServerSideProps = async () => {
                     { text: "Nghiên cứu môi trường" },
                     { text: "Trồng cây" }
                 ],
-                equipment: [
+                equipments: [
                     { text: "Dụng cụ nghiên cứu" },
                     { text: "Hạt giống" }
                 ]
@@ -168,7 +167,7 @@ export const getServerSideProps = async () => {
         ]
     };
 
-    const activitiesSkillsSection: ActivitiesSkillsSection = {
+    const activitiesSkillsSection: SectionDetailImageSectionIconListTextItems = {
         sectionIntro: {
             tag: "Hoạt động & Kỹ năng",
             title: "Học hỏi kỹ năng sinh tồn",
@@ -203,7 +202,7 @@ export const getServerSideProps = async () => {
         image: "/images/camping-activities.jpg"
     };
 
-    const equipmentSection: EquipmentSection = {
+    const equipmentSection: SectionDetailSectionIconItems = {
         sectionIntro: {
             tag: "Thiết bị & An toàn",
             title: "Chuẩn bị đầy đủ cho chuyến camping",
@@ -233,7 +232,7 @@ export const getServerSideProps = async () => {
         ]
     };
 
-    const environmentalPrinciplesSection: EnvironmentalPrinciplesSection = {
+    const environmentalPrinciplesSection: SectionDetailSectionIconItems = {
         sectionIntro: {
             tag: "Trách nhiệm với môi trường",
             title: "Camping có trách nhiệm với môi trường",
@@ -317,21 +316,13 @@ const CampingPage: React.FC<CampingProps> = (props) => {
             const campingContent = await campingService.get({
                 populate: {
                     "populate[pageIntro][populate]": "*",
-                    "populate[heroSection][populate][image][populate]": "*",
-                    "populate[heroSection][populate][features][populate]": "*",
-                    "populate[campingTypesSection][populate][sectionIntro][populate]": "*",
-                    "populate[campingTypesSection][populate][items][populate]": "*",
-                    "populate[campingSitesSection][populate][sectionIntro][populate]": "*",
-                    "populate[campingSitesSection][populate][items][populate]": "*",
-                    "populate[activitiesSkillsSection][populate][sectionIntro][populate]": "*",
-                    "populate[activitiesSkillsSection][populate][items][populate]": "*",
-                    "populate[activitiesSkillsSection][populate][image][populate]": "*",
-                    "populate[equipmentSection][populate][sectionIntro][populate]": "*",
-                    "populate[equipmentSection][populate][items][populate]": "*",
-                    "populate[environmentalPrinciplesSection][populate][sectionIntro][populate]": "*",
-                    "populate[environmentalPrinciplesSection][populate][items][populate]": "*",
-                    "populate[joinSection][populate][sectionIntro][populate]": "*",
-                    "populate[joinSection][populate][button][populate]": "*",
+                    "populate[heroSection][populate]": "*",
+                    "populate[campingTypesSection][populate]": "*",
+                    "populate[campingSitesSection][populate]": "*",
+                    "populate[activitiesSkillsSection][populate]": "*",
+                    "populate[equipmentSection][populate]": "*",
+                    "populate[environmentalPrinciplesSection][populate]": "*",
+                    "populate[joinSection][populate]": "*",
                 },
             });
             setCampingContent(campingContent);
@@ -388,9 +379,9 @@ const CampingPage: React.FC<CampingProps> = (props) => {
                                 </div>
                                 <div className="wpo-about-content">
                                     <ul>
-                                        {heroSection?.features
-                                            && heroSection?.features?.length > 0
-                                            && heroSection?.features?.map((feature, index) => (
+                                        {heroSection?.items
+                                            && heroSection?.items?.length > 0
+                                            && heroSection?.items?.map((feature, index) => (
                                                 <li key={index} className="hero-feature">
                                                     <i className="flaticon-checked"></i>
                                                     <span>{feature.text}</span>
@@ -442,7 +433,7 @@ const CampingPage: React.FC<CampingProps> = (props) => {
                                                     <li>Thời gian: {campingType.duration}</li>
                                                     <li>Độ tuổi: {campingType.ageGroup}</li>
                                                     <li>Hoạt động: {campingType.activities.map(a => a.text).join(", ")}</li>
-                                                    <li>Thiết bị: {campingType.equipment.map(e => e.text).join(", ")}</li>
+                                                    <li>Thiết bị: {campingType.equipments.map(e => e.text).join(", ")}</li>
                                                 </ul>
                                             </div>
                                         </div>
