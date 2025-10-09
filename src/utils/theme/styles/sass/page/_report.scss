@@ -414,7 +414,7 @@ Report Page Enhanced Styles
         color: $theme-primary-color-s2;
         text-decoration: none;
         border: 2px solid $theme-primary-color-s2;
-        border-radius: 8px;
+        border-radius: 32px;
         font-weight: 500;
         transition: all 0.3s ease;
         text-align: center;
@@ -426,6 +426,10 @@ Report Page Enhanced Styles
           color: white;
           transform: translateY(-2px);
           box-shadow: 0 8px 20px rgba($theme-primary-color-s2, 0.3);
+        }
+
+        &:after {
+          border-radius: 32px;
         }
       }
     }
@@ -583,7 +587,7 @@ Report Page Enhanced Styles
       background: white;
       color: $theme-primary-color-s2;
       text-decoration: none;
-      border-radius: 12px;
+      border-radius: 32px;
       font-weight: 600;
       font-size: 1.1rem;
       transition: all 0.3s ease;
@@ -595,6 +599,10 @@ Report Page Enhanced Styles
         background: #f8f9fa;
         transform: translateY(-3px) scale(1.05);
         box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+      }
+
+      &:after {
+        border-radius: 32px;
       }
     }
   }
@@ -969,7 +977,7 @@ Report Page Enhanced Styles
       background: $theme-primary-color-s2;
       color: white;
       text-decoration: none;
-      border-radius: 12px;
+      border-radius: 32px;
       font-weight: 600;
       font-size: 1.1rem;
       transition: all 0.3s ease;
@@ -981,6 +989,10 @@ Report Page Enhanced Styles
         background: lighten($theme-primary-color-s2, 10%);
         transform: translateY(-3px) scale(1.05);
         box-shadow: 0 12px 32px rgba($theme-primary-color-s2, 0.4);
+      }
+
+      &:after {
+        border-radius: 32px;
       }
     }
   }

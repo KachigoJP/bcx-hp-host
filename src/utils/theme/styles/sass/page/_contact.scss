@@ -368,7 +368,7 @@
           background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
           border: none;
           padding: 14px 48px;
-          border-radius: 10px;
+          border-radius: 32px;
           color: #fff;
           font-size: 16px;
           font-weight: 600;
@@ -378,6 +378,10 @@
           overflow: hidden;
           min-width: 200px;
           box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+
+          &:after {
+            border-radius: 32px;
+          }
 
           &:hover {
             transform: translateY(-2px);
@@ -615,6 +619,10 @@
 
         &:hover {
           color: white;
+        }
+
+        &:after {
+          border-radius: 50px;
         }
       }
     }
