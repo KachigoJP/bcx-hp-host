@@ -53,12 +53,14 @@ export function useFetchSingle<T>(
     } finally {
       setLoading(false);
     }
-  }, [fetchFunction, id, JSON.stringify(params)]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id, JSON.stringify(params)]);
 
   useEffect(() => {
     if (options.autoFetch) {
       fetchData();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [options.autoFetch, ...(options.dependencies || [])]);
 
   return {

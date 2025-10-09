@@ -10,7 +10,6 @@ import {
   TeamContent,
   TeamMember,
 } from "@/utils/interfaces";
-import TeamsData from "@api/team";
 import styles from "@components/containers/Home/Team/TeamSocial.module.css";
 import Layout, { LayoutProps } from "@components/layout";
 import SEO from "@components/layout/SEO";
@@ -18,6 +17,80 @@ import { SEOProps } from "@components/layout/SEO/interface";
 import { getDefaultLayoutData } from "@utils/layoutData";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
+
+// Sample team data - exported for reuse in other pages
+export const sampleTeamData = [
+  {
+    id: "1",
+    tImg: "/images/team/1.jpg",
+    name: "Nguyễn Minh Anh",
+    slug: "nguyen-minh-anh",
+    title: "Trưởng nhóm Hiking",
+  },
+  {
+    id: "2",
+    tImg: "/images/team/2.jpg",
+    name: "Trần Thị Lan",
+    slug: "tran-thi-lan",
+    title: "Tình nguyện viên",
+  },
+  {
+    id: "3",
+    tImg: "/images/team/3.jpg",
+    name: "Lê Văn Hùng",
+    slug: "le-van-hung",
+    title: "Trưởng nhóm Camping",
+  },
+  {
+    id: "4",
+    tImg: "/images/team/4.jpg",
+    name: "Phạm Thị Mai",
+    slug: "pham-thi-mai",
+    title: "Tình nguyện viên",
+  },
+  {
+    id: "5",
+    tImg: "/images/team/5.jpg",
+    name: "Hoàng Đức Nam",
+    slug: "hoang-duc-nam",
+    title: "Trưởng nhóm Workshop",
+  },
+  {
+    id: "6",
+    tImg: "/images/team/6.jpg",
+    name: "Vũ Thị Hoa",
+    slug: "vu-thi-hoa",
+    title: "Tình nguyện viên",
+  },
+  {
+    id: "7",
+    tImg: "/images/team/7.jpg",
+    name: "Đặng Minh Tuấn",
+    slug: "dang-minh-tuan",
+    title: "Tình nguyện viên",
+  },
+  {
+    id: "8",
+    tImg: "/images/team/8.jpg",
+    name: "Bùi Thị Linh",
+    slug: "bui-thi-linh",
+    title: "Tình nguyện viên",
+  },
+  {
+    id: "9",
+    tImg: "/images/team/9.jpg",
+    name: "Nguyễn Văn Đức",
+    slug: "nguyen-van-duc",
+    title: "Người sáng lập",
+  },
+  {
+    id: "10",
+    tImg: "/images/team/10.jpg",
+    name: "Lê Thị Hương",
+    slug: "le-thi-huong",
+    title: "Quản lý cộng đồng",
+  },
+];
 
 interface TeamProps {
   layout: LayoutProps;
@@ -44,7 +117,7 @@ export const getServerSideProps = async () => {
       "Đội ngũ tình nguyện viên nhiệt tình và giàu kinh nghiệm, luôn sẵn sàng hỗ trợ và đồng hành cùng các thành viên trong mọi hoạt động. Chúng tôi tin rằng sức mạnh của cộng đồng đến từ sự đóng góp của từng cá nhân.",
   };
 
-  const teamMembers: TeamMember[] = TeamsData.map(member => ({
+  const teamMembers: TeamMember[] = sampleTeamData.map(member => ({
     name: member.name,
     title: member.title,
     image: member.tImg,

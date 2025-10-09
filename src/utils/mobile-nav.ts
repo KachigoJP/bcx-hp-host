@@ -1,5 +1,5 @@
 export function slideUp(element: HTMLElement, duration = 500) {
-  return new Promise(function (resolve, _reject) {
+  return new Promise(function (resolve) {
     element.style.height = element.offsetHeight + "px";
     element.style.transitionProperty = `height, margin, padding`;
     element.style.transitionDuration = duration + "ms";
@@ -26,7 +26,7 @@ export function slideUp(element: HTMLElement, duration = 500) {
 }
 
 export function slideDown(element: HTMLElement, duration = 500) {
-  return new Promise(function (_resolve, _reject) {
+  return new Promise(function () {
     element.style.removeProperty("display");
     let display = window.getComputedStyle(element).display;
 

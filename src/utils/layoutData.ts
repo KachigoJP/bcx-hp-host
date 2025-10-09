@@ -74,7 +74,7 @@ export const getDefaultLayoutData = (): LayoutProps => {
     },
     {
       menuId: "6",
-      title: "Tham gia cùng chúng tôi",
+      title: "Tham gia",
       link: "/join",
     },
     {

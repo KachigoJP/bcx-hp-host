@@ -1,48 +1,130 @@
-import PageTitle from "@components/common/PageTitle";
+import errorService from "@/lib/strapi/services/errorService";
+import globalService from "@/lib/strapi/services/globalService";
+import seoService from "@/lib/strapi/services/seoService";
+import { convertGlobalInfoToLayoutData } from "@/utils/apps";
+import { ErrorContent } from "@/utils/interfaces/error";
+import { GlobalInfo } from "@/utils/interfaces/global";
 import Error from "@components/containers/404";
 import Layout from "@components/layout";
-import React from "react";
+import SEO from "@components/layout/SEO";
+import { SEOProps } from "@components/layout/SEO/interface";
+import { getDefaultLayoutData } from "@utils/layoutData";
+import React, { useEffect, useState } from "react";
 
-const Page404: React.FC<unknown> = (props) => {
+// Default content for 404 page (fallback if Strapi is not available)
+const defaultErrorContent: ErrorContent = {
+  mainTitle: "Ôi! Bạn đã lạc đường rồi",
+  subtitle: "Không tìm thấy trang",
+  description:
+    "Trang bạn đang tìm kiếm không tồn tại hoặc đã bị di chuyển. Hãy quay về trang chủ hoặc khám phá các hoạt động thú vị của chúng tôi.",
+  primaryButton: {
+    text: "Về trang chủ",
+    link: "/",
+  },
+  secondaryButton: {
+    text: "Khám phá hoạt động",
+    link: "/activity",
+  },
+  quickLinksTitle: "Hoặc thử các trang phổ biến:",
+  quickLinks: [
+    {
+      title: "Về chúng tôi",
+      link: "/about",
+      icon: "ti-angle-right",
+    },
+    {
+      title: "Hiking",
+      link: "/hiking",
+      icon: "ti-angle-right",
+    },
+    {
+      title: "Camping",
+      link: "/camping",
+      icon: "ti-angle-right",
+    },
+    {
+      title: "Workshop",
+      link: "/workshop",
+      icon: "ti-angle-right",
+    },
+    {
+      title: "Liên hệ",
+      link: "/contact",
+      icon: "ti-angle-right",
+    },
+  ],
+};
+
+const defaultSeoData: SEOProps = {
+  metadata: {
+    page_code: "404",
+    title: "404 - Không tìm thấy trang | Bàn Chân Xanh",
+    description:
+      "Trang bạn đang tìm kiếm không tồn tại hoặc đã bị di chuyển. Quay về trang chủ để khám phá các hoạt động của Bàn Chân Xanh.",
+  },
+};
+
+const Page404: React.FC = () => {
+  const [globalData, setGlobalData] = useState<GlobalInfo | null>(null);
+  const [error404Content, setError404Content] = useState<ErrorContent>(defaultErrorContent);
+  const [seoData, setSeoData] = useState<SEOProps>(defaultSeoData);
+  const layoutData = getDefaultLayoutData();
+
+  useEffect(() => {
+    const fetchGlobalData = async () => {
+      try {
+        const data = await globalService.get({
+          populate: {
+            "populate[logo][populate]": "*",
+            "populate[headerMenus][populate]": "*",
+            "populate[rightButtons][populate]": "*",
+            "populate[footerMenus][populate]": "*",
+            "populate[footerQuicklinks][populate]": "*",
+          },
+        });
+        setGlobalData(data);
+      } catch {
+        console.log("Using default layout data");
+      }
+    };
+
+    const fetchError404Content = async () => {
+      try {
+        const content = await errorService.get({
+          populate: {
+            "populate[primaryButton][populate]": "*",
+            "populate[secondaryButton][populate]": "*",
+            "populate[quickLinks][populate]": "*",
+          },
+        });
+        setError404Content(content);
+      } catch {
+        console.log("Using default 404 content");
+      }
+    };
+
+    const fetchSeoData = async () => {
+      try {
+        const data = await seoService.get({
+          populate: {
+            "populate[pages][populate]": "*",
+          },
+        });
+        setSeoData(data);
+      } catch {
+        console.log("Using default SEO data");
+      }
+    };
+
+    fetchGlobalData();
+    fetchError404Content();
+    fetchSeoData();
+  }, []);
+
   return (
-    <Layout
-      data={{
-        logo: "/assets/images/logo.png",
-        slogan: "",
-        footerSlogan:
-          "Cùng chúng tôi khám phá vẻ đẹp thiên nhiên Nhật Bản và xây dựng cộng đồng người Việt gắn kết.",
-        facebook: "https://facebook.com/banchanxanhjp",
-        instagram: "https://instagram.com/banchanxanh.kt",
-        google: "",
-        email: "info@banchanxanh.com",
-        phone: "080-4734-3979",
-        headerMenus: [
-          { menuId: "1", title: "Trang chủ", link: "/" },
-          { menuId: "2", title: "Về chúng tôi", link: "/about" },
-          { menuId: "3", title: "Hoạt động", link: "/activity" },
-          { menuId: "4", title: "Tin tức", link: "/new" },
-          { menuId: "5", title: "Liên hệ", link: "/contact" },
-        ],
-        footerQuicklinksTitle: "Liên kết nhanh",
-        footerContactTitle: "Liên hệ",
-        footerContactDescription: "Nếu bạn có bất kỳ thắc mắc nào, vui lòng liên hệ với chúng tôi",
-        footerMenusTitle: "Liên kết nhanh",
-        footerQuicklinks: [
-          { menuId: "1", title: "Về chúng tôi", link: "/about" },
-          { menuId: "2", title: "Hoạt động", link: "/activity" },
-          { menuId: "3", title: "Tin tức", link: "/new" },
-          { menuId: "4", title: "Liên hệ", link: "/contact" },
-        ],
-        footerMenus: [
-          { menuId: "1", title: "Chính sách", link: "/policy" },
-          { menuId: "2", title: "Báo cáo", link: "/report" },
-          { menuId: "3", title: "Thành tựu", link: "/achievement" },
-          { menuId: "4", title: "Tham gia", link: "/join" },
-        ],
-      }}
-    >
-      <PageTitle pageTitle={"404"} pagesub={"404"} />
-      <Error />
+    <Layout data={globalData ? convertGlobalInfoToLayoutData(globalData) : layoutData.data}>
+      <SEO {...seoData} />
+      <Error content={error404Content} />
     </Layout>
   );
 };

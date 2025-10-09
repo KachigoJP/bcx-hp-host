@@ -176,8 +176,6 @@ const ContactPage: React.FC<ContactProps> = (props) => {
     const pageIntro = contactContent?.pageIntro || props.contactContent.pageIntro;
     const contactInfoSection = contactContent?.contactInfoSection || props.contactContent.contactInfoSection;
     const contactFormSection = contactContent?.contactFormSection || props.contactContent.contactFormSection;
-    const socialMediaSection = contactContent?.socialMediaSection || props.contactContent.socialMediaSection;
-    const mapSection = contactContent?.mapSection || props.contactContent.mapSection;
 
     const layoutData = globalData ? convertGlobalInfoToLayoutData(globalData) : props.layout.data;
 

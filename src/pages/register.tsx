@@ -276,10 +276,9 @@ const RegisterPage: React.FC<RegisterProps> = (props) => {
     };
 
     const pageIntro = registerContent?.pageIntro || props.registerContent.pageIntro;
-    const benefits = registerContent?.benefits || props.registerContent.benefits;
-    const termsLink = registerContent?.termsLink || props.registerContent.termsLink || "/term";
-    const privacyLink = registerContent?.privacyLink || props.registerContent.privacyLink || "/privacy";
-    const loginLink = registerContent?.loginLink || props.registerContent.loginLink || "/login";
+    const termsLink = registerContent?.termsLink || props.registerContent.termsLink || "/#";
+    const privacyLink = registerContent?.privacyLink || props.registerContent.privacyLink || "/#";
+    const loginLink = registerContent?.loginLink || props.registerContent.loginLink || "/#";
 
     const layoutData = globalData ? convertGlobalInfoToLayoutData(globalData) : props.layout.data;
 

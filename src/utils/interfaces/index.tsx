@@ -15,6 +15,7 @@ export * from "./camping";
 export * from "./common";
 export * from "./contact";
 export * from "./donate";
+export * from "./error";
 export * from "./global";
 export * from "./hiking";
 export * from "./join";
