@@ -1,20 +1,21 @@
 export interface SEOProps {
-  metadata: SEOMetadata;
+  metadata?: Partial<SEOMetadata>;
 }
 
 export interface SEOMetadata {
-  url: string;
-  title: string;
-  description: string;
-  canonical: string;
-  robots: string;
-  lang: string;
-  favicon: string;
-  keywords: string;
-  image: string;
-  prev: string;
-  next: string;
-  og: OpenGraph;
+  page_code?: string;
+  url?: string;
+  title?: string;
+  description?: string;
+  canonical?: string;
+  robots?: string;
+  lang?: string;
+  favicon?: string;
+  keywords?: string;
+  image?: string;
+  prev?: string;
+  next?: string;
+  og?: OpenGraph;
 }
 
 export interface OpenGraph {
@@ -22,7 +23,7 @@ export interface OpenGraph {
   title?: string;
   description?: string;
   type?: string;
-  locale?: string;
+  ogLocale?: string;
   image?: string;
   secure_url?: string;
   img_width?: string;

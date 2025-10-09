@@ -1,45 +1,284 @@
-import styles from "@components/containers/Donate/DonateForm.module.scss";
+import donateService from "@/lib/strapi/services/donateService";
+import globalService from "@/lib/strapi/services/globalService";
+import seoService from "@/lib/strapi/services/seoService";
+import { convertGlobalInfoToLayoutData } from "@/utils/apps";
+import { DonateContent, GlobalInfo } from "@/utils/interfaces";
 import Layout, { LayoutProps } from "@components/layout";
 import SEO from "@components/layout/SEO";
 import { SEOProps } from "@components/layout/SEO/interface";
 import { getDefaultLayoutData } from "@utils/layoutData";
-import React from "react";
+import Image from "next/image";
+import React, { useEffect, useState } from "react";
 
 interface DonateProps {
     layout: LayoutProps;
     seo: SEOProps;
+    donateContent: DonateContent;
 }
 
 export const getServerSideProps = async () => {
     const layoutData = getDefaultLayoutData();
 
     const seoData = {
-        title: "Đóng góp - Bàn Chân Xanh",
-        meta: [
-            {
-                name: "description",
-                content: "Đóng góp cho Bàn Chân Xanh để cùng chúng tôi bảo vệ môi trường và xây dựng một tương lai bền vững. Mọi đóng góp đều có ý nghĩa."
+        metadata: {
+            page_code: "donate",
+            title: "Đóng góp - Bàn Chân Xanh",
+            description: "Đóng góp cho Bàn Chân Xanh để cùng chúng tôi bảo vệ môi trường và xây dựng một tương lai bền vững. Mọi đóng góp đều có ý nghĩa."
+        }
+    };
+
+    const donateContent: DonateContent = {
+        pageIntro: {
+            tag: "Cùng nhau hành động",
+            title: "Đóng góp cho tương lai xanh",
+            description: "Mọi đóng góp của bạn đều có ý nghĩa trong việc bảo vệ môi trường và xây dựng một tương lai bền vững. Chúng tôi cam kết sử dụng mọi nguồn lực một cách minh bạch và hiệu quả."
+        },
+        heroSection: {
+            title: "Đóng góp cho tương lai xanh",
+            description: "Mọi đóng góp của bạn đều có ý nghĩa trong việc bảo vệ môi trường và xây dựng một tương lai bền vững.",
+            stats: [
+                { number: "100%", label: "Minh bạch tài chính" },
+                { number: "50+", label: "Dự án đã thực hiện" },
+                { number: "1000+", label: "Người đóng góp" },
+                { number: "500M+", label: "VNĐ đã quyên góp" }
+            ]
+        },
+        impactSection: {
+            sectionIntro: {
+                tag: "Tác động của bạn",
+                title: "Mỗi đóng góp tạo nên sự khác biệt",
+                description: "Xem cách đóng góp của bạn được sử dụng để tạo ra tác động tích cực cho môi trường và cộng đồng."
             },
-            {
-                name: "keywords",
-                content: "đóng góp, quyên góp, bảo vệ môi trường, từ thiện, Bàn Chân Xanh, phát triển bền vững, hoạt động xã hội"
-            }
-        ]
+            items: [
+                {
+                    icon: "flaticon-ecology",
+                    title: "100.000 VNĐ",
+                    description: "Trồng 1 cây xanh và chăm sóc trong 1 năm"
+                },
+                {
+                    icon: "flaticon-graduation-cap",
+                    title: "500.000 VNĐ",
+                    description: "Tổ chức 1 workshop giáo dục môi trường"
+                },
+                {
+                    icon: "flaticon-ecology",
+                    title: "1.000.000 VNĐ",
+                    description: "Tổ chức 1 chuyến dọn rác đại trà tại biển"
+                },
+                {
+                    icon: "flaticon-target",
+                    title: "5.000.000 VNĐ",
+                    description: "Tài trợ 1 dự án nghiên cứu môi trường"
+                }
+            ]
+        },
+        donationMethodsSection: {
+            sectionIntro: {
+                tag: "Phương thức",
+                title: "Cách thức đóng góp",
+                description: "Chọn phương thức đóng góp phù hợp với bạn"
+            },
+            items: [
+                {
+                    icon: "flaticon-bank",
+                    title: "Chuyển khoản ngân hàng",
+                    description: "Chuyển trực tiếp vào tài khoản ngân hàng của chúng tôi",
+                    image: "/images/donate-bank.jpg",
+                    accountInfo: {
+                        accountName: "TỔ CHỨC BÀN CHÂN XANH",
+                        accountNumber: "0123456789",
+                        bankName: "Ngân hàng TMCP Á Châu (ACB)"
+                    }
+                },
+                {
+                    icon: "flaticon-momo",
+                    title: "Momo",
+                    description: "Quét mã QR hoặc chuyển đến số điện thoại",
+                    image: "/images/donate-momo.jpg",
+                    qrCode: "/images/momo-qr.jpg"
+                },
+                {
+                    icon: "flaticon-zalopay",
+                    title: "ZaloPay",
+                    description: "Quét mã QR hoặc chuyển đến số điện thoại",
+                    image: "/images/donate-zalopay.jpg",
+                    qrCode: "/images/zalopay-qr.jpg"
+                },
+                {
+                    icon: "flaticon-cash",
+                    title: "Tiền mặt",
+                    description: "Đóng góp trực tiếp tại các sự kiện",
+                    image: "/images/donate-cash.jpg"
+                }
+            ]
+        },
+        donationFormSection: {
+            tag: "Đóng góp online",
+            title: "Form đóng góp trực tuyến",
+            description: "Điền thông tin để chúng tôi có thể liên hệ và gửi giấy chứng nhận đóng góp"
+        },
+        transparencySection: {
+            sectionIntro: {
+                tag: "Minh bạch",
+                title: "Cam kết minh bạch",
+                description: "Chúng tôi cam kết sử dụng mọi nguồn đóng góp một cách minh bạch và hiệu quả"
+            },
+            items: [
+                {
+                    icon: "flaticon-checked",
+                    title: "Báo cáo tài chính",
+                    description: "Công khai báo cáo tài chính hàng quý và hàng năm"
+                },
+                {
+                    icon: "flaticon-search",
+                    title: "Kiểm toán độc lập",
+                    description: "Được kiểm toán bởi đơn vị độc lập hàng năm"
+                },
+                {
+                    icon: "flaticon-target",
+                    title: "Minh bạch chi tiêu",
+                    description: "Công khai từng khoản chi tiêu và mục đích sử dụng"
+                },
+                {
+                    icon: "flaticon-ecology",
+                    title: "Báo cáo tác động",
+                    description: "Cập nhật định kỳ về tác động thực tế của các dự án"
+                }
+            ]
+        },
+        recentDonationsSection: {
+            sectionIntro: {
+                tag: "Cảm ơn",
+                title: "Những đóng góp gần đây",
+                description: "Cảm ơn sự đóng góp của các nhà hảo tâm"
+            },
+            items: [
+                {
+                    icon: "flaticon-ecology",
+                    donor: "Nguyễn Văn A",
+                    title: "Trồng cây xanh",
+                    description: "Đóng góp cho chương trình trồng cây",
+                    amount: "500.000 VNĐ",
+                    date: "15/12/2024"
+                },
+                {
+                    icon: "flaticon-graduation-cap",
+                    donor: "Trần Thị B",
+                    title: "Workshop môi trường",
+                    description: "Hỗ trợ tổ chức workshop",
+                    amount: "1.000.000 VNĐ",
+                    date: "14/12/2024"
+                },
+                {
+                    icon: "flaticon-target",
+                    donor: "Lê Văn C",
+                    title: "Nghiên cứu môi trường",
+                    description: "Tài trợ dự án nghiên cứu",
+                    amount: "5.000.000 VNĐ",
+                    date: "13/12/2024"
+                }
+            ]
+        }
     };
 
     return {
         props: {
             layout: layoutData,
             seo: seoData,
+            donateContent,
         },
     };
 };
 
 const DonatePage: React.FC<DonateProps> = (props) => {
+    const [globalData, setGlobalData] = useState<GlobalInfo | null>(null);
+    const [donateContent, setDonateContent] = useState<DonateContent | null>(null);
+    const [seoData, setSeoData] = useState<SEOProps | null>(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const [globalResponse, donateResponse, seoResponse] = await Promise.all([
+                    globalService.get({
+                        populate: {
+                            "populate[logo][populate]": "*",
+                            "populate[headerMenus][populate]": "*",
+                            "populate[rightButtons][populate]": "*",
+                            "populate[footerMenus][populate]": "*",
+                            "populate[footerQuicklinks][populate]": "*",
+                        },
+                    }),
+                    donateService.get({
+                        populate: {
+                            pageIntro: true,
+                            heroSection: true,
+                            impactSection: {
+                                populate: {
+                                    sectionIntro: true,
+                                    items: true
+                                }
+                            },
+                            donationMethodsSection: {
+                                populate: {
+                                    sectionIntro: true,
+                                    items: {
+                                        populate: {
+                                            image: true,
+                                            qrCode: true,
+                                            accountInfo: true
+                                        }
+                                    }
+                                }
+                            },
+                            donationFormSection: true,
+                            transparencySection: {
+                                populate: {
+                                    sectionIntro: true,
+                                    items: true
+                                }
+                            },
+                            recentDonationsSection: {
+                                populate: {
+                                    sectionIntro: true,
+                                    items: true
+                                }
+                            }
+                        }
+                    }),
+                    seoService.get({
+                        populate: {
+                            "populate[pages][populate]": "*",
+                        },
+                    })
+                ]);
+
+                setGlobalData(globalResponse);
+                setDonateContent(donateResponse);
+                setSeoData(seoResponse);
+            } catch (error) {
+                console.error('Error fetching donate data:', error);
+                setDonateContent(props.donateContent);
+                setSeoData(props.seo);
+            }
+        };
+
+        fetchData();
+    }, [props.donateContent, props.seo]);
+
+    const pageIntro = donateContent?.pageIntro || props.donateContent.pageIntro;
+    const heroSection = donateContent?.heroSection || props.donateContent.heroSection;
+    const impactSection = donateContent?.impactSection || props.donateContent.impactSection;
+    const donationMethodsSection = donateContent?.donationMethodsSection || props.donateContent.donationMethodsSection;
+    const donationFormSection = donateContent?.donationFormSection || props.donateContent.donationFormSection;
+    const transparencySection = donateContent?.transparencySection || props.donateContent.transparencySection;
+    const recentDonationsSection = donateContent?.recentDonationsSection || props.donateContent.recentDonationsSection;
+
+    const layoutData = globalData ? convertGlobalInfoToLayoutData(globalData) : props.layout.data;
+
     const handleDonateSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const form = e.currentTarget;
-        const submitButton = form.querySelector(`.${styles.submitButton}`) as HTMLButtonElement;
+        const submitButton = form.querySelector('.submitButton') as HTMLButtonElement;
 
         // Add loading state
         if (submitButton) {
@@ -71,436 +310,350 @@ const DonatePage: React.FC<DonateProps> = (props) => {
     };
 
     return (
-        <Layout data={props.layout.data}>
-            <SEO {...props.seo} />
-            {/* Hero Section */}
-            <section className="wpo-about-section section-padding section-padding-top">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-lg-6 col-md-6 col-12">
-                            <div className="wpo-about-img">
-                                <img src="/images/donate-hero.jpg" alt="Đóng góp" />
-                            </div>
-                        </div>
-                        <div className="col-lg-6 col-md-6 col-12">
-                            <div className="wpo-about-text">
-                                <div className="wpo-section-title">
-                                    <span>Cùng nhau hành động</span>
-                                    <h2>Đóng góp cho tương lai xanh</h2>
-                                    <p>Mọi đóng góp của bạn đều có ý nghĩa trong việc bảo vệ môi trường và xây dựng một tương lai bền vững. Chúng tôi cam kết sử dụng mọi nguồn lực một cách minh bạch và hiệu quả.</p>
-                                </div>
-                                <div className="wpo-about-content">
-                                    <ul>
-                                        <li>
-                                            <i className="flaticon-checked"></i>
-                                            <span>Minh bạch tài chính</span>
-                                        </li>
-                                        <li>
-                                            <i className="flaticon-checked"></i>
-                                            <span>Tác động thực tế</span>
-                                        </li>
-                                        <li>
-                                            <i className="flaticon-checked"></i>
-                                            <span>Báo cáo định kỳ</span>
-                                        </li>
-                                        <li>
-                                            <i className="flaticon-checked"></i>
-                                            <span>Giấy chứng nhận</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+        <Layout data={layoutData}>
+            <SEO {...(seoData || props.seo)} />
 
-            {/* Impact Section */}
-            <section className="wpo-service-section section-padding">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-12">
-                            <div className="wpo-section-title text-center">
-                                <span>Tác động của bạn</span>
-                                <h2>Mỗi đóng góp tạo nên sự khác biệt</h2>
-                                <p>Xem cách đóng góp của bạn được sử dụng để tạo ra tác động tích cực cho môi trường và cộng đồng.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-lg-3 col-md-6 col-12">
-                            <div className="wpo-service-item">
-                                <div className="wpo-service-icon">
-                                    <i className="flaticon-plant"></i>
-                                </div>
-                                <div className="wpo-service-text">
-                                    <h3>100.000 VNĐ</h3>
-                                    <p>Trồng 1 cây xanh và chăm sóc trong 1 năm</p>
-                                    <ul>
-                                        <li>Mua cây giống</li>
-                                        <li>Chuẩn bị đất</li>
-                                        <li>Chăm sóc định kỳ</li>
-                                        <li>Bảo vệ cây</li>
-                                    </ul>
+            <div className="donate-page">
+                {/* Hero Section */}
+                <section className="wpo-donate-hero-section">
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-lg-6 col-md-6 col-12">
+                                <div className="wpo-about-img">
+                                    <Image src="/images/donate-hero.jpg" alt="Đóng góp" width={600} height={400} />
                                 </div>
                             </div>
-                        </div>
-                        <div className="col-lg-3 col-md-6 col-12">
-                            <div className="wpo-service-item">
-                                <div className="wpo-service-icon">
-                                    <i className="flaticon-education"></i>
-                                </div>
-                                <div className="wpo-service-text">
-                                    <h3>500.000 VNĐ</h3>
-                                    <p>Tổ chức 1 workshop giáo dục môi trường</p>
-                                    <ul>
-                                        <li>Chuẩn bị tài liệu</li>
-                                        <li>Mời chuyên gia</li>
-                                        <li>Thiết bị giảng dạy</li>
-                                        <li>Chứng chỉ tham gia</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-lg-3 col-md-6 col-12">
-                            <div className="wpo-service-item">
-                                <div className="wpo-service-icon">
-                                    <i className="flaticon-cleanup"></i>
-                                </div>
-                                <div className="wpo-service-text">
-                                    <h3>1.000.000 VNĐ</h3>
-                                    <p>Thực hiện 1 chiến dịch dọn dẹp môi trường</p>
-                                    <ul>
-                                        <li>Dụng cụ dọn dẹp</li>
-                                        <li>Vận chuyển rác</li>
-                                        <li>Xử lý rác thải</li>
-                                        <li>Báo cáo kết quả</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-lg-3 col-md-6 col-12">
-                            <div className="wpo-service-item">
-                                <div className="wpo-service-icon">
-                                    <i className="flaticon-research"></i>
-                                </div>
-                                <div className="wpo-service-text">
-                                    <h3>5.000.000 VNĐ</h3>
-                                    <p>Thực hiện 1 dự án nghiên cứu môi trường</p>
-                                    <ul>
-                                        <li>Thiết bị nghiên cứu</li>
-                                        <li>Phân tích mẫu</li>
-                                        <li>Báo cáo khoa học</li>
-                                        <li>Ứng dụng thực tế</li>
-                                    </ul>
+                            <div className="col-lg-6 col-md-6 col-12">
+                                <div className="wpo-about-text">
+                                    <div className="wpo-section-title">
+                                        <span>{pageIntro?.tag}</span>
+                                        <h2>{pageIntro?.title}</h2>
+                                        <p>{pageIntro?.description}</p>
+                                    </div>
+                                    <div className="wpo-about-content">
+                                        <ul>
+                                            {heroSection?.stats.map((stat, index) => (
+                                                <li key={index}>
+                                                    <i className="flaticon-checked"></i>
+                                                    <span>{stat.label}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
 
-            {/* Donation Methods Section */}
-            <section className="wpo-project-section section-padding">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-12">
-                            <div className="wpo-section-title text-center">
-                                <span>Phương thức đóng góp</span>
-                                <h2>Cách thức đóng góp</h2>
-                                <p>Chúng tôi cung cấp nhiều phương thức đóng góp tiện lợi và an toàn.</p>
+                {/* Impact Section */}
+                <section className="wpo-impact-section">
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-12">
+                                <div className="wpo-section-title text-center">
+                                    <span>{impactSection?.sectionIntro.tag}</span>
+                                    <h2>{impactSection?.sectionIntro.title}</h2>
+                                    <p>{impactSection?.sectionIntro.description}</p>
+                                </div>
                             </div>
+                        </div>
+                        <div className="row">
+                            {impactSection?.items.map((impact, index) => (
+                                <div key={index} className="col-lg-3 col-md-6 col-12">
+                                    <div className="wpo-service-item">
+                                        <div className="wpo-service-icon">
+                                            <i className={`fi ${impact.icon}`}></i>
+                                        </div>
+                                        <div className="wpo-service-text">
+                                            <h3>{impact.title}</h3>
+                                            <p>{impact.description}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
                     </div>
-                    <div className="row">
-                        <div className="col-lg-6 col-md-6 col-12">
-                            <div className="wpo-project-item">
-                                <div className="wpo-project-img">
-                                    <img src="/images/donate-bank.jpg" alt="Chuyển khoản ngân hàng" />
-                                </div>
-                                <div className="wpo-project-text">
-                                    <h3>Chuyển Khoản Ngân Hàng</h3>
-                                    <p>Chuyển khoản trực tiếp vào tài khoản của tổ chức. An toàn và nhanh chóng.</p>
-                                    <div className="bank-info">
-                                        <div className="bank-detail">
-                                            <strong>Tên tài khoản:</strong> Tổ chức Bàn Chân Xanh
-                                        </div>
-                                        <div className="bank-detail">
-                                            <strong>Số tài khoản:</strong> 1234567890
-                                        </div>
-                                        <div className="bank-detail">
-                                            <strong>Ngân hàng:</strong> Vietcombank - Chi nhánh Hà Nội
-                                        </div>
-                                        <div className="bank-detail">
-                                            <strong>Nội dung:</strong> [Tên bạn] - Đóng góp Bàn Chân Xanh
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-lg-6 col-md-6 col-12">
-                            <div className="wpo-project-item">
-                                <div className="wpo-project-img">
-                                    <img src="/images/donate-momo.jpg" alt="Ví điện tử MoMo" />
-                                </div>
-                                <div className="wpo-project-text">
-                                    <h3>Ví Điện Tử MoMo</h3>
-                                    <p>Quét mã QR hoặc chuyển khoản qua ví MoMo. Tiện lợi và nhanh chóng.</p>
-                                    <div className="momo-info">
-                                        <div className="qr-code">
-                                            <img src="/images/momo-qr.jpg" alt="QR Code MoMo" />
-                                        </div>
-                                        <div className="momo-detail">
-                                            <strong>Số điện thoại:</strong> 0123456789
-                                        </div>
-                                        <div className="momo-detail">
-                                            <strong>Tên:</strong> Bàn Chân Xanh
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-lg-6 col-md-6 col-12">
-                            <div className="wpo-project-item">
-                                <div className="wpo-project-img">
-                                    <img src="/images/donate-zalopay.jpg" alt="Ví điện tử ZaloPay" />
-                                </div>
-                                <div className="wpo-project-text">
-                                    <h3>Ví Điện Tử ZaloPay</h3>
-                                    <p>Chuyển khoản qua ZaloPay với giao diện thân thiện và dễ sử dụng.</p>
-                                    <div className="zalopay-info">
-                                        <div className="qr-code">
-                                            <img src="/images/zalopay-qr.jpg" alt="QR Code ZaloPay" />
-                                        </div>
-                                        <div className="zalopay-detail">
-                                            <strong>Số điện thoại:</strong> 0123456789
-                                        </div>
-                                        <div className="zalopay-detail">
-                                            <strong>Tên:</strong> Bàn Chân Xanh
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-lg-6 col-md-6 col-12">
-                            <div className="wpo-project-item">
-                                <div className="wpo-project-img">
-                                    <img src="/images/donate-cash.jpg" alt="Đóng góp trực tiếp" />
-                                </div>
-                                <div className="wpo-project-text">
-                                    <h3>Đóng Góp Trực Tiếp</h3>
-                                    <p>Tham gia các sự kiện và đóng góp trực tiếp. Gặp gỡ đội ngũ và hiểu rõ hơn về hoạt động.</p>
-                                    <div className="cash-info">
-                                        <div className="cash-detail">
-                                            <strong>Địa điểm:</strong> Văn phòng Bàn Chân Xanh
-                                        </div>
-                                        <div className="cash-detail">
-                                            <strong>Địa chỉ:</strong> 123 Đường ABC, Quận XYZ, Hà Nội
-                                        </div>
-                                        <div className="cash-detail">
-                                            <strong>Thời gian:</strong> 8:00 - 17:00 (Thứ 2 - Thứ 6)
-                                        </div>
-                                        <div className="cash-detail">
-                                            <strong>Liên hệ:</strong> 0123456789
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+                </section>
 
-            {/* Donation Form Section */}
-            <section className="wpo-about-section section-padding">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-lg-6 col-md-6 col-12">
-                            <div className="wpo-about-text">
-                                <div className="wpo-section-title">
-                                    <span>Đóng góp ngay</span>
-                                    <h2>Form đóng góp</h2>
-                                    <p>Điền thông tin để chúng tôi có thể gửi giấy chứng nhận và báo cáo sử dụng nguồn đóng góp.</p>
-                                </div>
-                                <div className="donation-benefits">
-                                    <h4>Lợi ích khi đóng góp:</h4>
-                                    <ul>
-                                        <li><i className="flaticon-checked"></i> Giấy chứng nhận đóng góp</li>
-                                        <li><i className="flaticon-checked"></i> Báo cáo sử dụng nguồn đóng góp</li>
-                                        <li><i className="flaticon-checked"></i> Cập nhật tiến độ dự án</li>
-                                        <li><i className="flaticon-checked"></i> Tham gia sự kiện đặc biệt</li>
-                                        <li><i className="flaticon-checked"></i> Giảm thuế thu nhập cá nhân</li>
-                                    </ul>
+                {/* Donation Methods Section */}
+                <section className="wpo-donation-methods-section">
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-12">
+                                <div className="wpo-section-title text-center">
+                                    <span>{donationMethodsSection?.sectionIntro.tag}</span>
+                                    <h2>{donationMethodsSection?.sectionIntro.title}</h2>
+                                    <p>{donationMethodsSection?.sectionIntro.description}</p>
                                 </div>
                             </div>
                         </div>
-                        <div className="col-lg-6 col-md-6 col-12">
-                            <div className={`wpo-join-form ${styles.donateForm}`}>
-                                <div className={styles.donateFormTitle}>
-                                    <h3>Đóng góp ngay</h3>
-                                    <p>Điền thông tin để chúng tôi có thể gửi giấy chứng nhận và báo cáo sử dụng nguồn đóng góp.</p>
-                                </div>
-                                <form onSubmit={handleDonateSubmit}>
-                                    <div className="row">
-                                        <div className="col-lg-6 col-md-6 col-12">
-                                            <div className={styles.formGroup}>
-                                                <input type="text" className={styles.formControl} placeholder="Họ và tên *" required />
+                        <div className="row">
+                            <div className="col-lg-6 col-md-6 col-12">
+                                <div className="wpo-project-item">
+                                    <div className="wpo-project-img">
+                                        <Image src="/images/donate-bank.jpg" alt="Chuyển khoản ngân hàng" width={600} height={280} />
+                                    </div>
+                                    <div className="wpo-project-text">
+                                        <h3>Chuyển Khoản Ngân Hàng</h3>
+                                        <p>Chuyển khoản trực tiếp vào tài khoản của tổ chức. An toàn và nhanh chóng.</p>
+                                        <div className="bank-info">
+                                            <div className="bank-detail">
+                                                <strong>Tên tài khoản:</strong> Tổ chức Bàn Chân Xanh
                                             </div>
-                                        </div>
-                                        <div className="col-lg-6 col-md-6 col-12">
-                                            <div className={styles.formGroup}>
-                                                <input type="email" className={styles.formControl} placeholder="Email *" required />
+                                            <div className="bank-detail">
+                                                <strong>Số tài khoản:</strong> 1234567890
                                             </div>
-                                        </div>
-                                        <div className="col-lg-6 col-md-6 col-12">
-                                            <div className={styles.formGroup}>
-                                                <input type="tel" className={styles.formControl} placeholder="Số điện thoại *" required />
+                                            <div className="bank-detail">
+                                                <strong>Ngân hàng:</strong> Vietcombank - Chi nhánh Hà Nội
                                             </div>
-                                        </div>
-                                        <div className="col-lg-6 col-md-6 col-12">
-                                            <div className={`${styles.formGroup} ${styles.amountInput}`}>
-                                                <input type="number" className={styles.formControl} placeholder="Số tiền đóng góp *" required />
-                                            </div>
-                                        </div>
-                                        <div className="col-lg-12">
-                                            <div className={`${styles.formGroup} ${styles.purposeSelect}`}>
-                                                <select className={styles.formControl} required>
-                                                    <option value="">Chọn mục đích đóng góp</option>
-                                                    <option value="tree">Trồng cây xanh</option>
-                                                    <option value="education">Giáo dục môi trường</option>
-                                                    <option value="cleanup">Dọn dẹp môi trường</option>
-                                                    <option value="research">Nghiên cứu môi trường</option>
-                                                    <option value="general">Đóng góp chung</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div className="col-lg-12">
-                                            <div className={`${styles.formGroup} ${styles.paymentSelect}`}>
-                                                <select className={styles.formControl} required>
-                                                    <option value="">Chọn phương thức đóng góp</option>
-                                                    <option value="bank">Chuyển khoản ngân hàng</option>
-                                                    <option value="momo">Ví điện tử MoMo</option>
-                                                    <option value="zalopay">Ví điện tử ZaloPay</option>
-                                                    <option value="cash">Đóng góp trực tiếp</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div className="col-lg-12">
-                                            <div className={styles.formGroup}>
-                                                <textarea className={styles.formControl} rows={4} placeholder="Lời nhắn (tùy chọn)"></textarea>
-                                            </div>
-                                        </div>
-                                        <div className="col-lg-12">
-                                            <div className={styles.formGroup}>
-                                                <label className={styles.checkboxLabel}>
-                                                    <input type="checkbox" required />
-                                                    <span>Tôi đồng ý với <a href="/terms">Điều khoản sử dụng</a> và <a href="/privacy">Chính sách bảo mật</a></span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div className="col-lg-12">
-                                            <div className={`${styles.formGroup} text-center`}>
-                                                <button type="submit" className={styles.submitButton}>
-                                                    <span>Xác nhận đóng góp</span>
-                                                </button>
+                                            <div className="bank-detail">
+                                                <strong>Nội dung:</strong> [Tên bạn] - Đóng góp Bàn Chân Xanh
                                             </div>
                                         </div>
                                     </div>
-                                </form>
+                                </div>
+                            </div>
+                            <div className="col-lg-6 col-md-6 col-12">
+                                <div className="wpo-project-item">
+                                    <div className="wpo-project-img">
+                                        <Image src="/images/donate-momo.jpg" alt="Ví điện tử MoMo" width={600} height={280} />
+                                    </div>
+                                    <div className="wpo-project-text">
+                                        <h3>Ví Điện Tử MoMo</h3>
+                                        <p>Quét mã QR hoặc chuyển khoản qua ví MoMo. Tiện lợi và nhanh chóng.</p>
+                                        <div className="momo-info">
+                                            <div className="qr-code">
+                                                <Image src="/images/momo-qr.jpg" alt="QR Code MoMo" width={200} height={200} />
+                                            </div>
+                                            <div className="momo-detail">
+                                                <strong>Số điện thoại:</strong> 0123456789
+                                            </div>
+                                            <div className="momo-detail">
+                                                <strong>Tên:</strong> Bàn Chân Xanh
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-lg-6 col-md-6 col-12">
+                                <div className="wpo-project-item">
+                                    <div className="wpo-project-img">
+                                        <Image src="/images/donate-zalopay.jpg" alt="Ví điện tử ZaloPay" width={600} height={280} />
+                                    </div>
+                                    <div className="wpo-project-text">
+                                        <h3>Ví Điện Tử ZaloPay</h3>
+                                        <p>Chuyển khoản qua ZaloPay với giao diện thân thiện và dễ sử dụng.</p>
+                                        <div className="zalopay-info">
+                                            <div className="qr-code">
+                                                <Image src="/images/zalopay-qr.jpg" alt="QR Code ZaloPay" width={200} height={200} />
+                                            </div>
+                                            <div className="zalopay-detail">
+                                                <strong>Số điện thoại:</strong> 0123456789
+                                            </div>
+                                            <div className="zalopay-detail">
+                                                <strong>Tên:</strong> Bàn Chân Xanh
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-lg-6 col-md-6 col-12">
+                                <div className="wpo-project-item">
+                                    <div className="wpo-project-img">
+                                        <Image src="/images/donate-cash.jpg" alt="Đóng góp trực tiếp" width={600} height={280} />
+                                    </div>
+                                    <div className="wpo-project-text">
+                                        <h3>Đóng Góp Trực Tiếp</h3>
+                                        <p>Tham gia các sự kiện và đóng góp trực tiếp. Gặp gỡ đội ngũ và hiểu rõ hơn về hoạt động.</p>
+                                        <div className="cash-info">
+                                            <div className="cash-detail">
+                                                <strong>Địa điểm:</strong> Văn phòng Bàn Chân Xanh
+                                            </div>
+                                            <div className="cash-detail">
+                                                <strong>Địa chỉ:</strong> 123 Đường ABC, Quận XYZ, Hà Nội
+                                            </div>
+                                            <div className="cash-detail">
+                                                <strong>Thời gian:</strong> 8:00 - 17:00 (Thứ 2 - Thứ 6)
+                                            </div>
+                                            <div className="cash-detail">
+                                                <strong>Liên hệ:</strong> 0123456789
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
 
-            {/* Transparency Section */}
-            <section className="wpo-cta-section section-padding">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-12">
-                            <div className="wpo-cta-text">
-                                <h2>Minh bạch tài chính</h2>
-                                <p>Chúng tôi cam kết sử dụng mọi nguồn đóng góp một cách minh bạch và hiệu quả. Mọi chi tiêu đều được báo cáo công khai.</p>
-                                <div className="transparency-features">
-                                    <div className="feature-item">
-                                        <i className="flaticon-report"></i>
-                                        <h4>Báo cáo tài chính</h4>
-                                        <p>Báo cáo chi tiết việc sử dụng nguồn đóng góp hàng quý</p>
+                {/* Donation Form Section */}
+                <section className="wpo-donation-form-section">
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-lg-6 col-md-6 col-12">
+                                <div className="wpo-about-text">
+                                    <div className="wpo-section-title">
+                                        <span>{donationFormSection?.tag}</span>
+                                        <h2>{donationFormSection?.title}</h2>
+                                        <p>{donationFormSection?.description}</p>
                                     </div>
-                                    <div className="feature-item">
-                                        <i className="flaticon-audit"></i>
-                                        <h4>Kiểm toán độc lập</h4>
-                                        <p>Được kiểm toán bởi các tổ chức uy tín</p>
+                                    <div className="donation-benefits">
+                                        <h4>Lợi ích khi đóng góp:</h4>
+                                        <ul>
+                                            <li><i className="flaticon-checked"></i> Giấy chứng nhận đóng góp</li>
+                                            <li><i className="flaticon-checked"></i> Báo cáo sử dụng nguồn đóng góp</li>
+                                            <li><i className="flaticon-checked"></i> Cập nhật tiến độ dự án</li>
+                                            <li><i className="flaticon-checked"></i> Tham gia sự kiện đặc biệt</li>
+                                            <li><i className="flaticon-checked"></i> Giảm thuế thu nhập cá nhân</li>
+                                        </ul>
                                     </div>
-                                    <div className="feature-item">
-                                        <i className="flaticon-transparency"></i>
-                                        <h4>Minh bạch 100%</h4>
-                                        <p>Tất cả thông tin tài chính được công khai</p>
+                                </div>
+                            </div>
+                            <div className="col-lg-6 col-md-6 col-12">
+                                <div className="wpo-join-form">
+                                    <div className="donateFormTitle">
+                                        <h3>Đóng góp ngay</h3>
+                                        <p>Điền thông tin để chúng tôi có thể gửi giấy chứng nhận và báo cáo sử dụng nguồn đóng góp.</p>
                                     </div>
-                                    <div className="feature-item">
-                                        <i className="flaticon-impact"></i>
-                                        <h4>Đo lường tác động</h4>
-                                        <p>Báo cáo kết quả và tác động của các dự án</p>
+                                    <form onSubmit={handleDonateSubmit}>
+                                        <div className="row">
+                                            <div className="col-lg-6 col-md-6 col-12">
+                                                <div className="formGroup">
+                                                    <label>Họ và tên <span>*</span></label>
+                                                    <input type="text" className="formControl" placeholder="Nhập họ và tên của bạn" required />
+                                                </div>
+                                            </div>
+                                            <div className="col-lg-6 col-md-6 col-12">
+                                                <div className="formGroup">
+                                                    <label>Email <span>*</span></label>
+                                                    <input type="email" className="formControl" placeholder="example@email.com" required />
+                                                </div>
+                                            </div>
+                                            <div className="col-lg-6 col-md-6 col-12">
+                                                <div className="formGroup">
+                                                    <label>Số điện thoại <span>*</span></label>
+                                                    <input type="tel" className="formControl" placeholder="0901234567" required />
+                                                </div>
+                                            </div>
+                                            <div className="col-lg-6 col-md-6 col-12">
+                                                <div className="formGroup">
+                                                    <label>Số tiền đóng góp <span>*</span></label>
+                                                    <input type="number" className="formControl" placeholder="100000" required />
+                                                </div>
+                                            </div>
+                                            <div className="col-lg-12">
+                                                <div className="formGroup">
+                                                    <label>Mục đích đóng góp <span>*</span></label>
+                                                    <select className="formControl" required>
+                                                        <option value="">Chọn mục đích đóng góp</option>
+                                                        <option value="tree">Trồng cây xanh</option>
+                                                        <option value="education">Giáo dục môi trường</option>
+                                                        <option value="cleanup">Dọn dẹp môi trường</option>
+                                                        <option value="research">Nghiên cứu môi trường</option>
+                                                        <option value="general">Đóng góp chung</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div className="col-lg-12">
+                                                <div className="formGroup">
+                                                    <label>Phương thức đóng góp <span>*</span></label>
+                                                    <select className="formControl" required>
+                                                        <option value="">Chọn phương thức đóng góp</option>
+                                                        <option value="bank">Chuyển khoản ngân hàng</option>
+                                                        <option value="momo">Ví điện tử MoMo</option>
+                                                        <option value="zalopay">Ví điện tử ZaloPay</option>
+                                                        <option value="cash">Đóng góp trực tiếp</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div className="col-lg-12">
+                                                <div className="formGroup">
+                                                    <label>Lời nhắn</label>
+                                                    <textarea className="formControl" rows={4} placeholder="Lời nhắn của bạn (tùy chọn)"></textarea>
+                                                </div>
+                                            </div>
+                                            <div className="col-lg-12">
+                                                <div className="form-check">
+                                                    <input type="checkbox" id="agree-donate" required />
+                                                    <label htmlFor="agree-donate">
+                                                        Tôi đồng ý với <a href="/term">Điều khoản sử dụng</a> và <a href="/privacy">Chính sách bảo mật</a> <span>*</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div className="col-lg-12">
+                                                <div className="formGroup text-center">
+                                                    <button type="submit" className="submitButton">
+                                                        <span>Xác nhận đóng góp</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <div className="security-note">
+                                        <i className="ti-shield"></i>
+                                        Thông tin của bạn được bảo mật tuyệt đối
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
 
-            {/* Recent Donations Section */}
-            <section className="wpo-service-section section-padding">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-12">
-                            <div className="wpo-section-title text-center">
-                                <span>Đóng góp gần đây</span>
-                                <h2>Cảm ơn các nhà hảo tâm</h2>
-                                <p>Chúng tôi xin chân thành cảm ơn tất cả những đóng góp quý báu của các nhà hảo tâm.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-lg-4 col-md-6 col-12">
-                            <div className="wpo-service-item">
-                                <div className="wpo-service-text">
-                                    <h3>Nguyễn Văn A</h3>
-                                    <p>Đóng góp 2.000.000 VNĐ cho dự án trồng cây xanh</p>
-                                    <div className="donation-detail">
-                                        <span><i className="flaticon-calendar"></i> 15/11/2024</span>
-                                        <span><i className="flaticon-plant"></i> Trồng cây xanh</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-lg-4 col-md-6 col-12">
-                            <div className="wpo-service-item">
-                                <div className="wpo-service-text">
-                                    <h3>Trần Thị B</h3>
-                                    <p>Đóng góp 1.500.000 VNĐ cho chương trình giáo dục môi trường</p>
-                                    <div className="donation-detail">
-                                        <span><i className="flaticon-calendar"></i> 12/11/2024</span>
-                                        <span><i className="flaticon-education"></i> Giáo dục môi trường</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-lg-4 col-md-6 col-12">
-                            <div className="wpo-service-item">
-                                <div className="wpo-service-text">
-                                    <h3>Lê Văn C</h3>
-                                    <p>Đóng góp 3.000.000 VNĐ cho dự án nghiên cứu môi trường</p>
-                                    <div className="donation-detail">
-                                        <span><i className="flaticon-calendar"></i> 10/11/2024</span>
-                                        <span><i className="flaticon-research"></i> Nghiên cứu môi trường</span>
+                {/* Transparency Section */}
+                <section className="wpo-transparency-section">
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-12">
+                                <div className="wpo-cta-text">
+                                    <h2>{transparencySection?.sectionIntro.title}</h2>
+                                    <p>{transparencySection?.sectionIntro.description}</p>
+                                    <div className="transparency-features">
+                                        {transparencySection?.items.map((item, index) => (
+                                            <div key={index} className="feature-item">
+                                                <i className={`fi ${item.icon}`}></i>
+                                                <h4>{item.title}</h4>
+                                                <p>{item.description}</p>
+                                            </div>
+                                        ))}
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
+
+                {/* Recent Donations Section */}
+                <section className="wpo-recent-donations-section">
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-12">
+                                <div className="wpo-section-title text-center">
+                                    <span>{recentDonationsSection?.sectionIntro.tag}</span>
+                                    <h2>{recentDonationsSection?.sectionIntro.title}</h2>
+                                    <p>{recentDonationsSection?.sectionIntro.description}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="row">
+                            {recentDonationsSection?.items.map((donation, index) => (
+                                <div key={index} className="col-lg-4 col-md-6 col-12">
+                                    <div className="wpo-service-item">
+                                        <div className="wpo-service-text">
+                                            <h3>{donation.donor}</h3>
+                                            <p>{donation.description}</p>
+                                            <div className="donation-detail">
+                                                <span><i className="flaticon-calendar"></i> {donation.date}</span>
+                                                <span><i className={`fi ${donation.icon}`}></i> {donation.title}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            </div>
         </Layout>
     );
 };

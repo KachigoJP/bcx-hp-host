@@ -11,8 +11,12 @@ export interface FooterData {
   facebook: string;
   instagram: string;
   google: string;
-  quicklinks: IMenuItem[];
-  menus: IMenuItem[];
+  footerQuicklinksTitle: string;
+  footerQuicklinks: IMenuItem[];
+  footerMenusTitle: string;
+  footerMenus: IMenuItem[];
+  footerContactTitle: string;
+  footerContactDescription: string;
 }
 
 interface FooterProps {
@@ -59,10 +63,10 @@ const Footer: React.FC<FooterProps> = ({ data }) => {
             <div className="col col-lg-3 col-md-6 col-sm-12 col-12">
               <div className="widget link-widget">
                 <div className="widget-title">
-                  <h3>Tin Tức Mới Nhất</h3>
+                  <h3>{data.footerMenusTitle}</h3>
                 </div>
                 <ul>
-                  {data.menus && data.menus.length > 0 && data.menus.map((item, i) => (
+                  {data.footerMenus && data.footerMenus.length > 0 && data.footerMenus.map((item, i) => (
                     <li key={i}>
                       <Link href={item.link}>{item.title}</Link>
                     </li>
@@ -73,10 +77,10 @@ const Footer: React.FC<FooterProps> = ({ data }) => {
             <div className="col col-lg-3 col-md-6 col-sm-12 col-12">
               <div className="widget link-widget">
                 <div className="widget-title">
-                  <h3>Liên Kết Nhanh</h3>
+                  <h3>{data.footerQuicklinksTitle}</h3>
                 </div>
                 <ul>
-                  {data.quicklinks && data.quicklinks.length > 0 && data.quicklinks.map((item, i) => (
+                  {data.footerQuicklinks && data.footerQuicklinks.length > 0 && data.footerQuicklinks.map((item, i) => (
                     <li key={i}>
                       <Link href={item.link}>{item.title}</Link>
                     </li>
@@ -87,11 +91,11 @@ const Footer: React.FC<FooterProps> = ({ data }) => {
             <div className="col col-lg-3 col-md-6 col-sm-12 col-12">
               <div className="widget wpo-service-link-widget">
                 <div className="widget-title">
-                  <h3>Liên Hệ</h3>
+                  <h3>{data.footerContactTitle}</h3>
                 </div>
                 <div className="contact-ft">
                   <p>
-                    Nếu bạn có bất kỳ thắc mắc nào, vui lòng liên hệ với chúng tôi
+                    {data.footerContactDescription}
                   </p>
                   <ul>
                     <li>

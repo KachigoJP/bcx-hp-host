@@ -1,16 +1,15 @@
-import React, { Fragment } from "react";
-import Image from "next/image";
 import { initializeApp } from "firebase/app";
 import {
-  getFirestore,
+  Timestamp,
+  collection,
   doc,
   getDoc,
-  updateDoc,
-  collection,
   getDocs,
-  setDoc,
-  Timestamp,
+  getFirestore,
+  updateDoc
 } from "firebase/firestore";
+import Image from "next/image";
+import React from "react";
 import { useTranslation } from "react-i18next";
 
 // Source

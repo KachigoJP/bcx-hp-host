@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 // Source
 import About, { AboutProps } from "@components/containers/Home/About";
@@ -9,18 +9,49 @@ import Partner, { PartnerProps } from "@components/containers/Home/Partner";
 import Project, { ProjectProps } from "@components/containers/Home/Project";
 import Service, { ServiceProps } from "@components/containers/Home/Service";
 import Team, { TeamProps } from "@components/containers/Home/Team";
-import Testimonial, {
-  TestimonialProps,
-} from "@components/containers/Home/Testimonial";
+import Testimonial, { TestimonialProps } from "@components/containers/Home/Testimonial";
 import Layout, { LayoutProps } from "@components/layout";
 import SEO from "@components/layout/SEO";
 
 // Data
-import Activities from "@api/activities";
+import { GlobalInfo } from "@/utils/interfaces";
 import ProjectsData from "@api/projects";
-import TeamsData from "@api/team";
 import { SEOProps } from "@components/layout/SEO/interface";
+import globalService from "@lib/strapi/services/globalService";
+import { convertGlobalInfoToLayoutData } from "@utils/apps";
 import { getDefaultLayoutData } from "@utils/layoutData";
+import { sampleTeamData } from "./team";
+
+// Sample activities data
+const sampleActivities = [
+  {
+    id: "1",
+    icon: "flaticon-forest",
+    title: "Hiking (Leo núi)",
+    slug: "hiking",
+    description:
+      "Khám phá vẻ đẹp thiên nhiên Nhật Bản thông qua các chuyến leo núi. Chúng tôi tổ chức các hoạt động hiking phù hợp với mọi trình độ, từ người mới bắt đầu đến những người có kinh nghiệm.",
+    simg1: "/images/activity-hiking-mountain.jpg",
+  },
+  {
+    id: "2",
+    icon: "flaticon-placeholder",
+    title: "Camping (Cắm trại)",
+    slug: "camping",
+    description:
+      "Trải nghiệm cuộc sống ngoài trời và kết nối với thiên nhiên qua các hoạt động cắm trại. Cùng nhau xây dựng kỷ niệm đẹp và học hỏi kỹ năng sinh tồn.",
+    simg1: "/images/activity-camping-tent.jpg",
+  },
+  {
+    id: "3",
+    icon: "flaticon-graduation-cap",
+    title: "Workshop",
+    slug: "workshop",
+    description:
+      "Tham gia các workshop về bảo vệ môi trường, kỹ năng sống xanh và phát triển bền vững. Học hỏi và chia sẻ kiến thức với cộng đồng.",
+    simg1: "/images/activity-workshop-education.jpg",
+  },
+];
 
 interface HomeProps {
   layout: LayoutProps;
@@ -95,7 +126,7 @@ export const getServerSideProps = async () => {
     subtitle: "Các hoạt động của chúng tôi",
     description:
       "Chúng tôi tổ chức các hoạt động đa dạng để kết nối cộng đồng và lan tỏa tình yêu thiên nhiên.",
-    services: Activities,
+    services: sampleActivities,
   };
 
   const teamData = {
@@ -103,7 +134,7 @@ export const getServerSideProps = async () => {
     subtitle: "Đội ngũ chuyên nghiệp",
     description:
       "Đội ngũ tình nguyện viên nhiệt tình và giàu kinh nghiệm, luôn sẵn sàng hỗ trợ và đồng hành cùng các thành viên trong mọi hoạt động.",
-    items: TeamsData,
+    items: sampleTeamData,
   };
 
   const projectData = {
@@ -149,32 +180,33 @@ export const getServerSideProps = async () => {
       {
         number: "500+",
         label: "Thành viên đã tham gia",
-        icon: "fi flaticon-user"
+        icon: "fi flaticon-user",
       },
       {
         number: "50+",
         label: "Sự kiện đã tổ chức",
-        icon: "fi flaticon-calendar"
+        icon: "fi flaticon-calendar",
       },
       {
         number: "20+",
         label: "Đối tác đồng hành",
-        icon: "fi flaticon-checked"
+        icon: "fi flaticon-checked",
       },
       {
         number: "15+",
         label: "Năm hoạt động",
-        icon: "fi flaticon-forest"
-      }
-    ]
+        icon: "fi flaticon-forest",
+      },
+    ],
   };
 
   const ctaData: CTAProps = {
     backgroundImage: "/images/cta-group-hiking.jpg",
     title: "Hãy cùng chúng tôi trải nghiệm và bảo vệ thiên nhiên",
-    subtitle: "Tham gia cộng đồng Bàn Chân Xanh để khám phá vẻ đẹp thiên nhiên Nhật Bản và kết nối với những người bạn cùng chí hướng.",
+    subtitle:
+      "Tham gia cộng đồng Bàn Chân Xanh để khám phá vẻ đẹp thiên nhiên Nhật Bản và kết nối với những người bạn cùng chí hướng.",
     buttonText: "Tham gia ngay",
-    buttonLink: "/join"
+    buttonLink: "/join",
   };
 
   const partnerData = {
@@ -216,9 +248,26 @@ export const getServerSideProps = async () => {
   };
 };
 
-const HomePage: React.FC<HomeProps> = (props) => {
+const HomePage: React.FC<HomeProps> = props => {
+  const [globalData, setGlobalData] = useState<GlobalInfo | null>(null);
+  useEffect(() => {
+    const fetchGlobalData = async () => {
+      const globalData = await globalService.get({
+        populate: {
+          "populate[logo][populate]": "*",
+          "populate[headerMenus][populate]": "*",
+          "populate[rightButtons][populate]": "*",
+          "populate[footerMenus][populate]": "*",
+          "populate[footerQuicklinks][populate]": "*",
+        },
+      });
+      setGlobalData(globalData);
+    };
+    fetchGlobalData();
+  }, []);
+
   return (
-    <Layout data={props.layout.data}>
+    <Layout data={globalData ? convertGlobalInfoToLayoutData(globalData) : props.layout.data}>
       <SEO {...props.seo} />
       {/* 1. Hero Section */}
       <Hero {...props.hero} />

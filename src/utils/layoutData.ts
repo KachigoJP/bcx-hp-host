@@ -1,121 +1,144 @@
 import { LayoutProps } from "@components/layout";
+import { HeaderButton, IMenuItem } from "./interfaces";
 
 export const getDefaultLayoutData = (): LayoutProps => {
-  const headerMenus = [
+  const headerMenus: IMenuItem[] = [
     {
-      id: "1",
+      menuId: "1",
       title: "Trang chủ",
       link: "/",
     },
     {
-      id: "2",
+      menuId: "2",
       title: "Giới thiệu",
       link: "/about",
-      submenu: [
+      subMenuItems: [
         {
-          id: "21",
+          menuId: "21",
           title: "Về chúng tôi",
           link: "/about",
         },
         {
-          id: "22",
+          menuId: "22",
           title: "Đội ngũ",
           link: "/team",
         },
         {
-          id: "23",
+          menuId: "23",
           title: "Thành tựu",
-          link: "/achievements",
+          link: "/achievement",
         },
         {
-          id: "24",
+          menuId: "24",
           title: "Báo cáo hoạt động",
-          link: "/reports",
+          link: "/report",
         },
         {
-          id: "25",
+          menuId: "25",
           title: "Chính sách hoạt động",
           link: "/policy",
         },
       ],
     },
     {
-      id: "3",
+      menuId: "3",
       title: "Hoạt động",
-      link: "/activities",
-      submenu: [
+      link: "/activity",
+      subMenuItems: [
         {
-          id: "31",
+          menuId: "31",
           title: "Hiking (Leo núi)",
           link: "/hiking",
         },
         {
-          id: "32",
+          menuId: "32",
           title: "Camping (Cắm trại)",
           link: "/camping",
         },
         {
-          id: "33",
+          menuId: "33",
           title: "Workshop",
           link: "/workshop",
         },
       ],
     },
     {
-      id: "4",
+      menuId: "4",
       title: "Tin tức",
-      link: "/news",
+      link: "/new",
     },
     {
-      id: "5",
+      menuId: "5",
       title: "Liên hệ",
       link: "/contact",
     },
     {
-      id: "6",
-      title: "Tham gia cùng chúng tôi",
+      menuId: "6",
+      title: "Tham gia",
       link: "/join",
     },
     {
-      id: "7",
+      menuId: "7",
       title: "Đóng góp",
       link: "/donate",
     },
   ];
 
-  const footerMenus = [
+  const footerMenus: IMenuItem[] = [
     {
-      id: "1",
+      menuId: "1",
       title: "Trang chủ",
       link: "/",
     },
     {
-      id: "2",
+      menuId: "2",
       title: "Hoạt động",
-      link: "/activities",
+      link: "/activity",
     },
     {
-      id: "3",
+      menuId: "3",
       title: "Tin tức",
-      link: "/news",
+      link: "/new",
     },
     {
-      id: "4",
+      menuId: "4",
       title: "Liên hệ",
       link: "/contact",
     },
   ];
 
-  const quickLinks = [
+  const footerQuicklinks: IMenuItem[] = [
     {
-      id: "1",
+      menuId: "1",
       title: "Điều khoản sử dụng",
-      link: "/terms",
+      link: "/term",
     },
     {
-      id: "2",
+      menuId: "2",
       title: "Chính sách bảo mật",
       link: "/privacy",
+    },
+  ];
+
+  const rightButtons: HeaderButton[] = [
+    {
+      buttonId: "login",
+      type: "link",
+      label: "Đăng nhập",
+      link: "/login",
+    },
+    {
+      buttonId: "logout",
+      type: "link",
+      label: "Đăng xuất",
+      link: "#",
+      icon: "ti-power-off",
+    },
+    {
+      buttonId: "search",
+      type: "search",
+      label: "Tìm kiếm...",
+      icon: "ti-search",
     },
   ];
 
@@ -125,14 +148,20 @@ export const getDefaultLayoutData = (): LayoutProps => {
       slogan: "Kết nối con người - Gắn bó thiên nhiên",
       footerSlogan:
         "Cùng chúng tôi khám phá vẻ đẹp thiên nhiên Nhật Bản và xây dựng cộng đồng người Việt gắn kết.",
-      facebook: "https://facebook.com/banchanxanh",
-      instagram: "https://instagram.com/banchanxanh",
+      facebook: "https://www.facebook.com/banchanxanhjp",
+      instagram: "https://www.instagram.com/banchanxanh.kt",
       google: "",
       email: "info@banchanxanh.com",
-      phone: "(+81) 080-5988-2754",
-      headerHenu: headerMenus,
-      footerQuicklinks: quickLinks,
-      footerMenu: footerMenus,
+      phone: "080-4734-3979",
+      headerMenus,
+      rightButtons,
+      footerQuicklinksTitle: "Liên kết nhanh",
+      footerContactTitle: "Liên hệ",
+      footerContactDescription:
+        "Nếu bạn có bất kỳ thắc mắc nào, vui lòng liên hệ với chúng tôi",
+      footerMenusTitle: "Liên kết nhanh",
+      footerQuicklinks,
+      footerMenus,
     },
   };
 };

@@ -1,277 +1,313 @@
+import globalService from "@/lib/strapi/services/globalService";
+import privacyService from "@/lib/strapi/services/privacyService";
+import seoService from "@/lib/strapi/services/seoService";
+import { convertGlobalInfoToLayoutData } from "@/utils/apps";
+import { GlobalInfo, LegalSection, PrivacyContent } from "@/utils/interfaces";
 import Layout, { LayoutProps } from "@components/layout";
 import SEO from "@components/layout/SEO";
 import { SEOProps } from "@components/layout/SEO/interface";
 import { getDefaultLayoutData } from "@utils/layoutData";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 interface PrivacyProps {
-    layout: LayoutProps;
-    seo: SEOProps;
+  layout: LayoutProps;
+  seo: SEOProps;
+  privacyContent: PrivacyContent;
 }
 
 export const getServerSideProps = async () => {
-    const layoutData = getDefaultLayoutData();
+  const layoutData = getDefaultLayoutData();
 
-    const seoData = {
-        metadata: {
-            title: "Chính sách bảo mật - Bàn Chân Xanh",
-            description: "Chính sách bảo mật thông tin cá nhân của tổ chức Bàn Chân Xanh. Cam kết bảo vệ quyền riêng tư và thông tin cá nhân của người dùng.",
-        },
-    };
+  const seoData = {
+    metadata: {
+      page_code: "privacy",
+      title: "Chính sách bảo mật - Bàn Chân Xanh",
+      description:
+        "Chính sách bảo mật thông tin cá nhân của tổ chức Bàn Chân Xanh. Cam kết bảo vệ quyền riêng tư và thông tin cá nhân của người dùng.",
+    },
+  };
 
-    return {
-        props: {
-            layout: layoutData,
-            seo: seoData,
+  const pageIntro = {
+    tag: "Bảo vệ thông tin",
+    title: "Chính sách bảo mật",
+    description: "Cập nhật lần cuối: 01/12/2024"
+  };
+
+  const privacySections: LegalSection[] = [
+    {
+      title: "1. Giới thiệu",
+      description: "Tổ chức Bàn Chân Xanh cam kết bảo vệ quyền riêng tư và thông tin cá nhân của bạn. Chính sách bảo mật này giải thích cách chúng tôi thu thập, sử dụng, lưu trữ và bảo vệ thông tin cá nhân của bạn khi bạn sử dụng website banchanxanh.org và các dịch vụ liên quan. Bằng việc sử dụng website và dịch vụ của chúng tôi, bạn đồng ý với việc thu thập và sử dụng thông tin theo Chính sách này."
+    },
+    {
+      title: "2. Thông tin chúng tôi thu thập",
+      description: "",
+      subsections: [
+        {
+          title: "2.1. Thông tin cá nhân",
+          description: "Chúng tôi có thể thu thập các thông tin cá nhân sau:",
+          items: [
+            { text: "Thông tin định danh: Họ tên, địa chỉ email, số điện thoại" },
+            { text: "Thông tin địa chỉ: Địa chỉ nhà, thành phố, mã bưu điện" },
+            { text: "Thông tin nghề nghiệp: Nghề nghiệp, tổ chức/công ty" },
+            { text: "Thông tin tài chính: Thông tin thanh toán (được mã hóa và bảo mật)" },
+            { text: "Thông tin sở thích: Lĩnh vực quan tâm, hoạt động yêu thích" }
+          ]
         },
-    };
+        {
+          title: "2.2. Thông tin tự động",
+          description: "Khi bạn truy cập website, chúng tôi có thể tự động thu thập:",
+          items: [
+            { text: "Thông tin thiết bị: Loại thiết bị, hệ điều hành, trình duyệt" },
+            { text: "Thông tin mạng: Địa chỉ IP, nhà cung cấp dịch vụ internet" },
+            { text: "Thông tin sử dụng: Trang đã truy cập, thời gian truy cập, liên kết đã click" },
+            { text: "Cookies và công nghệ tương tự: Để cải thiện trải nghiệm người dùng" }
+          ]
+        },
+        {
+          title: "2.3. Thông tin từ bên thứ ba",
+          description: "Chúng tôi có thể nhận thông tin từ:",
+          items: [
+            { text: "Các nền tảng mạng xã hội (khi bạn đăng nhập qua Facebook, Google)" },
+            { text: "Các đối tác và nhà cung cấp dịch vụ" },
+            { text: "Các tổ chức từ thiện và môi trường khác" }
+          ]
+        }
+      ]
+    },
+    {
+      title: "3. Cách chúng tôi sử dụng thông tin",
+      description: "",
+      subsections: [
+        {
+          title: "3.1. Mục đích sử dụng",
+          description: "Chúng tôi sử dụng thông tin cá nhân của bạn để:",
+          items: [
+            { text: "Cung cấp dịch vụ: Xử lý đăng ký tham gia hoạt động, đóng góp" },
+            { text: "Liên lạc: Gửi thông báo về sự kiện, hoạt động, cập nhật" },
+            { text: "Cải thiện dịch vụ: Phân tích và nâng cao chất lượng hoạt động" },
+            { text: "Bảo mật: Phát hiện và ngăn chặn gian lận, lạm dụng" },
+            { text: "Tuân thủ pháp luật: Đáp ứng các yêu cầu pháp lý" }
+          ]
+        },
+        {
+          title: "3.2. Cơ sở pháp lý",
+          description: "Chúng tôi xử lý thông tin cá nhân dựa trên:",
+          items: [
+            { text: "Sự đồng ý của bạn" },
+            { text: "Thực hiện hợp đồng với bạn" },
+            { text: "Lợi ích hợp pháp của tổ chức" },
+            { text: "Tuân thủ nghĩa vụ pháp lý" }
+          ]
+        }
+      ]
+    },
+    {
+      title: "4. Chia sẻ thông tin",
+      description: "Chúng tôi có thể chia sẻ thông tin của bạn với: Nhà cung cấp dịch vụ (email, thanh toán, phân tích); Đối tác hoạt động (khi tổ chức sự kiện chung); Cơ quan nhà nước (theo yêu cầu pháp luật); Người kế thừa (trong trường hợp sáp nhập, mua lại). Chúng tôi không bán hoặc cho thuê thông tin cá nhân của bạn cho bên thứ ba."
+    },
+    {
+      title: "5. Bảo vệ thông tin",
+      description: "Chúng tôi áp dụng các biện pháp bảo mật:",
+      items: [
+        { text: "Mã hóa dữ liệu: SSL/TLS cho truyền tải dữ liệu" },
+        { text: "Kiểm soát truy cập: Chỉ nhân viên được ủy quyền mới có quyền truy cập" },
+        { text: "Cập nhật bảo mật: Thường xuyên cập nhật hệ thống" },
+        { text: "Sao lưu dữ liệu: Định kỳ sao lưu để phòng ngừa mất mát" },
+        { text: "Đào tạo nhân viên: Về bảo mật và bảo vệ dữ liệu" }
+      ]
+    },
+    {
+      title: "6. Quyền của bạn",
+      description: "Bạn có các quyền sau đối với thông tin cá nhân:",
+      items: [
+        { text: "Quyền truy cập: Xem thông tin chúng tôi lưu trữ về bạn" },
+        { text: "Quyền chỉnh sửa: Yêu cầu sửa đổi thông tin không chính xác" },
+        { text: "Quyền xóa: Yêu cầu xóa thông tin cá nhân" },
+        { text: "Quyền hạn chế: Hạn chế xử lý thông tin trong một số trường hợp" },
+        { text: "Quyền phản đối: Phản đối việc xử lý thông tin cho mục đích tiếp thị" },
+        { text: "Quyền rút lại đồng ý: Rút lại sự đồng ý bất kỳ lúc nào" }
+      ]
+    },
+    {
+      title: "7. Lưu trữ thông tin",
+      description: "Chúng tôi lưu trữ thông tin của bạn: Trong thời gian cần thiết để cung cấp dịch vụ; Theo yêu cầu của pháp luật; Khi bạn yêu cầu xóa thông tin (trừ khi pháp luật yêu cầu khác). Chúng tôi sẽ xóa hoặc ẩn danh hóa thông tin khi không còn cần thiết."
+    },
+    {
+      title: "8. Cookies",
+      description: "Website sử dụng cookies để: Ghi nhớ tùy chọn của bạn; Phân tích lưu lượng truy cập; Cải thiện trải nghiệm người dùng; Hiển thị nội dung phù hợp. Bạn có thể quản lý cookies thông qua cài đặt trình duyệt."
+    },
+    {
+      title: "9. Liên kết bên thứ ba",
+      description: "Website có thể chứa liên kết đến các trang bên thứ ba. Chúng tôi không chịu trách nhiệm về: Chính sách bảo mật của các trang đó; Nội dung trên các trang đó; Việc xử lý thông tin cá nhân của họ. Vui lòng đọc chính sách bảo mật của các trang đó trước khi cung cấp thông tin."
+    },
+    {
+      title: "10. Quyền riêng tư trẻ em",
+      description: "Website và dịch vụ của chúng tôi dành cho người từ 16 tuổi trở lên. Chúng tôi không cố ý thu thập thông tin từ trẻ em dưới 16 tuổi. Nếu bạn là phụ huynh và phát hiện con bạn đã cung cấp thông tin, vui lòng liên hệ để chúng tôi xóa thông tin đó."
+    },
+    {
+      title: "11. Thay đổi chính sách",
+      description: "Chúng tôi có thể cập nhật Chính sách này định kỳ. Khi có thay đổi quan trọng: Chúng tôi sẽ thông báo qua email hoặc trên website; Ngày cập nhật sẽ được ghi rõ; Việc tiếp tục sử dụng được coi là chấp nhận chính sách mới. Chúng tôi khuyến khích bạn xem lại Chính sách này thường xuyên."
+    },
+    {
+      title: "12. Liên hệ",
+      description: "Nếu bạn có câu hỏi về chính sách bảo mật hoặc muốn thực hiện quyền của mình, vui lòng liên hệ:",
+      contactInfo: {
+        organization: "Tổ chức Bàn Chân Xanh",
+        address: "123 Đường ABC, Quận XYZ, Hà Nội",
+        email: "privacy@banchanxanh.org",
+        phone: "0123456789",
+        website: "banchanxanh.org"
+      }
+    },
+    {
+      title: "13. Hiệu lực",
+      description: "Chính sách bảo mật này có hiệu lực từ ngày 01/12/2024 và thay thế cho tất cả các chính sách bảo mật trước đó của Bàn Chân Xanh."
+    }
+  ];
+
+  const privacyContent: PrivacyContent = {
+    pageIntro,
+    sections: privacySections
+  };
+
+  return {
+    props: {
+      layout: layoutData,
+      seo: seoData,
+      privacyContent,
+    },
+  };
 };
 
-const PrivacyPage: React.FC<PrivacyProps> = (props) => {
-    return (
-        <Layout data={props.layout.data}>
-            <SEO {...props.seo} />
+const PrivacyPage: React.FC<PrivacyProps> = props => {
+  const [globalData, setGlobalData] = useState<GlobalInfo | null>(null);
+  const [privacyContent, setPrivacyContent] = useState<PrivacyContent | null>(null);
+  const [seoData, setSeoData] = useState<SEOProps | null>(null);
 
-            {/* Privacy Content Section */}
-            <section className="wpo-about-section section-padding section-padding-top">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-12">
-                            <div className="wpo-section-title text-center">
-                                <span>Bảo vệ thông tin</span>
-                                <h2>Chính sách bảo mật</h2>
-                                <p>Cập nhật lần cuối: 01/12/2024</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-lg-10 col-12 mx-auto">
-                            <div className="privacy-content">
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [globalResponse, privacyResponse, seoResponse] = await Promise.all([
+          globalService.get({
+            populate: {
+              "populate[logo][populate]": "*",
+              "populate[headerMenus][populate]": "*",
+              "populate[rightButtons][populate]": "*",
+              "populate[footerMenus][populate]": "*",
+              "populate[footerQuicklinks][populate]": "*",
+            },
+          }),
+          privacyService.get({
+            populate: {
+              pageIntro: true,
+              sections: {
+                populate: {
+                  items: true,
+                  subsections: {
+                    populate: {
+                      items: true
+                    }
+                  },
+                  contactInfo: true
+                }
+              }
+            }
+          }),
+          seoService.get({
+            populate: {
+              "populate[pages][populate]": "*",
+            },
+          })
+        ]);
 
-                                {/* Section 1 */}
-                                <div className="privacy-section">
-                                    <h3>1. Giới thiệu</h3>
-                                    <p>Tổ chức Bàn Chân Xanh ("chúng tôi", "tổ chức") cam kết bảo vệ quyền riêng tư và thông tin cá nhân của bạn. Chính sách bảo mật này ("Chính sách") giải thích cách chúng tôi thu thập, sử dụng, lưu trữ và bảo vệ thông tin cá nhân của bạn khi bạn sử dụng website <a href="/">banchanxanh.org</a> và các dịch vụ liên quan.</p>
-                                    <p>Bằng việc sử dụng website và dịch vụ của chúng tôi, bạn đồng ý với việc thu thập và sử dụng thông tin theo Chính sách này.</p>
-                                </div>
+        setGlobalData(globalResponse);
+        setPrivacyContent(privacyResponse);
+        setSeoData(seoResponse);
+      } catch (error) {
+        console.error('Error fetching privacy data:', error);
+        setPrivacyContent(props.privacyContent);
+        setSeoData(props.seo);
+      }
+    };
 
-                                {/* Section 2 */}
-                                <div className="privacy-section">
-                                    <h3>2. Thông tin chúng tôi thu thập</h3>
+    fetchData();
+  }, [props.privacyContent, props.seo]);
 
-                                    <h4>2.1. Thông tin cá nhân</h4>
-                                    <p>Chúng tôi có thể thu thập các thông tin cá nhân sau:</p>
-                                    <ul>
-                                        <li><strong>Thông tin định danh:</strong> Họ tên, địa chỉ email, số điện thoại</li>
-                                        <li><strong>Thông tin địa chỉ:</strong> Địa chỉ nhà, thành phố, mã bưu điện</li>
-                                        <li><strong>Thông tin nghề nghiệp:</strong> Nghề nghiệp, tổ chức/công ty</li>
-                                        <li><strong>Thông tin tài chính:</strong> Thông tin thanh toán (được mã hóa và bảo mật)</li>
-                                        <li><strong>Thông tin sở thích:</strong> Lĩnh vực quan tâm, hoạt động yêu thích</li>
-                                    </ul>
+  const pageIntro = privacyContent?.pageIntro || props.privacyContent.pageIntro;
+  const sections = privacyContent?.sections || props.privacyContent.sections;
 
-                                    <h4>2.2. Thông tin tự động</h4>
-                                    <p>Khi bạn truy cập website, chúng tôi có thể tự động thu thập:</p>
-                                    <ul>
-                                        <li><strong>Thông tin thiết bị:</strong> Loại thiết bị, hệ điều hành, trình duyệt</li>
-                                        <li><strong>Thông tin mạng:</strong> Địa chỉ IP, nhà cung cấp dịch vụ internet</li>
-                                        <li><strong>Thông tin sử dụng:</strong> Trang đã truy cập, thời gian truy cập, liên kết đã click</li>
-                                        <li><strong>Cookies và công nghệ tương tự:</strong> Để cải thiện trải nghiệm người dùng</li>
-                                    </ul>
+  const layoutData = globalData ? convertGlobalInfoToLayoutData(globalData) : props.layout.data;
 
-                                    <h4>2.3. Thông tin từ bên thứ ba</h4>
-                                    <p>Chúng tôi có thể nhận thông tin từ:</p>
-                                    <ul>
-                                        <li>Các nền tảng mạng xã hội (khi bạn đăng nhập qua Facebook, Google)</li>
-                                        <li>Các đối tác và nhà cung cấp dịch vụ</li>
-                                        <li>Các tổ chức từ thiện và môi trường khác</li>
-                                    </ul>
-                                </div>
+  return (
+    <Layout data={layoutData}>
+      <SEO {...(seoData || props.seo)} />
 
-                                {/* Section 3 */}
-                                <div className="privacy-section">
-                                    <h3>3. Cách chúng tôi sử dụng thông tin</h3>
-
-                                    <h4>3.1. Mục đích sử dụng</h4>
-                                    <p>Chúng tôi sử dụng thông tin cá nhân của bạn để:</p>
-                                    <ul>
-                                        <li><strong>Cung cấp dịch vụ:</strong> Xử lý đăng ký tham gia hoạt động, đóng góp</li>
-                                        <li><strong>Giao tiếp:</strong> Gửi thông báo, cập nhật về hoạt động và dự án</li>
-                                        <li><strong>Cải thiện dịch vụ:</strong> Phân tích xu hướng sử dụng để nâng cao trải nghiệm</li>
-                                        <li><strong>Báo cáo:</strong> Tạo báo cáo tài chính và hoạt động minh bạch</li>
-                                        <li><strong>Tuân thủ pháp luật:</strong> Đáp ứng các yêu cầu pháp lý và quy định</li>
-                                        <li><strong>Bảo mật:</strong> Phát hiện và ngăn chặn gian lận, lạm dụng</li>
-                                    </ul>
-
-                                    <h4>3.2. Cơ sở pháp lý</h4>
-                                    <p>Chúng tôi xử lý thông tin cá nhân dựa trên:</p>
-                                    <ul>
-                                        <li><strong>Sự đồng ý:</strong> Bạn đã đồng ý rõ ràng</li>
-                                        <li><strong>Hợp đồng:</strong> Cần thiết để thực hiện thỏa thuận với bạn</li>
-                                        <li><strong>Lợi ích hợp pháp:</strong> Để cải thiện dịch vụ và bảo vệ quyền lợi</li>
-                                        <li><strong>Nghĩa vụ pháp lý:</strong> Tuân thủ các quy định pháp luật</li>
-                                    </ul>
-                                </div>
-
-                                {/* Section 4 */}
-                                <div className="privacy-section">
-                                    <h3>4. Chia sẻ thông tin</h3>
-
-                                    <h4>4.1. Chia sẻ với bên thứ ba</h4>
-                                    <p>Chúng tôi có thể chia sẻ thông tin cá nhân với:</p>
-                                    <ul>
-                                        <li><strong>Nhà cung cấp dịch vụ:</strong> Các công ty hỗ trợ hoạt động của chúng tôi</li>
-                                        <li><strong>Đối tác:</strong> Các tổ chức hợp tác trong dự án</li>
-                                        <li><strong>Cơ quan pháp luật:</strong> Khi được yêu cầu bởi pháp luật</li>
-                                        <li><strong>Bảo vệ quyền lợi:</strong> Để bảo vệ quyền lợi hợp pháp của chúng tôi</li>
-                                    </ul>
-
-                                    <h4>4.2. Cam kết bảo vệ</h4>
-                                    <p>Khi chia sẻ thông tin, chúng tôi đảm bảo:</p>
-                                    <ul>
-                                        <li>Bên thứ ba có cam kết bảo mật tương đương</li>
-                                        <li>Chỉ chia sẻ thông tin cần thiết</li>
-                                        <li>Tuân thủ các quy định bảo mật nghiêm ngặt</li>
-                                        <li>Không bán hoặc cho thuê thông tin cá nhân</li>
-                                    </ul>
-                                </div>
-
-                                {/* Section 5 */}
-                                <div className="privacy-section">
-                                    <h3>5. Bảo mật thông tin</h3>
-
-                                    <h4>5.1. Biện pháp bảo mật</h4>
-                                    <p>Chúng tôi áp dụng các biện pháp bảo mật sau:</p>
-                                    <ul>
-                                        <li><strong>Mã hóa:</strong> Sử dụng SSL/TLS để mã hóa dữ liệu truyền tải</li>
-                                        <li><strong>Lưu trữ an toàn:</strong> Dữ liệu được lưu trữ trên server bảo mật</li>
-                                        <li><strong>Kiểm soát truy cập:</strong> Chỉ nhân viên được ủy quyền mới có thể truy cập</li>
-                                        <li><strong>Giám sát:</strong> Theo dõi và phát hiện các hoạt động bất thường</li>
-                                        <li><strong>Đào tạo:</strong> Nhân viên được đào tạo về bảo mật thông tin</li>
-                                    </ul>
-
-                                    <h4>5.2. Thời gian lưu trữ</h4>
-                                    <p>Chúng tôi lưu trữ thông tin cá nhân trong thời gian:</p>
-                                    <ul>
-                                        <li><strong>Thông tin tài khoản:</strong> Cho đến khi bạn yêu cầu xóa</li>
-                                        <li><strong>Thông tin giao dịch:</strong> 7 năm theo quy định pháp luật</li>
-                                        <li><strong>Thông tin marketing:</strong> Cho đến khi bạn hủy đăng ký</li>
-                                        <li><strong>Cookies:</strong> Theo thời gian được thiết lập (thường 1-2 năm)</li>
-                                    </ul>
-                                </div>
-
-                                {/* Section 6 */}
-                                <div className="privacy-section">
-                                    <h3>6. Quyền của bạn</h3>
-
-                                    <h4>6.1. Quyền truy cập và kiểm soát</h4>
-                                    <p>Bạn có các quyền sau đối với thông tin cá nhân:</p>
-                                    <ul>
-                                        <li><strong>Quyền truy cập:</strong> Xem thông tin cá nhân chúng tôi đang lưu trữ</li>
-                                        <li><strong>Quyền chỉnh sửa:</strong> Cập nhật hoặc sửa đổi thông tin không chính xác</li>
-                                        <li><strong>Quyền xóa:</strong> Yêu cầu xóa thông tin cá nhân</li>
-                                        <li><strong>Quyền hạn chế:</strong> Hạn chế việc xử lý thông tin cá nhân</li>
-                                        <li><strong>Quyền di chuyển:</strong> Nhận bản sao thông tin để chuyển sang dịch vụ khác</li>
-                                        <li><strong>Quyền phản đối:</strong> Phản đối việc xử lý thông tin cho mục đích marketing</li>
-                                    </ul>
-
-                                    <h4>6.2. Cách thực hiện quyền</h4>
-                                    <p>Để thực hiện các quyền trên, bạn có thể:</p>
-                                    <ul>
-                                        <li>Gửi email đến: privacy@banchanxanh.org</li>
-                                        <li>Gọi điện thoại: 0123456789</li>
-                                        <li>Gửi thư đến địa chỉ văn phòng</li>
-                                        <li>Sử dụng form liên hệ trên website</li>
-                                    </ul>
-                                </div>
-
-                                {/* Section 7 */}
-                                <div className="privacy-section">
-                                    <h3>7. Cookies và công nghệ theo dõi</h3>
-
-                                    <h4>7.1. Loại cookies</h4>
-                                    <p>Chúng tôi sử dụng các loại cookies sau:</p>
-                                    <ul>
-                                        <li><strong>Cookies cần thiết:</strong> Để website hoạt động bình thường</li>
-                                        <li><strong>Cookies hiệu suất:</strong> Để phân tích cách sử dụng website</li>
-                                        <li><strong>Cookies chức năng:</strong> Để ghi nhớ lựa chọn của bạn</li>
-                                        <li><strong>Cookies marketing:</strong> Để hiển thị quảng cáo phù hợp</li>
-                                    </ul>
-
-                                    <h4>7.2. Quản lý cookies</h4>
-                                    <p>Bạn có thể:</p>
-                                    <ul>
-                                        <li>Chấp nhận hoặc từ chối cookies khi truy cập website</li>
-                                        <li>Thay đổi cài đặt cookies trong trình duyệt</li>
-                                        <li>Xóa cookies đã lưu trữ</li>
-                                        <li>Sử dụng chế độ ẩn danh để tránh cookies</li>
-                                    </ul>
-                                </div>
-
-                                {/* Section 8 */}
-                                <div className="privacy-section">
-                                    <h3>8. Bảo vệ trẻ em</h3>
-                                    <p>Chúng tôi không cố ý thu thập thông tin cá nhân từ trẻ em dưới 13 tuổi. Nếu chúng tôi phát hiện đã thu thập thông tin từ trẻ em mà không có sự đồng ý của phụ huynh, chúng tôi sẽ:</p>
-                                    <ul>
-                                        <li>Xóa thông tin đó ngay lập tức</li>
-                                        <li>Thông báo cho phụ huynh</li>
-                                        <li>Thực hiện các biện pháp bảo vệ cần thiết</li>
-                                    </ul>
-                                    <p>Nếu bạn là phụ huynh và phát hiện con bạn đã cung cấp thông tin cá nhân, vui lòng liên hệ với chúng tôi ngay lập tức.</p>
-                                </div>
-
-                                {/* Section 9 */}
-                                <div className="privacy-section">
-                                    <h3>9. Chuyển giao quốc tế</h3>
-                                    <p>Thông tin cá nhân của bạn có thể được chuyển giao và xử lý tại các quốc gia khác ngoài Việt Nam. Khi thực hiện chuyển giao quốc tế, chúng tôi đảm bảo:</p>
-                                    <ul>
-                                        <li>Quốc gia nhận có mức độ bảo vệ tương đương</li>
-                                        <li>Có các biện pháp bảo vệ phù hợp</li>
-                                        <li>Tuân thủ các quy định về chuyển giao dữ liệu</li>
-                                        <li>Ký kết các thỏa thuận bảo mật với đối tác</li>
-                                    </ul>
-                                </div>
-
-                                {/* Section 10 */}
-                                <div className="privacy-section">
-                                    <h3>10. Thay đổi chính sách</h3>
-                                    <p>Chúng tôi có thể cập nhật Chính sách bảo mật này theo thời gian. Khi có thay đổi quan trọng:</p>
-                                    <ul>
-                                        <li>Chúng tôi sẽ thông báo trên website</li>
-                                        <li>Gửi email thông báo cho người dùng đã đăng ký</li>
-                                        <li>Cập nhật ngày "Cập nhật lần cuối"</li>
-                                        <li>Yêu cầu đồng ý lại nếu cần thiết</li>
-                                    </ul>
-                                    <p>Việc tiếp tục sử dụng website sau khi có thay đổi được coi là chấp nhận Chính sách mới.</p>
-                                </div>
-
-                                {/* Section 11 */}
-                                <div className="privacy-section">
-                                    <h3>11. Liên hệ</h3>
-                                    <p>Nếu bạn có câu hỏi, quan ngại hoặc yêu cầu liên quan đến Chính sách bảo mật này, vui lòng liên hệ:</p>
-                                    <div className="contact-info">
-                                        <p><strong>Bộ phận Bảo mật Thông tin</strong></p>
-                                        <p><strong>Tổ chức Bàn Chân Xanh</strong></p>
-                                        <p>Địa chỉ: 123 Đường ABC, Quận XYZ, Hà Nội</p>
-                                        <p>Email: privacy@banchanxanh.org</p>
-                                        <p>Điện thoại: 0123456789</p>
-                                        <p>Website: <a href="/">banchanxanh.org</a></p>
-                                    </div>
-                                    <p>Chúng tôi sẽ phản hồi yêu cầu của bạn trong vòng 30 ngày làm việc.</p>
-                                </div>
-
-                                {/* Section 12 */}
-                                <div className="privacy-section">
-                                    <h3>12. Hiệu lực</h3>
-                                    <p>Chính sách bảo mật này có hiệu lực từ ngày 01/12/2024 và thay thế cho tất cả các chính sách bảo mật trước đó của Bàn Chân Xanh.</p>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
+      <div className="privacy-page">
+        {/* Privacy Content Section */}
+        <section className="wpo-privacy-section">
+          <div className="container">
+            <div className="row">
+              <div className="col-12">
+                <div className="wpo-section-title text-center">
+                  <span>{pageIntro?.tag}</span>
+                  <h2>{pageIntro?.title}</h2>
+                  <p>{pageIntro?.description}</p>
                 </div>
-            </section>
-        </Layout>
-    );
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-lg-10 col-12 mx-auto">
+                <div className="privacy-content">
+                  {sections?.map((section, index) => (
+                    <div key={index} className="privacy-section">
+                      <h3>{section.title}</h3>
+                      {section.description && <p>{section.description}</p>}
+
+                      {section.items && section.items.length > 0 && (
+                        <ul>
+                          {section.items.map((item, itemIndex) => (
+                            <li key={itemIndex}>{item.text}</li>
+                          ))}
+                        </ul>
+                      )}
+
+                      {section.subsections && section.subsections.length > 0 && (
+                        <>
+                          {section.subsections.map((subsection, subIndex) => (
+                            <div key={subIndex}>
+                              <h4>{subsection.title}</h4>
+                              {subsection.description && <p>{subsection.description}</p>}
+                              {subsection.items && subsection.items.length > 0 && (
+                                <ul>
+                                  {subsection.items.map((item, itemIndex) => (
+                                    <li key={itemIndex}>{item.text}</li>
+                                  ))}
+                                </ul>
+                              )}
+                            </div>
+                          ))}
+                        </>
+                      )}
+
+                      {section.contactInfo && (
+                        <div className="contact-info">
+                          <p><strong>{section.contactInfo.organization}</strong></p>
+                          <p>Địa chỉ: {section.contactInfo.address}</p>
+                          <p>Email: {section.contactInfo.email}</p>
+                          <p>Điện thoại: {section.contactInfo.phone}</p>
+                          <p>Website: <a href="/">{section.contactInfo.website}</a></p>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </Layout>
+  );
 };
 
 export default PrivacyPage;

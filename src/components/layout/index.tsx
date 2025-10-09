@@ -1,13 +1,13 @@
-import React from "react";
+import { ThemeProvider } from "@emotion/react";
 import "@utils/i18n/index";
 import { themeDefault } from "@utils/theme/index";
-import { ThemeProvider } from "@emotion/react";
+import React from "react";
 
 // Source
-import { IMenuItem } from "@utils/interfaces/index";
-import defaultProps from "@data/layout.json";
-import Header from "./Header";
+import { HeaderButton, IMenuItem } from "@utils/interfaces/index";
+import defaultProps from "../../data/layout.json";
 import Footer from "./Footer";
+import Header from "./Header";
 import Scrollbar from "./Scrollbar";
 
 export interface LayoutData {
@@ -19,9 +19,14 @@ export interface LayoutData {
   google: string;
   email: string;
   phone: string;
-  headerHenu: IMenuItem[];
+  headerMenus: IMenuItem[];
+  rightButtons?: HeaderButton[];
+  footerQuicklinksTitle: string;
   footerQuicklinks: IMenuItem[];
-  footerMenu: IMenuItem[];
+  footerContactTitle: string;
+  footerContactDescription: string;
+  footerMenusTitle: string;
+  footerMenus: IMenuItem[];
 }
 
 export interface LayoutProps {
@@ -32,11 +37,12 @@ const Layout: React.FC<React.PropsWithChildren<LayoutProps>> = ({
   children,
   data,
 }) => {
-  const layoutData = { ...defaultProps, ...data };
+  const layoutData = data ?? defaultProps.data;
 
   const headerData = {
     logo: layoutData.logo,
-    menus: layoutData.headerHenu,
+    headerMenus: layoutData.headerMenus,
+    rightButtons: layoutData.rightButtons,
   };
 
   const footerData = {
@@ -47,8 +53,12 @@ const Layout: React.FC<React.PropsWithChildren<LayoutProps>> = ({
     google: layoutData.google,
     email: layoutData.email,
     phone: layoutData.phone,
-    quicklinks: layoutData.footerQuicklinks,
-    menus: layoutData.footerMenu,
+    footerQuicklinks: layoutData.footerQuicklinks,
+    footerContactTitle: layoutData.footerContactTitle,
+    footerContactDescription: layoutData.footerContactDescription,
+    footerQuicklinksTitle: layoutData.footerQuicklinksTitle,
+    footerMenus: layoutData.footerMenus,
+    footerMenusTitle: layoutData.footerMenusTitle,
   };
 
   return (

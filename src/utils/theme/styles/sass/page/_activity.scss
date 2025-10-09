@@ -1,0 +1,347 @@
+// Activity Page Styles
+
+// Activity Cards
+.activity-card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  height: 100%;
+
+  &:hover {
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    transform: translateY(-4px);
+  }
+
+  @media (max-width: 768px) {
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.activity-card-image {
+  position: relative;
+  height: 240px;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+}
+
+.activity-card-icon {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+
+  i {
+    font-size: 24px;
+    color: #2d5a27;
+  }
+}
+
+.activity-card-content {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 240px);
+
+  h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #2d5a27;
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+
+  p {
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    flex: 1;
+    margin-bottom: 20px;
+  }
+}
+
+.activity-card-button {
+  margin-top: auto;
+
+  .theme-btn {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #2d5a27;
+    color: white;
+    text-decoration: none;
+    border-radius: 32px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    text-align: center;
+    width: 100%;
+    border: none;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #1e3f1a;
+      transform: translateY(-2px);
+    }
+    &:after {
+      border-radius: 32px;
+    }
+  }
+}
+
+// Schedule Cards
+.schedule-card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  padding: 24px;
+  margin-bottom: 1rem;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+  }
+
+  @media (max-width: 576px) {
+    padding: 16px;
+  }
+}
+
+.schedule-date {
+  min-width: 120px;
+  text-align: center;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 12px;
+  border: 2px solid #2d5a27;
+  margin-right: 1rem;
+
+  @media (max-width: 768px) {
+    margin-bottom: 16px;
+    margin-right: 0;
+  }
+
+  @media (max-width: 576px) {
+    min-width: 100px;
+    padding: 16px;
+  }
+
+  .date {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #2d5a27;
+    display: block;
+  }
+}
+
+.schedule-content {
+  flex-grow: 1;
+  margin-right: 1rem;
+
+  @media (max-width: 768px) {
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+
+  h4 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #2d5a27;
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  p {
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+}
+
+.schedule-meta {
+  display: flex;
+  gap: 1rem;
+
+  @media (max-width: 768px) {
+    justify-content: center;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.9rem;
+    color: #777;
+
+    i {
+      color: #2d5a27;
+    }
+  }
+}
+
+.schedule-button {
+  .theme-btn {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #2d5a27;
+    color: white;
+    text-decoration: none;
+    border-radius: 32px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    min-width: 120px;
+
+    &:hover {
+      background-color: #1e3f1a;
+      transform: translateY(-2px);
+    }
+    &:after {
+      border-radius: 32px;
+    }
+  }
+}
+
+// Join Section
+.join-section {
+  background: linear-gradient(135deg, #2d5a27 0%, #1e3f1a 100%);
+  border-radius: 24px;
+  padding: 60px 40px;
+  color: #ef5f34;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+
+  @media (max-width: 768px) {
+    padding: 40px 20px;
+    border-radius: 16px;
+  }
+
+  @media (max-width: 576px) {
+    padding: 30px 16px;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 200px;
+    height: 200px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -30px;
+    left: -30px;
+    width: 150px;
+    height: 150px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+  }
+}
+
+.join-content {
+  position: relative;
+  z-index: 1;
+}
+
+.join-tag {
+  display: inline-block;
+  padding: 8px 20px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+}
+
+.join-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  line-height: 1.2;
+
+  @media (max-width: 768px) {
+    font-size: 2rem;
+  }
+
+  @media (max-width: 576px) {
+    font-size: 1.75rem;
+  }
+}
+
+.join-description {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  opacity: 0.9;
+  max-width: 600px;
+  margin: 0 auto 40px auto;
+  color: #fff;
+
+  @media (max-width: 576px) {
+    font-size: 1rem;
+  }
+}
+
+.join-button {
+  position: relative;
+  z-index: 1;
+
+  .theme-btn {
+    display: inline-block;
+    padding: 16px 40px;
+    background-color: white;
+    color: #2d5a27;
+    text-decoration: none;
+    border-radius: 32px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    border: none;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #f8f9fa;
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+    }
+    &:after {
+      border-radius: 32px;
+    }
+  }
+}
