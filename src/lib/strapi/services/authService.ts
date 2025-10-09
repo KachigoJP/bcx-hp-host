@@ -3,6 +3,7 @@ import {
   LoginCredentials,
   RegisterCredentials,
   StrapiError,
+  User,
 } from "@/utils/interfaces/strapi_types";
 import axios from "axios";
 import { getStrapiUrl } from "../config";
@@ -23,9 +24,13 @@ class AuthService {
         credentials
       );
 
-      // Store JWT in localStorage or cookie
+      // Store JWT and user in localStorage
       if (response.data.jwt) {
         localStorage.setItem("strapi_jwt", response.data.jwt);
+      }
+
+      if (response.data.user) {
+        localStorage.setItem("strapi_user", JSON.stringify(response.data.user));
       }
 
       return response.data;
@@ -44,9 +49,17 @@ class AuthService {
         credentials
       );
 
+      if (response.data?.user?.blocked) {
+        throw new Error("Tài khoản của bạn đã bị khóa");
+      }
+
       // Store JWT in localStorage or cookie
       if (response.data.jwt) {
         localStorage.setItem("strapi_jwt", response.data.jwt);
+      }
+
+      if (response.data.user) {
+        localStorage.setItem("strapi_user", JSON.stringify(response.data.user));
       }
 
       return response.data;
@@ -60,6 +73,7 @@ class AuthService {
    */
   logout(): void {
     localStorage.removeItem("strapi_jwt");
+    localStorage.removeItem("strapi_user");
   }
 
   /**
@@ -67,6 +81,11 @@ class AuthService {
    */
   getToken(): string | null {
     return localStorage.getItem("strapi_jwt");
+  }
+
+  getUser(): User | null {
+    const user = localStorage.getItem("strapi_user");
+    return user ? JSON.parse(user) : null;
   }
 
   /**
@@ -92,8 +111,13 @@ class AuthService {
         },
       });
 
+      if (response.data) {
+        localStorage.setItem("strapi_user", JSON.stringify(response.data));
+      }
+
       return response.data;
     } catch (error: any) {
+      this.logout();
       throw this.handleError(error);
     }
   }

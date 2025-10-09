@@ -4,7 +4,7 @@ import { themeDefault } from "@utils/theme/index";
 import React from "react";
 
 // Source
-import { IMenuItem } from "@utils/interfaces/index";
+import { HeaderButton, IMenuItem } from "@utils/interfaces/index";
 import defaultProps from "../../data/layout.json";
 import Footer from "./Footer";
 import Header from "./Header";
@@ -20,6 +20,7 @@ export interface LayoutData {
   email: string;
   phone: string;
   headerMenus: IMenuItem[];
+  rightButtons?: HeaderButton[];
   footerQuicklinksTitle: string;
   footerQuicklinks: IMenuItem[];
   footerContactTitle: string;
@@ -41,6 +42,7 @@ const Layout: React.FC<React.PropsWithChildren<LayoutProps>> = ({
   const headerData = {
     logo: layoutData.logo,
     headerMenus: layoutData.headerMenus,
+    rightButtons: layoutData.rightButtons,
   };
 
   const footerData = {

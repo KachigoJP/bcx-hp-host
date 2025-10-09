@@ -296,6 +296,7 @@ const WorkshopPage: React.FC<WorkshopProps> = (props) => {
                 populate: {
                     "populate[logo][populate]": "*",
                     "populate[headerMenus][populate]": "*",
+                    "populate[rightButtons][populate]": "*",
                     "populate[footerMenus][populate]": "*",
                     "populate[footerQuicklinks][populate]": "*",
                 },
