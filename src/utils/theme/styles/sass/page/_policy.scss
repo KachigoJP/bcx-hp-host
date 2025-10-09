@@ -1084,7 +1084,7 @@ Policy Page Enhanced Styles
       background: $theme-primary-color-s2;
       color: white;
       text-decoration: none;
-      border-radius: 12px;
+      border-radius: 32px;
       font-weight: 600;
       font-size: 1.1rem;
       transition: all 0.3s ease;
@@ -1096,6 +1096,10 @@ Policy Page Enhanced Styles
         background: lighten($theme-primary-color-s2, 10%);
         transform: translateY(-3px) scale(1.05);
         box-shadow: 0 12px 32px rgba($theme-primary-color-s2, 0.4);
+      }
+
+      &:after {
+        border-radius: 32px;
       }
     }
   }

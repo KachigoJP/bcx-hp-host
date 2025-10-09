@@ -89,7 +89,7 @@
     background-color: #2d5a27;
     color: white;
     text-decoration: none;
-    border-radius: 8px;
+    border-radius: 32px;
     font-weight: 500;
     transition: all 0.3s ease;
     text-align: center;
@@ -100,6 +100,9 @@
     &:hover {
       background-color: #1e3f1a;
       transform: translateY(-2px);
+    }
+    &:after {
+      border-radius: 32px;
     }
   }
 }
@@ -210,7 +213,7 @@
     background-color: #2d5a27;
     color: white;
     text-decoration: none;
-    border-radius: 8px;
+    border-radius: 32px;
     font-weight: 500;
     transition: all 0.3s ease;
     text-align: center;
@@ -221,6 +224,9 @@
     &:hover {
       background-color: #1e3f1a;
       transform: translateY(-2px);
+    }
+    &:after {
+      border-radius: 32px;
     }
   }
 }
@@ -245,7 +251,7 @@
   }
 
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     top: -50px;
     right: -50px;
@@ -256,7 +262,7 @@
   }
 
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     bottom: -30px;
     left: -30px;
@@ -321,7 +327,7 @@
     background-color: white;
     color: #2d5a27;
     text-decoration: none;
-    border-radius: 12px;
+    border-radius: 32px;
     font-weight: 600;
     font-size: 1.1rem;
     transition: all 0.3s ease;
@@ -333,6 +339,9 @@
       background-color: #f8f9fa;
       transform: translateY(-3px) scale(1.05);
       box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+    }
+    &:after {
+      border-radius: 32px;
     }
   }
 }

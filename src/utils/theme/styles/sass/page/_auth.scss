@@ -437,6 +437,10 @@ Auth Pages (Login, Register) - BCX Style
         transform: none;
         box-shadow: none;
       }
+
+      &:after {
+        border-radius: 5px;
+      }
     }
   }
 
