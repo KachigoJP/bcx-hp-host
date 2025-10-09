@@ -6,13 +6,43 @@ import {
   ActivityContent,
   ActivityScheduleItem, GlobalInfo, SectionDetailButton, SectionIconImageSlug, SectionIntro
 } from "@/utils/interfaces";
-import Activities from "@api/activities";
 import Layout, { LayoutProps } from "@components/layout";
 import SEO from "@components/layout/SEO";
 import { SEOProps } from "@components/layout/SEO/interface";
 import { getDefaultLayoutData } from "@utils/layoutData";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
+
+// Sample activities data
+const sampleActivities = [
+  {
+    id: "1",
+    icon: "flaticon-forest",
+    title: "Hiking (Leo núi)",
+    slug: "hiking",
+    description:
+      "Khám phá vẻ đẹp thiên nhiên Nhật Bản thông qua các chuyến leo núi. Chúng tôi tổ chức các hoạt động hiking phù hợp với mọi trình độ, từ người mới bắt đầu đến những người có kinh nghiệm.",
+    simg1: "/images/activity-hiking-mountain.jpg",
+  },
+  {
+    id: "2",
+    icon: "flaticon-placeholder",
+    title: "Camping (Cắm trại)",
+    slug: "camping",
+    description:
+      "Trải nghiệm cuộc sống ngoài trời và kết nối với thiên nhiên qua các hoạt động cắm trại. Cùng nhau xây dựng kỷ niệm đẹp và học hỏi kỹ năng sinh tồn.",
+    simg1: "/images/activity-camping-tent.jpg",
+  },
+  {
+    id: "3",
+    icon: "flaticon-graduation-cap",
+    title: "Workshop",
+    slug: "workshop",
+    description:
+      "Tham gia các workshop về bảo vệ môi trường, kỹ năng sống xanh và phát triển bền vững. Học hỏi và chia sẻ kiến thức với cộng đồng.",
+    simg1: "/images/activity-workshop-education.jpg",
+  },
+];
 
 interface ActivityProps {
   layout: LayoutProps;
@@ -38,7 +68,7 @@ export const getServerSideProps = async () => {
       "Chúng tôi tổ chức các hoạt động đa dạng để kết nối cộng đồng và lan tỏa tình yêu thiên nhiên. Từ những chuyến hiking khám phá núi non, camping dưới bầu trời đầy sao, đến các workshop giáo dục về bảo vệ môi trường.",
   };
 
-  const activityItems: SectionIconImageSlug[] = Activities.map(activity => ({
+  const activityItems: SectionIconImageSlug[] = sampleActivities.map(activity => ({
     title: activity.title,
     description: activity.description,
     image: activity.simg1,

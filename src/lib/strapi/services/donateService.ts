@@ -8,7 +8,7 @@ import { BaseService } from "./baseService";
 
 class DonateService extends BaseService<DonateContent> {
   constructor() {
-    super("/api/donate-page");
+    super("/api/donate");
   }
 }
 

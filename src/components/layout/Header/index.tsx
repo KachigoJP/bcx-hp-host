@@ -63,7 +63,8 @@ const Header: React.FC<HeaderProps> = (props) => {
             setCurrentUser(null);
           }
         }
-      } catch (error) {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      } catch (_) {
         // Token invalid or expired
         if (isMounted) {
           setIsAuthenticated(false);

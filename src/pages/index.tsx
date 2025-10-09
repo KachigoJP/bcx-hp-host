@@ -15,13 +15,43 @@ import SEO from "@components/layout/SEO";
 
 // Data
 import { GlobalInfo } from "@/utils/interfaces";
-import Activities from "@api/activities";
 import ProjectsData from "@api/projects";
-import TeamsData from "@api/team";
 import { SEOProps } from "@components/layout/SEO/interface";
 import globalService from "@lib/strapi/services/globalService";
 import { convertGlobalInfoToLayoutData } from "@utils/apps";
 import { getDefaultLayoutData } from "@utils/layoutData";
+import { sampleTeamData } from "./team";
+
+// Sample activities data
+const sampleActivities = [
+  {
+    id: "1",
+    icon: "flaticon-forest",
+    title: "Hiking (Leo núi)",
+    slug: "hiking",
+    description:
+      "Khám phá vẻ đẹp thiên nhiên Nhật Bản thông qua các chuyến leo núi. Chúng tôi tổ chức các hoạt động hiking phù hợp với mọi trình độ, từ người mới bắt đầu đến những người có kinh nghiệm.",
+    simg1: "/images/activity-hiking-mountain.jpg",
+  },
+  {
+    id: "2",
+    icon: "flaticon-placeholder",
+    title: "Camping (Cắm trại)",
+    slug: "camping",
+    description:
+      "Trải nghiệm cuộc sống ngoài trời và kết nối với thiên nhiên qua các hoạt động cắm trại. Cùng nhau xây dựng kỷ niệm đẹp và học hỏi kỹ năng sinh tồn.",
+    simg1: "/images/activity-camping-tent.jpg",
+  },
+  {
+    id: "3",
+    icon: "flaticon-graduation-cap",
+    title: "Workshop",
+    slug: "workshop",
+    description:
+      "Tham gia các workshop về bảo vệ môi trường, kỹ năng sống xanh và phát triển bền vững. Học hỏi và chia sẻ kiến thức với cộng đồng.",
+    simg1: "/images/activity-workshop-education.jpg",
+  },
+];
 
 interface HomeProps {
   layout: LayoutProps;
@@ -96,7 +126,7 @@ export const getServerSideProps = async () => {
     subtitle: "Các hoạt động của chúng tôi",
     description:
       "Chúng tôi tổ chức các hoạt động đa dạng để kết nối cộng đồng và lan tỏa tình yêu thiên nhiên.",
-    services: Activities,
+    services: sampleActivities,
   };
 
   const teamData = {
@@ -104,7 +134,7 @@ export const getServerSideProps = async () => {
     subtitle: "Đội ngũ chuyên nghiệp",
     description:
       "Đội ngũ tình nguyện viên nhiệt tình và giàu kinh nghiệm, luôn sẵn sàng hỗ trợ và đồng hành cùng các thành viên trong mọi hoạt động.",
-    items: TeamsData,
+    items: sampleTeamData,
   };
 
   const projectData = {

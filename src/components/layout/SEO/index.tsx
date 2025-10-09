@@ -3,10 +3,10 @@ import React from "react";
 
 // Source
 import defaultProps from "../../../data/seo.json";
-import { SEOProps } from "./interface";
+import { SEOMetadata, SEOProps } from "./interface";
 
 const SEO: React.FC<SEOProps> = (props) => {
-  const { metadata } = { ...defaultProps, ...props };
+  const metadata = { ...defaultProps, ...props }.metadata as SEOMetadata;
 
   const siteUrl = metadata.url?.replace(/\/$/, "");
 
@@ -27,10 +27,10 @@ const SEO: React.FC<SEOProps> = (props) => {
         description: metadata.og?.description,
         images: metadata.og?.image ? [
           {
-            url: metadata.og.image,
-            width: metadata.og.img_width ? parseInt(metadata.og.img_width) : undefined,
-            height: metadata.og.img_height ? parseInt(metadata.og.img_height) : undefined,
-            alt: metadata.og.img_alt,
+            url: metadata.og?.image,
+            width: metadata.og?.img_width ? parseInt(metadata.og?.img_width) : undefined,
+            height: metadata.og?.img_height ? parseInt(metadata.og?.img_height) : undefined,
+            alt: metadata.og?.img_alt,
           },
         ] : [],
         locale: metadata.og?.ogLocale,

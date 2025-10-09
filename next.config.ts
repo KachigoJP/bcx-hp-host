@@ -1,5 +1,6 @@
 import type { NextConfig } from "next";
-import { Configuration, container } from "webpack";
+import type { Configuration } from "webpack";
+import { container } from "webpack";
 import packageJson from "./package.json";
 const deps = packageJson.dependencies;
 
@@ -33,7 +34,8 @@ const nextConfig: NextConfig = {
             port: u.port || undefined,
             pathname: "**",
           });
-        } catch (e) {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        } catch (_) {
           // ignore invalid URL
         }
       }
@@ -41,7 +43,7 @@ const nextConfig: NextConfig = {
       return patterns;
     })(),
   },
-  webpack: (config: Configuration, { isServer }) => {
+  webpack: (config: Configuration) => {
     config.experiments = {
       ...config.experiments,
       layers: true,
