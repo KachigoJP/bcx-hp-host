@@ -220,3 +220,31 @@ export type StrapiSection =
   | SectionSectionIconItems
   | SectionDetailSectionDateItems
   | SectionDetailSectionIconItems;
+
+// ------------------------------------------------
+// Legal/Policy Page Interfaces
+// ------------------------------------------------
+
+export interface LegalContactInfo {
+  organization: string;
+  address: string;
+  email: string;
+  phone: string;
+  website: string;
+}
+
+export interface LegalSubsection extends BaseDetail {
+  items?: StrapiListText[];
+}
+
+export interface LegalSection extends BaseDetail {
+  subsections?: LegalSubsection[];
+  items?: StrapiListText[];
+  contactInfo?: LegalContactInfo;
+  note?: string;
+}
+
+export interface LegalPageContent {
+  pageIntro?: SectionIntro;
+  sections?: LegalSection[];
+}

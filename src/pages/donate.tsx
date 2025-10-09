@@ -1,41 +1,280 @@
+import donateService from "@/lib/strapi/services/donateService";
+import globalService from "@/lib/strapi/services/globalService";
+import seoService from "@/lib/strapi/services/seoService";
+import { convertGlobalInfoToLayoutData } from "@/utils/apps";
+import { DonateContent, GlobalInfo } from "@/utils/interfaces";
 import Layout, { LayoutProps } from "@components/layout";
 import SEO from "@components/layout/SEO";
 import { SEOProps } from "@components/layout/SEO/interface";
 import { getDefaultLayoutData } from "@utils/layoutData";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 interface DonateProps {
     layout: LayoutProps;
     seo: SEOProps;
+    donateContent: DonateContent;
 }
 
 export const getServerSideProps = async () => {
     const layoutData = getDefaultLayoutData();
 
     const seoData = {
-        title: "Đóng góp - Bàn Chân Xanh",
-        meta: [
-            {
-                name: "description",
-                content: "Đóng góp cho Bàn Chân Xanh để cùng chúng tôi bảo vệ môi trường và xây dựng một tương lai bền vững. Mọi đóng góp đều có ý nghĩa."
+        metadata: {
+            page_code: "donate",
+            title: "Đóng góp - Bàn Chân Xanh",
+            description: "Đóng góp cho Bàn Chân Xanh để cùng chúng tôi bảo vệ môi trường và xây dựng một tương lai bền vững. Mọi đóng góp đều có ý nghĩa."
+        }
+    };
+
+    const donateContent: DonateContent = {
+        pageIntro: {
+            tag: "Cùng nhau hành động",
+            title: "Đóng góp cho tương lai xanh",
+            description: "Mọi đóng góp của bạn đều có ý nghĩa trong việc bảo vệ môi trường và xây dựng một tương lai bền vững. Chúng tôi cam kết sử dụng mọi nguồn lực một cách minh bạch và hiệu quả."
+        },
+        heroSection: {
+            title: "Đóng góp cho tương lai xanh",
+            description: "Mọi đóng góp của bạn đều có ý nghĩa trong việc bảo vệ môi trường và xây dựng một tương lai bền vững.",
+            stats: [
+                { number: "100%", label: "Minh bạch tài chính" },
+                { number: "50+", label: "Dự án đã thực hiện" },
+                { number: "1000+", label: "Người đóng góp" },
+                { number: "500M+", label: "VNĐ đã quyên góp" }
+            ]
+        },
+        impactSection: {
+            sectionIntro: {
+                tag: "Tác động của bạn",
+                title: "Mỗi đóng góp tạo nên sự khác biệt",
+                description: "Xem cách đóng góp của bạn được sử dụng để tạo ra tác động tích cực cho môi trường và cộng đồng."
             },
-            {
-                name: "keywords",
-                content: "đóng góp, quyên góp, bảo vệ môi trường, từ thiện, Bàn Chân Xanh, phát triển bền vững, hoạt động xã hội"
-            }
-        ]
+            items: [
+                {
+                    icon: "flaticon-ecology",
+                    title: "100.000 VNĐ",
+                    description: "Trồng 1 cây xanh và chăm sóc trong 1 năm"
+                },
+                {
+                    icon: "flaticon-graduation-cap",
+                    title: "500.000 VNĐ",
+                    description: "Tổ chức 1 workshop giáo dục môi trường"
+                },
+                {
+                    icon: "flaticon-ecology",
+                    title: "1.000.000 VNĐ",
+                    description: "Tổ chức 1 chuyến dọn rác đại trà tại biển"
+                },
+                {
+                    icon: "flaticon-target",
+                    title: "5.000.000 VNĐ",
+                    description: "Tài trợ 1 dự án nghiên cứu môi trường"
+                }
+            ]
+        },
+        donationMethodsSection: {
+            sectionIntro: {
+                tag: "Phương thức",
+                title: "Cách thức đóng góp",
+                description: "Chọn phương thức đóng góp phù hợp với bạn"
+            },
+            items: [
+                {
+                    icon: "flaticon-bank",
+                    title: "Chuyển khoản ngân hàng",
+                    description: "Chuyển trực tiếp vào tài khoản ngân hàng của chúng tôi",
+                    image: "/images/donate-bank.jpg",
+                    accountInfo: {
+                        accountName: "TỔ CHỨC BÀN CHÂN XANH",
+                        accountNumber: "0123456789",
+                        bankName: "Ngân hàng TMCP Á Châu (ACB)"
+                    }
+                },
+                {
+                    icon: "flaticon-momo",
+                    title: "Momo",
+                    description: "Quét mã QR hoặc chuyển đến số điện thoại",
+                    image: "/images/donate-momo.jpg",
+                    qrCode: "/images/momo-qr.jpg"
+                },
+                {
+                    icon: "flaticon-zalopay",
+                    title: "ZaloPay",
+                    description: "Quét mã QR hoặc chuyển đến số điện thoại",
+                    image: "/images/donate-zalopay.jpg",
+                    qrCode: "/images/zalopay-qr.jpg"
+                },
+                {
+                    icon: "flaticon-cash",
+                    title: "Tiền mặt",
+                    description: "Đóng góp trực tiếp tại các sự kiện",
+                    image: "/images/donate-cash.jpg"
+                }
+            ]
+        },
+        donationFormSection: {
+            tag: "Đóng góp online",
+            title: "Form đóng góp trực tuyến",
+            description: "Điền thông tin để chúng tôi có thể liên hệ và gửi giấy chứng nhận đóng góp"
+        },
+        transparencySection: {
+            sectionIntro: {
+                tag: "Minh bạch",
+                title: "Cam kết minh bạch",
+                description: "Chúng tôi cam kết sử dụng mọi nguồn đóng góp một cách minh bạch và hiệu quả"
+            },
+            items: [
+                {
+                    icon: "flaticon-checked",
+                    title: "Báo cáo tài chính",
+                    description: "Công khai báo cáo tài chính hàng quý và hàng năm"
+                },
+                {
+                    icon: "flaticon-search",
+                    title: "Kiểm toán độc lập",
+                    description: "Được kiểm toán bởi đơn vị độc lập hàng năm"
+                },
+                {
+                    icon: "flaticon-target",
+                    title: "Minh bạch chi tiêu",
+                    description: "Công khai từng khoản chi tiêu và mục đích sử dụng"
+                },
+                {
+                    icon: "flaticon-ecology",
+                    title: "Báo cáo tác động",
+                    description: "Cập nhật định kỳ về tác động thực tế của các dự án"
+                }
+            ]
+        },
+        recentDonationsSection: {
+            sectionIntro: {
+                tag: "Cảm ơn",
+                title: "Những đóng góp gần đây",
+                description: "Cảm ơn sự đóng góp của các nhà hảo tâm"
+            },
+            items: [
+                {
+                    icon: "flaticon-ecology",
+                    donor: "Nguyễn Văn A",
+                    title: "Trồng cây xanh",
+                    description: "Đóng góp cho chương trình trồng cây",
+                    amount: "500.000 VNĐ",
+                    date: "15/12/2024"
+                },
+                {
+                    icon: "flaticon-graduation-cap",
+                    donor: "Trần Thị B",
+                    title: "Workshop môi trường",
+                    description: "Hỗ trợ tổ chức workshop",
+                    amount: "1.000.000 VNĐ",
+                    date: "14/12/2024"
+                },
+                {
+                    icon: "flaticon-target",
+                    donor: "Lê Văn C",
+                    title: "Nghiên cứu môi trường",
+                    description: "Tài trợ dự án nghiên cứu",
+                    amount: "5.000.000 VNĐ",
+                    date: "13/12/2024"
+                }
+            ]
+        }
     };
 
     return {
         props: {
             layout: layoutData,
             seo: seoData,
+            donateContent,
         },
     };
 };
 
 const DonatePage: React.FC<DonateProps> = (props) => {
+    const [globalData, setGlobalData] = useState<GlobalInfo | null>(null);
+    const [donateContent, setDonateContent] = useState<DonateContent | null>(null);
+    const [seoData, setSeoData] = useState<SEOProps | null>(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const [globalResponse, donateResponse, seoResponse] = await Promise.all([
+                    globalService.get({
+                        populate: {
+                            "populate[logo][populate]": "*",
+                            "populate[headerMenus][populate]": "*",
+                            "populate[rightButtons][populate]": "*",
+                            "populate[footerMenus][populate]": "*",
+                            "populate[footerQuicklinks][populate]": "*",
+                        },
+                    }),
+                    donateService.get({
+                        populate: {
+                            pageIntro: true,
+                            heroSection: true,
+                            impactSection: {
+                                populate: {
+                                    sectionIntro: true,
+                                    items: true
+                                }
+                            },
+                            donationMethodsSection: {
+                                populate: {
+                                    sectionIntro: true,
+                                    items: {
+                                        populate: {
+                                            image: true,
+                                            qrCode: true,
+                                            accountInfo: true
+                                        }
+                                    }
+                                }
+                            },
+                            donationFormSection: true,
+                            transparencySection: {
+                                populate: {
+                                    sectionIntro: true,
+                                    items: true
+                                }
+                            },
+                            recentDonationsSection: {
+                                populate: {
+                                    sectionIntro: true,
+                                    items: true
+                                }
+                            }
+                        }
+                    }),
+                    seoService.get({
+                        populate: {
+                            "populate[pages][populate]": "*",
+                        },
+                    })
+                ]);
+
+                setGlobalData(globalResponse);
+                setDonateContent(donateResponse);
+                setSeoData(seoResponse);
+            } catch (error) {
+                console.error('Error fetching donate data:', error);
+                setDonateContent(props.donateContent);
+                setSeoData(props.seo);
+            }
+        };
+
+        fetchData();
+    }, [props.donateContent, props.seo]);
+
+    const pageIntro = donateContent?.pageIntro || props.donateContent.pageIntro;
+    const heroSection = donateContent?.heroSection || props.donateContent.heroSection;
+    const impactSection = donateContent?.impactSection || props.donateContent.impactSection;
+    const donationMethodsSection = donateContent?.donationMethodsSection || props.donateContent.donationMethodsSection;
+    const donationFormSection = donateContent?.donationFormSection || props.donateContent.donationFormSection;
+    const transparencySection = donateContent?.transparencySection || props.donateContent.transparencySection;
+    const recentDonationsSection = donateContent?.recentDonationsSection || props.donateContent.recentDonationsSection;
+
+    const layoutData = globalData ? convertGlobalInfoToLayoutData(globalData) : props.layout.data;
+
     const handleDonateSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const form = e.currentTarget;
@@ -71,8 +310,8 @@ const DonatePage: React.FC<DonateProps> = (props) => {
     };
 
     return (
-        <Layout data={props.layout.data}>
-            <SEO {...props.seo} />
+        <Layout data={layoutData}>
+            <SEO {...(seoData || props.seo)} />
 
             <div className="donate-page">
                 {/* Hero Section */}
@@ -87,28 +326,18 @@ const DonatePage: React.FC<DonateProps> = (props) => {
                             <div className="col-lg-6 col-md-6 col-12">
                                 <div className="wpo-about-text">
                                     <div className="wpo-section-title">
-                                        <span>Cùng nhau hành động</span>
-                                        <h2>Đóng góp cho tương lai xanh</h2>
-                                        <p>Mọi đóng góp của bạn đều có ý nghĩa trong việc bảo vệ môi trường và xây dựng một tương lai bền vững. Chúng tôi cam kết sử dụng mọi nguồn lực một cách minh bạch và hiệu quả.</p>
+                                        <span>{pageIntro?.tag}</span>
+                                        <h2>{pageIntro?.title}</h2>
+                                        <p>{pageIntro?.description}</p>
                                     </div>
                                     <div className="wpo-about-content">
                                         <ul>
-                                            <li>
-                                                <i className="flaticon-checked"></i>
-                                                <span>Minh bạch tài chính</span>
-                                            </li>
-                                            <li>
-                                                <i className="flaticon-checked"></i>
-                                                <span>Tác động thực tế</span>
-                                            </li>
-                                            <li>
-                                                <i className="flaticon-checked"></i>
-                                                <span>Báo cáo định kỳ</span>
-                                            </li>
-                                            <li>
-                                                <i className="flaticon-checked"></i>
-                                                <span>Giấy chứng nhận</span>
-                                            </li>
+                                            {heroSection?.stats.map((stat, index) => (
+                                                <li key={index}>
+                                                    <i className="flaticon-checked"></i>
+                                                    <span>{stat.label}</span>
+                                                </li>
+                                            ))}
                                         </ul>
                                     </div>
                                 </div>
@@ -123,81 +352,26 @@ const DonatePage: React.FC<DonateProps> = (props) => {
                         <div className="row">
                             <div className="col-12">
                                 <div className="wpo-section-title text-center">
-                                    <span>Tác động của bạn</span>
-                                    <h2>Mỗi đóng góp tạo nên sự khác biệt</h2>
-                                    <p>Xem cách đóng góp của bạn được sử dụng để tạo ra tác động tích cực cho môi trường và cộng đồng.</p>
+                                    <span>{impactSection?.sectionIntro.tag}</span>
+                                    <h2>{impactSection?.sectionIntro.title}</h2>
+                                    <p>{impactSection?.sectionIntro.description}</p>
                                 </div>
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col-lg-3 col-md-6 col-12">
-                                <div className="wpo-service-item">
-                                    <div className="wpo-service-icon">
-                                        <i className="flaticon-ecology"></i>
-                                    </div>
-                                    <div className="wpo-service-text">
-                                        <h3>100.000 VNĐ</h3>
-                                        <p>Trồng 1 cây xanh và chăm sóc trong 1 năm</p>
-                                        <ul>
-                                            <li>Mua cây giống</li>
-                                            <li>Chuẩn bị đất</li>
-                                            <li>Chăm sóc định kỳ</li>
-                                            <li>Bảo vệ cây</li>
-                                        </ul>
+                            {impactSection?.items.map((impact, index) => (
+                                <div key={index} className="col-lg-3 col-md-6 col-12">
+                                    <div className="wpo-service-item">
+                                        <div className="wpo-service-icon">
+                                            <i className={`fi ${impact.icon}`}></i>
+                                        </div>
+                                        <div className="wpo-service-text">
+                                            <h3>{impact.title}</h3>
+                                            <p>{impact.description}</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div className="col-lg-3 col-md-6 col-12">
-                                <div className="wpo-service-item">
-                                    <div className="wpo-service-icon">
-                                        <i className="flaticon-graduation-cap"></i>
-                                    </div>
-                                    <div className="wpo-service-text">
-                                        <h3>500.000 VNĐ</h3>
-                                        <p>Tổ chức 1 workshop giáo dục môi trường</p>
-                                        <ul>
-                                            <li>Chuẩn bị tài liệu</li>
-                                            <li>Mời chuyên gia</li>
-                                            <li>Thiết bị giảng dạy</li>
-                                            <li>Chứng chỉ tham gia</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-lg-3 col-md-6 col-12">
-                                <div className="wpo-service-item">
-                                    <div className="wpo-service-icon">
-                                        <i className="flaticon-ecology"></i>
-                                    </div>
-                                    <div className="wpo-service-text">
-                                        <h3>1.000.000 VNĐ</h3>
-                                        <p>Thực hiện 1 chiến dịch dọn dẹp môi trường</p>
-                                        <ul>
-                                            <li>Dụng cụ dọn dẹp</li>
-                                            <li>Vận chuyển rác</li>
-                                            <li>Xử lý rác thải</li>
-                                            <li>Báo cáo kết quả</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-lg-3 col-md-6 col-12">
-                                <div className="wpo-service-item">
-                                    <div className="wpo-service-icon">
-                                        <i className="flaticon-target"></i>
-                                    </div>
-                                    <div className="wpo-service-text">
-                                        <h3>5.000.000 VNĐ</h3>
-                                        <p>Thực hiện 1 dự án nghiên cứu môi trường</p>
-                                        <ul>
-                                            <li>Thiết bị nghiên cứu</li>
-                                            <li>Phân tích mẫu</li>
-                                            <li>Báo cáo khoa học</li>
-                                            <li>Ứng dụng thực tế</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
+                            ))}
                         </div>
                     </div>
                 </section>
@@ -208,9 +382,9 @@ const DonatePage: React.FC<DonateProps> = (props) => {
                         <div className="row">
                             <div className="col-12">
                                 <div className="wpo-section-title text-center">
-                                    <span>Phương thức đóng góp</span>
-                                    <h2>Cách thức đóng góp</h2>
-                                    <p>Chúng tôi cung cấp nhiều phương thức đóng góp tiện lợi và an toàn.</p>
+                                    <span>{donationMethodsSection?.sectionIntro.tag}</span>
+                                    <h2>{donationMethodsSection?.sectionIntro.title}</h2>
+                                    <p>{donationMethodsSection?.sectionIntro.description}</p>
                                 </div>
                             </div>
                         </div>
@@ -320,9 +494,9 @@ const DonatePage: React.FC<DonateProps> = (props) => {
                             <div className="col-lg-6 col-md-6 col-12">
                                 <div className="wpo-about-text">
                                     <div className="wpo-section-title">
-                                        <span>Đóng góp ngay</span>
-                                        <h2>Form đóng góp</h2>
-                                        <p>Điền thông tin để chúng tôi có thể gửi giấy chứng nhận và báo cáo sử dụng nguồn đóng góp.</p>
+                                        <span>{donationFormSection?.tag}</span>
+                                        <h2>{donationFormSection?.title}</h2>
+                                        <p>{donationFormSection?.description}</p>
                                     </div>
                                     <div className="donation-benefits">
                                         <h4>Lợi ích khi đóng góp:</h4>
@@ -432,29 +606,16 @@ const DonatePage: React.FC<DonateProps> = (props) => {
                         <div className="row">
                             <div className="col-12">
                                 <div className="wpo-cta-text">
-                                    <h2>Minh bạch tài chính</h2>
-                                    <p>Chúng tôi cam kết sử dụng mọi nguồn đóng góp một cách minh bạch và hiệu quả. Mọi chi tiêu đều được báo cáo công khai.</p>
+                                    <h2>{transparencySection?.sectionIntro.title}</h2>
+                                    <p>{transparencySection?.sectionIntro.description}</p>
                                     <div className="transparency-features">
-                                        <div className="feature-item">
-                                            <i className="flaticon-checked"></i>
-                                            <h4>Báo cáo tài chính</h4>
-                                            <p>Báo cáo chi tiết việc sử dụng nguồn đóng góp hàng quý</p>
-                                        </div>
-                                        <div className="feature-item">
-                                            <i className="flaticon-search"></i>
-                                            <h4>Kiểm toán độc lập</h4>
-                                            <p>Được kiểm toán bởi các tổ chức uy tín</p>
-                                        </div>
-                                        <div className="feature-item">
-                                            <i className="flaticon-target"></i>
-                                            <h4>Minh bạch 100%</h4>
-                                            <p>Tất cả thông tin tài chính được công khai</p>
-                                        </div>
-                                        <div className="feature-item">
-                                            <i className="flaticon-ecology"></i>
-                                            <h4>Đo lường tác động</h4>
-                                            <p>Báo cáo kết quả và tác động của các dự án</p>
-                                        </div>
+                                        {transparencySection?.items.map((item, index) => (
+                                            <div key={index} className="feature-item">
+                                                <i className={`fi ${item.icon}`}></i>
+                                                <h4>{item.title}</h4>
+                                                <p>{item.description}</p>
+                                            </div>
+                                        ))}
                                     </div>
                                 </div>
                             </div>
@@ -468,49 +629,27 @@ const DonatePage: React.FC<DonateProps> = (props) => {
                         <div className="row">
                             <div className="col-12">
                                 <div className="wpo-section-title text-center">
-                                    <span>Đóng góp gần đây</span>
-                                    <h2>Cảm ơn các nhà hảo tâm</h2>
-                                    <p>Chúng tôi xin chân thành cảm ơn tất cả những đóng góp quý báu của các nhà hảo tâm.</p>
+                                    <span>{recentDonationsSection?.sectionIntro.tag}</span>
+                                    <h2>{recentDonationsSection?.sectionIntro.title}</h2>
+                                    <p>{recentDonationsSection?.sectionIntro.description}</p>
                                 </div>
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col-lg-4 col-md-6 col-12">
-                                <div className="wpo-service-item">
-                                    <div className="wpo-service-text">
-                                        <h3>Nguyễn Văn A</h3>
-                                        <p>Đóng góp 2.000.000 VNĐ cho dự án trồng cây xanh</p>
-                                        <div className="donation-detail">
-                                            <span><i className="flaticon-calendar"></i> 15/11/2024</span>
-                                            <span><i className="flaticon-ecology"></i> Trồng cây xanh</span>
+                            {recentDonationsSection?.items.map((donation, index) => (
+                                <div key={index} className="col-lg-4 col-md-6 col-12">
+                                    <div className="wpo-service-item">
+                                        <div className="wpo-service-text">
+                                            <h3>{donation.donor}</h3>
+                                            <p>{donation.description}</p>
+                                            <div className="donation-detail">
+                                                <span><i className="flaticon-calendar"></i> {donation.date}</span>
+                                                <span><i className={`fi ${donation.icon}`}></i> {donation.title}</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div className="col-lg-4 col-md-6 col-12">
-                                <div className="wpo-service-item">
-                                    <div className="wpo-service-text">
-                                        <h3>Trần Thị B</h3>
-                                        <p>Đóng góp 1.500.000 VNĐ cho chương trình giáo dục môi trường</p>
-                                        <div className="donation-detail">
-                                            <span><i className="flaticon-calendar"></i> 12/11/2024</span>
-                                            <span><i className="flaticon-graduation-cap"></i> Giáo dục môi trường</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-lg-4 col-md-6 col-12">
-                                <div className="wpo-service-item">
-                                    <div className="wpo-service-text">
-                                        <h3>Lê Văn C</h3>
-                                        <p>Đóng góp 3.000.000 VNĐ cho dự án nghiên cứu môi trường</p>
-                                        <div className="donation-detail">
-                                            <span><i className="flaticon-calendar"></i> 10/11/2024</span>
-                                            <span><i className="flaticon-target"></i> Nghiên cứu môi trường</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            ))}
                         </div>
                     </div>
                 </section>

@@ -1,3 +1,8 @@
+import globalService from "@/lib/strapi/services/globalService";
+import loginService from "@/lib/strapi/services/loginService";
+import seoService from "@/lib/strapi/services/seoService";
+import { convertGlobalInfoToLayoutData } from "@/utils/apps";
+import { GlobalInfo, LoginContent } from "@/utils/interfaces";
 import Layout, { LayoutProps } from "@components/layout";
 import SEO from "@components/layout/SEO";
 import { SEOProps } from "@components/layout/SEO/interface";
@@ -6,12 +11,13 @@ import { StrapiError } from "@utils/interfaces/strapi_types";
 import { getDefaultLayoutData } from "@utils/layoutData";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 interface LoginProps {
     layout: LayoutProps;
     seo: SEOProps;
+    loginContent: LoginContent;
 }
 
 export const getServerSideProps = async () => {
@@ -19,21 +25,45 @@ export const getServerSideProps = async () => {
 
     const seoData = {
         metadata: {
+            page_code: "login",
             title: "Đăng nhập - Bàn Chân Xanh",
             description: "Đăng nhập vào hệ thống Bàn Chân Xanh",
         },
+    };
+
+    const loginContent: LoginContent = {
+        pageIntro: {
+            tag: "Chào mừng trở lại",
+            title: "Đăng nhập",
+            description: "Đăng nhập để tiếp tục tham gia các hoạt động của Bàn Chân Xanh"
+        },
+        forgotPassword: {
+            text: "Quên mật khẩu",
+            link: "/forgot-password"
+        },
+        register: {
+            text: "Đăng ký",
+            link: "/register"
+        },
+        notAcountText: "Chưa có tài khoản? ",
+        registeringText: "Đang đăng nhập...",
+        rememberMeText: "Ghi nhớ đăng nhập",
     };
 
     return {
         props: {
             layout: layoutData,
             seo: seoData,
+            loginContent,
         },
     };
 };
 
 const LoginPage: React.FC<LoginProps> = (props) => {
     const router = useRouter();
+    const [globalData, setGlobalData] = useState<GlobalInfo | null>(null);
+    const [loginContent, setLoginContent] = useState<LoginContent | null>(null);
+    const [seoData, setSeoData] = useState<SEOProps | null>(null);
     const [formData, setFormData] = useState({
         identifier: "",
         password: "",
@@ -45,6 +75,45 @@ const LoginPage: React.FC<LoginProps> = (props) => {
     });
     const [loading, setLoading] = useState(false);
     const [rememberMe, setRememberMe] = useState(false);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const [globalResponse, loginResponse, seoResponse] = await Promise.all([
+                    globalService.get({
+                        populate: {
+                            "populate[logo][populate]": "*",
+                            "populate[headerMenus][populate]": "*",
+                            "populate[rightButtons][populate]": "*",
+                            "populate[footerMenus][populate]": "*",
+                            "populate[footerQuicklinks][populate]": "*",
+                        },
+                    }),
+                    loginService.get({
+                        populate: {
+                            pageIntro: true,
+                            benefits: true
+                        }
+                    }),
+                    seoService.get({
+                        populate: {
+                            "populate[pages][populate]": "*",
+                        },
+                    })
+                ]);
+
+                setGlobalData(globalResponse);
+                setLoginContent(loginResponse);
+                setSeoData(seoResponse);
+            } catch (error) {
+                console.error('Error fetching login data:', error);
+                setLoginContent(props.loginContent);
+                setSeoData(props.seo);
+            }
+        };
+
+        fetchData();
+    }, [props.loginContent, props.seo]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -148,9 +217,17 @@ const LoginPage: React.FC<LoginProps> = (props) => {
         }
     };
 
+    const layoutData = globalData ? convertGlobalInfoToLayoutData(globalData) : props.layout.data;
+    const pageIntro = loginContent?.pageIntro || props.loginContent.pageIntro;
+    const forgotPassword = loginContent?.forgotPassword || props.loginContent.forgotPassword;
+    const register = loginContent?.register || props.loginContent.register;
+    const notAcountText = loginContent?.notAcountText || props.loginContent.notAcountText;
+    const registeringText = loginContent?.registeringText || props.loginContent.registeringText;
+    const rememberMeText = loginContent?.rememberMeText || props.loginContent.rememberMeText;
+
     return (
-        <Layout data={props.layout.data}>
-            <SEO {...props.seo} />
+        <Layout data={layoutData}>
+            <SEO {...(seoData || props.seo)} />
 
             {/* Login Section */}
             <section className="wpo-contact-pg-section section-padding">
@@ -159,8 +236,8 @@ const LoginPage: React.FC<LoginProps> = (props) => {
                         <div className="col-lg-6 col-md-8 col-12">
                             <div className="wpo-accountInfo">
                                 <div className="fromTitle">
-                                    <h2>Đăng nhập</h2>
-                                    <p>Đăng nhập vào tài khoản của bạn để trải nghiệm đầy đủ các tính năng</p>
+                                    <h2>{pageIntro?.title}</h2>
+                                    <p>{pageIntro?.description}</p>
                                 </div>
 
                                 {errors.general && (
@@ -206,10 +283,12 @@ const LoginPage: React.FC<LoginProps> = (props) => {
                                                 checked={rememberMe}
                                                 onChange={(e) => setRememberMe(e.target.checked)}
                                             />
-                                            <label htmlFor="remember">Ghi nhớ đăng nhập</label>
+                                            <label htmlFor="remember">{rememberMeText}</label>
                                         </div>
                                         <div className="forget-btn">
-                                            <Link href="/forgot-password">Quên mật khẩu?</Link>
+                                            <Link href={forgotPassword?.link || "/#"} style={{ color: "#ef5f34", fontWeight: "600" }}>
+                                                {forgotPassword?.text}
+                                            </Link>
                                         </div>
                                     </div>
 
@@ -219,14 +298,14 @@ const LoginPage: React.FC<LoginProps> = (props) => {
                                         disabled={loading}
                                         style={{ width: "100%", marginTop: "20px" }}
                                     >
-                                        {loading ? "Đang đăng nhập..." : "Đăng nhập"}
+                                        {loading ? registeringText : register?.text}
                                     </button>
                                 </form>
 
                                 <p style={{ textAlign: "center", marginTop: "30px" }}>
-                                    Chưa có tài khoản?{" "}
-                                    <Link href="/register" style={{ color: "#ef5f34", fontWeight: "600" }}>
-                                        Đăng ký ngay
+                                    {notAcountText}{" "}
+                                    <Link href={register?.link || "/#"} style={{ color: "#ef5f34", fontWeight: "600" }}>
+                                        {register?.text}
                                     </Link>
                                 </p>
                             </div>

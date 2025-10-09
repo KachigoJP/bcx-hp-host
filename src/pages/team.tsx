@@ -214,6 +214,10 @@ const TeamPage: React.FC<TeamProps> = props => {
     };
   }, [teamContent, props.teamContent]);
 
+
+  const pageIntro = teamContent?.pageIntro || props.teamContent.pageIntro;
+  const joinSection = teamContent?.joinSection || props.teamContent.joinSection;
+  const teamMembers = teamContent?.teamMembers || props.teamContent.teamMembers;
   const teamValuesSection = teamContent?.teamValuesSection || props.teamContent.teamValuesSection;
 
   return (
@@ -221,25 +225,29 @@ const TeamPage: React.FC<TeamProps> = props => {
       <SEO {...(seoData || props.seo)} />
 
       {/* Team Intro Section */}
-      <section className="wpo-team-intro-section section-padding section-padding-top">
-        <div className="container">
-          <div className="row justify-content-center">
-            <div className="col-lg-8">
-              <div className="wpo-section-title text-center">
-                <span>{teamContent?.pageIntro?.tag}</span>
-                <h2>{teamContent?.pageIntro?.title}</h2>
-                <p>{teamContent?.pageIntro?.description}</p>
+      {
+        pageIntro && (
+          <section className="wpo-team-intro-section section-padding section-padding-top">
+            <div className="container">
+              <div className="row justify-content-center">
+                <div className="col-lg-8">
+                  <div className="wpo-section-title text-center">
+                    <span>{pageIntro?.tag}</span>
+                    <h2>{pageIntro?.title}</h2>
+                    <p>{pageIntro?.description}</p>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
+          </section>
+        )
+      }
 
       {/* Team Members Section */}
       <section className="wpo-team-section section-padding">
         <div className="container">
           <div className="row" ref={teamMembersRef}>
-            {teamContent?.teamMembers && teamContent.teamMembers.map((member, index) => {
+            {teamMembers && teamMembers.length > 0 && teamMembers.map((member, index) => {
               const imageSrc =
                 typeof member.image === "string"
                   ? member.image
@@ -294,37 +302,42 @@ const TeamPage: React.FC<TeamProps> = props => {
       </section>
 
       {/* Join Team Section */}
-      <section className="wpo-join-team-section section-padding">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-8 offset-lg-2">
-              <div className="wpo-join-team-content text-center">
-                <div className="wpo-section-title">
-                  <span>
-                    {teamContent?.joinSection?.sectionIntro?.tag}
-                  </span>
-                  <h2>
-                    {teamContent?.joinSection?.sectionIntro?.title}
-                  </h2>
-                  <p style={{ textAlign: "center", margin: "0 auto", maxWidth: "580px" }}>
-                    {
-                      teamContent?.joinSection?.sectionIntro?.description
-                    }
-                  </p>
-                </div>
-                <div className="wpo-join-team-btn">
-                  <a
-                    href={teamContent?.joinSection?.button?.link}
-                    className="theme-btn"
-                  >
-                    {teamContent?.joinSection?.button?.text}
-                  </a>
+      {
+        joinSection && (
+          <section className="wpo-join-team-section section-padding">
+            <div className="container">
+              <div className="row">
+                <div className="col-lg-8 offset-lg-2">
+                  <div className="wpo-join-team-content text-center">
+                    <div className="wpo-section-title">
+                      <span>
+                        {joinSection?.sectionIntro?.tag}
+                      </span>
+                      <h2>
+                        {joinSection?.sectionIntro?.title}
+                      </h2>
+                      <p style={{ textAlign: "center", margin: "0 auto", maxWidth: "580px" }}>
+                        {
+                          joinSection?.sectionIntro?.description
+                        }
+                      </p>
+                    </div>
+                    <div className="wpo-join-team-btn">
+                      <a
+                        href={joinSection?.button?.link}
+                        className="theme-btn"
+                      >
+                        {joinSection?.button?.text}
+                      </a>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
+          </section>
+        )
+      }
+
 
       {/* Team Values Section */}
       <section className="wpo-team-values-section section-padding">
@@ -351,8 +364,7 @@ const TeamPage: React.FC<TeamProps> = props => {
             </div>
           </div>
           <div className="row" ref={teamValuesRef}>
-            {teamValuesSection?.items &&
-              teamValuesSection.items.length > 0 &&
+            {teamValuesSection?.items && teamValuesSection.items.length > 0 &&
               teamValuesSection.items.map((item, index) => (
                 <div key={index} className="col-lg-3 col-md-6 col-12">
                   <div className="wpo-team-value-item">
