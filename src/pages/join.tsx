@@ -1,12 +1,18 @@
+import globalService from "@/lib/strapi/services/globalService";
+import joinService from "@/lib/strapi/services/joinService";
+import seoService from "@/lib/strapi/services/seoService";
+import { convertGlobalInfoToLayoutData } from "@/utils/apps";
+import { GlobalInfo, JoinContent } from "@/utils/interfaces";
 import Layout, { LayoutProps } from "@components/layout";
 import SEO from "@components/layout/SEO";
 import { SEOProps } from "@components/layout/SEO/interface";
 import { getDefaultLayoutData } from "@utils/layoutData";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 interface JoinProps {
     layout: LayoutProps;
     seo: SEOProps;
+    joinContent: JoinContent;
 }
 
 export const getServerSideProps = async () => {
@@ -14,9 +20,89 @@ export const getServerSideProps = async () => {
 
     const seoData = {
         metadata: {
+            page_code: "join",
             title: "Tham gia cùng chúng tôi - Bàn Chân Xanh",
             description: "Tham gia cộng đồng Bàn Chân Xanh để kết nối và bảo vệ thiên nhiên",
         },
+    };
+
+    const joinContent: JoinContent = {
+        pageIntro: {
+            tag: "Tham gia",
+            title: "Trở thành thành viên",
+            description: "Gia nhập cộng đồng Bàn Chân Xanh và cùng nhau khám phá thiên nhiên Nhật Bản. Đăng ký ngay để trải nghiệm những hoạt động ngoại khóa thú vị và kết nối với những người bạn mới."
+        },
+        benefitsSection: {
+            sectionIntro: {
+                tag: "Lợi ích",
+                title: "Quyền lợi thành viên",
+                description: "Những lợi ích đặc biệt dành cho thành viên của Bàn Chân Xanh"
+            },
+            items: [
+                {
+                    icon: "flaticon-ecology",
+                    title: "Tham gia hoạt động",
+                    description: "Ưu tiên đăng ký các hoạt động hiking, camping, workshop với ưu đãi đặc biệt"
+                },
+                {
+                    icon: "flaticon-user",
+                    title: "Cộng đồng thân thiện",
+                    description: "Kết nối với cộng đồng người Việt yêu thiên nhiên tại Nhật Bản"
+                },
+                {
+                    icon: "flaticon-graduation-cap",
+                    title: "Kiến thức hữu ích",
+                    description: "Được hướng dẫn kỹ năng sinh tồn, kiến thức về thiên nhiên từ các chuyên gia"
+                },
+                {
+                    icon: "flaticon-target",
+                    title: "Giảm giá đặc biệt",
+                    description: "Ưu đãi giá thành viên cho tất cả các hoạt động và workshop"
+                },
+                {
+                    icon: "flaticon-checked",
+                    title: "Bảo hiểm hoạt động",
+                    description: "Được bảo hiểm an toàn trong suốt quá trình tham gia các hoạt động"
+                },
+                {
+                    icon: "flaticon-placeholder",
+                    title: "Trải nghiệm đặc sắc",
+                    description: "Khám phá những địa điểm thiên nhiên tuyệt đẹp ít người biết đến"
+                }
+            ]
+        },
+        registrationSection: {
+            tag: "Đăng ký",
+            title: "Đăng ký ngay hôm nay",
+            description: "Điền thông tin để trở thành thành viên chính thức của Bàn Chân Xanh. Chúng tôi sẽ liên hệ với bạn trong vòng 24 giờ."
+        },
+        processSection: {
+            sectionIntro: {
+                tag: "Quy trình",
+                title: "Cách thức tham gia",
+                description: "Chỉ với 3 bước đơn giản để trở thành thành viên"
+            },
+            items: [
+                {
+                    number: "01",
+                    icon: "flaticon-checked",
+                    title: "Đăng ký thông tin",
+                    description: "Điền form đăng ký với thông tin cá nhân và phương thức liên lạc"
+                },
+                {
+                    number: "02",
+                    icon: "flaticon-search",
+                    title: "Xác nhận thông tin",
+                    description: "Chúng tôi sẽ xem xét và xác nhận thông tin đăng ký của bạn"
+                },
+                {
+                    number: "03",
+                    icon: "flaticon-ecology",
+                    title: "Bắt đầu hoạt động",
+                    description: "Nhận thẻ thành viên và tham gia các hoạt động ngay lập tức"
+                }
+            ]
+        }
     };
 
     return {
@@ -24,14 +110,77 @@ export const getServerSideProps = async () => {
         {
             layout: layoutData,
             seo: seoData,
+            joinContent,
         },
     };
 };
 
 const JoinPage: React.FC<JoinProps> = (props) => {
+    const [globalData, setGlobalData] = useState<GlobalInfo | null>(null);
+    const [joinContent, setJoinContent] = useState<JoinContent | null>(null);
+    const [seoData, setSeoData] = useState<SEOProps | null>(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const [globalResponse, joinResponse, seoResponse] = await Promise.all([
+                    globalService.get({
+                        populate: {
+                            "populate[logo][populate]": "*",
+                            "populate[headerMenus][populate]": "*",
+                            "populate[rightButtons][populate]": "*",
+                            "populate[footerMenus][populate]": "*",
+                            "populate[footerQuicklinks][populate]": "*",
+                        },
+                    }),
+                    joinService.get({
+                        populate: {
+                            pageIntro: true,
+                            benefitsSection: {
+                                populate: {
+                                    sectionIntro: true,
+                                    items: true
+                                }
+                            },
+                            registrationSection: true,
+                            processSection: {
+                                populate: {
+                                    sectionIntro: true,
+                                    items: true
+                                }
+                            }
+                        }
+                    }),
+                    seoService.get({
+                        populate: {
+                            "populate[pages][populate]": "*",
+                        },
+                    })
+                ]);
+
+                setGlobalData(globalResponse);
+                setJoinContent(joinResponse);
+                setSeoData(seoResponse);
+            } catch (error) {
+                console.error('Error fetching join data:', error);
+                setJoinContent(props.joinContent);
+                setSeoData(props.seo);
+            }
+        };
+
+        fetchData();
+    }, [props.joinContent, props.seo]);
+
+    const pageIntro = joinContent?.pageIntro || props.joinContent.pageIntro;
+    const benefitsSection = joinContent?.benefitsSection || props.joinContent.benefitsSection;
+    const registrationSection = joinContent?.registrationSection || props.joinContent.registrationSection;
+    const processSection = joinContent?.processSection || props.joinContent.processSection;
+
+    const layoutData = globalData ? convertGlobalInfoToLayoutData(globalData) : props.layout.data;
+
     return (
-        <Layout data={props.layout.data}>
-            <SEO {...props.seo} />
+        <Layout data={layoutData}>
+            <SEO {...(seoData || props.seo)} />
 
             <div className="join-page">
                 {/* Join Intro Section */}
@@ -40,12 +189,9 @@ const JoinPage: React.FC<JoinProps> = (props) => {
                         <div className="row">
                             <div className="col-lg-8 offset-lg-2">
                                 <div className="wpo-section-title text-center">
-                                    <span>Trở thành thành viên</span>
-                                    <h2>Tham gia cộng đồng Bàn Chân Xanh</h2>
-                                    <p>
-                                        Hãy cùng chúng tôi trải nghiệm và bảo vệ thiên nhiên. Tham gia cộng đồng Bàn Chân Xanh
-                                        để khám phá vẻ đẹp thiên nhiên Nhật Bản và kết nối với những người bạn cùng chí hướng.
-                                    </p>
+                                    <span>{pageIntro?.tag}</span>
+                                    <h2>{pageIntro?.title}</h2>
+                                    <p>{pageIntro?.description}</p>
                                 </div>
                             </div>
                         </div>
@@ -58,49 +204,24 @@ const JoinPage: React.FC<JoinProps> = (props) => {
                         <div className="row">
                             <div className="col-lg-12">
                                 <div className="wpo-section-title text-center">
-                                    <span>Lợi ích</span>
-                                    <h2>Tại sao nên tham gia?</h2>
-                                    <p>Những lợi ích khi bạn trở thành thành viên của Bàn Chân Xanh</p>
+                                    <span>{benefitsSection?.sectionIntro.tag}</span>
+                                    <h2>{benefitsSection?.sectionIntro.title}</h2>
+                                    <p>{benefitsSection?.sectionIntro.description}</p>
                                 </div>
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col-lg-3 col-md-6 col-12">
-                                <div className="wpo-benefit-item">
-                                    <div className="wpo-benefit-icon">
-                                        <i className="fi flaticon-forest"></i>
+                            {benefitsSection?.items.map((benefit, index) => (
+                                <div key={index} className="col-lg-4 col-md-6 col-12">
+                                    <div className="wpo-benefit-item">
+                                        <div className="wpo-benefit-icon">
+                                            <i className={`fi ${benefit.icon}`}></i>
+                                        </div>
+                                        <h4>{benefit.title}</h4>
+                                        <p>{benefit.description}</p>
                                     </div>
-                                    <h4>Khám phá thiên nhiên</h4>
-                                    <p>Trải nghiệm vẻ đẹp thiên nhiên Nhật Bản qua các hoạt động hiking, camping và workshop</p>
                                 </div>
-                            </div>
-                            <div className="col-lg-3 col-md-6 col-12">
-                                <div className="wpo-benefit-item">
-                                    <div className="wpo-benefit-icon">
-                                        <i className="fi flaticon-user"></i>
-                                    </div>
-                                    <h4>Kết nối cộng đồng</h4>
-                                    <p>Gặp gỡ và kết bạn với những người Việt có cùng sở thích và đam mê</p>
-                                </div>
-                            </div>
-                            <div className="col-lg-3 col-md-6 col-12">
-                                <div className="wpo-benefit-item">
-                                    <div className="wpo-benefit-icon">
-                                        <i className="fi flaticon-graduation-cap"></i>
-                                    </div>
-                                    <h4>Học hỏi kỹ năng</h4>
-                                    <p>Học các kỹ năng sinh tồn, bảo vệ môi trường và phát triển bản thân</p>
-                                </div>
-                            </div>
-                            <div className="col-lg-3 col-md-6 col-12">
-                                <div className="wpo-benefit-item">
-                                    <div className="wpo-benefit-icon">
-                                        <i className="fi flaticon-checked"></i>
-                                    </div>
-                                    <h4>Đóng góp ý nghĩa</h4>
-                                    <p>Tham gia các hoạt động bảo vệ môi trường và xây dựng cộng đồng bền vững</p>
-                                </div>
-                            </div>
+                            ))}
                         </div>
                     </div>
                 </section>
@@ -112,9 +233,9 @@ const JoinPage: React.FC<JoinProps> = (props) => {
                             <div className="col-lg-10 offset-lg-1">
                                 <div className="wpo-registration-form-wrap">
                                     <div className="wpo-section-title text-center">
-                                        <span>Đăng ký tham gia</span>
-                                        <h2>Trở Thành Thành Viên Bàn Chân Xanh</h2>
-                                        <p>Hãy điền thông tin bên dưới để tham gia cộng đồng những người yêu thiên nhiên và bảo vệ môi trường</p>
+                                        <span>{registrationSection?.tag}</span>
+                                        <h2>{registrationSection?.title}</h2>
+                                        <p>{registrationSection?.description}</p>
                                     </div>
 
                                     <form className="wpo-registration-form">
@@ -261,41 +382,25 @@ const JoinPage: React.FC<JoinProps> = (props) => {
                         <div className="row">
                             <div className="col-lg-12">
                                 <div className="wpo-section-title text-center">
-                                    <span>Quy trình</span>
-                                    <h2>Làm thế nào để tham gia?</h2>
-                                    <p>4 bước đơn giản để trở thành thành viên Bàn Chân Xanh</p>
+                                    <span>{processSection?.sectionIntro.tag}</span>
+                                    <h2>{processSection?.sectionIntro.title}</h2>
+                                    <p>{processSection?.sectionIntro.description}</p>
                                 </div>
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col-lg-3 col-md-6 col-12">
-                                <div className="wpo-process-item">
-                                    <div className="wpo-process-number">1</div>
-                                    <h4>Điền thông tin</h4>
-                                    <p>Hoàn thành form đăng ký với thông tin cá nhân của bạn</p>
+                            {processSection?.items.map((step, index) => (
+                                <div key={index} className="col-lg-4 col-md-6 col-12">
+                                    <div className="wpo-process-item">
+                                        <div className="wpo-process-number">{step.number}</div>
+                                        <div className="wpo-process-icon">
+                                            <i className={`fi ${step.icon}`}></i>
+                                        </div>
+                                        <h4>{step.title}</h4>
+                                        <p>{step.description}</p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="col-lg-3 col-md-6 col-12">
-                                <div className="wpo-process-item">
-                                    <div className="wpo-process-number">2</div>
-                                    <h4>Xác nhận email</h4>
-                                    <p>Kiểm tra email và xác nhận tài khoản của bạn</p>
-                                </div>
-                            </div>
-                            <div className="col-lg-3 col-md-6 col-12">
-                                <div className="wpo-process-item">
-                                    <div className="wpo-process-number">3</div>
-                                    <h4>Tham gia nhóm</h4>
-                                    <p>Tham gia nhóm Facebook và Zalo để kết nối</p>
-                                </div>
-                            </div>
-                            <div className="col-lg-3 col-md-6 col-12">
-                                <div className="wpo-process-item">
-                                    <div className="wpo-process-number">4</div>
-                                    <h4>Bắt đầu hoạt động</h4>
-                                    <p>Đăng ký và tham gia các hoạt động yêu thích</p>
-                                </div>
-                            </div>
+                            ))}
                         </div>
                     </div>
                 </section>

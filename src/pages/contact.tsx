@@ -1,12 +1,18 @@
+import contactService from "@/lib/strapi/services/contactService";
+import globalService from "@/lib/strapi/services/globalService";
+import seoService from "@/lib/strapi/services/seoService";
+import { convertGlobalInfoToLayoutData } from "@/utils/apps";
+import { ContactContent, GlobalInfo } from "@/utils/interfaces";
 import Layout, { LayoutProps } from "@components/layout";
 import SEO from "@components/layout/SEO";
 import { SEOProps } from "@components/layout/SEO/interface";
 import { getDefaultLayoutData } from "@utils/layoutData";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 interface ContactProps {
     layout: LayoutProps;
     seo: SEOProps;
+    contactContent: ContactContent;
 }
 
 export const getServerSideProps = async () => {
@@ -14,20 +20,167 @@ export const getServerSideProps = async () => {
 
     const seoData = {
         metadata: {
+            page_code: "contact",
             title: "Liên hệ - Bàn Chân Xanh",
             description: "Liên hệ với Bàn Chân Xanh để tham gia hoạt động hoặc đóng góp",
         },
+    };
+
+    const contactContent: ContactContent = {
+        pageIntro: {
+            tag: "Liên hệ với chúng tôi",
+            title: "Thông tin liên hệ",
+            description: "Chúng tôi luôn sẵn sàng lắng nghe và hỗ trợ bạn. Hãy liên hệ với chúng tôi qua các kênh sau:"
+        },
+        contactInfoSection: {
+            sectionIntro: {
+                tag: "Thông tin",
+                title: "Các kênh liên lạc",
+                description: "Liên hệ với chúng tôi qua các phương thức sau"
+            },
+            items: [
+                {
+                    icon: "flaticon-placeholder",
+                    title: "Địa chỉ",
+                    description: "123 Đường ABC, Quận XYZ, Tokyo, Nhật Bản",
+                    value: "123 Đường ABC, Quận XYZ, Tokyo"
+                },
+                {
+                    icon: "flaticon-phone-call",
+                    title: "Điện thoại",
+                    description: "Liên hệ trực tiếp qua số điện thoại",
+                    value: "+81-90-1234-5678"
+                },
+                {
+                    icon: "flaticon-email",
+                    title: "Email",
+                    description: "Gửi email cho chúng tôi",
+                    value: "contact@banchanhxanh.jp"
+                },
+                {
+                    icon: "flaticon-calendar",
+                    title: "Giờ làm việc",
+                    description: "Thứ 2 - Thứ 6: 9:00 - 18:00",
+                    value: "T2-T6: 9:00-18:00"
+                }
+            ]
+        },
+        contactFormSection: {
+            tag: "Gửi tin nhắn",
+            title: "Liên hệ với chúng tôi",
+            description: "Điền thông tin vào form dưới đây, chúng tôi sẽ phản hồi trong vòng 24 giờ"
+        },
+        socialMediaSection: {
+            sectionIntro: {
+                tag: "Mạng xã hội",
+                title: "Kết nối với chúng tôi",
+                description: "Theo dõi chúng tôi trên các mạng xã hội để cập nhật tin tức mới nhất"
+            },
+            items: [
+                {
+                    platform: "Facebook",
+                    icon: "flaticon-facebook",
+                    url: "https://facebook.com/banchanhxanh"
+                },
+                {
+                    platform: "Instagram",
+                    icon: "flaticon-instagram",
+                    url: "https://instagram.com/banchanhxanh"
+                },
+                {
+                    platform: "Twitter",
+                    icon: "flaticon-twitter",
+                    url: "https://twitter.com/banchanhxanh"
+                },
+                {
+                    platform: "YouTube",
+                    icon: "flaticon-youtube",
+                    url: "https://youtube.com/banchanhxanh"
+                }
+            ]
+        },
+        mapSection: {
+            title: "Vị trí của chúng tôi",
+            description: "Tìm chúng tôi trên bản đồ",
+            address: "123 Đường ABC, Quận XYZ, Tokyo, Nhật Bản",
+            embedUrl: "https://www.google.com/maps/embed?pb=..."
+        }
     };
 
     return {
         props: {
             layout: layoutData,
             seo: seoData,
+            contactContent,
         },
     };
 };
 
 const ContactPage: React.FC<ContactProps> = (props) => {
+    const [globalData, setGlobalData] = useState<GlobalInfo | null>(null);
+    const [contactContent, setContactContent] = useState<ContactContent | null>(null);
+    const [seoData, setSeoData] = useState<SEOProps | null>(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const [globalResponse, contactResponse, seoResponse] = await Promise.all([
+                    globalService.get({
+                        populate: {
+                            "populate[logo][populate]": "*",
+                            "populate[headerMenus][populate]": "*",
+                            "populate[rightButtons][populate]": "*",
+                            "populate[footerMenus][populate]": "*",
+                            "populate[footerQuicklinks][populate]": "*",
+                        },
+                    }),
+                    contactService.get({
+                        populate: {
+                            pageIntro: true,
+                            contactInfoSection: {
+                                populate: {
+                                    sectionIntro: true,
+                                    items: true
+                                }
+                            },
+                            contactFormSection: true,
+                            socialMediaSection: {
+                                populate: {
+                                    sectionIntro: true,
+                                    items: true
+                                }
+                            },
+                            mapSection: true
+                        }
+                    }),
+                    seoService.get({
+                        populate: {
+                            "populate[pages][populate]": "*",
+                        },
+                    })
+                ]);
+
+                setGlobalData(globalResponse);
+                setContactContent(contactResponse);
+                setSeoData(seoResponse);
+            } catch (error) {
+                console.error('Error fetching contact data:', error);
+                setContactContent(props.contactContent);
+                setSeoData(props.seo);
+            }
+        };
+
+        fetchData();
+    }, [props.contactContent, props.seo]);
+
+    const pageIntro = contactContent?.pageIntro || props.contactContent.pageIntro;
+    const contactInfoSection = contactContent?.contactInfoSection || props.contactContent.contactInfoSection;
+    const contactFormSection = contactContent?.contactFormSection || props.contactContent.contactFormSection;
+    const socialMediaSection = contactContent?.socialMediaSection || props.contactContent.socialMediaSection;
+    const mapSection = contactContent?.mapSection || props.contactContent.mapSection;
+
+    const layoutData = globalData ? convertGlobalInfoToLayoutData(globalData) : props.layout.data;
+
     const handleContactSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const form = e.currentTarget;
@@ -63,8 +216,8 @@ const ContactPage: React.FC<ContactProps> = (props) => {
     };
 
     return (
-        <Layout data={props.layout.data}>
-            <SEO {...props.seo} />
+        <Layout data={layoutData}>
+            <SEO {...(seoData || props.seo)} />
 
             <div className="contact-page">
                 {/* Contact Info Section */}
@@ -73,49 +226,24 @@ const ContactPage: React.FC<ContactProps> = (props) => {
                         <div className="row">
                             <div className="col-lg-12">
                                 <div className="wpo-section-title text-center">
-                                    <span>Liên hệ với chúng tôi</span>
-                                    <h2>Thông tin liên hệ</h2>
-                                    <p>Chúng tôi luôn sẵn sàng lắng nghe và hỗ trợ bạn. Hãy liên hệ với chúng tôi qua các kênh sau:</p>
+                                    <span>{pageIntro?.tag}</span>
+                                    <h2>{pageIntro?.title}</h2>
+                                    <p>{pageIntro?.description}</p>
                                 </div>
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col-lg-4 col-md-6 col-12">
-                                <div className="wpo-contact-info-item">
-                                    <div className="wpo-contact-info-icon">
-                                        <i className="fi flaticon-placeholder"></i>
+                            {contactInfoSection?.items.map((info, index) => (
+                                <div key={index} className="col-lg-3 col-md-6 col-12">
+                                    <div className="wpo-contact-info-item">
+                                        <div className="wpo-contact-info-icon">
+                                            <i className={`fi ${info.icon}`}></i>
+                                        </div>
+                                        <h4>{info.title}</h4>
+                                        <p>{info.description}</p>
                                     </div>
-                                    <h4>Địa chỉ</h4>
-                                    <p>
-                                        Tokyo, Nhật Bản<br />
-                                        Văn phòng chính: Shibuya, Tokyo
-                                    </p>
                                 </div>
-                            </div>
-                            <div className="col-lg-4 col-md-6 col-12">
-                                <div className="wpo-contact-info-item">
-                                    <div className="wpo-contact-info-icon">
-                                        <i className="fi flaticon-user"></i>
-                                    </div>
-                                    <h4>Điện thoại</h4>
-                                    <p>
-                                        <a href="tel:+8108059882754">(+81) 080-5988-2754</a><br />
-                                        Thời gian: 9:00 - 18:00 (JST)
-                                    </p>
-                                </div>
-                            </div>
-                            <div className="col-lg-4 col-md-6 col-12">
-                                <div className="wpo-contact-info-item">
-                                    <div className="wpo-contact-info-icon">
-                                        <i className="fi flaticon-graduation-cap"></i>
-                                    </div>
-                                    <h4>Email</h4>
-                                    <p>
-                                        <a href="mailto:info@banchanxanh.com">info@banchanxanh.com</a><br />
-                                        Phản hồi trong 24h
-                                    </p>
-                                </div>
-                            </div>
+                            ))}
                         </div>
                     </div>
                 </section>
@@ -127,9 +255,9 @@ const ContactPage: React.FC<ContactProps> = (props) => {
                             <div className="col-lg-8 offset-lg-2">
                                 <div className="wpo-contact-form-wrap">
                                     <div className="wpo-section-title text-center">
-                                        <span>Gửi tin nhắn</span>
-                                        <h2>Liên hệ với chúng tôi</h2>
-                                        <p>Điền thông tin vào form bên dưới và chúng tôi sẽ liên hệ lại với bạn sớm nhất có thể.</p>
+                                        <span>{contactFormSection?.tag}</span>
+                                        <h2>{contactFormSection?.title}</h2>
+                                        <p>{contactFormSection?.description}</p>
                                     </div>
                                     <form className="wpo-contact-form" onSubmit={handleContactSubmit}>
                                         <div className="row">

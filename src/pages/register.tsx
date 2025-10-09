@@ -1,3 +1,8 @@
+import globalService from "@/lib/strapi/services/globalService";
+import registerService from "@/lib/strapi/services/registerService";
+import seoService from "@/lib/strapi/services/seoService";
+import { convertGlobalInfoToLayoutData } from "@/utils/apps";
+import { GlobalInfo, RegisterContent } from "@/utils/interfaces";
 import Layout, { LayoutProps } from "@components/layout";
 import SEO from "@components/layout/SEO";
 import { SEOProps } from "@components/layout/SEO/interface";
@@ -6,12 +11,13 @@ import { StrapiError } from "@utils/interfaces/strapi_types";
 import { getDefaultLayoutData } from "@utils/layoutData";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 interface RegisterProps {
     layout: LayoutProps;
     seo: SEOProps;
+    registerContent: RegisterContent;
 }
 
 export const getServerSideProps = async () => {
@@ -19,21 +25,59 @@ export const getServerSideProps = async () => {
 
     const seoData = {
         metadata: {
+            page_code: "register",
             title: "Đăng ký - Bàn Chân Xanh",
             description: "Đăng ký tài khoản để tham gia cộng đồng Bàn Chân Xanh",
         },
+    };
+
+    const registerContent: RegisterContent = {
+        pageIntro: {
+            tag: "Tạo tài khoản",
+            title: "Đăng ký tài khoản",
+            description: "Tạo tài khoản mới để tham gia cộng đồng Bàn Chân Xanh"
+        },
+        benefits: [
+            {
+                title: "Tham gia hoạt động",
+                description: "Đăng ký và tham gia các hoạt động hiking, camping, workshop",
+                icon: "flaticon-forest"
+            },
+            {
+                title: "Kết nối cộng đồng",
+                description: "Gặp gỡ và kết bạn với những người cùng sở thích",
+                icon: "flaticon-user"
+            },
+            {
+                title: "Nhận thông báo",
+                description: "Cập nhật thông tin về các sự kiện và hoạt động mới",
+                icon: "flaticon-calendar"
+            },
+            {
+                title: "Ưu đãi đặc biệt",
+                description: "Nhận các ưu đãi và giảm giá dành riêng cho thành viên",
+                icon: "flaticon-checked"
+            }
+        ],
+        termsLink: "/term",
+        privacyLink: "/privacy",
+        loginLink: "/login"
     };
 
     return {
         props: {
             layout: layoutData,
             seo: seoData,
+            registerContent,
         },
     };
 };
 
 const RegisterPage: React.FC<RegisterProps> = (props) => {
     const router = useRouter();
+    const [globalData, setGlobalData] = useState<GlobalInfo | null>(null);
+    const [registerContent, setRegisterContent] = useState<RegisterContent | null>(null);
+    const [seoData, setSeoData] = useState<SEOProps | null>(null);
     const [formData, setFormData] = useState({
         username: "",
         email: "",
@@ -49,6 +93,45 @@ const RegisterPage: React.FC<RegisterProps> = (props) => {
     });
     const [loading, setLoading] = useState(false);
     const [acceptTerms, setAcceptTerms] = useState(false);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const [globalResponse, registerResponse, seoResponse] = await Promise.all([
+                    globalService.get({
+                        populate: {
+                            "populate[logo][populate]": "*",
+                            "populate[headerMenus][populate]": "*",
+                            "populate[rightButtons][populate]": "*",
+                            "populate[footerMenus][populate]": "*",
+                            "populate[footerQuicklinks][populate]": "*",
+                        },
+                    }),
+                    registerService.get({
+                        populate: {
+                            pageIntro: true,
+                            benefits: true
+                        }
+                    }),
+                    seoService.get({
+                        populate: {
+                            "populate[pages][populate]": "*",
+                        },
+                    })
+                ]);
+
+                setGlobalData(globalResponse);
+                setRegisterContent(registerResponse);
+                setSeoData(seoResponse);
+            } catch (error) {
+                console.error('Error fetching register data:', error);
+                setRegisterContent(props.registerContent);
+                setSeoData(props.seo);
+            }
+        };
+
+        fetchData();
+    }, [props.registerContent, props.seo]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -192,9 +275,17 @@ const RegisterPage: React.FC<RegisterProps> = (props) => {
         }
     };
 
+    const pageIntro = registerContent?.pageIntro || props.registerContent.pageIntro;
+    const benefits = registerContent?.benefits || props.registerContent.benefits;
+    const termsLink = registerContent?.termsLink || props.registerContent.termsLink || "/term";
+    const privacyLink = registerContent?.privacyLink || props.registerContent.privacyLink || "/privacy";
+    const loginLink = registerContent?.loginLink || props.registerContent.loginLink || "/login";
+
+    const layoutData = globalData ? convertGlobalInfoToLayoutData(globalData) : props.layout.data;
+
     return (
-        <Layout data={props.layout.data}>
-            <SEO {...props.seo} />
+        <Layout data={layoutData}>
+            <SEO {...(seoData || props.seo)} />
 
             {/* Register Section */}
             <section className="wpo-contact-pg-section section-padding">
@@ -203,8 +294,8 @@ const RegisterPage: React.FC<RegisterProps> = (props) => {
                         <div className="col-lg-6 col-md-8 col-12">
                             <div className="wpo-accountInfo">
                                 <div className="fromTitle">
-                                    <h2>Đăng ký tài khoản</h2>
-                                    <p>Tạo tài khoản mới để tham gia cộng đồng Bàn Chân Xanh</p>
+                                    <h2>{pageIntro?.title}</h2>
+                                    <p>{pageIntro?.description}</p>
                                 </div>
 
                                 {errors.general && (
@@ -280,11 +371,11 @@ const RegisterPage: React.FC<RegisterProps> = (props) => {
                                             />
                                             <label htmlFor="terms">
                                                 Tôi đồng ý với{" "}
-                                                <Link href="/term" target="_blank">
+                                                <Link href={termsLink} target="_blank">
                                                     điều khoản sử dụng
                                                 </Link>{" "}
                                                 và{" "}
-                                                <Link href="/privacy" target="_blank">
+                                                <Link href={privacyLink} target="_blank">
                                                     chính sách bảo mật
                                                 </Link>
                                             </label>
@@ -303,7 +394,7 @@ const RegisterPage: React.FC<RegisterProps> = (props) => {
 
                                 <p style={{ textAlign: "center", marginTop: "30px" }}>
                                     Đã có tài khoản?{" "}
-                                    <Link href="/login" style={{ color: "#ef5f34", fontWeight: "600" }}>
+                                    <Link href={loginLink} style={{ color: "#ef5f34", fontWeight: "600" }}>
                                         Đăng nhập ngay
                                     </Link>
                                 </p>

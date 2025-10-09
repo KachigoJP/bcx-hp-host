@@ -279,6 +279,7 @@ const AchievementPage: React.FC<AchievementProps> = props => {
     };
   }, [achievementContent, props.achievementContent]);
 
+  const pageIntro = achievementContent?.pageIntro || props.achievementContent.pageIntro;
   const achievementItems = achievementContent?.achievementItems || props.achievementContent.achievementItems;
   const sections = achievementContent?.sections || props.achievementContent.sections;
   const awardSection = sections?.[0] as SectionDetailSectionIconItems;
@@ -296,15 +297,13 @@ const AchievementPage: React.FC<AchievementProps> = props => {
             <div className="col-lg-8">
               <div className="wpo-section-title text-center">
                 <span>
-                  {achievementContent?.pageIntro?.tag}
+                  {pageIntro?.tag}
                 </span>
                 <h2>
-                  {achievementContent?.pageIntro?.title}
+                  {pageIntro?.title}
                 </h2>
                 <p>
-                  {
-                    achievementContent?.pageIntro?.description
-                  }
+                  {pageIntro?.description}
                 </p>
               </div>
             </div>
