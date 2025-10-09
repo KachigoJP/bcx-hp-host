@@ -1,5 +1,5 @@
 // convert globalInfo to layoutData
-import { GlobalInfo } from "@/utils/interfaces";
+import { GlobalInfo, HeaderButton } from "@/utils/interfaces";
 import { LayoutData } from "@components/layout";
 import { IMenuItem } from "./interfaces";
 
@@ -7,7 +7,9 @@ export const getStrapiImageUrl = (url: string): string => {
   return `${process.env.NEXT_PUBLIC_STRAPI_URL}${url}`;
 };
 
-export const convertGlobalInfoToLayoutData = (globalInfo: GlobalInfo): LayoutData => {
+export const convertGlobalInfoToLayoutData = (
+  globalInfo: GlobalInfo
+): LayoutData => {
   const logo = getStrapiImageUrl(globalInfo.logo?.url ?? "");
   return {
     logo,
@@ -19,6 +21,7 @@ export const convertGlobalInfoToLayoutData = (globalInfo: GlobalInfo): LayoutDat
     email: globalInfo.email ?? "",
     phone: globalInfo.phone ?? "",
     headerMenus: globalInfo.headerMenus ?? ([] as IMenuItem[]),
+    rightButtons: globalInfo.rightButtons ?? ([] as HeaderButton[]),
     footerMenusTitle: globalInfo.footerMenusTitle ?? "",
     footerMenus: globalInfo.footerMenus ?? ([] as IMenuItem[]),
     footerContactTitle: globalInfo.footerContactTitle ?? "",

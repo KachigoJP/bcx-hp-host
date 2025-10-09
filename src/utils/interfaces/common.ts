@@ -80,6 +80,17 @@ export type BaseStrapiSection = {
   __component?: string;
 };
 
+// Header button types
+export type HeaderButtonType = "link" | "search";
+
+export interface HeaderButton {
+  buttonId: string;
+  type: HeaderButtonType;
+  label?: string;
+  link?: string;
+  icon?: string;
+}
+
 // ------------------------------------------------
 
 // ------------------------------------------------

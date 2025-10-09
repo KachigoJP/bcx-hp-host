@@ -1,5 +1,5 @@
 import { LayoutProps } from "@components/layout";
-import { IMenuItem } from "./interfaces";
+import { HeaderButton, IMenuItem } from "./interfaces";
 
 export const getDefaultLayoutData = (): LayoutProps => {
   const headerMenus: IMenuItem[] = [
@@ -120,6 +120,28 @@ export const getDefaultLayoutData = (): LayoutProps => {
     },
   ];
 
+  const rightButtons: HeaderButton[] = [
+    {
+      buttonId: "login",
+      type: "link",
+      label: "Đăng nhập",
+      link: "/login",
+    },
+    {
+      buttonId: "logout",
+      type: "link",
+      label: "Đăng xuất",
+      link: "#",
+      icon: "ti-power-off",
+    },
+    {
+      buttonId: "search",
+      type: "search",
+      label: "Tìm kiếm...",
+      icon: "ti-search",
+    },
+  ];
+
   return {
     data: {
       logo: "/assets/images/logo.png",
@@ -132,9 +154,11 @@ export const getDefaultLayoutData = (): LayoutProps => {
       email: "info@banchanxanh.com",
       phone: "080-4734-3979",
       headerMenus,
+      rightButtons,
       footerQuicklinksTitle: "Liên kết nhanh",
       footerContactTitle: "Liên hệ",
-      footerContactDescription: "Nếu bạn có bất kỳ thắc mắc nào, vui lòng liên hệ với chúng tôi",
+      footerContactDescription:
+        "Nếu bạn có bất kỳ thắc mắc nào, vui lòng liên hệ với chúng tôi",
       footerMenusTitle: "Liên kết nhanh",
       footerQuicklinks,
       footerMenus,
