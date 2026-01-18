@@ -4,7 +4,7 @@ import React, { FormEvent, useEffect, useState } from "react";
 
 import MenuItem from "@components/common/MenuItem";
 import MobileMenu from "@components/layout/MobileMenu";
-import authService from "@lib/strapi/services/authService";
+import { authService } from "@/lib/strapi/services";
 import { HeaderButton, IMenuItem, User } from "@utils/interfaces/index";
 import { useRouter } from "next/router";
 

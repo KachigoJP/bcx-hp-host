@@ -1,6 +1,4 @@
-import globalService from "@/lib/strapi/services/globalService";
-import seoService from "@/lib/strapi/services/seoService";
-import termService from "@/lib/strapi/services/termService";
+import { globalService, seoService, termService } from "@/lib/strapi/services";
 import { convertGlobalInfoToLayoutData } from "@/utils/apps";
 import { GlobalInfo, LegalSection, TermContent } from "@/utils/interfaces";
 import Layout, { LayoutProps } from "@components/layout";

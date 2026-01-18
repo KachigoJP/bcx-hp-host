@@ -1,6 +1,4 @@
-import globalService from "@/lib/strapi/services/globalService";
-import hikingService from "@/lib/strapi/services/hikingService";
-import seoService from "@/lib/strapi/services/seoService";
+import { globalService, hikingService, seoService } from "@/lib/strapi/services";
 import { convertGlobalInfoToLayoutData, getStrapiImageUrl } from "@/utils/apps";
 import { GlobalInfo, HikingContent, HikingRouteSection, ImageListTextItems, PopularRouteSection, SectionDetailImageSectionIconListTextItems, SectionDetailSectionIconItems } from "@/utils/interfaces";
 import RegistrationForm from "@components/common/RegistrationForm";

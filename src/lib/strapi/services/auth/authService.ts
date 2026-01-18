@@ -2,11 +2,11 @@ import {
   AuthResponse,
   LoginCredentials,
   RegisterCredentials,
-  StrapiError,
   User,
 } from "@/utils/interfaces/strapi_types";
 import axios from "axios";
-import { getStrapiUrl } from "../config";
+import { getStrapiUrl } from "../../config";
+import { handleStrapiError } from "../utils/errorHandler";
 
 /**
  * Auth Service
@@ -35,7 +35,7 @@ class AuthService {
 
       return response.data;
     } catch (error: any) {
-      throw this.handleError(error);
+      throw handleStrapiError(error);
     }
   }
 
@@ -64,7 +64,7 @@ class AuthService {
 
       return response.data;
     } catch (error: any) {
-      throw this.handleError(error);
+      throw handleStrapiError(error);
     }
   }
 
@@ -118,7 +118,7 @@ class AuthService {
       return response.data;
     } catch (error: any) {
       this.logout();
-      throw this.handleError(error);
+      throw handleStrapiError(error);
     }
   }
 
@@ -135,7 +135,7 @@ class AuthService {
       );
       return response.data;
     } catch (error: any) {
-      throw this.handleError(error);
+      throw handleStrapiError(error);
     }
   }
 
@@ -163,7 +163,7 @@ class AuthService {
 
       return response.data;
     } catch (error: any) {
-      throw this.handleError(error);
+      throw handleStrapiError(error);
     }
   }
 
@@ -197,23 +197,10 @@ class AuthService {
 
       return response.data;
     } catch (error: any) {
-      throw this.handleError(error);
+      throw handleStrapiError(error);
     }
   }
 
-  /**
-   * Handle and format errors
-   */
-  private handleError(error: any): StrapiError {
-    if (error.response?.data?.error) {
-      return error.response.data.error;
-    }
-    return {
-      status: error.response?.status || 500,
-      name: error.name || "Error",
-      message: error.message || "An unexpected error occurred",
-    };
-  }
 }
 
 const authService = new AuthService();

@@ -1,6 +1,4 @@
-import globalService from "@/lib/strapi/services/globalService";
-import policyService from "@/lib/strapi/services/policyService";
-import seoService from "@/lib/strapi/services/seoService";
+import { globalService, policyService, seoService } from "@/lib/strapi/services";
 import { convertGlobalInfoToLayoutData } from "@/utils/apps";
 import {
   ButtonDetail,

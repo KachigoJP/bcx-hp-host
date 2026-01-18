@@ -1,12 +1,13 @@
 import { SEOContent } from "@/utils/interfaces/seo";
-import { BaseService } from "./baseService";
+import { SingleTypeService } from "../base";
 
 /**
  * SEO Service
  * Handle SEO metadata and single-type content
+ * Extends SingleTypeService with custom getByPageCode method
  */
 
-class SEOService extends BaseService<SEOContent> {
+class SEOService extends SingleTypeService<SEOContent> {
   constructor() {
     super("/api/seo");
   }

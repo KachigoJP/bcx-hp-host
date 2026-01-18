@@ -1,12 +1,10 @@
-import globalService from "@/lib/strapi/services/globalService";
-import registerService from "@/lib/strapi/services/registerService";
-import seoService from "@/lib/strapi/services/seoService";
+import { globalService, registerService, seoService } from "@/lib/strapi/services";
 import { convertGlobalInfoToLayoutData } from "@/utils/apps";
 import { GlobalInfo, RegisterContent } from "@/utils/interfaces";
 import Layout, { LayoutProps } from "@components/layout";
 import SEO from "@components/layout/SEO";
 import { SEOProps } from "@components/layout/SEO/interface";
-import authService from "@lib/strapi/services/authService";
+import { authService } from "@/lib/strapi/services";
 import { StrapiError } from "@utils/interfaces/strapi_types";
 import { getDefaultLayoutData } from "@utils/layoutData";
 import Link from "next/link";

@@ -1,6 +1,4 @@
-import globalService from "@/lib/strapi/services/globalService";
-import joinService from "@/lib/strapi/services/joinService";
-import seoService from "@/lib/strapi/services/seoService";
+import { globalService, joinService, seoService } from "@/lib/strapi/services";
 import { convertGlobalInfoToLayoutData } from "@/utils/apps";
 import { GlobalInfo, JoinContent } from "@/utils/interfaces";
 import Layout, { LayoutProps } from "@components/layout";

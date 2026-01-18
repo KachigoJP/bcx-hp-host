@@ -1,6 +1,4 @@
-import globalService from "@/lib/strapi/services/globalService";
-import reportService from "@/lib/strapi/services/reportService";
-import seoService from "@/lib/strapi/services/seoService";
+import { globalService, reportService, seoService } from "@/lib/strapi/services";
 import { convertGlobalInfoToLayoutData } from "@/utils/apps";
 import {
   BaseDetail,

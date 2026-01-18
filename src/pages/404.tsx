@@ -1,6 +1,4 @@
-import errorService from "@/lib/strapi/services/errorService";
-import globalService from "@/lib/strapi/services/globalService";
-import seoService from "@/lib/strapi/services/seoService";
+import { errorService, globalService, seoService } from "@/lib/strapi/services";
 import { convertGlobalInfoToLayoutData } from "@/utils/apps";
 import { ErrorContent } from "@/utils/interfaces/error";
 import { GlobalInfo } from "@/utils/interfaces/global";

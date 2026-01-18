@@ -1,6 +1,4 @@
-import contactService from "@/lib/strapi/services/contactService";
-import globalService from "@/lib/strapi/services/globalService";
-import seoService from "@/lib/strapi/services/seoService";
+import { contactService, globalService, seoService } from "@/lib/strapi/services";
 import { convertGlobalInfoToLayoutData } from "@/utils/apps";
 import { ContactContent, GlobalInfo } from "@/utils/interfaces";
 import Layout, { LayoutProps } from "@components/layout";

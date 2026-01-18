@@ -2,23 +2,27 @@ import React, { useEffect, useState } from "react";
 
 // Source
 import About, { AboutProps } from "@components/containers/Home/About";
-import Achievements, { AchievementsProps } from "@components/containers/Home/Achievements";
+import Achievements, {
+  AchievementsProps,
+} from "@components/containers/Home/Achievements";
 import CTA, { CTAProps } from "@components/containers/Home/CTA";
 import Hero, { HeroProps } from "@components/containers/Home/Hero";
 import Partner, { PartnerProps } from "@components/containers/Home/Partner";
 import Project, { ProjectProps } from "@components/containers/Home/Project";
 import Service, { ServiceProps } from "@components/containers/Home/Service";
 import Team, { TeamProps } from "@components/containers/Home/Team";
-import Testimonial, { TestimonialProps } from "@components/containers/Home/Testimonial";
+import Testimonial, {
+  TestimonialProps,
+} from "@components/containers/Home/Testimonial";
 import Layout, { LayoutProps } from "@components/layout";
 import SEO from "@components/layout/SEO";
 
 // Data
-import { GlobalInfo } from "@/utils/interfaces";
+import { GlobalInfo, PageContent } from "@/utils/interfaces";
 import ProjectsData from "@api/projects";
 import { SEOProps } from "@components/layout/SEO/interface";
-import globalService from "@lib/strapi/services/globalService";
-import { convertGlobalInfoToLayoutData } from "@utils/apps";
+import { globalService, pageService } from "@/lib/strapi/services";
+import { convertGlobalInfoToLayoutData, getStrapiImageUrl } from "@utils/apps";
 import { getDefaultLayoutData } from "@utils/layoutData";
 import { sampleTeamData } from "./team";
 
@@ -67,12 +71,134 @@ interface HomeProps {
   partner: PartnerProps;
 }
 
+// Helper function to transform Strapi hero data to component props
+const transformHeroData = (pageData: PageContent | null): HeroProps => {
+  if (!pageData?.heros || pageData.heros.length === 0) {
+    // Return default hero data if no Strapi data
+    return {
+      items: [
+        {
+          backgroundImage: "/images/hero-nature-mountain.jpg",
+          title: "Kết nối con người - Gắn bó thiên nhiên",
+          subtitle:
+            "Cùng chúng tôi khám phá vẻ đẹp thiên nhiên Nhật Bản và xây dựng cộng đồng người Việt gắn kết.",
+          link: "/about",
+          text: "Khám phá ngay",
+        },
+      ],
+    };
+  }
+
+  return {
+    items: pageData.heros
+      .sort((a, b) => a.position - b.position)
+      .map((hero) => ({
+        backgroundImage: hero.images?.data?.[0]
+          ? getStrapiImageUrl(hero.images.data[0].attributes.url || "")
+          : "/images/hero-nature-mountain.jpg",
+        title: hero.title,
+        subtitle: hero.subtitle || "",
+        link: hero.url || "/about",
+        text: hero.btn_title || "Khám phá ngay",
+      })),
+  };
+};
+
+// Helper function to transform Strapi section data to service props
+const transformServiceData = (pageData: PageContent | null): ServiceProps => {
+  const serviceSection = pageData?.sections?.find(
+    (section) => section.data_item === "services"
+  );
+
+  if (!serviceSection) {
+    return {
+      title: "Hoạt Động Chính",
+      subtitle: "Các hoạt động của chúng tôi",
+      description:
+        "Chúng tôi tổ chức các hoạt động đa dạng để kết nối cộng đồng và lan tỏa tình yêu thiên nhiên.",
+      services: sampleActivities,
+    };
+  }
+
+  return {
+    title: serviceSection.title,
+    subtitle: serviceSection.subtitle || "",
+    description: serviceSection.description || "",
+    services:
+      serviceSection.services?.map((service) => ({
+        id: service.url || "",
+        icon: service.icon || "flaticon-forest",
+        title: service.title,
+        slug: service.url || "",
+        description: service.description || "",
+        simg1: "/images/activity-hiking-mountain.jpg",
+      })) || sampleActivities,
+  };
+};
+
+// Helper function to transform SEO data
+const transformSEOData = (pageData: PageContent | null): SEOProps => {
+  if (!pageData?.seo) {
+    return {
+      metadata: {
+        title: "Bàn Chân Xanh - Kết nối con người, gắn bó thiên nhiên",
+      },
+    };
+  }
+
+  return {
+    metadata: {
+      title: pageData.seo.metaTitle,
+      description: pageData.seo.metaDescription,
+      image: pageData.seo.shareImage?.data
+        ? getStrapiImageUrl(pageData.seo.shareImage.data.attributes.url || "")
+        : undefined,
+    },
+  };
+};
+
 export const getServerSideProps = async () => {
   const layoutData = getDefaultLayoutData();
 
+  // Fetch home-page data from Strapi
+  let pageData: PageContent | null = null;
+  try {
+    const pageResponse = await pageService.getBySlug("trang-chu", {
+      populate: {
+        background: true,
+        sections: {
+          populate: {
+            about: { populate: "*" },
+            services: { populate: "*" },
+            funfact: { populate: "*" },
+            CTA: { populate: "*" },
+          },
+        },
+        heros: {
+          populate: {
+            images: true,
+            video: true,
+          },
+        },
+        seo: {
+          populate: {
+            shareImage: true,
+          },
+        },
+      },
+      pagination: { pageSize: 1 },
+      locale: "vi-VN", // Vietnamese locale
+      publicationState: "live",
+    });
+    pageData = pageResponse.data?.attributes || null;
+    console.log("page Data", pageData);
+  } catch (error) {
+    console.error("Error fetching:", error);
+  }
+
   const webSiteInfo = {
-    title: "Bàn Chân Xanh",
-    description: "Kết nối con người - Gắn bó thiên nhiên",
+    title: pageData?.title || "Bàn Chân Xanh",
+    description: pageData?.subtitle || "Kết nối con người - Gắn bó thiên nhiên",
   };
   const aboutData: AboutProps = {
     totalRaised: 1424600,
@@ -93,42 +219,9 @@ export const getServerSideProps = async () => {
     totalNeed: 1000000,
   };
 
-  const heroData: HeroProps = {
-    items: [
-      {
-        backgroundImage: "/images/hero-nature-mountain.jpg",
-        title: "Kết nối con người - Gắn bó thiên nhiên",
-        subtitle:
-          "Cùng chúng tôi khám phá vẻ đẹp thiên nhiên Nhật Bản và xây dựng cộng đồng người Việt gắn kết.",
-        link: "/about",
-        text: "Khám phá ngay",
-      },
-      {
-        backgroundImage: "/images/hero-camping-group.jpg",
-        title: "Trải nghiệm thiên nhiên tuyệt vời",
-        subtitle:
-          "Tham gia các hoạt động hiking, camping và workshop để kết nối với thiên nhiên và cộng đồng.",
-        link: "/about",
-        text: "Tham gia ngay",
-      },
-      {
-        backgroundImage: "/images/hero-hiking-trail.jpg",
-        title: "TRAO 2026",
-        subtitle:
-          "Cùng tham gia sự kiện thường niên của Bàn Chân Xanh, tổng kết một năm hoạt động, cùng kết nối và tạo ra những trải nghiệm ý nghĩa cho cộng đồng người Việt.",
-        link: "/trao-2026",
-        text: "Thông tin chi tiết",
-      }
-    ],
-  };
-
-  const serviceData: ServiceProps = {
-    title: "Hoạt Động Chính",
-    subtitle: "Các hoạt động của chúng tôi",
-    description:
-      "Chúng tôi tổ chức các hoạt động đa dạng để kết nối cộng đồng và lan tỏa tình yêu thiên nhiên.",
-    services: sampleActivities,
-  };
+  // Transform Strapi data to component props
+  const heroData: HeroProps = transformHeroData(pageData);
+  const serviceData: ServiceProps = transformServiceData(pageData);
 
   const teamData = {
     title: "Đội Ngũ Tình Nguyện Viên",
@@ -225,11 +318,7 @@ export const getServerSideProps = async () => {
     ],
   };
 
-  const seoData = {
-    metadata: {
-      title: "Bàn Chân Xanh - Kết nối con người, gắn bó thiên nhiên",
-    },
-  };
+  const seoData = transformSEOData(pageData);
 
   return {
     props: {
@@ -249,26 +338,53 @@ export const getServerSideProps = async () => {
   };
 };
 
-const HomePage: React.FC<HomeProps> = props => {
+const HomePage: React.FC<HomeProps> = (props) => {
   const [globalData, setGlobalData] = useState<GlobalInfo | null>(null);
   useEffect(() => {
-    const fetchGlobalData = async () => {
-      const globalData = await globalService.get({
-        populate: {
-          "populate[logo][populate]": "*",
-          "populate[headerMenus][populate]": "*",
-          "populate[rightButtons][populate]": "*",
-          "populate[footerMenus][populate]": "*",
-          "populate[footerQuicklinks][populate]": "*",
-        },
-      });
-      setGlobalData(globalData);
-    };
-    fetchGlobalData();
+    // Fetch home-page data from Strapi
+    let pageData: PageContent | null = null;
+    try {
+      const pageResponse = pageService
+        .getById("zpqsb7nwluiskl69m1v3k53z", {
+          populate: {
+            background: true,
+            sections: {
+              populate: {
+                about: { populate: "*" },
+                services: { populate: "*" },
+                funfact: { populate: "*" },
+                CTA: { populate: "*" },
+              },
+            },
+            heros: {
+              populate: {
+                images: true,
+                video: true,
+              },
+            },
+            seo: {
+              populate: {
+                shareImage: true,
+              },
+            },
+          },
+        })
+        .then(() => {
+          console.log("page Data", pageData);
+        });
+    } catch (error) {
+      console.error("Error fetching:", error);
+    }
   }, []);
 
   return (
-    <Layout data={globalData ? convertGlobalInfoToLayoutData(globalData) : props.layout.data}>
+    <Layout
+      data={
+        globalData
+          ? convertGlobalInfoToLayoutData(globalData)
+          : props.layout.data
+      }
+    >
       <SEO {...props.seo} />
       {/* 1. Hero Section */}
       <Hero {...props.hero} />

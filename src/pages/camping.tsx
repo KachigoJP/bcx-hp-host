@@ -1,6 +1,4 @@
-import campingService from "@/lib/strapi/services/campingService";
-import globalService from "@/lib/strapi/services/globalService";
-import seoService from "@/lib/strapi/services/seoService";
+import { campingService, globalService, seoService } from "@/lib/strapi/services";
 import { convertGlobalInfoToLayoutData, getStrapiImageUrl } from "@/utils/apps";
 import {
     BaseStrapiSection,

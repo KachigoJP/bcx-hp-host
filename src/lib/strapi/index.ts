@@ -16,8 +16,30 @@ export * from "@/utils/interfaces/strapi_types";
 export { default as useFetchCollection } from "./hooks/useFetchCollection";
 export { default as useFetchSingle } from "./hooks/useFetchSingle";
 
-// Export services
-export { default as articleService } from "./services/articleService";
-export { default as authService } from "./services/authService";
-export { default as globalService } from "./services/globalService";
-export { default as userService } from "./services/userService";
+// Export services from barrel export
+export {
+  articleService,
+  authService,
+  globalService,
+  userService,
+  aboutService,
+  achievementService,
+  activityService,
+  campingService,
+  contactService,
+  donateService,
+  errorService,
+  hikingService,
+  joinService,
+  loginService,
+  newsService,
+  pageService,
+  policyService,
+  privacyService,
+  registerService,
+  reportService,
+  seoService,
+  teamService,
+  termService,
+  workshopService,
+} from "./services";

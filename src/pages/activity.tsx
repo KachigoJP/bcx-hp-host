@@ -1,6 +1,4 @@
-import activityService from "@/lib/strapi/services/activityService";
-import globalService from "@/lib/strapi/services/globalService";
-import seoService from "@/lib/strapi/services/seoService";
+import { activityService, globalService, seoService } from "@/lib/strapi/services";
 import { convertGlobalInfoToLayoutData, getStrapiImageUrl } from "@/utils/apps";
 import {
   ActivityContent,

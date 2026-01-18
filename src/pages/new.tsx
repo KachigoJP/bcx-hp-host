@@ -1,6 +1,4 @@
-import globalService from "@/lib/strapi/services/globalService";
-import newsService from "@/lib/strapi/services/newsService";
-import seoService from "@/lib/strapi/services/seoService";
+import { globalService, newsService, seoService } from "@/lib/strapi/services";
 import { convertGlobalInfoToLayoutData, getStrapiImageUrl } from "@/utils/apps";
 import { GlobalInfo, NewsContent } from "@/utils/interfaces";
 import styles from "@components/containers/Home/Newsletter/Newsletter.module.scss";

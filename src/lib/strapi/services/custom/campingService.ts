@@ -1,14 +1,15 @@
 import { CampingContent, StrapiSingleResponse } from "@/utils/interfaces";
 import axios from "axios";
-import { getStrapiHeaders, getStrapiUrl } from "../config";
-import { BaseService } from "./baseService";
+import { getStrapiHeaders, getStrapiUrl } from "../../config";
+import { SingleTypeService } from "../base";
 
 /**
  * Camping Service
  * Handle camping page content and single-type content
+ * Extends SingleTypeService with custom getWithQueryString method
  */
 
-class CampingService extends BaseService<CampingContent> {
+class CampingService extends SingleTypeService<CampingContent> {
   constructor() {
     super("/api/camping");
   }

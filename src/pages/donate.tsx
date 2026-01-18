@@ -1,6 +1,4 @@
-import donateService from "@/lib/strapi/services/donateService";
-import globalService from "@/lib/strapi/services/globalService";
-import seoService from "@/lib/strapi/services/seoService";
+import { donateService, globalService, seoService } from "@/lib/strapi/services";
 import { convertGlobalInfoToLayoutData } from "@/utils/apps";
 import { DonateContent, GlobalInfo } from "@/utils/interfaces";
 import Layout, { LayoutProps } from "@components/layout";
