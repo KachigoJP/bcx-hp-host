@@ -1,4 +1,5 @@
-import { globalService, joinService, seoService } from "@/lib/strapi/services";
+import { globalService } from "@/lib/strapi/services";
+// import { seoService } from "@/lib/strapi/services"; // SEO content type not created yet
 import { convertGlobalInfoToLayoutData } from "@/utils/apps";
 import { GlobalInfo, JoinContent } from "@/utils/interfaces";
 import Layout, { LayoutProps } from "@components/layout";
@@ -116,20 +117,14 @@ export const getServerSideProps = async () => {
 const JoinPage: React.FC<JoinProps> = (props) => {
     const [globalData, setGlobalData] = useState<GlobalInfo | null>(null);
     const [joinContent, setJoinContent] = useState<JoinContent | null>(null);
-    const [seoData, setSeoData] = useState<SEOProps | null>(null);
+    const [seoData] = useState<SEOProps | null>(null);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const [globalResponse, joinResponse, seoResponse] = await Promise.all([
                     globalService.get({
-                        populate: {
-                            "populate[logo][populate]": "*",
-                            "populate[headerMenus][populate]": "*",
-                            "populate[rightButtons][populate]": "*",
-                            "populate[footerMenus][populate]": "*",
-                            "populate[footerQuicklinks][populate]": "*",
-                        },
+                        populate: "*",
                     }),
                     joinService.get({
                         populate: {

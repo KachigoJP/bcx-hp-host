@@ -1,4 +1,5 @@
-import { aboutService, globalService, seoService } from "@/lib/strapi/services";
+import { aboutService, globalService } from "@/lib/strapi/services";
+// import { seoService } from "@/lib/strapi/services"; // SEO content type not created yet
 import { convertGlobalInfoToLayoutData, getStrapiImageUrl, getYearFromDate } from "@/utils/apps";
 import {
   AboutContent,
@@ -129,20 +130,14 @@ export const getServerSideProps = async () => {
 const AboutPage: React.FC<AboutProps> = props => {
   const [globalData, setGlobalData] = useState<GlobalInfo | null>(null);
   const [aboutContent, setAboutContent] = useState<AboutContent | null>(null);
-  const [seoData, setSeoData] = useState<SEOProps | null>(null);
+  const [seoData] = useState<SEOProps | null>(null);
   const timelineRef = useRef<HTMLDivElement>(null);
   const missionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const fetchGlobalData = async () => {
       const globalData = await globalService.get({
-        populate: {
-          "populate[logo][populate]": "*",
-          "populate[headerMenus][populate]": "*",
-          "populate[rightButtons][populate]": "*",
-          "populate[footerMenus][populate]": "*",
-          "populate[footerQuicklinks][populate]": "*",
-        },
+        populate: "*",
       });
       setGlobalData(globalData);
     };
@@ -156,17 +151,17 @@ const AboutPage: React.FC<AboutProps> = props => {
       });
       setAboutContent(aboutContent);
     };
-    const fetchSeoData = async () => {
+    /* const fetchSeoData = async () => {
       const seoData = await seoService.get({
         populate: {
           "populate[pages][populate]": "*",
         },
       });
       setSeoData(seoData);
-    };
+    }; */
     fetchGlobalData();
     fetchAboutContent();
-    fetchSeoData();
+    // fetchSeoData(); // Disabled - SEO content type not created
   }, []);
 
   useEffect(() => {

@@ -16,7 +16,7 @@ interface BlogSectionProps {
     blogs: Blog[];
 }
 
-const BlogSection: React.FC<BlogSectionProps> = (props) => {
+const BlogSection: React.FC<BlogSectionProps> = () => {
     const ClickHandler = () => {
         window.scrollTo(10, 0);
     };

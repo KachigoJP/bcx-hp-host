@@ -1,4 +1,5 @@
-import { globalService, newsService, seoService } from "@/lib/strapi/services";
+import { globalService } from "@/lib/strapi/services";
+// import { seoService } from "@/lib/strapi/services"; // SEO content type not created yet
 import { convertGlobalInfoToLayoutData, getStrapiImageUrl } from "@/utils/apps";
 import { GlobalInfo, NewsContent } from "@/utils/interfaces";
 import styles from "@components/containers/Home/Newsletter/Newsletter.module.scss";
@@ -180,20 +181,14 @@ export const getServerSideProps = async () => {
 const NewPage: React.FC<NewProps> = (props) => {
     const [globalData, setGlobalData] = useState<GlobalInfo | null>(null);
     const [newsContent, setNewsContent] = useState<NewsContent | null>(null);
-    const [seoData, setSeoData] = useState<SEOProps | null>(null);
+    const [seoData] = useState<SEOProps | null>(null);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const [globalResponse, newsResponse, seoResponse] = await Promise.all([
                     globalService.get({
-                        populate: {
-                            "populate[logo][populate]": "*",
-                            "populate[headerMenus][populate]": "*",
-                            "populate[rightButtons][populate]": "*",
-                            "populate[footerMenus][populate]": "*",
-                            "populate[footerQuicklinks][populate]": "*",
-                        },
+                        populate: "*",
                     }),
                     newsService.get({
                         populate: {

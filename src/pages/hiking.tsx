@@ -1,4 +1,5 @@
-import { globalService, hikingService, seoService } from "@/lib/strapi/services";
+import { globalService } from "@/lib/strapi/services";
+// import { seoService } from "@/lib/strapi/services"; // SEO content type not created yet
 import { convertGlobalInfoToLayoutData, getStrapiImageUrl } from "@/utils/apps";
 import { GlobalInfo, HikingContent, HikingRouteSection, ImageListTextItems, PopularRouteSection, SectionDetailImageSectionIconListTextItems, SectionDetailSectionIconItems } from "@/utils/interfaces";
 import RegistrationForm from "@components/common/RegistrationForm";
@@ -314,17 +315,12 @@ export const getServerSideProps = async () => {
 const HikingPage: React.FC<HikingProps> = (props) => {
     const [globalData, setGlobalData] = useState<GlobalInfo | null>(null);
     const [hikingContent, setHikingContent] = useState<HikingContent | null>(null);
-    const [seoData, setSeoData] = useState<SEOProps | null>(null);
+    const [seoData] = useState<SEOProps | null>(null);
 
     useEffect(() => {
         const fetchGlobalData = async () => {
             const globalData = await globalService.get({
-                populate: {
-                    "populate[logo][populate]": "*",
-                    "populate[headerMenus][populate]": "*",
-                    "populate[footerMenus][populate]": "*",
-                    "populate[footerQuicklinks][populate]": "*",
-                },
+                populate: "*",
             });
             setGlobalData(globalData);
         };
@@ -352,17 +348,17 @@ const HikingPage: React.FC<HikingProps> = (props) => {
             setHikingContent(hikingContent);
         };
 
-        const fetchSeoData = async () => {
+        /* const fetchSeoData = async () => {
             const seoData = await seoService.get({
                 populate: {
                     "populate[pages][populate]": "*",
                 },
             });
             setSeoData(seoData);
-        };
+        }; */
         fetchGlobalData();
         fetchWorkshopContent();
-        fetchSeoData();
+        // fetchSeoData(); // Disabled - SEO content type not created
     }, []);
 
     const pageIntro = hikingContent?.pageIntro || props.hikingContent.pageIntro;

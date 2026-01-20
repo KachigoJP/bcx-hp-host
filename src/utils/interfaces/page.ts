@@ -4,7 +4,7 @@
  */
 
 import { StrapiImage, StrapiCollectionResponse } from "./strapi_types";
-import { BaseDetail } from "./common";
+import { StrapiRichText } from "./strapi_blocks";
 
 // Hero component interface (ui.hero)
 export interface PageHero {
@@ -52,7 +52,7 @@ export interface PageAbout {
       attributes: StrapiImage;
     }>;
   };
-  content?: any; // Blocks editor content
+  content?: StrapiRichText; // Blocks editor content
 }
 
 // Funfact component interface (ui.funfact)
@@ -121,6 +121,8 @@ export interface PageSEO {
 
 // Main Page content interface
 export interface PageContent {
+  documentId: string;
+  slug: string;
   title: string;
   subtitle?: string;
   url: string;
@@ -130,7 +132,7 @@ export interface PageContent {
       attributes: StrapiImage;
     };
   };
-  content?: any; // Blocks editor content
+  content?: StrapiRichText; // Blocks editor content (optional)
   sections?: PageSection[];
   heros?: PageHero[];
   seo?: PageSEO;

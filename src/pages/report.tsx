@@ -1,4 +1,5 @@
-import { globalService, reportService, seoService } from "@/lib/strapi/services";
+import { globalService } from "@/lib/strapi/services";
+// import { seoService } from "@/lib/strapi/services"; // SEO content type not created yet
 import { convertGlobalInfoToLayoutData } from "@/utils/apps";
 import {
   BaseDetail,
@@ -229,7 +230,7 @@ export const getServerSideProps = async () => {
 const ReportPage: React.FC<ReportProps> = props => {
   const [globalData, setGlobalData] = useState<GlobalInfo | null>(null);
   const [reportContent, setReportContent] = useState<ReportContent | null>(null);
-  const [seoData, setSeoData] = useState<SEOProps | null>(null);
+  const [seoData] = useState<SEOProps | null>(null);
   const statisticsRef = useRef<HTMLDivElement>(null);
   const monthlyReportsRef = useRef<HTMLDivElement>(null);
   const annualReportsRef = useRef<HTMLDivElement>(null);
@@ -238,13 +239,7 @@ const ReportPage: React.FC<ReportProps> = props => {
   useEffect(() => {
     const fetchGlobalData = async () => {
       const globalData = await globalService.get({
-        populate: {
-          "populate[logo][populate]": "*",
-          "populate[headerMenus][populate]": "*",
-          "populate[rightButtons][populate]": "*",
-          "populate[footerMenus][populate]": "*",
-          "populate[footerQuicklinks][populate]": "*",
-        },
+        populate: "*",
       });
       setGlobalData(globalData);
     };
@@ -261,17 +256,17 @@ const ReportPage: React.FC<ReportProps> = props => {
       });
       setReportContent(reportContent);
     };
-    const fetchSeoData = async () => {
+    /* const fetchSeoData = async () => {
       const seoData = await seoService.get({
         populate: {
           "populate[pages][populate]": "*",
         },
       });
       setSeoData(seoData);
-    };
+    }; */
     fetchGlobalData();
     fetchReportContent();
-    fetchSeoData();
+    // fetchSeoData(); // Disabled - SEO content type not created
   }, []);
 
   useEffect(() => {

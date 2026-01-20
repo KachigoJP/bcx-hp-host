@@ -15,7 +15,7 @@ interface EventSection3Props {
   events: Event[];
 }
 
-const EventSection: React.FC<EventSection3Props> = (props) => {
+const EventSection: React.FC<EventSection3Props> = () => {
   const ClickHandler = () => {
     window.scrollTo(10, 0);
   };

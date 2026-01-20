@@ -1,4 +1,5 @@
-import { donateService, globalService, seoService } from "@/lib/strapi/services";
+import { globalService } from "@/lib/strapi/services";
+// import { seoService } from "@/lib/strapi/services"; // SEO content type not created yet
 import { convertGlobalInfoToLayoutData } from "@/utils/apps";
 import { DonateContent, GlobalInfo } from "@/utils/interfaces";
 import Layout, { LayoutProps } from "@components/layout";
@@ -191,20 +192,14 @@ export const getServerSideProps = async () => {
 const DonatePage: React.FC<DonateProps> = (props) => {
     const [globalData, setGlobalData] = useState<GlobalInfo | null>(null);
     const [donateContent, setDonateContent] = useState<DonateContent | null>(null);
-    const [seoData, setSeoData] = useState<SEOProps | null>(null);
+    const [seoData] = useState<SEOProps | null>(null);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const [globalResponse, donateResponse, seoResponse] = await Promise.all([
                     globalService.get({
-                        populate: {
-                            "populate[logo][populate]": "*",
-                            "populate[headerMenus][populate]": "*",
-                            "populate[rightButtons][populate]": "*",
-                            "populate[footerMenus][populate]": "*",
-                            "populate[footerQuicklinks][populate]": "*",
-                        },
+                        populate: "*",
                     }),
                     donateService.get({
                         populate: {

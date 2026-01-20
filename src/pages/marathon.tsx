@@ -30,7 +30,8 @@ const app = initializeApp(firebaseConfig);
 const firestore = getFirestore(app);
 
 const HomePage: React.FC = () => {
-  const { t } = useTranslation();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { t: _t } = useTranslation();
 
   const [courses, setCourses] = React.useState<any>({});
   const [user30, setUser30] = React.useState<any[]>([]);

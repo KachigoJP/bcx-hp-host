@@ -8,6 +8,10 @@ import { pageService } from "@/lib/strapi/services";
 import { getDefaultLayoutData } from "@utils/layoutData";
 import { getStrapiImageUrl } from "@utils/apps";
 import { getPageMapping, getDocumentIdBySlug } from "@/utils/pageMapping";
+import { BlocksRenderer } from "@/components/RichText";
+
+// ⚠️ File loaded - if you see this, the file is being read by Next.js
+console.log("🔍 [slug].tsx file loaded at", new Date().toISOString());
 
 interface DynamicPageProps {
   layout: LayoutProps;
@@ -40,28 +44,44 @@ const transformSEOData = (pageData: PageContent | null): SEOProps => {
 
 // Generate static paths using the page mapping
 export const getStaticPaths: GetStaticPaths = async () => {
+  console.log("=== getStaticPaths START ===");
+  console.log("Time:", new Date().toISOString());
+
   try {
     // Get the slug-to-documentId mapping
+    console.log("Fetching page mapping from Strapi...");
     const pageMapping = await getPageMapping();
+
+    console.log("Page mapping received:");
+    console.log(JSON.stringify(pageMapping, null, 2));
+
     const slugs = Object.keys(pageMapping);
+    console.log("Slugs extracted:", slugs);
 
     // Generate paths from the slugs
     const paths = slugs.map((slug) => ({
       params: { slug },
     }));
 
-    console.log(`Generated ${paths.length} static paths for pages`);
+    console.log(`✅ Generated ${paths.length} static paths for pages`);
+    console.log("Paths:", JSON.stringify(paths, null, 2));
 
     return {
       paths,
       fallback: "blocking", // Generate pages on-demand if not pre-rendered
     };
   } catch (error) {
-    console.error("Error generating static paths:", error);
+    console.error("❌ Error generating static paths:", error);
+    console.error("Error details:", {
+      message: error instanceof Error ? error.message : String(error),
+      stack: error instanceof Error ? error.stack : undefined,
+    });
     return {
       paths: [],
       fallback: "blocking",
     };
+  } finally {
+    console.log("=== getStaticPaths END ===\n");
   }
 };
 
@@ -147,7 +167,6 @@ const DynamicPage: React.FC<DynamicPageProps> = ({
   layout,
   seo,
   pageData,
-  slug,
 }) => {
   if (!pageData) {
     return null;
@@ -215,10 +234,7 @@ const DynamicPage: React.FC<DynamicPageProps> = ({
 
           {/* Page Content */}
           {pageData.content && (
-            <div
-              className="page-body"
-              dangerouslySetInnerHTML={{ __html: pageData.content }}
-            />
+            <BlocksRenderer content={pageData.content} className="page-body" />
           )}
         </div>
       </div>

@@ -1,4 +1,6 @@
-import { errorService, globalService, seoService } from "@/lib/strapi/services";
+import { globalService } from "@/lib/strapi/services";
+// import { seoService } from "@/lib/strapi/services"; // SEO content type not created yet
+// import { errorService } from "@/lib/strapi/services"; // Uncomment when error content type is created
 import { convertGlobalInfoToLayoutData } from "@/utils/apps";
 import { ErrorContent } from "@/utils/interfaces/error";
 import { GlobalInfo } from "@/utils/interfaces/global";
@@ -64,21 +66,15 @@ const defaultSeoData: SEOProps = {
 
 const Page404: React.FC = () => {
   const [globalData, setGlobalData] = useState<GlobalInfo | null>(null);
-  const [error404Content, setError404Content] = useState<ErrorContent>(defaultErrorContent);
-  const [seoData, setSeoData] = useState<SEOProps>(defaultSeoData);
+  const [error404Content] = useState<ErrorContent>(defaultErrorContent); // Static content (no CMS integration yet)
+  const [seoData] = useState<SEOProps>(defaultSeoData); // Static SEO (no CMS integration yet)
   const layoutData = getDefaultLayoutData();
 
   useEffect(() => {
     const fetchGlobalData = async () => {
       try {
         const data = await globalService.get({
-          populate: {
-            "populate[logo][populate]": "*",
-            "populate[headerMenus][populate]": "*",
-            "populate[rightButtons][populate]": "*",
-            "populate[footerMenus][populate]": "*",
-            "populate[footerQuicklinks][populate]": "*",
-          },
+          populate: "*",
         });
         setGlobalData(data);
       } catch {
@@ -87,21 +83,27 @@ const Page404: React.FC = () => {
     };
 
     const fetchError404Content = async () => {
+      // Skip API call - /api/error content type doesn't exist in Strapi yet
+      // Using default content defined above
+      // To enable CMS management, see: ERROR_CONTENT_TYPE_SETUP.md
+      console.log("Using default 404 content (CMS content type not configured)");
+
+      // To enable CMS management:
+      // 1. Create 'error' content type in Strapi (see ERROR_CONTENT_TYPE_SETUP.md)
+      // 2. Uncomment errorService import at top of file
+      // 3. Add setError404Content to state declaration: const [error404Content, setError404Content] = ...
+      // 4. Uncomment the code below:
+      /*
       try {
-        const content = await errorService.get({
-          populate: {
-            "populate[primaryButton][populate]": "*",
-            "populate[secondaryButton][populate]": "*",
-            "populate[quickLinks][populate]": "*",
-          },
-        });
+        const content = await errorService.get();
         setError404Content(content);
-      } catch {
-        console.log("Using default 404 content");
+      } catch (error) {
+        console.log("Error fetching from CMS, using default content");
       }
+      */
     };
 
-    const fetchSeoData = async () => {
+    /* const fetchSeoData = async () => {
       try {
         const data = await seoService.get({
           populate: {
@@ -112,11 +114,11 @@ const Page404: React.FC = () => {
       } catch {
         console.log("Using default SEO data");
       }
-    };
+    }; */
 
     fetchGlobalData();
     fetchError404Content();
-    fetchSeoData();
+    // fetchSeoData(); // Disabled - SEO content type not created
   }, []);
 
   return (

@@ -8,6 +8,7 @@ const strapiUrl = process.env.NEXT_PUBLIC_STRAPI_URL;
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  outputFileTracingRoot: __dirname,
   images: {
     remotePatterns: (() => {
       const patterns: any[] = [

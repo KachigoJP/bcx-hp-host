@@ -3,7 +3,8 @@ import Image from "next/image";
 import { useTranslation } from "react-i18next";
 
 const HomePage: React.FC = () => {
-  const { t } = useTranslation();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { t: _t } = useTranslation();
 
   return (
     <span>

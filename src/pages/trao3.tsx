@@ -4,11 +4,9 @@ import { initializeApp } from "firebase/app";
 import {
   getFirestore,
   doc,
-  getDoc,
   updateDoc,
   collection,
   getDocs,
-  setDoc,
   Timestamp,
   DocumentData,
 } from "firebase/firestore";
@@ -33,7 +31,8 @@ const app = initializeApp(firebaseConfig);
 const firestore = getFirestore(app);
 
 const HomePage: React.FC = () => {
-  const { t } = useTranslation();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { t: _t } = useTranslation();
 
   const [showError, setShowError] = React.useState(false);
   const [isRuleShow, setIsRuleShow] = React.useState(false);
@@ -45,7 +44,8 @@ const HomePage: React.FC = () => {
     DocumentData | undefined
   >(undefined);
   const [users, setUsers] = React.useState<any>({});
-  const [validUsers, setValidUsers] = React.useState<any>({});
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_validUsers, _setValidUsers] = React.useState<any>({});
   const [imageLoadStatus, setImageLoadStatus] = React.useState<any>({});
 
   React.useEffect(() => {

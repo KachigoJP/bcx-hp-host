@@ -1,4 +1,5 @@
-import { globalService, registerService, seoService } from "@/lib/strapi/services";
+import { globalService } from "@/lib/strapi/services";
+// import { seoService } from "@/lib/strapi/services"; // SEO content type not created yet
 import { convertGlobalInfoToLayoutData } from "@/utils/apps";
 import { GlobalInfo, RegisterContent } from "@/utils/interfaces";
 import Layout, { LayoutProps } from "@components/layout";
@@ -75,7 +76,7 @@ const RegisterPage: React.FC<RegisterProps> = (props) => {
     const router = useRouter();
     const [globalData, setGlobalData] = useState<GlobalInfo | null>(null);
     const [registerContent, setRegisterContent] = useState<RegisterContent | null>(null);
-    const [seoData, setSeoData] = useState<SEOProps | null>(null);
+    const [seoData] = useState<SEOProps | null>(null);
     const [formData, setFormData] = useState({
         username: "",
         email: "",
@@ -97,13 +98,7 @@ const RegisterPage: React.FC<RegisterProps> = (props) => {
             try {
                 const [globalResponse, registerResponse, seoResponse] = await Promise.all([
                     globalService.get({
-                        populate: {
-                            "populate[logo][populate]": "*",
-                            "populate[headerMenus][populate]": "*",
-                            "populate[rightButtons][populate]": "*",
-                            "populate[footerMenus][populate]": "*",
-                            "populate[footerQuicklinks][populate]": "*",
-                        },
+                        populate: "*",
                     }),
                     registerService.get({
                         populate: {

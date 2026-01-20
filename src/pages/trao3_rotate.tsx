@@ -3,14 +3,8 @@ import Image from "next/image";
 import { initializeApp } from "firebase/app";
 import {
   getFirestore,
-  doc,
-  getDoc,
-  updateDoc,
   collection,
   getDocs,
-  setDoc,
-  Timestamp,
-  DocumentData,
 } from "firebase/firestore";
 import { useTranslation } from "react-i18next";
 import { Card } from "reactstrap";
@@ -33,14 +27,16 @@ const app = initializeApp(firebaseConfig);
 const firestore = getFirestore(app);
 
 const HomePage: React.FC = () => {
-  const { t } = useTranslation();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { t: _t } = useTranslation();
 
   const [isDrawing, setIsDrawing] = React.useState(false);
   const [winner, setWinner] = React.useState<any>(null);
   const [users, setUsers] = React.useState<any>({});
   const [displayLottery, setDisplayLottery] = React.useState<any | null>(null); // State for jumping effect
 
-  const [validUsers, setValidUsers] = React.useState<any>({});
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_validUsers, _setValidUsers] = React.useState<any>({});
 
   React.useEffect(() => {
     const getData = async () => {
@@ -71,7 +67,8 @@ const HomePage: React.FC = () => {
     setWinner(null);
 
     // Simulate a drawing animation/delay
-    const selectedIndex = -1;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const _selectedIndex = -1;
 
     const animationDuration = 3000; // Total animation duration (3 seconds)
     const intervalTime = 80; // How fast to change the displayed participant (80ms)
@@ -91,7 +88,8 @@ const HomePage: React.FC = () => {
     }, animationDuration);
   };
 
-  const resetLottery = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const _resetLottery = () => {
     setWinner(null);
     setIsDrawing(false);
   };

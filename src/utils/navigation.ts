@@ -1,5 +1,4 @@
 import { pageService } from "@/lib/strapi/services";
-import { getPageMapping } from "./pageMapping";
 
 export interface NavItem {
   label: string;
@@ -14,9 +13,6 @@ export interface NavItem {
  */
 export async function getNavigationFromPages(): Promise<NavItem[]> {
   try {
-    // Get the slug-to-documentId mapping
-    const pageMapping = await getPageMapping();
-
     // Fetch page details for navigation
     const pagesResponse = await pageService.getAll({
       fields: ["title", "slug", "documentId", "url"],

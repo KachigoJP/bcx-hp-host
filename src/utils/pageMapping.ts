@@ -24,7 +24,7 @@ export async function getPageMapping(): Promise<PageMapping> {
 
     pagesResponse.data.forEach((page) => {
       const slug = page.attributes.slug;
-      const documentId = page.documentId;
+      const documentId = page.attributes.documentId;
 
       if (slug && documentId) {
         mapping[slug] = documentId;

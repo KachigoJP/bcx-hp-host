@@ -1,4 +1,5 @@
-import { globalService, policyService, seoService } from "@/lib/strapi/services";
+import { globalService } from "@/lib/strapi/services";
+// import { seoService } from "@/lib/strapi/services"; // SEO content type not created yet
 import { convertGlobalInfoToLayoutData } from "@/utils/apps";
 import {
   ButtonDetail,
@@ -252,7 +253,7 @@ export const getServerSideProps = async () => {
 const PolicyPage: React.FC<PolicyProps> = props => {
   const [globalData, setGlobalData] = useState<GlobalInfo | null>(null);
   const [policyContent, setPolicyContent] = useState<PolicyContent | null>(null);
-  const [seoData, setSeoData] = useState<SEOProps | null>(null);
+  const [seoData] = useState<SEOProps | null>(null);
   const missionVisionRef = useRef<HTMLDivElement>(null);
   const coreValuesRef = useRef<HTMLDivElement>(null);
   const activityPoliciesRef = useRef<HTMLDivElement>(null);
@@ -263,13 +264,7 @@ const PolicyPage: React.FC<PolicyProps> = props => {
   useEffect(() => {
     const fetchGlobalData = async () => {
       const globalData = await globalService.get({
-        populate: {
-          "populate[logo][populate]": "*",
-          "populate[headerMenus][populate]": "*",
-          "populate[rightButtons][populate]": "*",
-          "populate[footerMenus][populate]": "*",
-          "populate[footerQuicklinks][populate]": "*",
-        },
+        populate: "*",
       });
       setGlobalData(globalData);
     };
@@ -287,17 +282,17 @@ const PolicyPage: React.FC<PolicyProps> = props => {
       });
       setPolicyContent(policyContent);
     };
-    const fetchSeoData = async () => {
+    /* const fetchSeoData = async () => {
       const seoData = await seoService.get({
         populate: {
           "populate[pages][populate]": "*",
         },
       });
       setSeoData(seoData);
-    };
+    }; */
     fetchGlobalData();
     fetchPolicyContent();
-    fetchSeoData();
+    // fetchSeoData(); // Disabled - SEO content type not created
   }, []);
 
   useEffect(() => {

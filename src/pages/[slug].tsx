@@ -7,6 +7,7 @@ import { PageContent } from "@/utils/interfaces";
 import { pageService } from "@/lib/strapi/services";
 import { getDefaultLayoutData } from "@utils/layoutData";
 import { getStrapiImageUrl } from "@utils/apps";
+import { BlocksRenderer } from "@/components/RichText";
 
 interface DynamicPageProps {
   layout: LayoutProps;
@@ -162,10 +163,7 @@ const DynamicPage: React.FC<DynamicPageProps> = ({ layout, seo, pageData }) => {
 
           {/* Render content if available */}
           {pageData.content && (
-            <div
-              className="page-body"
-              dangerouslySetInnerHTML={{ __html: pageData.content }}
-            />
+            <BlocksRenderer content={pageData.content} className="page-body" />
           )}
         </div>
       </div>

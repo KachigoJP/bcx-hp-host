@@ -1,4 +1,5 @@
-import { globalService, seoService, termService } from "@/lib/strapi/services";
+import { globalService } from "@/lib/strapi/services";
+// import { seoService } from "@/lib/strapi/services"; // SEO content type not created yet
 import { convertGlobalInfoToLayoutData } from "@/utils/apps";
 import { GlobalInfo, LegalSection, TermContent } from "@/utils/interfaces";
 import Layout, { LayoutProps } from "@components/layout";
@@ -222,20 +223,14 @@ export const getServerSideProps = async () => {
 const TermPage: React.FC<TermProps> = (props) => {
     const [globalData, setGlobalData] = useState<GlobalInfo | null>(null);
     const [termContent, setTermContent] = useState<TermContent | null>(null);
-    const [seoData, setSeoData] = useState<SEOProps | null>(null);
+    const [seoData] = useState<SEOProps | null>(null);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const [globalResponse, termResponse, seoResponse] = await Promise.all([
                     globalService.get({
-                        populate: {
-                            "populate[logo][populate]": "*",
-                            "populate[headerMenus][populate]": "*",
-                            "populate[rightButtons][populate]": "*",
-                            "populate[footerMenus][populate]": "*",
-                            "populate[footerQuicklinks][populate]": "*",
-                        },
+                        populate: "*",
                     }),
                     termService.get({
                         populate: {

@@ -21,7 +21,7 @@ import SEO from "@components/layout/SEO";
 import { GlobalInfo, PageContent } from "@/utils/interfaces";
 import ProjectsData from "@api/projects";
 import { SEOProps } from "@components/layout/SEO/interface";
-import { globalService, pageService } from "@/lib/strapi/services";
+import { pageService } from "@/lib/strapi/services";
 import { convertGlobalInfoToLayoutData, getStrapiImageUrl } from "@utils/apps";
 import { getDefaultLayoutData } from "@utils/layoutData";
 import { sampleTeamData } from "./team";
@@ -339,12 +339,13 @@ export const getServerSideProps = async () => {
 };
 
 const HomePage: React.FC<HomeProps> = (props) => {
-  const [globalData, setGlobalData] = useState<GlobalInfo | null>(null);
+  const [globalData] = useState<GlobalInfo | null>(null);
   useEffect(() => {
-    // Fetch home-page data from Strapi
-    let pageData: PageContent | null = null;
+    // Fetch home-page data from Strapi (currently disabled - page uses props from getServerSideProps)
+    // Uncomment if you need to fetch data client-side
+    /*
     try {
-      const pageResponse = pageService
+      pageService
         .getById("zpqsb7nwluiskl69m1v3k53z", {
           populate: {
             background: true,
@@ -369,12 +370,13 @@ const HomePage: React.FC<HomeProps> = (props) => {
             },
           },
         })
-        .then(() => {
-          console.log("page Data", pageData);
+        .then((response) => {
+          console.log("page Data", response.data?.attributes);
         });
     } catch (error) {
       console.error("Error fetching:", error);
     }
+    */
   }, []);
 
   return (
