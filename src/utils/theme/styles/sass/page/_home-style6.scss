@@ -43,7 +43,7 @@
                     top: -10px;
                     width: 199px;
                     height: 199px; 
-                    @include linear-gradient-bg( to right, darken($theme-primary-color-s2, 9%), transparentize($theme-primary-color-s2, 0.25));
+                    @include linear-gradient-bg( to right, color.adjust($theme-primary-color-s2, $lightness: -9%), color.adjust($theme-primary-color-s2, $alpha: -0.25));
                     z-index: -1;
                 }
                 .shp-2{
@@ -53,7 +53,7 @@
                     bottom: -10px;
                     width: 199px;
                     height: 199px; 
-                    @include linear-gradient-bg( to right, darken($theme-primary-color, 9%), transparentize($theme-primary-color, 0.25));
+                    @include linear-gradient-bg( to right, color.adjust($theme-primary-color, $lightness: -9%), color.adjust($theme-primary-color, $alpha: -0.25));
                 }
 
                 img{

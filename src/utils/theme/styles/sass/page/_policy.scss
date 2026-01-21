@@ -11,7 +11,7 @@ Policy Page Enhanced Styles
       background: linear-gradient(
         135deg,
         $theme-primary-color-s2,
-        lighten($theme-primary-color-s2, 20%)
+        color.adjust($theme-primary-color-s2, $lightness: +20%)
       );
       color: white;
       border-radius: 20px;
@@ -75,7 +75,7 @@ Policy Page Enhanced Styles
       background: linear-gradient(
         90deg,
         $theme-primary-color-s2,
-        lighten($theme-primary-color-s2, 30%)
+        color.adjust($theme-primary-color-s2, $lightness: +30%)
       );
       transform: scaleX(0);
       transition: transform 0.4s ease;
@@ -138,7 +138,7 @@ Policy Page Enhanced Styles
     background: linear-gradient(
       135deg,
       $theme-primary-color-s2 0%,
-      lighten($theme-primary-color-s2, 15%) 100%
+      color.adjust($theme-primary-color-s2, $lightness: +15%) 100%
     );
     border-radius: 50%;
     display: flex;
@@ -159,7 +159,7 @@ Policy Page Enhanced Styles
       background: linear-gradient(
         135deg,
         $theme-primary-color-s2,
-        lighten($theme-primary-color-s2, 30%)
+        color.adjust($theme-primary-color-s2, $lightness: +30%)
       );
       border-radius: 50%;
       opacity: 0;
@@ -206,7 +206,7 @@ Policy Page Enhanced Styles
       background: linear-gradient(
         90deg,
         $theme-primary-color-s2,
-        lighten($theme-primary-color-s2, 30%)
+        color.adjust($theme-primary-color-s2, $lightness: +30%)
       );
       border-radius: 2px;
       opacity: 0;
@@ -244,7 +244,7 @@ Policy Page Enhanced Styles
       background: linear-gradient(
         135deg,
         $theme-primary-color-s2,
-        lighten($theme-primary-color-s2, 20%)
+        color.adjust($theme-primary-color-s2, $lightness: +20%)
       );
       color: white;
       border-radius: 20px;
@@ -301,7 +301,7 @@ Policy Page Enhanced Styles
       background: linear-gradient(
         90deg,
         $theme-primary-color-s2,
-        lighten($theme-primary-color-s2, 30%)
+        color.adjust($theme-primary-color-s2, $lightness: +30%)
       );
       transform: scaleX(0);
       transition: transform 0.4s ease;
@@ -364,7 +364,7 @@ Policy Page Enhanced Styles
     background: linear-gradient(
       135deg,
       $theme-primary-color-s2 0%,
-      lighten($theme-primary-color-s2, 15%) 100%
+      color.adjust($theme-primary-color-s2, $lightness: +15%) 100%
     );
     border-radius: 50%;
     display: flex;
@@ -385,7 +385,7 @@ Policy Page Enhanced Styles
       background: linear-gradient(
         135deg,
         $theme-primary-color-s2,
-        lighten($theme-primary-color-s2, 30%)
+        color.adjust($theme-primary-color-s2, $lightness: +30%)
       );
       border-radius: 50%;
       opacity: 0;
@@ -432,7 +432,7 @@ Policy Page Enhanced Styles
       background: linear-gradient(
         90deg,
         $theme-primary-color-s2,
-        lighten($theme-primary-color-s2, 30%)
+        color.adjust($theme-primary-color-s2, $lightness: +30%)
       );
       border-radius: 2px;
       opacity: 0;
@@ -470,7 +470,7 @@ Policy Page Enhanced Styles
       background: linear-gradient(
         135deg,
         $theme-primary-color-s2,
-        lighten($theme-primary-color-s2, 20%)
+        color.adjust($theme-primary-color-s2, $lightness: +20%)
       );
       color: white;
       border-radius: 20px;
@@ -513,7 +513,7 @@ Policy Page Enhanced Styles
     &:hover {
       transform: translateY(-5px);
       box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
-      border-left-color: lighten($theme-primary-color-s2, 10%);
+      border-left-color: color.adjust($theme-primary-color-s2, $lightness: +10%);
     }
 
     h4 {
@@ -574,7 +574,7 @@ Policy Page Enhanced Styles
     background: linear-gradient(
       135deg,
       $theme-primary-color-s2 0%,
-      lighten($theme-primary-color-s2, 15%) 100%
+      color.adjust($theme-primary-color-s2, $lightness: +15%) 100%
     );
     border-radius: 25px;
     padding: 60px 40px;
@@ -733,7 +733,7 @@ Policy Page Enhanced Styles
       background: linear-gradient(
         135deg,
         $theme-primary-color-s2,
-        lighten($theme-primary-color-s2, 20%)
+        color.adjust($theme-primary-color-s2, $lightness: +20%)
       );
       color: white;
       border-radius: 20px;
@@ -790,7 +790,7 @@ Policy Page Enhanced Styles
       background: linear-gradient(
         90deg,
         $theme-primary-color-s2,
-        lighten($theme-primary-color-s2, 30%)
+        color.adjust($theme-primary-color-s2, $lightness: +30%)
       );
       transform: scaleX(0);
       transition: transform 0.4s ease;
@@ -853,7 +853,7 @@ Policy Page Enhanced Styles
     background: linear-gradient(
       135deg,
       $theme-primary-color-s2 0%,
-      lighten($theme-primary-color-s2, 15%) 100%
+      color.adjust($theme-primary-color-s2, $lightness: +15%) 100%
     );
     border-radius: 50%;
     display: flex;
@@ -874,7 +874,7 @@ Policy Page Enhanced Styles
       background: linear-gradient(
         135deg,
         $theme-primary-color-s2,
-        lighten($theme-primary-color-s2, 30%)
+        color.adjust($theme-primary-color-s2, $lightness: +30%)
       );
       border-radius: 50%;
       opacity: 0;
@@ -921,7 +921,7 @@ Policy Page Enhanced Styles
       background: linear-gradient(
         90deg,
         $theme-primary-color-s2,
-        lighten($theme-primary-color-s2, 30%)
+        color.adjust($theme-primary-color-s2, $lightness: +30%)
       );
       border-radius: 2px;
       opacity: 0;
@@ -967,7 +967,7 @@ Policy Page Enhanced Styles
         background: linear-gradient(
           135deg,
           $theme-primary-color-s2,
-          lighten($theme-primary-color-s2, 20%)
+          color.adjust($theme-primary-color-s2, $lightness: +20%)
         );
         color: white;
         border-radius: 20px;
@@ -1024,7 +1024,7 @@ Policy Page Enhanced Styles
     &:hover {
       transform: translateY(-3px);
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
-      border-left-color: lighten($theme-primary-color-s2, 10%);
+      border-left-color: color.adjust($theme-primary-color-s2, $lightness: +10%);
     }
 
     h4 {
@@ -1093,7 +1093,7 @@ Policy Page Enhanced Styles
       cursor: pointer;
 
       &:hover {
-        background: lighten($theme-primary-color-s2, 10%);
+        background: color.adjust($theme-primary-color-s2, $lightness: +10%);
         transform: translateY(-3px) scale(1.05);
         box-shadow: 0 12px 32px rgba($theme-primary-color-s2, 0.4);
       }

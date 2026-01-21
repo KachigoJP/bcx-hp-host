@@ -165,7 +165,7 @@
 
 				.wpo-total-project{
                     padding:20px 30px;
-					@include linear-gradient-bg(to right,darken($theme-primary-color-s2, 32%), transparentize($theme-primary-color-s2, 0.15));
+					@include linear-gradient-bg(to right,color.adjust($theme-primary-color-s2, $lightness: -32%), color.adjust($theme-primary-color-s2, $alpha: -0.15));
 					border-radius: 40px;
 					overflow: hidden;
 					position: relative;
@@ -197,7 +197,7 @@
                            width: 90px;
 						   height: 90px;
 						   line-height: 90px;
-						   background: darken($theme-primary-color-s2, 25%);
+						   background: color.adjust($theme-primary-color-s2, $lightness: -25%);
 						   border-radius: 50%;
 						   text-align: center;
 						   margin-right: 30px;
@@ -754,7 +754,7 @@ wpo-hero-section-6
 
 	.slick-prev,
 	.slick-next {
-		background-color: transparentize($theme-primary-color, 0.3);
+		background-color: color.adjust($theme-primary-color, $alpha: -0.3);
 		width:45px;
 		height: 45px;
 		z-index: 10;

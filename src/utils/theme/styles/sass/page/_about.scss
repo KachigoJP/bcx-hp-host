@@ -48,7 +48,7 @@
             top: -30px;
             width: 107%;
             height: 56%;
-            @include linear-gradient-bg( to right, darken($theme-primary-color-s2, 10%), $theme-primary-color-s2);
+            @include linear-gradient-bg( to right, color.adjust($theme-primary-color-s2, $lightness: -10%), $theme-primary-color-s2);
             content: "";
             z-index: -1;
         }
@@ -200,7 +200,7 @@ History Timeline Styles
             top: 0;
             bottom: 0;
             width: 4px;
-            background: linear-gradient(180deg, $theme-primary-color-s2 0%, lighten($theme-primary-color-s2, 20%) 100%);
+            background: linear-gradient(180deg, $theme-primary-color-s2 0%, color.adjust($theme-primary-color-s2, $lightness: +20%) 100%);
             transform: translateX(-50%);
             border-radius: 2px;
             box-shadow: 0 0 20px rgba($theme-primary-color-s2, 0.3);
@@ -299,7 +299,7 @@ History Timeline Styles
             display: inline-block;
             width: 80px;
             height: 80px;
-            background: linear-gradient(135deg, $theme-primary-color-s2 0%, lighten($theme-primary-color-s2, 15%) 100%);
+            background: linear-gradient(135deg, $theme-primary-color-s2 0%, color.adjust($theme-primary-color-s2, $lightness: +15%) 100%);
             border-radius: 50%;
             text-align: center;
             line-height: 80px;
@@ -378,7 +378,7 @@ History Timeline Styles
                 left: 0;
                 width: 50px;
                 height: 3px;
-                background: linear-gradient(90deg, $theme-primary-color-s2, lighten($theme-primary-color-s2, 30%));
+                background: linear-gradient(90deg, $theme-primary-color-s2, color.adjust($theme-primary-color-s2, $lightness: +30%));
                 border-radius: 2px;
                 
                 @media(max-width: 768px) {
@@ -528,7 +528,7 @@ Mission Section Styles
             left: 0;
             right: 0;
             height: 4px;
-            background: linear-gradient(90deg, $theme-primary-color-s2, lighten($theme-primary-color-s2, 30%));
+            background: linear-gradient(90deg, $theme-primary-color-s2, color.adjust($theme-primary-color-s2, $lightness: +30%));
             transform: scaleX(0);
             transition: transform 0.4s ease;
         }
@@ -588,7 +588,7 @@ Mission Section Styles
     .wpo-mission-icon {
         width: 100px;
         height: 100px;
-        background: linear-gradient(135deg, $theme-primary-color-s2 0%, lighten($theme-primary-color-s2, 15%) 100%);
+        background: linear-gradient(135deg, $theme-primary-color-s2 0%, color.adjust($theme-primary-color-s2, $lightness: +15%) 100%);
         border-radius: 50%;
         display: flex;
         align-items: center;
@@ -605,7 +605,7 @@ Mission Section Styles
             left: -5px;
             right: -5px;
             bottom: -5px;
-            background: linear-gradient(135deg, $theme-primary-color-s2, lighten($theme-primary-color-s2, 30%));
+            background: linear-gradient(135deg, $theme-primary-color-s2, color.adjust($theme-primary-color-s2, $lightness: +30%));
             border-radius: 50%;
             opacity: 0;
             transition: opacity 0.4s ease;
@@ -658,7 +658,7 @@ Mission Section Styles
             transform: translateX(-50%);
             width: 40px;
             height: 3px;
-            background: linear-gradient(90deg, $theme-primary-color-s2, lighten($theme-primary-color-s2, 30%));
+            background: linear-gradient(90deg, $theme-primary-color-s2, color.adjust($theme-primary-color-s2, $lightness: +30%));
             border-radius: 2px;
             opacity: 0;
             transition: opacity 0.4s ease;

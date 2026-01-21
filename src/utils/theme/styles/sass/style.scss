@@ -94,6 +94,9 @@ Version:        1.0.0
 1. General
 ----------------------------------------------------------------*/
 
+// Import Sass color module for color.adjust() function
+@use "sass:color";
+
 // helpers
 @import "helpers/variables";
 @import "helpers/functions";

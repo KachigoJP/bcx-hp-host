@@ -79,6 +79,37 @@ const nextConfig: NextConfig = {
       })
     );
 
+    // Configure sass-loader to silence @import deprecation warnings
+    const rules = config.module?.rules;
+    if (rules) {
+      rules.forEach((rule: any) => {
+        if (rule.oneOf && Array.isArray(rule.oneOf)) {
+          rule.oneOf.forEach((oneOfRule: any) => {
+            if (oneOfRule.use && Array.isArray(oneOfRule.use)) {
+              oneOfRule.use.forEach((useEntry: any) => {
+                if (
+                  typeof useEntry === "object" &&
+                  useEntry.loader &&
+                  typeof useEntry.loader === "string" &&
+                  useEntry.loader.includes("sass-loader")
+                ) {
+                  useEntry.options = {
+                    ...useEntry.options,
+                    api: "modern-compiler", // Use modern Sass API instead of legacy
+                    sassOptions: {
+                      ...useEntry.options?.sassOptions,
+                      quietDeps: true, // Silence @import deprecation warnings
+                      silenceDeprecations: ["import"], // Specifically silence @import warnings
+                    },
+                  };
+                }
+              });
+            }
+          });
+        }
+      });
+    }
+
     return config;
   },
 };

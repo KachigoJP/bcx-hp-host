@@ -62,7 +62,7 @@
 		}
 
 		input {
-			background-color: transparentize($theme-primary-color, 0.95);
+			background-color: color.adjust($theme-primary-color, $alpha: -0.95);
 			height: 70px;
 			font-size: 16px;
 			font-size: calc-rem-value(16);
@@ -74,7 +74,7 @@
 		}
 
 		input:focus {
-			background-color: transparentize($theme-primary-color, 0.9);
+			background-color: color.adjust($theme-primary-color, $alpha: -0.9);
 		}
 
 		form button {

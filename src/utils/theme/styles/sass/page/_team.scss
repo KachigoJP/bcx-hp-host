@@ -652,7 +652,7 @@ Team Page Enhanced Styles
       background: linear-gradient(
         135deg,
         $theme-primary-color-s2,
-        lighten($theme-primary-color-s2, 20%)
+        color.adjust($theme-primary-color-s2, $lightness: +20%)
       );
       color: white;
       border-radius: 20px;
@@ -856,7 +856,7 @@ Team Page Enhanced Styles
     background: linear-gradient(
       135deg,
       $theme-primary-color-s2 0%,
-      lighten($theme-primary-color-s2, 15%) 100%
+      color.adjust($theme-primary-color-s2, $lightness: +15%) 100%
     );
     border-radius: 25px;
     padding: 60px 40px;
@@ -973,7 +973,7 @@ Team Page Enhanced Styles
       background: linear-gradient(
         135deg,
         $theme-primary-color-s2,
-        lighten($theme-primary-color-s2, 20%)
+        color.adjust($theme-primary-color-s2, $lightness: +20%)
       );
       color: white;
       border-radius: 20px;
@@ -1030,7 +1030,7 @@ Team Page Enhanced Styles
       background: linear-gradient(
         90deg,
         $theme-primary-color-s2,
-        lighten($theme-primary-color-s2, 30%)
+        color.adjust($theme-primary-color-s2, $lightness: +30%)
       );
       transform: scaleX(0);
       transition: transform 0.4s ease;
@@ -1093,7 +1093,7 @@ Team Page Enhanced Styles
     background: linear-gradient(
       135deg,
       $theme-primary-color-s2 0%,
-      lighten($theme-primary-color-s2, 15%) 100%
+      color.adjust($theme-primary-color-s2, $lightness: +15%) 100%
     );
     border-radius: 50%;
     display: flex;
@@ -1114,7 +1114,7 @@ Team Page Enhanced Styles
       background: linear-gradient(
         135deg,
         $theme-primary-color-s2,
-        lighten($theme-primary-color-s2, 30%)
+        color.adjust($theme-primary-color-s2, $lightness: +30%)
       );
       border-radius: 50%;
       opacity: 0;
@@ -1161,7 +1161,7 @@ Team Page Enhanced Styles
       background: linear-gradient(
         90deg,
         $theme-primary-color-s2,
-        lighten($theme-primary-color-s2, 30%)
+        color.adjust($theme-primary-color-s2, $lightness: +30%)
       );
       border-radius: 2px;
       opacity: 0;

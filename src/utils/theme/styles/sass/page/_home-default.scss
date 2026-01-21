@@ -195,13 +195,13 @@
                 .s-s2{
                     width: 58px;
                     height: 58px;
-                    @include linear-gradient-bg( to right,darken($theme-primary-color-s2, 9%), $theme-primary-color-s2);
+                    @include linear-gradient-bg( to right,color.adjust($theme-primary-color-s2, $lightness: -9%), $theme-primary-color-s2);
                     -webkit-animation: rotate3d 4s linear infinite;
                     animation: rotate3d 4s linear infinite;
                 }
 
                 .s-s2{
-                    @include linear-gradient-bg( to right,darken($theme-primary-color, 9%), $theme-primary-color);
+                    @include linear-gradient-bg( to right,color.adjust($theme-primary-color, $lightness: -9%), $theme-primary-color);
                     position: relative;
                     left: 58px;
                     -webkit-animation: rotate3dd 4s linear infinite;
@@ -492,13 +492,13 @@
                 position: absolute;
                 left: 20px;
                 top: 20px;
-                @include linear-gradient-bg( to right, darken($theme-primary-color, 9%), $theme-primary-color);
+                @include linear-gradient-bg( to right, color.adjust($theme-primary-color, $lightness: -9%), $theme-primary-color);
                 padding: 4px 20px;
                 border-radius: 4px;
                 color: $white;
             }
             .thumb-2{
-                @include linear-gradient-bg( to right, darken($theme-primary-color-s2, 9%), $theme-primary-color-s2);
+                @include linear-gradient-bg( to right, color.adjust($theme-primary-color-s2, $lightness: -9%), $theme-primary-color-s2);
             }
             img{
                 border-radius: 15px; 
@@ -778,7 +778,7 @@
 
         .slick-prev,
         .slick-next {
-            background-color: transparentize($theme-primary-color, 0.3);
+            background-color: color.adjust($theme-primary-color, $alpha: -0.3);
             width:45px;
             height: 45px;
             z-index: 10;
@@ -839,7 +839,7 @@
 
      .wpo-cta-section {
          padding: 100px 80px;
-         @include linear-gradient-bg( to right,transparentize($theme-primary-color, 0.25), darken($theme-primary-color, 6%));
+         @include linear-gradient-bg( to right,color.adjust($theme-primary-color, $alpha: -0.25), color.adjust($theme-primary-color, $lightness: -6%));
          position: relative;
          z-index: 1;
          border-radius: 20px;
@@ -1144,13 +1144,13 @@
                 position: absolute;
                 left: 20px;
                 top: 20px;
-                @include linear-gradient-bg( to right, $theme-primary-color, darken($theme-primary-color, 9%));
+                @include linear-gradient-bg( to right, $theme-primary-color, color.adjust($theme-primary-color, $lightness: -9%));
                 padding: 4px 20px;
                 border-radius: 4px;
                 color: $white;
             }
             .thumb-2{
-                @include linear-gradient-bg( to right, $theme-primary-color-s2, darken($theme-primary-color-s2, 9%));
+                @include linear-gradient-bg( to right, $theme-primary-color-s2, color.adjust($theme-primary-color-s2, $lightness: -9%));
             }
     }
 

@@ -150,7 +150,7 @@
      }
 
     .wpo-cta-section{
-        @include linear-gradient-bg( to right, darken($theme-primary-color-s2, 6%), transparentize($theme-primary-color-s2, 0.25));
+        @include linear-gradient-bg( to right, color.adjust($theme-primary-color-s2, $lightness: -6%), color.adjust($theme-primary-color-s2, $alpha: -0.25));
 
         .volunteer-img {
             bottom: -45px;
@@ -353,7 +353,7 @@
                 top: 50%;
                 transform: translateY(-50%);
                 content: "";
-                background: transparentize($theme-primary-color-s2, .4);
+                background: color.adjust($theme-primary-color-s2, $alpha: -0.4);
                 width: 10px;
                 height: 120px;
                 border-radius:10px 0 0 10px;

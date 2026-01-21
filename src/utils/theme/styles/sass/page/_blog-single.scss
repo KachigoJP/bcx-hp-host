@@ -151,7 +151,7 @@
 				content: "\f12a";
 				font-size: 20px;
 				font-size: calc-rem-value(20);
-				color: transparentize($white, 0.5);
+				color: color.adjust($white, $alpha: -0.5);
 				position: absolute;
 				left: 50%;
 				top: -30px;
