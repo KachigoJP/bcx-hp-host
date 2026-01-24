@@ -1,6 +1,6 @@
 import { StrapiImage } from "./strapi_types";
 
-export interface ContactInfo {
+export interface GlobalContactInfo {
   first_name?: string;
   last_name?: string;
   middle_name?: string;
@@ -18,7 +18,7 @@ export interface GlobalInfo {
       attributes: StrapiImage;
     };
   };
-  contact?: ContactInfo[];
+  contact?: GlobalContactInfo[];
   // Legacy fields for backward compatibility (if needed)
   [key: string]: any;
 }

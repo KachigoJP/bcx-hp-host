@@ -1,4 +1,4 @@
-import { globalService } from "@/lib/strapi/services";
+import { globalService, loginService, seoService } from "@/lib/strapi/services";
 // import { seoService } from "@/lib/strapi/services"; // SEO content type not created yet
 import { convertGlobalInfoToLayoutData } from "@/utils/apps";
 import { GlobalInfo, LoginContent } from "@/utils/interfaces";
@@ -62,7 +62,7 @@ const LoginPage: React.FC<LoginProps> = (props) => {
     const router = useRouter();
     const [globalData, setGlobalData] = useState<GlobalInfo | null>(null);
     const [loginContent, setLoginContent] = useState<LoginContent | null>(null);
-    const [seoData] = useState<SEOProps | null>(null);
+    const [seoData, setSeoData] = useState<SEOProps | null>(null);
     const [formData, setFormData] = useState({
         identifier: "",
         password: "",

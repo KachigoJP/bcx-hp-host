@@ -61,7 +61,7 @@ const HomePage: React.FC = () => {
           [userData.code]: userData,
         }));
         if (userData.money === userData.transfered) {
-          setValidUsers((prev: any) => ({
+          _setValidUsers((prev: any) => ({
             ...prev,
             [userData.code]: userData,
           }));

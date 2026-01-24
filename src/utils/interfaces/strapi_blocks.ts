@@ -83,6 +83,10 @@ export interface StrapiImageBlock extends StrapiBlock {
     ext: string;
     mime: string;
     size: number;
+    previewUrl?: string;
+    provider: string;
+    createdAt: string;
+    updatedAt: string;
   };
 }
 

@@ -1,4 +1,4 @@
-import { globalService } from "@/lib/strapi/services";
+import { globalService, joinService, seoService } from "@/lib/strapi/services";
 // import { seoService } from "@/lib/strapi/services"; // SEO content type not created yet
 import { convertGlobalInfoToLayoutData } from "@/utils/apps";
 import { GlobalInfo, JoinContent } from "@/utils/interfaces";
@@ -117,7 +117,7 @@ export const getServerSideProps = async () => {
 const JoinPage: React.FC<JoinProps> = (props) => {
     const [globalData, setGlobalData] = useState<GlobalInfo | null>(null);
     const [joinContent, setJoinContent] = useState<JoinContent | null>(null);
-    const [seoData] = useState<SEOProps | null>(null);
+    const [seoData, setSeoData] = useState<SEOProps | null>(null);
 
     useEffect(() => {
         const fetchData = async () => {

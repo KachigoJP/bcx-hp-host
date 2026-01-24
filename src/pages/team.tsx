@@ -1,5 +1,4 @@
-import { globalService } from "@/lib/strapi/services";
-// import { seoService } from "@/lib/strapi/services"; // SEO content type not created yet
+import { globalService, seoService, teamService } from "@/lib/strapi/services";
 import { convertGlobalInfoToLayoutData, getStrapiImageUrl } from "@/utils/apps";
 import {
   GlobalInfo,
@@ -190,7 +189,7 @@ export const getServerSideProps = async () => {
 const TeamPage: React.FC<TeamProps> = props => {
   const [globalData, setGlobalData] = useState<GlobalInfo | null>(null);
   const [teamContent, setTeamContent] = useState<TeamContent | null>(null);
-  const [seoData] = useState<SEOProps | null>(null);
+  const [seoData, setSeoData] = useState<SEOProps | null>(null);
   const teamMembersRef = useRef<HTMLDivElement>(null);
   const teamValuesRef = useRef<HTMLDivElement>(null);
 

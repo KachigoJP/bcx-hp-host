@@ -1,4 +1,4 @@
-import { globalService } from "@/lib/strapi/services";
+import { globalService, hikingService } from "@/lib/strapi/services";
 // import { seoService } from "@/lib/strapi/services"; // SEO content type not created yet
 import { convertGlobalInfoToLayoutData, getStrapiImageUrl } from "@/utils/apps";
 import { GlobalInfo, HikingContent, HikingRouteSection, ImageListTextItems, PopularRouteSection, SectionDetailImageSectionIconListTextItems, SectionDetailSectionIconItems } from "@/utils/interfaces";

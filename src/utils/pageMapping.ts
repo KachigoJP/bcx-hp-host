@@ -1,4 +1,7 @@
 import { pageService } from "@/lib/strapi/services";
+import { createLogger } from "@/utils/logger";
+
+const logger = createLogger("Utils:PageMapping");
 
 /**
  * Page mapping type: slug -> documentId
@@ -12,28 +15,53 @@ export type PageMapping = Record<string, string>;
  */
 export async function getPageMapping(): Promise<PageMapping> {
   try {
+    logger.debug("Fetching page mapping from Strapi");
+
     const pagesResponse = await pageService.getAll({
-      fields: ["slug", "documentId"],
+      fields: ["slug"],
       pagination: { pageSize: 100 }, // Adjust based on your total number of pages
       publicationState: "live",
       locale: "vi-VN",
     });
 
+    logger.debug("Pages response received", {
+      pageCount: pagesResponse.data?.length,
+      firstPage: pagesResponse.data?.[0],
+    });
+
     // Create the mapping object
     const mapping: PageMapping = {};
 
+    if (!pagesResponse.data || !Array.isArray(pagesResponse.data)) {
+      logger.warn("No pages data received from Strapi");
+      return mapping;
+    }
+
     pagesResponse.data.forEach((page) => {
-      const slug = page.attributes.slug;
-      const documentId = page.attributes.documentId;
+      // In Strapi v5, documentId is at the root level, slug is in attributes
+      const slug = page.attributes?.slug;
+      const documentId = page.documentId; // documentId is at root level, not in attributes
 
       if (slug && documentId) {
         mapping[slug] = documentId;
+        logger.debug("Added page to mapping", { slug, documentId });
+      } else {
+        logger.warn("Page missing slug or documentId", {
+          hasSlug: !!slug,
+          hasDocumentId: !!documentId,
+          page,
+        });
       }
+    });
+
+    logger.info("Page mapping created successfully", {
+      pageCount: Object.keys(mapping).length,
+      slugs: Object.keys(mapping),
     });
 
     return mapping;
   } catch (error) {
-    console.error("Error fetching page mapping:", error);
+    logger.error("Error fetching page mapping", error as Error);
     return {};
   }
 }

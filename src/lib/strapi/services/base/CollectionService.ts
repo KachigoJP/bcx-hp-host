@@ -7,6 +7,7 @@ import axios from "axios";
 import qs from "qs";
 import { getStrapiHeaders, getStrapiUrl } from "../../config";
 import { BaseService } from "./BaseService";
+import { createLogger } from "@/utils/logger";
 
 /**
  * Collection Service
@@ -15,8 +16,11 @@ import { BaseService } from "./BaseService";
  */
 
 export class CollectionService<T> extends BaseService<T> {
+  protected logger;
+
   constructor(endpoint: string) {
     super(endpoint);
+    this.logger = createLogger(`Strapi:Collection:${endpoint}`);
   }
 
   /**
@@ -124,9 +128,11 @@ export class CollectionService<T> extends BaseService<T> {
         },
       });
 
-      console.log("=== getBySlug Debug ===");
-      console.log("Request URL:", requestUrl);
-      console.log("Query Params:", JSON.stringify(requestParams, null, 2));
+      this.logger.debug("Fetching item by slug", {
+        slug,
+        requestUrl,
+        params: requestParams,
+      });
 
       const response = await axios.get<StrapiCollectionResponse<T>>(
         requestUrl,
@@ -139,12 +145,12 @@ export class CollectionService<T> extends BaseService<T> {
         }
       );
 
-      // Debug response details
-      console.log("Response Status:", response.status);
-      console.log("Response URL:", response.config.url);
-      console.log("Full Request URL:", response.request?.path || response.config.url);
-      console.log("Response Data Count:", response.data.data.length);
-      console.log("===================");
+      this.logger.debug("Item fetched successfully", {
+        slug,
+        status: response.status,
+        dataCount: response.data.data.length,
+        fullUrl: response.request?.path || response.config.url,
+      });
 
       if (response.data.data.length === 0) {
         throw new Error(`Item not found with slug: ${slug}`);

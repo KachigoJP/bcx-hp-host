@@ -1,5 +1,4 @@
-import { globalService } from "@/lib/strapi/services";
-// import { seoService } from "@/lib/strapi/services"; // SEO content type not created yet
+import { globalService, seoService, workshopService } from "@/lib/strapi/services";
 import { convertGlobalInfoToLayoutData, getStrapiImageUrl } from "@/utils/apps";
 import {
     GlobalInfo,
@@ -287,7 +286,7 @@ export const getServerSideProps = async () => {
 const WorkshopPage: React.FC<WorkshopProps> = (props) => {
     const [globalData, setGlobalData] = useState<GlobalInfo | null>(null);
     const [workshopContent, setWorkshopContent] = useState<WorkshopContent | null>(null);
-    const [seoData] = useState<SEOProps | null>(null);
+    const [seoData, setSeoData] = useState<SEOProps | null>(null);
 
     useEffect(() => {
         const fetchGlobalData = async () => {

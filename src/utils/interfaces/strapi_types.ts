@@ -17,19 +17,21 @@ export interface StrapiResponse<T> {
   };
 }
 
-// Single item response
+// Single item response (Strapi v5 includes documentId)
 export interface StrapiSingleResponse<T> {
   data: {
     id: number;
+    documentId: string; // Strapi v5 document ID
     attributes: T;
   };
   meta?: Record<string, any>;
 }
 
-// Collection response
+// Collection response (Strapi v5 includes documentId)
 export interface StrapiCollectionResponse<T> {
   data: Array<{
     id: number;
+    documentId: string; // Strapi v5 document ID
     attributes: T;
   }>;
   meta?: {

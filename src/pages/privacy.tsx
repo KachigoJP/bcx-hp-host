@@ -1,5 +1,4 @@
-import { globalService } from "@/lib/strapi/services";
-// import { seoService } from "@/lib/strapi/services"; // SEO content type not created yet
+import { globalService, privacyService, seoService } from "@/lib/strapi/services";
 import { convertGlobalInfoToLayoutData } from "@/utils/apps";
 import { GlobalInfo, LegalSection, PrivacyContent } from "@/utils/interfaces";
 import Layout, { LayoutProps } from "@components/layout";
@@ -181,7 +180,7 @@ export const getServerSideProps = async () => {
 const PrivacyPage: React.FC<PrivacyProps> = props => {
   const [globalData, setGlobalData] = useState<GlobalInfo | null>(null);
   const [privacyContent, setPrivacyContent] = useState<PrivacyContent | null>(null);
-  const [seoData] = useState<SEOProps | null>(null);
+  const [seoData, setSeoData] = useState<SEOProps | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {

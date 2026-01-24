@@ -1,0 +1,27 @@
+{
+  "title": "Thành Tựu Của Chúng Tôi",
+  "subtitle": "Những con số ấn tượng",
+  "description": "Những thành tựu đạt được trong hành trình xây dựng cộng đồng và lan tỏa tình yêu thiên nhiên.",
+  "achievements": [
+    {
+      "number": "500+",
+      "label": "Thành viên đã tham gia",
+      "icon": "fi flaticon-user"
+    },
+    {
+      "number": "50+",
+      "label": "Sự kiện đã tổ chức",
+      "icon": "fi flaticon-calendar"
+    },
+    {
+      "number": "20+",
+      "label": "Đối tác đồng hành",
+      "icon": "fi flaticon-checked"
+    },
+    {
+      "number": "15+",
+      "label": "Năm hoạt động",
+      "icon": "fi flaticon-forest"
+    }
+  ]
+}

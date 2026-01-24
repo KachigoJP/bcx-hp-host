@@ -1,5 +1,4 @@
-import { globalService } from "@/lib/strapi/services";
-// import { seoService } from "@/lib/strapi/services"; // SEO content type not created yet
+import { globalService, policyService, seoService } from "@/lib/strapi/services";
 import { convertGlobalInfoToLayoutData } from "@/utils/apps";
 import {
   ButtonDetail,
@@ -253,7 +252,7 @@ export const getServerSideProps = async () => {
 const PolicyPage: React.FC<PolicyProps> = props => {
   const [globalData, setGlobalData] = useState<GlobalInfo | null>(null);
   const [policyContent, setPolicyContent] = useState<PolicyContent | null>(null);
-  const [seoData] = useState<SEOProps | null>(null);
+  const [seoData, setSeoData] = useState<SEOProps | null>(null);
   const missionVisionRef = useRef<HTMLDivElement>(null);
   const coreValuesRef = useRef<HTMLDivElement>(null);
   const activityPoliciesRef = useRef<HTMLDivElement>(null);

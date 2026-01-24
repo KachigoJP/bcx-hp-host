@@ -1,4 +1,4 @@
-import { globalService } from "@/lib/strapi/services";
+import { donateService, globalService, seoService } from "@/lib/strapi/services";
 // import { seoService } from "@/lib/strapi/services"; // SEO content type not created yet
 import { convertGlobalInfoToLayoutData } from "@/utils/apps";
 import { DonateContent, GlobalInfo } from "@/utils/interfaces";
@@ -192,7 +192,7 @@ export const getServerSideProps = async () => {
 const DonatePage: React.FC<DonateProps> = (props) => {
     const [globalData, setGlobalData] = useState<GlobalInfo | null>(null);
     const [donateContent, setDonateContent] = useState<DonateContent | null>(null);
-    const [seoData] = useState<SEOProps | null>(null);
+    const [seoData, setSeoData] = useState<SEOProps | null>(null);
 
     useEffect(() => {
         const fetchData = async () => {

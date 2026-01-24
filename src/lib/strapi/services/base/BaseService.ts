@@ -5,6 +5,7 @@ import {
 } from "@/utils/interfaces/strapi_types";
 import axios from "axios";
 import { getStrapiHeaders, getStrapiUrl } from "../../config";
+import { createLogger } from "@/utils/logger";
 
 /**
  * Base Service
@@ -14,9 +15,11 @@ import { getStrapiHeaders, getStrapiUrl } from "../../config";
 
 export abstract class BaseService<T> {
   protected readonly endpoint: string;
+  protected logger;
 
   constructor(endpoint: string) {
     this.endpoint = endpoint;
+    this.logger = createLogger(`Strapi:${endpoint}`);
   }
 
   /**
@@ -73,7 +76,14 @@ export abstract class BaseService<T> {
    * Handle and format errors
    */
   protected handleError(error: any): StrapiError {
-    console.log("response", JSON.stringify(error.response?.config));
+    this.logger.error("Strapi API error", error, {
+      endpoint: this.endpoint,
+      url: error.response?.config?.url,
+      method: error.response?.config?.method,
+      status: error.response?.status,
+      statusText: error.response?.statusText,
+    });
+
     if (error.response?.data?.error) {
       return error.response.data.error;
     }

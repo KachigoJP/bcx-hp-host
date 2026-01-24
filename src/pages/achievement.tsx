@@ -1,4 +1,4 @@
-import { achievementService, globalService } from "@/lib/strapi/services";
+import { aboutService, achievementService, globalService } from "@/lib/strapi/services";
 // import { seoService } from "@/lib/strapi/services"; // SEO content type not created yet
 import { convertGlobalInfoToLayoutData, getYearFromDate } from "@/utils/apps";
 import {
