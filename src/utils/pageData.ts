@@ -13,6 +13,7 @@ import { SEOProps } from "@components/layout/SEO/interface";
 import { LayoutProps } from "@components/layout";
 import { createLogger } from "@/utils/logger";
 import { getPageMapping, getDocumentIdBySlug } from "./pageMapping";
+import { trackSuccess, trackFailure } from "@/utils/dataMonitoring";
 
 const logger = createLogger("Utils:PageData");
 
@@ -79,6 +80,7 @@ export async function fetchPageBySlug(slug: string): Promise<{
   logger.debug("Fetching page by slug", { slug });
 
   const layout = getDefaultLayoutData();
+  const startTime = performance.now();
 
   try {
     const pageResponse = await pageService.getBySlug(slug, {
@@ -92,6 +94,7 @@ export async function fetchPageBySlug(slug: string): Promise<{
 
     if (!pageData) {
       logger.warn("Page data not found", { slug });
+      trackFailure(`page-${slug}`, new Error("Page data not found"));
       return {
         layout,
         seo: transformSEOData(null),
@@ -100,7 +103,9 @@ export async function fetchPageBySlug(slug: string): Promise<{
       };
     }
 
+    const duration = performance.now() - startTime;
     logger.info("Page data fetched successfully", { slug, title: pageData.title });
+    trackSuccess(`page-${slug}`, "strapi", duration);
 
     return {
       layout,
@@ -109,7 +114,9 @@ export async function fetchPageBySlug(slug: string): Promise<{
       slug,
     };
   } catch (error) {
+    const duration = performance.now() - startTime;
     logger.error("Failed to fetch page by slug", error as Error, { slug });
+    trackFailure(`page-${slug}`, error as Error, duration);
     return {
       layout,
       seo: transformSEOData(null),
