@@ -223,10 +223,39 @@ export async function fetchPageOptimized(slug: string): Promise<{
   }
 }
 
+/**
+ * Fetch page data for Next.js getStaticProps
+ * Returns props in the format expected by Next.js
+ */
+export async function getStaticPageProps(
+  slug: string
+): Promise<
+  | { props: { layout: LayoutProps; seo: SEOProps; pageData: PageContent }; revalidate: number }
+  | { notFound: true }
+> {
+  const result = await fetchPageBySlug(slug);
+
+  if (!result.pageData) {
+    return {
+      notFound: true,
+    };
+  }
+
+  return {
+    props: {
+      layout: result.layout,
+      seo: result.seo,
+      pageData: result.pageData,
+    },
+    revalidate: 60, // Revalidate every 60 seconds (ISR)
+  };
+}
+
 export default {
   fetchPageBySlug,
   fetchPageByDocumentId,
   fetchPageOptimized,
   transformSEOData,
+  getStaticPageProps,
   PAGE_POPULATE_CONFIG,
 };

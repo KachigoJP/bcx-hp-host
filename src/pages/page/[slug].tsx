@@ -1,13 +1,10 @@
-import React from "react";
 import { GetStaticPaths, GetStaticProps } from "next";
-import { DynamicPageRenderer, DynamicPageProps } from "@/components/Page/DynamicPageRenderer";
+import DynamicPage, { DynamicPageProps } from "@/components/Page/DynamicPage";
 import { getPageMapping, getDocumentIdBySlug } from "@/utils/pageMapping";
 import { fetchPageByDocumentId } from "@/utils/pageData";
 import { createLogger } from "@/utils/logger";
 
-const logger = createLogger("Pages:DynamicPage");
-
-logger.debug("Dynamic page module loaded");
+const logger = createLogger("Pages:Page:DynamicPage");
 
 // Generate static paths using the page mapping
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -20,7 +17,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
     logger.debug("Page mapping received", {
       pageCount: Object.keys(pageMapping).length,
-      pageMapping
     });
 
     const slugs = Object.keys(pageMapping);
@@ -86,7 +82,6 @@ export const getStaticProps: GetStaticProps<DynamicPageProps> = async ({
         layout: result.layout,
         seo: result.seo,
         pageData: result.pageData,
-        slug: result.slug || slug,
       },
       revalidate: 60, // Revalidate every 60 seconds (ISR)
     };
@@ -96,10 +91,6 @@ export const getStaticProps: GetStaticProps<DynamicPageProps> = async ({
       notFound: true,
     };
   }
-};
-
-const DynamicPage: React.FC<DynamicPageProps> = (props) => {
-  return <DynamicPageRenderer {...props} />;
 };
 
 export default DynamicPage;
