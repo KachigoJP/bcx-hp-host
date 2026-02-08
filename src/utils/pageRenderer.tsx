@@ -11,6 +11,10 @@ import Achievements, {
 import CTA, { CTAProps } from "@components/containers/Home/CTA";
 import Hero, { HeroProps } from "@components/containers/Home/Hero";
 import Service, { ServiceProps } from "@components/containers/Home/Service";
+import Testimonial, {
+  TestimonialProps,
+} from "@components/containers/Home/Testimonial";
+import Partner, { PartnerProps } from "@components/containers/Home/Partner";
 
 /**
  * Transform SEO data from Strapi to SEO component props
@@ -145,22 +149,39 @@ export const renderSection = (
       break;
 
     case "testimonials":
-      // Render testimonials if you have the data structure
-      return (
-        <div key={key} className="section">
-          <h2>{section.title}</h2>
-          {section.description && <p>{section.description}</p>}
-        </div>
-      );
+      if (section.testimonials && section.testimonials.length > 0) {
+        const testimonialProps: TestimonialProps = {
+          title: section.title,
+          subtitle: section.subtitle || "",
+          description: section.description || "",
+          items: section.testimonials.map((testimonial) => ({
+            image: testimonial.avatar?.data?.[0]
+              ? getStrapiImageUrl(testimonial.avatar.data[0].attributes.url || "")
+              : "/images/testimonial-member-1.jpg",
+            title: testimonial.title,
+            subtitle: testimonial.subtitle || "",
+            description: testimonial.description || "",
+          })),
+        };
+        return <Testimonial key={key} {...testimonialProps} />;
+      }
+      break;
 
     case "parters":
-      // Render partners section
-      return (
-        <div key={key} className="section">
-          <h2>{section.title}</h2>
-          {section.description && <p>{section.description}</p>}
-        </div>
-      );
+      if (section.partners && section.partners.length > 0) {
+        const partnerProps: PartnerProps = {
+          title: section.title,
+          subtitle: section.subtitle || "",
+          description: section.description || "",
+          items: section.partners.map((partner) =>
+            partner.logo?.data?.[0]
+              ? getStrapiImageUrl(partner.logo.data[0].attributes.url || "")
+              : "/assets/images/default/partner.jpg"
+          ),
+        };
+        return <Partner key={key} {...partnerProps} />;
+      }
+      break;
 
     case "projects":
       // Render projects section

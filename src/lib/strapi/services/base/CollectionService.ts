@@ -67,7 +67,7 @@ export class CollectionService<T> extends BaseService<T> {
    * Get all items with optional filters
    */
   async getAll(
-    params?: StrapiQueryParams
+    params?: StrapiQueryParams,
   ): Promise<StrapiCollectionResponse<T>> {
     try {
       const response = await axios.get<StrapiCollectionResponse<T>>(
@@ -78,7 +78,7 @@ export class CollectionService<T> extends BaseService<T> {
           paramsSerializer: (params) => {
             return qs.stringify(params, { encodeValuesOnly: true });
           },
-        }
+        },
       );
       return response.data;
     } catch (error: any) {
@@ -91,7 +91,7 @@ export class CollectionService<T> extends BaseService<T> {
    */
   async getById(
     id: number | string,
-    params?: StrapiQueryParams
+    params?: StrapiQueryParams,
   ): Promise<StrapiSingleResponse<T>> {
     try {
       const response = await axios.get<StrapiSingleResponse<T>>(
@@ -102,7 +102,7 @@ export class CollectionService<T> extends BaseService<T> {
           paramsSerializer: (params) => {
             return qs.stringify(params, { encodeValuesOnly: true });
           },
-        }
+        },
       );
       return response.data;
     } catch (error: any) {
@@ -116,7 +116,7 @@ export class CollectionService<T> extends BaseService<T> {
    */
   async getBySlug(
     slug: string,
-    params?: StrapiQueryParams
+    params?: StrapiQueryParams,
   ): Promise<StrapiSingleResponse<T>> {
     try {
       const requestUrl = getStrapiUrl(this.endpoint);
@@ -128,12 +128,6 @@ export class CollectionService<T> extends BaseService<T> {
         },
       });
 
-      this.logger.debug("Fetching item by slug", {
-        slug,
-        requestUrl,
-        params: requestParams,
-      });
-
       const response = await axios.get<StrapiCollectionResponse<T>>(
         requestUrl,
         {
@@ -142,7 +136,7 @@ export class CollectionService<T> extends BaseService<T> {
           paramsSerializer: (params) => {
             return qs.stringify(params, { encodeValuesOnly: true });
           },
-        }
+        },
       );
 
       this.logger.debug("Item fetched successfully", {
@@ -170,7 +164,7 @@ export class CollectionService<T> extends BaseService<T> {
    */
   async create(
     data: Partial<T>,
-    token?: string
+    token?: string,
   ): Promise<StrapiSingleResponse<T>> {
     try {
       const response = await axios.post<StrapiSingleResponse<T>>(
@@ -178,7 +172,7 @@ export class CollectionService<T> extends BaseService<T> {
         { data },
         {
           headers: getStrapiHeaders(token),
-        }
+        },
       );
       return response.data;
     } catch (error: any) {
@@ -192,7 +186,7 @@ export class CollectionService<T> extends BaseService<T> {
   async update(
     id: number | string,
     data: Partial<T>,
-    token?: string
+    token?: string,
   ): Promise<StrapiSingleResponse<T>> {
     try {
       const response = await axios.put<StrapiSingleResponse<T>>(
@@ -200,7 +194,7 @@ export class CollectionService<T> extends BaseService<T> {
         { data },
         {
           headers: getStrapiHeaders(token),
-        }
+        },
       );
       return response.data;
     } catch (error: any) {

@@ -11,11 +11,11 @@
  */
 
 export enum LogLevel {
-  DEBUG = 0,
-  INFO = 1,
-  WARN = 2,
-  ERROR = 3,
-  NONE = 4,
+  DEBUG = "DEBUG",
+  INFO = "INFO",
+  WARN = "WARN",
+  ERROR = "ERROR",
+  NONE = "NONE",
 }
 
 interface LoggerConfig {
@@ -124,7 +124,7 @@ class Logger {
     level: LogLevel,
     message: string,
     context?: LogContext,
-    error?: Error
+    error?: Error,
   ): void {
     // Skip if log level is below configured level
     if (level < this.config.level) return;
@@ -144,27 +144,29 @@ class Logger {
     logMessage += message;
 
     // Choose console method based on level
-    const consoleMethod = {
-      [LogLevel.DEBUG]: console.debug,
-      [LogLevel.INFO]: console.info,
-      [LogLevel.WARN]: console.warn,
-      [LogLevel.ERROR]: console.error,
-      [LogLevel.NONE]: () => {},
-    }[level] || console.log;
+    const consoleMethod =
+      {
+        [LogLevel.DEBUG]: console.debug,
+        [LogLevel.INFO]: console.info,
+        [LogLevel.WARN]: console.warn,
+        [LogLevel.ERROR]: console.error,
+        [LogLevel.NONE]: () => {},
+      }[level] || console.log;
 
     // Log message
     consoleMethod(logMessage);
 
     // Log context if provided
-    if (context && Object.keys(context).length > 0) {
-      consoleMethod("Context:", context);
-    }
 
     // Log error stack if provided
     if (error) {
-      consoleMethod("Error:", error);
-      if (error.stack) {
-        consoleMethod(error.stack);
+      consoleMethod(error);
+      // if (error.stack) {
+      //   consoleMethod(error.stack);
+      // }
+    } else {
+      if (context && Object.keys(context).length > 0) {
+        consoleMethod(level, context);
       }
     }
   }

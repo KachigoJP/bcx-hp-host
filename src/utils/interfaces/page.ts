@@ -74,6 +74,33 @@ export interface PageCTA {
   action?: string;
 }
 
+// Testimonial component interface (ui.testimonial)
+export interface PageTestimonial {
+  title: string;
+  subtitle?: string;
+  description?: string;
+  avatar?: {
+    data: Array<{
+      id: number;
+      attributes: StrapiImage;
+    }>;
+  };
+}
+
+// Partner component interface (ui.partner)
+export interface PagePartner {
+  logo?: {
+    data: Array<{
+      id: number;
+      attributes: StrapiImage;
+    }>;
+  };
+  title?: string;
+  subtitle?: string;
+  description?: string;
+  icon?: string;
+}
+
 // Section component interface (shared.section)
 export interface PageSection {
   position: number;
@@ -105,6 +132,8 @@ export interface PageSection {
   services?: PageService[];
   funfact?: PageFunfact[];
   CTA?: PageCTA;
+  testimonials?: PageTestimonial[];
+  partners?: PagePartner[];
 }
 
 // SEO component interface (shared.seo)

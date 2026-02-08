@@ -144,7 +144,7 @@
   /*navbar collaps less then 992px*/
   /*** cart-search-contact ***/
   background-color: transparent;
-  z-index: 99;
+  z-index: 1000;
   position: relative;
 }
 
@@ -165,7 +165,7 @@
   position: fixed;
   left: 0;
   top: -400px;
-  z-index: 9999;
+  z-index: 1000;
   opacity: 0;
   visibility: hidden;
   -webkit-transition: all 1s;
@@ -496,7 +496,7 @@
 .wpo-site-header .header-right {
   display: flex;
   justify-content: flex-end;
-  z-index: 991;
+  z-index: 1000;
   position: relative;
   align-items: center;
 }
@@ -1071,7 +1071,7 @@
       position: fixed;
       left: -320px;
       top: 0px;
-      z-index: 999999;
+      z-index: 1001;
       opacity: 0;
       visibility: hidden;
 
@@ -1358,13 +1358,13 @@
 
 .fixed-navbar {
   position: relative;
-  z-index: 99999;
+  z-index: 1000;
 }
 
 .fixed-navbar.active .wpo-site-header,
 .fixed-navbar.active .header-style-2 {
   position: fixed;
-  z-index: 555;
+  z-index: 1000;
   top: 0;
   left: 0;
   width: 100%;
@@ -1389,7 +1389,7 @@
   position: fixed;
   left: -300px;
   top: 0;
-  z-index: 9999;
+  z-index: 1001;
   height: 100vh;
   width: 300px;
   background: #191933;

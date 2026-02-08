@@ -13,7 +13,6 @@ import { SEOProps } from "@components/layout/SEO/interface";
 import { LayoutProps } from "@components/layout";
 import { createLogger } from "@/utils/logger";
 import { getPageMapping, getDocumentIdBySlug } from "./pageMapping";
-import { trackSuccess, trackFailure } from "@/utils/dataMonitoring";
 
 const logger = createLogger("Utils:PageData");
 
@@ -46,7 +45,10 @@ export const PAGE_POPULATE_CONFIG = {
 /**
  * Transform page SEO data to SEOProps format
  */
-export function transformSEOData(pageData: PageContent | null, defaultTitle?: string): SEOProps {
+export function transformSEOData(
+  pageData: PageContent | null,
+  defaultTitle?: string,
+): SEOProps {
   if (!pageData?.seo) {
     return {
       metadata: {
@@ -77,10 +79,7 @@ export async function fetchPageBySlug(slug: string): Promise<{
   pageData: PageContent | null;
   slug: string;
 }> {
-  logger.debug("Fetching page by slug", { slug });
-
   const layout = getDefaultLayoutData();
-  const startTime = performance.now();
 
   try {
     const pageResponse = await pageService.getBySlug(slug, {
@@ -94,7 +93,6 @@ export async function fetchPageBySlug(slug: string): Promise<{
 
     if (!pageData) {
       logger.warn("Page data not found", { slug });
-      trackFailure(`page-${slug}`, new Error("Page data not found"));
       return {
         layout,
         seo: transformSEOData(null),
@@ -103,9 +101,10 @@ export async function fetchPageBySlug(slug: string): Promise<{
       };
     }
 
-    const duration = performance.now() - startTime;
-    logger.info("Page data fetched successfully", { slug, title: pageData.title });
-    trackSuccess(`page-${slug}`, "strapi", duration);
+    logger.info("Page data fetched successfully", {
+      slug,
+      title: pageData.title,
+    });
 
     return {
       layout,
@@ -113,10 +112,7 @@ export async function fetchPageBySlug(slug: string): Promise<{
       pageData,
       slug,
     };
-  } catch (error) {
-    const duration = performance.now() - startTime;
-    logger.error("Failed to fetch page by slug", error as Error, { slug });
-    trackFailure(`page-${slug}`, error as Error, duration);
+  } catch {
     return {
       layout,
       seo: transformSEOData(null),
@@ -130,7 +126,10 @@ export async function fetchPageBySlug(slug: string): Promise<{
  * Fetch page data by documentId (more efficient for known IDs)
  * Returns layout, SEO, and page data
  */
-export async function fetchPageByDocumentId(documentId: string, slug?: string): Promise<{
+export async function fetchPageByDocumentId(
+  documentId: string,
+  slug?: string,
+): Promise<{
   layout: LayoutProps;
   seo: SEOProps;
   pageData: PageContent | null;
@@ -226,26 +225,22 @@ export async function fetchPageOptimized(slug: string): Promise<{
 /**
  * Fetch page data for Next.js getStaticProps
  * Returns props in the format expected by Next.js
+ * Always returns props (never returns notFound) to show skeleton on error
  */
-export async function getStaticPageProps(
-  slug: string
-): Promise<
-  | { props: { layout: LayoutProps; seo: SEOProps; pageData: PageContent }; revalidate: number }
-  | { notFound: true }
-> {
+export async function getStaticPageProps(slug: string): Promise<{
+  props: { layout: LayoutProps; seo: SEOProps; pageData: PageContent | null; slug: string };
+  revalidate: number;
+}> {
   const result = await fetchPageBySlug(slug);
 
-  if (!result.pageData) {
-    return {
-      notFound: true,
-    };
-  }
-
+  // Always return props, even if pageData is null
+  // DynamicPage component will show skeleton loader when pageData is null
   return {
     props: {
       layout: result.layout,
       seo: result.seo,
       pageData: result.pageData,
+      slug, // Include slug for caching
     },
     revalidate: 60, // Revalidate every 60 seconds (ISR)
   };

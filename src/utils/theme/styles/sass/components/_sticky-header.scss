@@ -3,7 +3,7 @@
 	position: fixed;
 	left: 0;
 	top: -200px;
-	z-index: 9999;
+	z-index: 1000;
 	opacity: 0;
 	@include transition-time(0.7s);
 }
