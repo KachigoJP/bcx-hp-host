@@ -1,21 +1,24 @@
+@use "sass:color";
+@use "../helpers" as helpers;
+
 .form {
     input,
     textarea,
     select {
-        border-color: color.adjust($black, $lightness: +75%);
+        border-color: color.adjust(helpers.$black, $lightness: +75%);
         border-radius: 0;
         outline: 0;
         box-shadow: none;
-        color: color.adjust($black, $lightness: +35%);
+        color: color.adjust(helpers.$black, $lightness: +35%);
         font-style: normal;
 
         &:focus {
-            border-color: $theme-primary-color;
-            @include round-box-shadow( color.adjust($theme-primary-color, $lightness: +10%), 5px, 0 );
+            border-color: helpers.$theme-primary-color;
+            @include helpers.round-box-shadow( color.adjust(helpers.$theme-primary-color, $lightness: +10%), 5px, 0 );
         }
     }
 
-    @include placeholder-style(color.adjust($black, $lightness: +35%));
+    @include helpers.placeholder-style(color.adjust(helpers.$black, $lightness: +35%));
 
     select {
         font-style: normal;

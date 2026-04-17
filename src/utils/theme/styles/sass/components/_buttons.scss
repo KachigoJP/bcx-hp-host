@@ -1,9 +1,10 @@
 @use "sass:color";
+@use "../helpers" as helpers;
 
 .theme-btn,
 .theme-btn-s2 {
-  background: $theme-primary-color;
-  color: $white;
+  background: helpers.$theme-primary-color;
+  color: helpers.$white;
   display: inline-block;
   font-weight: 500;
   padding: 10px 25px;
@@ -14,7 +15,7 @@
   z-index: 1;
   position: relative;
   font-size: 20px;
-  font-size: calc-rem-value(20);
+  font-size: helpers.calc-rem-value(20);
 
   &:after {
     position: absolute;
@@ -24,10 +25,10 @@
     width: 100%;
     height: 100%;
     border-radius: 6px;
-    @include linear-gradient-bg(
+    @include helpers.linear-gradient-bg(
       to right,
-      color.change($theme-primary-color, $alpha: 0.25),
-      color.adjust($theme-primary-color, $lightness: -9%)
+      color.change(helpers.$theme-primary-color, $alpha: 0.25),
+      color.adjust(helpers.$theme-primary-color, $lightness: -9%)
     );
     transition: opacity 0.5s ease-out;
     opacity: 0;
@@ -39,55 +40,55 @@
   &:active {
     //background: color.adjust($theme-primary-color, $lightness: -5%);
     //@include linear-gradient-bg(left, #00ded8, #00a7d5);
-    color: $white;
+    color: helpers.$white;
   }
 
   &:hover:after {
     opacity: 1;
   }
 
-  @include media-query(991px) {
+  @include helpers.media-query(991px) {
     font-size: 18px;
-    font-size: calc-rem-value(18);
+    font-size: helpers.calc-rem-value(18);
   }
 
-  @include media-query(767px) {
+  @include helpers.media-query(767px) {
     padding: 12px 18px;
     font-size: 14px;
   }
 }
 
 .theme-btn-s2 {
-  @include linear-gradient-bg(
+  @include helpers.linear-gradient-bg(
     to right,
-    color.adjust($theme-primary-color-s2, $lightness: -9%),
-    color.change($theme-primary-color-s2, $alpha: 0.5)
+    color.adjust(helpers.$theme-primary-color-s2, $lightness: -9%),
+    color.change(helpers.$theme-primary-color-s2, $alpha: 0.5)
   );
 
   &:after {
-    @include linear-gradient-bg(
+    @include helpers.linear-gradient-bg(
       to right,
-      color.change($theme-primary-color-s2, $alpha: 0.5),
-      color.adjust($theme-primary-color-s2, $lightness: -9%)
+      color.change(helpers.$theme-primary-color-s2, $alpha: 0.5),
+      color.adjust(helpers.$theme-primary-color-s2, $lightness: -9%)
     );
   }
 
-  @include media-query(991px) {
+  @include helpers.media-query(991px) {
     font-size: 14px;
-    font-size: calc-rem-value(14);
+    font-size: helpers.calc-rem-value(14);
   }
 
   &:hover,
   &:focus,
   &:active {
-    color: $white;
+    color: helpers.$white;
   }
 
   &:hover:after {
     opacity: 1;
   }
 
-  @include media-query(767px) {
+  @include helpers.media-query(767px) {
     padding: 12px 18px;
     font-size: 13px;
   }

@@ -1,3 +1,6 @@
+@use "sass:color";
+@use "../helpers" as helpers;
+
 .social-links {
 	overflow: hidden;
 
@@ -8,16 +11,16 @@
 		margin-right: 1px;
 
 		a {
-			background-color: color.adjust($theme-primary-color, $lightness: +10%);
+			background-color: color.adjust(helpers.$theme-primary-color, $lightness: +10%);
 			width: 35px;
 			height: 35px;
 			line-height: 35px;
 			display: block;
-			color: $white;
+			color: helpers.$white;
 			text-align: center;
 
 			&:hover {
-				background-color: $theme-primary-color;
+				background-color: helpers.$theme-primary-color;
 			}
 		}
 	}

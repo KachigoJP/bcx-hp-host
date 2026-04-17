@@ -1,3 +1,5 @@
+@use "../helpers" as helpers;
+
 .sticky-header {
 	width: 100%;
 	position: fixed;
@@ -5,7 +7,7 @@
 	top: -200px;
 	z-index: 1000;
 	opacity: 0;
-	@include transition-time(0.7s);
+	@include helpers.transition-time(0.7s);
 }
 
 .sticky-on {
