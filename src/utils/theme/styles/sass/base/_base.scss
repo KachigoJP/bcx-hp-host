@@ -270,8 +270,8 @@ h2.hidden {
     }
 
     50% {
-        -webkit-transform: translateY(15px) translateX(7);
-        transform: translateY(15px) translateX(7);
+        -webkit-transform: translateY(15px) translateX(7px);
+        transform: translateY(15px) translateX(7px);
     }
 
     to {
@@ -304,8 +304,8 @@ h2.hidden {
     }
 
     50% {
-        -webkit-transform: translateY(-15px) translateX(-7);
-        transform: translateY(-15px) translateX(-7);
+        -webkit-transform: translateY(-15px) translateX(-7px);
+        transform: translateY(-15px) translateX(-7px);
     }
 
     to {
@@ -358,7 +358,7 @@ ul.smothscroll a:hover {
     color: #fff;
 }
 
-@media(max-width:767px) {
+@include media-query(md) {
     ul.smothscroll a {
         width: 30px;
         height: 30px;
@@ -387,22 +387,22 @@ ul.smothscroll a:hover {
     }
 
     iframe {
-        @media(min-width:991px) {
+        @include widther(lg) {
             width: 800px;
             height: 450px;
         }
 
-        @media(max-width:991px) {
+        @include media-query(lg) {
             width: 600px;
             height: 400px;
         }
 
-        @media(max-width:620px) {
+        @include media-query(620px) {
             width: 400px;
             height: 200px;
         }
 
-        @media(max-width:420px) {
+        @include media-query(xs) {
             width: 300px;
             height: 200px;
         }
