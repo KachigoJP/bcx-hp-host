@@ -1,0 +1,72 @@
+// Variables (optional, but good practice for customization)
+$transition-speed: 0.3s;
+$transition-timing-function: ease-in-out;
+$collapsed-height: 0; // The height when collapsed
+
+// 1. Base styles for the collapsible container
+.collapsible-container {
+    overflow: hidden; // Crucial to hide content that exceeds max-height
+    transition: max-height $transition-speed $transition-timing-function;
+    will-change: max-height; // Hint to the browser for performance
+
+    // Default state: collapsed
+    max-height: $collapsed-height;
+    // If you want to animate opacity as well (can look nice)
+    opacity: 0;
+    transition: max-height $transition-speed $transition-timing-function,
+        opacity $transition-speed $transition-timing-function;
+
+    &.expanded {
+        // This max-height should be large enough to contain all content
+        // without being noticeable. A very large pixel value or a percentage
+        // can work, but be careful with percentages if parent height isn't defined.
+        // Using a very large pixel value is often the most reliable.
+        max-height: 1000px; // Adjust this value based on your content's maximum possible height
+        opacity: 1;
+
+    }
+
+    &>*:first-child {
+        padding-top: 10px;
+    }
+
+    &>*:last-child {
+        padding-bottom: 10px;
+    }
+
+    &>* {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
+
+// 3. Optional: Styles for the trigger element (e.g., a button or header)
+.collapsible-trigger {
+    cursor: pointer;
+    // Add any other styling you want for your trigger
+    padding: 10px;
+    // background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    margin-bottom: 5px;
+    display: block; // Make it block for full width if it's a button
+    text-align: center;
+    user-select: none; // Prevent text selection on double click
+
+    &:hover {
+        background-color: #e0e0e0;
+    }
+
+    // Optional: Add a visual indicator (e.g., an arrow)
+    &::after {
+        content: '▼'; // Down arrow
+        display: inline-block;
+        margin-left: 10px;
+        transition: transform $transition-speed $transition-timing-function;
+    }
+
+    &.expanded::after {
+        content: '▲'; // Up arrow
+        // transform: rotate(180deg); // Rotate the arrow up
+    }
+
+}

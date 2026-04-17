@@ -1,10 +1,12 @@
 import React from "react";
 import Slider from "react-slick";
 import { StaticImageData } from "next/image";
+import Image from "next/image";
+import styles from "@components/containers/Home/Team/TeamSocial.module.css";
 import TeamItem from "@components/common/TeamItem";
 
 export interface TeamItem {
-  tImg: string | StaticImageData;
+  tImg?: string | StaticImageData;
   slug: string;
   name: string;
   title: string;
@@ -74,7 +76,7 @@ const TeamSection: React.FC<TeamProps> = ({
   };
 
   return (
-    <div className="wpo-team-area section-padding">
+    <section className="wpo-team-section section-padding">
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-lg-6">
@@ -90,12 +92,36 @@ const TeamSection: React.FC<TeamProps> = ({
             <Slider {...settings}>
               {items.slice(0, 6).map((team: TeamItem, tm: number) => (
                 <TeamItem key={tm} {...team} onClick={clickHandler} />
+                // <div key={tm} className={`wpo-team-item ${styles.wpoTeamItem}`}>
+                //   <div className={`wpo-team-img ${styles.wpoTeamImg}`}>
+                //     <Image
+                //       src={team.tImg || "/assets/images/default/team_item.jpg"}
+                //       alt={team.name}
+                //       width={300}
+                //       height={300}
+                //       style={{ width: "100%", height: "auto" }}
+                //     />
+                //     <div className={`wpo-team-social ${styles.wpoTeamSocial}`}>
+                //       <ul>
+                //         <li>
+                //           <a href={"#"}>
+                //             <i className="ti-gmail"></i>
+                //           </a>
+                //         </li>
+                //       </ul>
+                //     </div>
+                //   </div>
+                //   <div className="wpo-team-content">
+                //     <h3>{team.name}</h3>
+                //     <span>{team.title}</span>
+                //   </div>
+                // </div>
               ))}
             </Slider>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

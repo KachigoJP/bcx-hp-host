@@ -25,6 +25,12 @@ const TextNode: React.FC<{ node: StrapiBlockChild }> = ({ node }) => {
     );
   }
 
+  if (node.type === "list-item") {
+    return node.children?.map((child, idx) => (
+      <TextNode key={idx} node={child} />
+    ));
+  }
+
   if (!node.text) return null;
 
   let text: React.ReactNode = node.text;
@@ -107,7 +113,9 @@ const BlockNode: React.FC<{ block: StrapiBlockContent; index: number }> = ({
             width={block.image.width}
             height={block.image.height}
           />
-          {block.image.caption && <figcaption>{block.image.caption}</figcaption>}
+          {block.image.caption && (
+            <figcaption>{block.image.caption}</figcaption>
+          )}
         </figure>
       );
 

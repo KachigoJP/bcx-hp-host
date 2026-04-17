@@ -15,6 +15,10 @@ import Testimonial, {
   TestimonialProps,
 } from "@components/containers/Home/Testimonial";
 import Partner, { PartnerProps } from "@components/containers/Home/Partner";
+import Project, { ProjectProps } from "@components/containers/Home/Project";
+import Team, { TeamProps } from "@components/containers/Home/Team";
+import Event from "@components/containers/Home/Event";
+import Blog from "@components/containers/Home/Blog";
 
 /**
  * Transform SEO data from Strapi to SEO component props
@@ -44,7 +48,7 @@ export const transformSEOData = (pageData: PageContent | null): SEOProps => {
  * Transform Hero data from Strapi to Hero component props
  */
 export const transformHeroData = (
-  pageData: PageContent | null
+  pageData: PageContent | null,
 ): HeroProps | null => {
   if (!pageData?.heros || pageData.heros.length === 0) {
     return null;
@@ -70,154 +74,185 @@ export const transformHeroData = (
  */
 export const renderSection = (
   section: PageSection,
-  index: number
+  index: number,
 ): React.ReactNode => {
   const key = `section-${index}-${section.data_item}`;
 
   switch (section.data_item) {
     case "services":
+      const serviceProps: ServiceProps = {
+        title: section.title,
+        subtitle: section.subtitle || "",
+        description: section.description || "",
+        services: [],
+      };
       if (section.services && section.services.length > 0) {
-        const serviceProps: ServiceProps = {
-          title: section.title,
-          subtitle: section.subtitle || "",
-          description: section.description || "",
-          services: section.services.map((service) => ({
-            id: service.url || `service-${service.title}`,
-            icon: service.icon || "flaticon-forest",
-            title: service.title,
-            slug: service.url || "",
-            description: service.description || "",
-            simg1: "/images/activity-hiking-mountain.jpg",
-          })),
-        };
-        return <Service key={key} {...serviceProps} />;
+        serviceProps.services = section.services.map((service) => ({
+          title: service.title,
+          id: service.url || `service-${service.title}`,
+          icon: service.icon || "flaticon-forest",
+          slug: service.url || "",
+          description: service.description || "",
+        }));
       }
-      break;
+      return <Service key={key} {...serviceProps} />;
 
     case "abouts":
+      const aboutProps: AboutProps = {
+        title: section.title || "",
+        subTitle: section.subtitle || "",
+        description: section.description || "",
+        about: {},
+      };
       if (section.about) {
-        const aboutProps: AboutProps = {
-          totalRaised: 0,
-          totalNeed: 0,
-          about: {
-            title: section.title,
-            description: section.description || "",
-            points: [],
-            linkText: "Tìm hiểu thêm",
-            linkHref: "/about",
-          },
-          image:
-            section.about.image?.data?.[0]
-              ? getStrapiImageUrl(
-                  section.about.image.data[0].attributes.url || ""
-                )
-              : "/images/about-community-vietnamese.jpg",
+        aboutProps.about = {
+          ...section.about,
+          image: section.about.image?.data?.[0]
+            ? getStrapiImageUrl(
+                section.about.image.data[0].attributes.url || "",
+              )
+            : undefined,
         };
-        return <About key={key} {...aboutProps} />;
       }
-      break;
+      return <About key={key} {...aboutProps} />;
 
     case "cta":
+      const ctaProps: CTAProps = {
+        title: section.title,
+        subtitle: section.subtitle || section.description || "",
+        backgroundImage: "",
+        buttonText: "",
+        buttonLink: "",
+      };
       if (section.CTA) {
-        const ctaProps: CTAProps = {
-          backgroundImage: section.CTA.image?.data?.[0]
-            ? getStrapiImageUrl(section.CTA.image.data[0].attributes.url || "")
-            : "/images/cta-group-hiking.jpg",
-          title: section.CTA.title,
-          subtitle: section.description || "",
-          buttonText: section.CTA.action || "Tham gia ngay",
-          buttonLink: section.CTA.url || "/join",
-        };
-        return <CTA key={key} {...ctaProps} />;
+        ctaProps.backgroundImage = section.CTA.image?.data?.[0]
+          ? getStrapiImageUrl(section.CTA.image.data[0].attributes.url || "")
+          : "/images/cta-group-hiking.jpg";
+        ctaProps.buttonText = section.CTA.action || "Tham gia ngay";
+        ctaProps.buttonLink = section.CTA.url || "/join";
       }
-      break;
+      return <CTA key={key} {...ctaProps} />;
 
     case "funfacts":
+      const achievementsProps: AchievementsProps = {
+        title: section.title,
+        subtitle: section.subtitle || "",
+        description: section.description || "",
+        achievements: [],
+      };
       if (section.funfact && section.funfact.length > 0) {
-        const achievementsProps: AchievementsProps = {
-          title: section.title,
-          subtitle: section.subtitle || "",
-          description: section.description || "",
-          achievements: section.funfact.map((fact) => ({
-            number: fact.title,
-            label: fact.subtitle || "",
-            icon: "fi flaticon-checked",
-          })),
-        };
-        return <Achievements key={key} {...achievementsProps} />;
+        achievementsProps.achievements = section.funfact.map((fact) => ({
+          number: fact.title,
+          label: fact.subtitle || "",
+          icon: "fi flaticon-checked",
+        }));
       }
-      break;
+      return <Achievements key={key} {...achievementsProps} />;
 
     case "testimonials":
+      const testimonialProps: TestimonialProps = {
+        title: section.title,
+        subtitle: section.subtitle || "",
+        description: section.description || "",
+        items: [],
+      };
       if (section.testimonials && section.testimonials.length > 0) {
-        const testimonialProps: TestimonialProps = {
-          title: section.title,
-          subtitle: section.subtitle || "",
-          description: section.description || "",
-          items: section.testimonials.map((testimonial) => ({
-            image: testimonial.avatar?.data?.[0]
-              ? getStrapiImageUrl(testimonial.avatar.data[0].attributes.url || "")
-              : "/images/testimonial-member-1.jpg",
-            title: testimonial.title,
-            subtitle: testimonial.subtitle || "",
-            description: testimonial.description || "",
-          })),
-        };
-        return <Testimonial key={key} {...testimonialProps} />;
+        testimonialProps.items = section.testimonials.map((testimonial) => ({
+          image: testimonial.avatar?.data?.[0]
+            ? getStrapiImageUrl(testimonial.avatar.data[0].attributes.url || "")
+            : "/images/testimonial-member-1.jpg",
+          title: testimonial.title,
+          subtitle: testimonial.subtitle || "",
+          description: testimonial.description || "",
+        }));
       }
-      break;
+      return <Testimonial key={key} {...testimonialProps} />;
 
     case "parters":
+      const partnerProps: PartnerProps = {
+        title: section.title,
+        subtitle: section.subtitle || "",
+        description: section.description || "",
+        items: [],
+      };
       if (section.partners && section.partners.length > 0) {
-        const partnerProps: PartnerProps = {
-          title: section.title,
-          subtitle: section.subtitle || "",
-          description: section.description || "",
-          items: section.partners.map((partner) =>
-            partner.logo?.data?.[0]
-              ? getStrapiImageUrl(partner.logo.data[0].attributes.url || "")
-              : "/assets/images/default/partner.jpg"
-          ),
-        };
-        return <Partner key={key} {...partnerProps} />;
+        partnerProps.items = section.partners.map((partner) =>
+          partner.logo?.data?.[0]
+            ? getStrapiImageUrl(partner.logo.data[0].attributes.url || "")
+            : "/assets/images/default/partner.jpg",
+        );
       }
-      break;
+      return <Partner key={key} {...partnerProps} />;
 
     case "projects":
-      // Render projects section
-      return (
-        <div key={key} className="section">
-          <h2>{section.title}</h2>
-          {section.description && <p>{section.description}</p>}
-        </div>
-      );
+      const projectProps: ProjectProps = {
+        items: [],
+      };
+      if (section.projects && section.projects.length > 0) {
+        projectProps.items = section.projects.map((project) => ({
+          image: project.image?.data?.[0]
+            ? getStrapiImageUrl(project.image.data[0].attributes.url || "")
+            : "/images/project-default.jpg",
+          slug: project.url || "",
+          title: project.title,
+          description: project.description || "",
+        }));
+      }
+      return <Project key={key} {...projectProps} />;
 
     case "teams":
-      // Render teams section
-      return (
-        <div key={key} className="section">
-          <h2>{section.title}</h2>
-          {section.description && <p>{section.description}</p>}
-        </div>
-      );
+      console.log("section teams", section);
+      const teamProps: TeamProps = {
+        title: section.title,
+        subtitle: section.subtitle || "",
+        description: section.description || "",
+        items: [],
+      };
+      if (section.members && section.members.length > 0) {
+        teamProps.items = section.members.map((member) => ({
+          tImg: member.image?.data?.[0]
+            ? getStrapiImageUrl(member.image.data[0].attributes.url || "")
+            : undefined,
+          slug: member.email || "",
+          name: member.full_name,
+          title:
+            member.team && member.team?.length > 0 ? member.team[0].title : "",
+        }));
+      }
+      return <Team key={key} {...teamProps} />;
 
     case "events":
-      // Render events section
-      return (
-        <div key={key} className="section">
-          <h2>{section.title}</h2>
-          {section.description && <p>{section.description}</p>}
-        </div>
-      );
+      // Note: Event component needs to be refactored to use dynamic data
+      // Currently it uses hardcoded data from api/event
+      const eventItems =
+        section.events?.map((event) => ({
+          eImg: (event.image?.data?.[0]
+            ? getStrapiImageUrl(event.image.data[0].attributes.url || "")
+            : "/images/event-default.jpg") as any,
+          date: event.date || "",
+          eTitle: event.title,
+          slug: event.url || "",
+          dec: event.description || "",
+        })) || [];
+      return <Event key={key} events={eventItems as any} />;
 
     case "blogs":
-      // Render blogs section
-      return (
-        <div key={key} className="section">
-          <h2>{section.title}</h2>
-          {section.description && <p>{section.description}</p>}
-        </div>
-      );
+      // Note: Blog component needs to be refactored to use dynamic data
+      // Currently it uses hardcoded data from api/blogs
+      const blogItems =
+        section.blogs?.map((blog) => ({
+          screens: (blog.image?.data?.[0]
+            ? getStrapiImageUrl(blog.image.data[0].attributes.url || "")
+            : "/images/blog-default.jpg") as any,
+          slug: blog.url || "",
+          title: blog.title,
+          authorImg: (blog.authorAvatar?.data?.[0]
+            ? getStrapiImageUrl(blog.authorAvatar.data[0].attributes.url || "")
+            : "/images/author-default.jpg") as any,
+          author: blog.author || "",
+          comment: blog.comment || 0,
+        })) || [];
+      return <Blog key={key} blogs={blogItems as any} />;
 
     default:
       return (
@@ -235,7 +270,7 @@ export const renderSection = (
  * Get sorted sections from page data
  */
 export const getSortedSections = (
-  pageData: PageContent | null
+  pageData: PageContent | null,
 ): PageSection[] => {
   if (!pageData?.sections) {
     return [];

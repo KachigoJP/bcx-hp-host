@@ -12,7 +12,7 @@ export interface SEOMetadata {
   lang?: string;
   favicon?: string;
   keywords?: string;
-  image?: string;
+  image?: string | null;
   prev?: string;
   next?: string;
   og?: OpenGraph;

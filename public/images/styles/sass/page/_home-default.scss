@@ -138,7 +138,7 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
-    z-index: 9999;
+    z-index: 300;
     &:before{
         position: absolute;
         left: 10px;

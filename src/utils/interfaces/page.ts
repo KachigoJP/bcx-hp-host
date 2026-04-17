@@ -40,6 +40,8 @@ export interface PageService {
 
 // About component interface (ui.about)
 export interface PageAbout {
+  linkText?: string;
+  linkHref?: string;
   media?: {
     data: Array<{
       id: number;
@@ -101,6 +103,72 @@ export interface PagePartner {
   icon?: string;
 }
 
+// Project component interface (ui.project)
+export interface PageProject {
+  title: string;
+  description?: string;
+  url?: string;
+  image?: {
+    data: Array<{
+      id: number;
+      attributes: StrapiImage;
+    }>;
+  };
+}
+
+// Team component interface (ui.team)
+export interface PageMember {
+  full_name: string;
+  team?: TeamMember[];
+  email?: string;
+  image?: {
+    data: Array<{
+      id: number;
+      attributes: StrapiImage;
+    }>;
+  };
+}
+
+export interface TeamMember {
+  title: string;
+  team: string;
+}
+
+// Event component interface (ui.event)
+export interface PageEvent {
+  title: string;
+  date?: string;
+  description?: string;
+  url?: string;
+  image?: {
+    data: Array<{
+      id: number;
+      attributes: StrapiImage;
+    }>;
+  };
+}
+
+// Blog component interface (ui.blog)
+export interface PageBlog {
+  title: string;
+  description?: string;
+  author?: string;
+  url?: string;
+  comment?: number;
+  image?: {
+    data: Array<{
+      id: number;
+      attributes: StrapiImage;
+    }>;
+  };
+  authorAvatar?: {
+    data: Array<{
+      id: number;
+      attributes: StrapiImage;
+    }>;
+  };
+}
+
 // Section component interface (shared.section)
 export interface PageSection {
   position: number;
@@ -134,6 +202,10 @@ export interface PageSection {
   CTA?: PageCTA;
   testimonials?: PageTestimonial[];
   partners?: PagePartner[];
+  projects?: PageProject[];
+  members?: PageMember[];
+  events?: PageEvent[];
+  blogs?: PageBlog[];
 }
 
 // SEO component interface (shared.seo)

@@ -1,31 +1,27 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import * as RichText from "@components/RichText";
+import { StrapiRichText } from "@/utils/interfaces/strapi_blocks";
+import DEFAULT_IMAGES from "@utils/images"; // Adjust the import path as needed
 
 export interface AboutProps {
-  image?: string;
-  totalRaised: number;
+  title: string;
+  subTitle?: string;
+  description?: string;
   about: {
-    title: string;
-    description: string;
-    points: string[];
-    linkText: string;
-    linkHref: string;
+    image?: string;
+    linkText?: string;
+    linkHref?: string;
+    content?: StrapiRichText;
   };
-  totalNeed: number;
 }
 
-const AboutSection: React.FC<AboutProps> = ({
-  totalRaised,
-  about,
-  totalNeed = 100,
-  image = "/assets/images/default/about.png",
-}) => {
+const AboutSection: React.FC<AboutProps> = (props) => {
+  const { about } = props;
   const ClickHandler = () => {
     window.scrollTo(10, 0);
   };
-
-  const completePercent = (totalRaised / totalNeed) * 100;
 
   return (
     <section className="wpo-about-section-s2 section-padding">
@@ -34,33 +30,12 @@ const AboutSection: React.FC<AboutProps> = ({
           <div className="col-lg-6 col-md-12 col-12">
             <div className="wpo-about-wrap">
               <div className="wpo-about-img">
-                <Image src={image} width={581} height={576} alt="" />
-                <div className="wpo-total-raised">
-                  <div className="wpo-total-raised-wrap">
-                    <div className="wpo-total-raised-icon">
-                      <i className="fi flaticon-wallet-filled-money-tool"></i>
-                    </div>
-                    <div className="wpo-total-raised-text">
-                      <ul>
-                        <li>
-                          Total Raised<span>${totalRaised}</span>
-                        </li>
-                      </ul>
-                      <div className="progress-section">
-                        <div className="process">
-                          <div className="progress">
-                            <div
-                              className="progress-bar"
-                              style={{ width: `${completePercent}%` }}
-                            >
-                              <div className="progress-value"></div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <Image
+                  src={about.image || DEFAULT_IMAGES.SKELETON_500_670}
+                  width={581}
+                  height={670}
+                  alt=""
+                />
                 <div className="round-ball-1"></div>
                 <div className="round-ball-2"></div>
                 <div className="round-ball-3"></div>
@@ -70,21 +45,23 @@ const AboutSection: React.FC<AboutProps> = ({
           </div>
           <div className="col-lg-6 col-md-12 col-12">
             <div className="wpo-about-text">
-              <span>About Us</span>
-              <h2>{about.title}</h2>
-              <p>{about.description}</p>
-              <ul>
-                {about.points.map((point, index) => (
-                  <li key={index}>{point}</li>
-                ))}
-              </ul>
-              <Link
-                onClick={ClickHandler}
-                className="theme-btn-s2"
-                href={about.linkHref}
-              >
-                {about.linkText}
-              </Link>
+              <span>{props.subTitle}</span>
+              <h2>{props.title}</h2>
+              <p>{props.description}</p>
+              {about ? (
+                <>
+                  {about.content ? (
+                    <RichText.BlocksRenderer content={about.content} />
+                  ) : null}
+                  <Link
+                    onClick={ClickHandler}
+                    className="theme-btn-s2"
+                    href={about.linkHref || "/"}
+                  >
+                    {about.linkText}
+                  </Link>
+                </>
+              ) : null}
             </div>
           </div>
         </div>

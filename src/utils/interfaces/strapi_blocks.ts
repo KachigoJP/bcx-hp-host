@@ -30,7 +30,7 @@ export interface StrapiBlock {
 
 // Block child (text nodes)
 export interface StrapiBlockChild {
-  type: "text" | "link";
+  type: "text" | "link" | "list-item";
   text?: string;
   bold?: boolean;
   italic?: boolean;

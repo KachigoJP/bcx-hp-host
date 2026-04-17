@@ -107,7 +107,7 @@ const transformHeroData = (pageData: PageContent | null): HeroProps => {
 // Helper function to transform Strapi section data to service props
 const transformServiceData = (pageData: PageContent | null): ServiceProps => {
   const serviceSection = pageData?.sections?.find(
-    (section) => section.data_item === "services"
+    (section) => section.data_item === "services",
   );
 
   if (!serviceSection) {
@@ -202,10 +202,11 @@ export const getServerSideProps = async () => {
   };
   const aboutData: AboutProps = {
     totalRaised: 25000,
+    title: "Về Tổ Chức Bàn Chân Xanh",
+    description:
+      "Bàn Chân Xanh là tổ chức phi lợi nhuận dành cho người Việt Nam ở Nhật Bản. Chúng tôi lan tỏa tình yêu thiên nhiên và kết nối cộng đồng thông qua các hoạt động ngoài trời ý nghĩa.",
+
     about: {
-      title: "Về Tổ Chức Bàn Chân Xanh",
-      description:
-        "Bàn Chân Xanh là tổ chức phi lợi nhuận dành cho người Việt Nam ở Nhật Bản. Chúng tôi lan tỏa tình yêu thiên nhiên và kết nối cộng đồng thông qua các hoạt động ngoài trời ý nghĩa.",
       points: [
         "Tổ chức các hoạt động hiking, camping và workshop",
         "Kết nối cộng đồng người Việt tại Nhật Bản",

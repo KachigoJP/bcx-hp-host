@@ -17,23 +17,35 @@ export interface StrapiResponse<T> {
   };
 }
 
-// Single item response (Strapi v5 includes documentId)
+// Single item response (Strapi v5 - flattened structure, no attributes nesting)
 export interface StrapiSingleResponse<T> {
   data: {
     id: number;
     documentId: string; // Strapi v5 document ID
-    attributes: T;
-  };
+    locale?: string;
+    createdAt?: string;
+    updatedAt?: string;
+    publishedAt?: string;
+  } & T; // Content attributes are spread directly, not nested in 'attributes'
   meta?: Record<string, any>;
+  error?: {
+    status: number;
+    name: string;
+    message: string;
+    details?: Record<string, any>;
+  };
 }
 
-// Collection response (Strapi v5 includes documentId)
+// Collection response (Strapi v5 - flattened structure, no attributes nesting)
 export interface StrapiCollectionResponse<T> {
   data: Array<{
     id: number;
     documentId: string; // Strapi v5 document ID
-    attributes: T;
-  }>;
+    locale?: string;
+    createdAt?: string;
+    updatedAt?: string;
+    publishedAt?: string;
+  } & T>; // Content attributes are spread directly, not nested in 'attributes'
   meta?: {
     pagination?: {
       page: number;
@@ -41,6 +53,12 @@ export interface StrapiCollectionResponse<T> {
       pageCount: number;
       total: number;
     };
+  };
+  error?: {
+    status: number;
+    name: string;
+    message: string;
+    details?: Record<string, any>;
   };
 }
 

@@ -27,6 +27,9 @@ export const PAGE_POPULATE_CONFIG = {
       services: { populate: "*" },
       funfact: { populate: "*" },
       CTA: { populate: "*" },
+      members: { populate: "*" },
+      testimonials: { populate: "*" },
+      partners: { populate: "*" },
     },
   },
   heros: {
@@ -64,7 +67,7 @@ export function transformSEOData(
       description: pageData.seo.metaDescription,
       image: pageData.seo.shareImage?.data
         ? getStrapiImageUrl(pageData.seo.shareImage.data.attributes.url || "")
-        : undefined,
+        : null,
     },
   };
 }
@@ -88,8 +91,7 @@ export async function fetchPageBySlug(slug: string): Promise<{
       locale: "vi-VN",
       publicationState: "live",
     });
-
-    const pageData = pageResponse.data?.attributes || null;
+    const pageData = pageResponse.data || null;
 
     if (!pageData) {
       logger.warn("Page data not found", { slug });
@@ -112,7 +114,9 @@ export async function fetchPageBySlug(slug: string): Promise<{
       pageData,
       slug,
     };
-  } catch {
+  } catch (e) {
+    logger.error("Page data fetched error");
+
     return {
       layout,
       seo: transformSEOData(null),
@@ -144,7 +148,7 @@ export async function fetchPageByDocumentId(
       populate: PAGE_POPULATE_CONFIG,
     });
 
-    const pageData = pageResponse.data?.attributes || null;
+    const pageData = pageResponse.data || null;
 
     if (!pageData) {
       logger.warn("Page data not found", { documentId, slug });
@@ -228,7 +232,12 @@ export async function fetchPageOptimized(slug: string): Promise<{
  * Always returns props (never returns notFound) to show skeleton on error
  */
 export async function getStaticPageProps(slug: string): Promise<{
-  props: { layout: LayoutProps; seo: SEOProps; pageData: PageContent | null; slug: string };
+  props: {
+    layout: LayoutProps;
+    seo: SEOProps;
+    pageData: PageContent | null;
+    slug: string;
+  };
   revalidate: number;
 }> {
   const result = await fetchPageBySlug(slug);

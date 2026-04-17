@@ -64,7 +64,7 @@ const Layout: React.FC<React.PropsWithChildren<LayoutProps>> = ({
   return (
     <ThemeProvider theme={themeDefault}>
       <div className="wrapper">
-        <Header data={headerData} hclass="wpo-header-style-2" />
+        <Header data={headerData} />
         {children}
         <Footer data={footerData} />
         <Scrollbar />
