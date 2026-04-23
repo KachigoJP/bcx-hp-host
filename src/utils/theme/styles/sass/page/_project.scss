@@ -1,3 +1,5 @@
+@use "../helpers" as helpers;
+
 /*--------------------------------------------------------------
 15. wpo-project-section
 --------------------------------------------------------------*/
@@ -45,7 +47,7 @@
 
                 h2{
                     font-size: 33px;
-                    font-family: $heading-font;
+                    font-family: helpers.$heading-font;
                     margin-bottom: 30px;
 
                     @media(max-width:767px){
@@ -95,7 +97,7 @@
                                   display: flex;
                                   padding: 15px 0;
                                   font-size: 16px;
-                                  color: $dark-gray;
+                                  color: helpers.$dark-gray;
                                   font-weight: 600;
                                   border-bottom: 1px solid #ebebeb;
                                   position: relative;
@@ -104,7 +106,7 @@
 
                                   span{
                                       flex-basis: 70%;
-                                      color: $body-color;
+                                      color: helpers.$body-color;
                                       font-weight: 400;
                                   }
                 
@@ -149,7 +151,7 @@
         .wpo-solutions-section{
             h2{
                 font-size: 33px;
-                font-family: $heading-font;
+                font-family: helpers.$heading-font;
                 margin-bottom: 30px;
 
                 @media(max-width:575px){
@@ -157,7 +159,7 @@
                 }
             }
             .wpo-solutions-item{
-                background: $white;
+                background: helpers.$white;
                 padding: 30px 25px;
                 margin-bottom: 30px;
                 box-shadow: 0px 5px 15px 0px rgba(62, 65, 159, 0.1);
@@ -165,7 +167,7 @@
                 .wpo-solutions-icon{
                     .fi{
                         font-size: 50px;
-                        color: $theme-primary-color-s2;     
+                        color: helpers.$theme-primary-color-s2;     
                         line-height: 1;    
                     }
                 }
@@ -178,10 +180,10 @@
                         margin: 20px 0;
 
                         a{
-                            color: $dark-gray;
+                            color: helpers.$dark-gray;
 
                             &:hover{
-                                color: $theme-primary-color;
+                                color: helpers.$theme-primary-color;
                             }
                         }
                     }
@@ -198,7 +200,7 @@
             background: #eceffb;
             padding: 15px;
 
-            @include media-query(767px) {
+            @include helpers.media-query(767px) {
                 margin: 50px 0 30px;
                 text-align: center;
             }
@@ -208,7 +210,7 @@
                 float: left;
                 margin-top: 5px;
 
-                @include media-query(767px) {
+                @include helpers.media-query(767px) {
                     display: block;
                     margin: 0 auto;
                     margin-bottom: 25px;
@@ -224,7 +226,7 @@
                     margin-right: 10px;
                 }
 
-                @include media-query(767px) {
+                @include helpers.media-query(767px) {
                   float: none;
                   justify-content: center;
                 }
@@ -235,7 +237,7 @@
                 overflow: hidden;
                 list-style: none;
 
-                @include media-query(767px) {
+                @include helpers.media-query(767px) {
                     display: flex;
                     justify-content: center;
                 }
@@ -249,7 +251,7 @@
             .share ul > li + li {
                 margin-left: 10px;
 
-                @include media-query(767px) {
+                @include helpers.media-query(767px) {
                    margin-left: 2px;
                   }
             }
@@ -258,12 +260,12 @@
                 background-color: #fff;
                 display: block;
                 padding: 6px 18px;
-                color: $dark-gray;
+                color: helpers.$dark-gray;
                 border-radius: 50px;
         
                 &:hover {
-                    background-color: $theme-primary-color;
-                    color: $white;
+                    background-color: helpers.$theme-primary-color;
+                    color: helpers.$white;
                 }
             }
         
@@ -272,18 +274,18 @@
                 height: 40px;
                 line-height: 40px;
                 font-size: 14px;
-                font-size: calc-rem-value(14);
+                font-size: helpers.calc-rem-value(14);
                 text-align: center;
-                color: $dark-gray;
+                color: helpers.$dark-gray;
                 border-radius: 50%;
                 padding: 0;
                 display: block;
                 border: 1px solid #dadada;
         
                 &:hover {
-                    background: $theme-primary-color;
-                    color: $white;
-                    border-color: $theme-primary-color;
+                    background: helpers.$theme-primary-color;
+                    color: helpers.$white;
+                    border-color: helpers.$theme-primary-color;
                 }
             }
         }
@@ -294,7 +296,7 @@
             display: flex;
             justify-content: space-between;
 
-            @include media-query(767px) {
+            @include helpers.media-query(767px) {
                 display: block;
                 text-align: center;
             }
@@ -302,7 +304,7 @@
                 display: flex;
                 align-items: center;
 
-                @include media-query(767px) {
+                @include helpers.media-query(767px) {
                     justify-content: center;
                     padding: 20px;
                     border: 1px solid #ebebeb;
@@ -323,12 +325,12 @@
                     display: block;
 
                     &:first-child{
-                        color:$body-color;
+                        color: helpers.$body-color;
                     }
                     &:last-child{
-                        color:$dark-gray;
+                        color: helpers.$dark-gray;
                         font-size: 20px;
-                        font-family: $heading-font;
+                        font-family: helpers.$heading-font;
                     }
                 }
             }
@@ -343,7 +345,7 @@
                 }
 
                 a{
-                    @include media-query(767px) {
+                    @include helpers.media-query(767px) {
                         margin-top: 10px;
                     }
                 }

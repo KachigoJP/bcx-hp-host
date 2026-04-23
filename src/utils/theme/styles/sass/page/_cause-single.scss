@@ -1,3 +1,5 @@
+@use "../helpers" as helpers;
+
 /*--------------------------------------------------------------
 12. cause-single-page
 --------------------------------------------------------------*/
@@ -27,7 +29,7 @@
 
 .wpo-case-details-tab .nav li.active a,
 .wpo-case-details-tab .nav li:hover a {
-    background: $theme-primary-color;
+    background: helpers.$theme-primary-color;
     color: #fff;
     outline: none;
     border-radius: 40px;
@@ -93,7 +95,7 @@
 
 .case-bb-text ul li:before {
     content: "";
-    background: $theme-primary-color;
+    background: helpers.$theme-primary-color;
     width: 6px;
     height: 6px;
     position: absolute;
@@ -152,7 +154,7 @@
 .wpo-donations-amount input:focus,
 .wpo-donations-details input:focus,
 .wpo-donations-details textarea:focus {
-    border-color: $theme-primary-color;
+    border-color: helpers.$theme-primary-color;
 }
 
 .payment-name ul li input {
@@ -292,7 +294,7 @@
 }
 
 .wpo-payment-area .form-style input:focus {
-    border: 1px solid $theme-primary-color;
+    border: 1px solid helpers.$theme-primary-color;
 }
 
 .wpo-payment-area .contact-form {
@@ -331,7 +333,7 @@
         box-shadow: none;
         position: relative;
         animation: animate-positive 4s;
-        background: $theme-primary-color;
+        background: helpers.$theme-primary-color;
         height: 8px;
     }
     
@@ -353,7 +355,7 @@
         text-align: center;
         left: 90%;
         position: absolute;
-        color: $dark-gray;
+        color: helpers.$dark-gray;
         font-weight: 700;
         font-size: 14px;
         text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.45);
@@ -368,7 +370,7 @@
 
         li {
             font-size: 14px;
-            color:$dark-gray;
+            color: helpers.$dark-gray;
             display: flex;
             align-items: center;
 
@@ -380,9 +382,9 @@
                 font-weight: 700;
 
                 a{
-                    color: $dark-gray;
+                    color: helpers.$dark-gray;
                     &:hover{
-                    color: $theme-primary-color;
+                    color: helpers.$theme-primary-color;
                     }
                 }
             }

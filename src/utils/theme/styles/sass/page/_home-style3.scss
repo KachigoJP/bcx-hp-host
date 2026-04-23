@@ -1,3 +1,6 @@
+@use "sass:color";
+@use "../helpers" as helpers;
+
 /*--------------------------------------------------------------
 6. Home-style-3
 --------------------------------------------------------------*/
@@ -5,7 +8,7 @@
 /* 6.1 wpo-features-section-s3 */
 
 .wpo-features-section-s3{
-    background: $section-bg-color2;
+    background: helpers.$section-bg-color2;
     padding-bottom: 90px;
 
     .wpo-features-item{
@@ -31,7 +34,7 @@
            line-height: 110px;
            margin-bottom: 20px;
            box-shadow: 0px 1px 15px 0px rgba(62, 65, 159, 0.05);
-           background: $white;
+           background: helpers.$white;
 
            .fi{
                font-size: 50px;
@@ -52,7 +55,7 @@
     .col{
         &:nth-child(2){
             .wpo-features-item{
-                background:$white;
+                background: helpers.$white;
                 box-shadow: 0px 1px 15px 0px rgba(62, 65, 159, 0.05);
                 .wpo-features-icon{
                    background: #e0f5f3;
@@ -66,7 +69,7 @@
         &:nth-child(3){
             .wpo-features-item{
                 .wpo-features-icon{
-                   background: $white;
+                   background: helpers.$white;
 
                    .fi{
                         color: #26877c;
@@ -80,7 +83,7 @@
 /* 6.2 wpo-about-section-s3  */
 
 .wpo-about-section-s3 {
-    background: $section-bg-color2;
+    background: helpers.$section-bg-color2;
     padding-top: 50px;
     &:before{
        display: none;
@@ -88,7 +91,7 @@
     .wpo-about-wrap{
         .wpo-about-img{
             padding: 20px;
-            background: $white;
+            background: helpers.$white;
             border-radius: 250px 250px 16.73px 16.73px;
 
             @media(max-width:991px){
@@ -107,7 +110,7 @@
         position: absolute;
         left: 0;
         padding: 20px;
-        background: $white;
+        background: helpers.$white;
         border-radius: 320px 320px 14px 14px;
         max-width: 50%;
 
@@ -143,14 +146,14 @@
 
 .wpo-cta-area-s2{
     padding-top: 120px;
-    background: $section-bg-color2;
+    background: helpers.$section-bg-color2;
 
     @media(max-width:767px){
         padding-top: 70px;
      }
 
     .wpo-cta-section{
-        @include linear-gradient-bg( to right, color.adjust($theme-primary-color-s2, $lightness: -6%), color.adjust($theme-primary-color-s2, $alpha: -0.25));
+        @include helpers.linear-gradient-bg( to right, color.adjust(helpers.$theme-primary-color-s2, $lightness: -6%), color.adjust(helpers.$theme-primary-color-s2, $alpha: -0.25));
 
         .volunteer-img {
             bottom: -45px;
@@ -174,14 +177,14 @@
 /* 6.4 wpo-campaign-area-s2 */
 
 .wpo-campaign-area-s2{
-    background: $section-bg-color2;
+    background: helpers.$section-bg-color2;
     padding-top: 0;
 }
 
 /* 6.5 wpo-project-section-s2 */
 
 .wpo-project-section-s2{
-    background: $section-bg-color2;
+    background: helpers.$section-bg-color2;
     padding-top: 0;
 
     .container-fluid{
@@ -233,12 +236,12 @@
 
 .wpo-testimonial-area-s2,
 .wpo-testimonial-area-s3{
-    background: $section-bg-color2;
+    background: helpers.$section-bg-color2;
     padding-top: 0;
 
     .wpo-testimonial-item{
         border-radius: 20px;
-        background-color: $white;
+        background-color: helpers.$white;
         box-shadow: 0px 1px 15px 0px rgba(62, 65, 159, 0.05);
         padding: 50px 40px;
     }
@@ -287,15 +290,15 @@
             width: 50px;
             line-height: 46px;
             text-align: center;
-            background: $white;
+            background: helpers.$white;
             transition: all .3s;
             border: 1px solid #ebebeb;
             font-size: 20px;
             border-radius: 5px;
 
             &:hover{
-                background: $theme-primary-color;
-                color: $white;
+                background: helpers.$theme-primary-color;
+                color: helpers.$white;
             }
 
             @media(max-width:1200px){
@@ -341,7 +344,7 @@
             align-items: center;
             position: relative;
             overflow: hidden;
-            background: $white;
+            background: helpers.$white;
     
             @media(max-width:991px){
                display: block;
@@ -353,7 +356,7 @@
                 top: 50%;
                 transform: translateY(-50%);
                 content: "";
-                background: color.adjust($theme-primary-color-s2, $alpha: -0.4);
+                background: color.adjust(helpers.$theme-primary-color-s2, $alpha: -0.4);
                 width: 10px;
                 height: 120px;
                 border-radius:10px 0 0 10px;
@@ -422,10 +425,10 @@
                     margin-bottom: 15px;
             
                     a{
-                        color: $dark-gray;
+                        color: helpers.$dark-gray;
             
                         &:hover{
-                            color: $theme-primary-color;
+                            color: helpers.$theme-primary-color;
                         }
                     }
     
@@ -456,11 +459,11 @@
     
                 a.read-more{
                     font-size: 18px;
-                    color: $dark-gray;
+                    color: helpers.$dark-gray;
                     font-weight: 600;
     
                     &:hover{
-                        color: $theme-primary-color;
+                        color: helpers.$theme-primary-color;
                     }
                 }
             }
@@ -472,5 +475,5 @@
 /* 6.8 wpo-blog-section-s2 */
 
 .wpo-blog-section-s2{
-    background: $section-bg-color2;
+    background: helpers.$section-bg-color2;
 }

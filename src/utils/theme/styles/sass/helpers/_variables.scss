@@ -1,5 +1,5 @@
 // Legacy compatibility shim.
 // New work should use `@use "helpers" as *;` or import the split helper partials directly.
-@import "fonts";
-@import "tokens";
-@import "breakpoints";
+@forward "fonts";
+@forward "tokens";
+@forward "breakpoints";

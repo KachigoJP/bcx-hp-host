@@ -1,3 +1,5 @@
+@use "../helpers" as helpers;
+
 /*--------------------------------------------------------------
 8. Home-style-5
 --------------------------------------------------------------*/
@@ -16,7 +18,7 @@
     .wpo-features-item{
         padding: 40px;
         box-shadow: 0px 1px 15px 0px rgba(62, 65, 159, 0.15);
-        background: $white;   
+        background: helpers.$white;   
         border-radius: 10px; 
         display: flex;
 
@@ -49,10 +51,10 @@
                 }
 
                 a{
-                    color: $heading-color;
+                    color: helpers.$heading-color;
 
                     &:hover{
-                        color: $theme-primary-color;
+                        color: helpers.$theme-primary-color;
                     }
                 }
             }
@@ -125,7 +127,7 @@
 /* 8.4 wpo-team-area-s2 */
 
 .wpo-team-area-s2{
-    background: $white;
+    background: helpers.$white;
 
     .wpo-team-item{
         @media(max-width:991px){
@@ -144,7 +146,7 @@
 /* 8.5 wpo-campaign-area-s4 */
 
 .wpo-campaign-area-s4{
-    background: $section-bg-color2;
+    background: helpers.$section-bg-color2;
 
     .wpo-campaign-text-top{
         padding: 15px 6px;
@@ -154,6 +156,6 @@
 /* 8.6 wpo-blog-section-s3 */
 
 .wpo-blog-section-s3{
-    background: $white;
+    background: helpers.$white;
     padding-bottom: 0;
 }

@@ -1,3 +1,5 @@
+@use "../helpers" as helpers;
+
 /*--------------------------------------------------------------
 20. error-404-section - Modern Design
 --------------------------------------------------------------*/
@@ -263,7 +265,7 @@
 }
 
 // Responsive styles
-@include media-query(767px) {
+@include helpers.media-query(767px) {
   .error-404-number {
     gap: 15px;
   }
@@ -315,7 +317,7 @@
   }
 }
 
-@include media-query(479px) {
+@include helpers.media-query(479px) {
   .error-digit {
     width: 80px;
     height: 100px;

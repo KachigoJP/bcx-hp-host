@@ -1,3 +1,5 @@
+@use "../helpers" as helpers;
+
 /*--------------------------------------------------------------
 User Menu Dropdown
 --------------------------------------------------------------*/
@@ -11,7 +13,7 @@ User Menu Dropdown
     align-items: center;
     gap: 8px;
     background: transparent;
-    border: 2px solid #ef5f34;
+    border: 2px solid helpers.$theme-primary-color;
     border-radius: 30px;
     padding: 8px 16px;
     cursor: pointer;
@@ -30,7 +32,7 @@ User Menu Dropdown
       text-overflow: ellipsis;
       white-space: nowrap;
 
-      @media (max-width: 991px) {
+      @include helpers.media-query(991px) {
         display: none;
       }
     }
@@ -40,7 +42,7 @@ User Menu Dropdown
     position: absolute;
     top: calc(100% + 10px);
     right: 0;
-    background: #fff;
+    background: helpers.$white;
     border-radius: 10px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
     min-width: 280px;
@@ -68,7 +70,7 @@ User Menu Dropdown
       height: 0;
       border-left: 8px solid transparent;
       border-right: 8px solid transparent;
-      border-bottom: 8px solid #fff;
+      border-bottom: 8px solid helpers.$white;
     }
 
     .user-info {
@@ -81,11 +83,11 @@ User Menu Dropdown
         width: 48px;
         height: 48px;
         border-radius: 50%;
-        background: linear-gradient(135deg, #ef5f34 0%, #d54a27 100%);
+        background: linear-gradient(135deg, helpers.$theme-primary-color 0%, #d54a27 100%);
         display: flex;
         align-items: center;
         justify-content: center;
-        color: #fff;
+        color: helpers.$white;
         font-size: 24px;
       }
 
@@ -141,10 +143,10 @@ User Menu Dropdown
 
           &:hover {
             background: #f5f5f5;
-            color: #ef5f34;
+            color: helpers.$theme-primary-color;
 
             i {
-              color: #ef5f34;
+              color: helpers.$theme-primary-color;
               transform: translateX(3px);
             }
           }
@@ -174,7 +176,7 @@ User Menu Dropdown
 
       &:hover {
         background: #dc3545;
-        color: #fff;
+        color: helpers.$white;
 
         i {
           transform: rotate(90deg);
@@ -185,7 +187,7 @@ User Menu Dropdown
 }
 
 // Mobile adjustments
-@media (max-width: 767px) {
+@include helpers.media-query(767px) {
   .user-menu-wrapper {
     .user-menu-toggle {
       padding: 6px 12px;

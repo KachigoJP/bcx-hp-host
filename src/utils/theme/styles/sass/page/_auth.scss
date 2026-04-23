@@ -1,3 +1,5 @@
+@use "../helpers" as helpers;
+
 .loginWrapper {
   display: flex;
   min-height: 100vh;
@@ -242,8 +244,8 @@
 }
 
 .cBtnTheme {
-  background: $theme-primary-color;
-  background-color: $theme-primary-color !important;
+  background: helpers.$theme-primary-color;
+  background-color: helpers.$theme-primary-color !important;
   color: #fff !important;
 }
 

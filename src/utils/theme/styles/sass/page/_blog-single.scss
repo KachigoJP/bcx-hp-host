@@ -1,3 +1,6 @@
+@use "sass:color";
+@use "../helpers" as helpers;
+
 /*--------------------------------------------------------------
 17. wpo-blog-single-section
 --------------------------------------------------------------*/
@@ -8,7 +11,7 @@
 		overflow: hidden;
 		margin: 35px 0;
 
-		@include media-query(767px) {
+		@include helpers.media-query(767px) {
 			margin: 25px 0;
 		}
 
@@ -18,7 +21,7 @@
 			li {
 				font-weight: 500;
 				font-size: 14px;
-				font-size: calc-rem-value(14);
+				font-size: helpers.calc-rem-value(14);
 				float: left;
 				text-transform: uppercase;
 
@@ -27,7 +30,7 @@
 					text-decoration: underline;
 		
 					&:hover {
-						color: $theme-primary-color;
+						color: helpers.$theme-primary-color;
 					}
 				}
 
@@ -50,26 +53,26 @@
 						width: 7px;
 						height: 7px;
 						content: "";
-						background: $theme-primary-color;
+						background: helpers.$theme-primary-color;
 						border-radius: 50%;
 
-						@include media-query(440px) {
+						@include helpers.media-query(440px) {
 							display: none;
 						}
 					}
 
-					@include media-query(440px) {
+					@include helpers.media-query(440px) {
 						margin-left: 0;
 						padding-left: 0;
 					}
 				}
 	
-				@include media-query(767px) {
+				@include helpers.media-query(767px) {
 					font-size: 12px;
-					font-size: calc-rem-value(12);
+					font-size: helpers.calc-rem-value(12);
 				}
 	
-				@include media-query(440px) {
+				@include helpers.media-query(440px) {
 					float: none;
 					display: block;
 					margin-bottom: 5px;
@@ -89,19 +92,19 @@
 	.post {
 		h2 {
 			font-size: 35px;
-			font-size: calc-rem-value(35);
+			font-size: helpers.calc-rem-value(35);
 			margin: -0.22em 0 0.7em;
 			line-height: 1.3em;
-			font-family: $heading-font;
+			font-family: helpers.$heading-font;
 
-			@include media-query(991px) {
+			@include helpers.media-query(991px) {
 				font-size: 30px;
-				font-size: calc-rem-value(30);
+				font-size: helpers.calc-rem-value(30);
 			}
 
-			@include media-query(767px) {
+			@include helpers.media-query(767px) {
 				font-size: 25px;
-				font-size: calc-rem-value(25);
+				font-size: helpers.calc-rem-value(25);
 			}
 		}
 
@@ -111,26 +114,26 @@
 
 		h3 {
 			font-size: 24px;
-			font-size: calc-rem-value(24);
+			font-size: helpers.calc-rem-value(24);
 			font-weight: 600;
 			line-height: 1.3em;
 			margin: 1.8em 0 1em;
 
-			@include media-query(991px) {
+			@include helpers.media-query(991px) {
 				font-size: 22px;
-				font-size: calc-rem-value(22);
+				font-size: helpers.calc-rem-value(22);
 			}
 
-			@include media-query(767px) {
+			@include helpers.media-query(767px) {
 				font-size: 20px;
-				font-size: calc-rem-value(20);
+				font-size: helpers.calc-rem-value(20);
 			}
 		}
 
 
 
 		blockquote {
-			background-color: $section-bg-color;
+			background-color: helpers.$section-bg-color;
 			color: #233d62;
 			font-size: 20px;
 			line-height: 1.6em;
@@ -142,7 +145,7 @@
 			position: relative;
 			text-decoration: underline;
 
-			@include media-query(767px) {
+			@include helpers.media-query(767px) {
 				padding: 55px 25px;
 			}
 
@@ -150,18 +153,18 @@
 				font-family: "Flaticon";
 				content: "\f12a";
 				font-size: 20px;
-				font-size: calc-rem-value(20);
-				color: color.adjust($white, $alpha: -0.5);
+				font-size: helpers.calc-rem-value(20);
+				color: color.adjust(helpers.$white, $alpha: -0.5);
 				position: absolute;
 				left: 50%;
 				top: -30px;
-				@include translatingX();
+				@include helpers.translatingX();
 				width: 60px;
 				height: 60px;
 				line-height: 60px;
-				border:2px solid $section-bg-color;
-				background: $white;
-				color: $theme-primary-color;
+				border: 2px solid helpers.$section-bg-color;
+				background: helpers.$white;
+				color: helpers.$theme-primary-color;
 				border-radius: 50%;
 				
 			}
@@ -188,10 +191,10 @@
 
 	/*** tag-share ***/
 	.tag-share,.tag-share-s2 {
-		border-bottom: 1px solid $border-color;
+		border-bottom: 1px solid helpers.$border-color;
 		margin: 75px 0 0;
 		padding-bottom: 30px;
-		color: $heading-color;
+		color: helpers.$heading-color;
 
 		@media(max-width:767px){
           margin-top: 40px;
@@ -205,7 +208,7 @@
 			li {
 				float: left;
 
-				@include media-query(767px) {
+				@include helpers.media-query(767px) {
 					margin: 2px;
 				}
 			}
@@ -213,7 +216,7 @@
 			> li + li {
 				margin-left: 10px;
 
-				@include media-query(767px) {
+				@include helpers.media-query(767px) {
 					margin: 2px;
 				}
 			}
@@ -225,8 +228,8 @@
 			align-items: center;
 
 			> span {
-				font-family: $heading-font;
-				color: $heading-color;
+				font-family: helpers.$heading-font;
+				color: helpers.$heading-color;
 				font-weight: 600;
 				display: inline-block;
 				padding-right: 15px;
@@ -245,21 +248,21 @@
 
 			a {
 				font-size: 12px;
-				font-size: calc-rem-value(12);
+				font-size: helpers.calc-rem-value(12);
 				display: inline-block;
 				padding: 5px 18px;
-				color: $dark-gray;
+				color: helpers.$dark-gray;
 				background: #ecf4fb;
 				border-radius: 5px;
 				text-transform: uppercase;
 
-				@include media-query(767px) {
+				@include helpers.media-query(767px) {
 					font-size: 13px;
-					font-size: calc-rem-value(13);
+					font-size: helpers.calc-rem-value(13);
 				}
 
 				&:hover {
-					color: $theme-primary-color;
+					color: helpers.$theme-primary-color;
 				}
 			}
 		}
@@ -275,11 +278,11 @@
 		 a{
 			 padding: 0;
 			 font-size: 16px;
-			 font-size: calc-rem-value(16);
+			 font-size: helpers.calc-rem-value(16);
 			 text-transform: capitalize;
 			 background: none;
 			 text-decoration: underline;
-			 color: $text-color;
+			 color: helpers.$text-color;
 		 }
 	 }
 	}
@@ -292,7 +295,7 @@
 	    .author-avatar {
 	    	float: left;
 
-	    	@include media-query(767px) {
+	    	@include helpers.media-query(767px) {
 	    		float: none;
 	    	}
 
@@ -306,7 +309,7 @@
 		    overflow: hidden;
 		    padding-left: 25px;
 
-		    @include media-query(767px) {
+		    @include helpers.media-query(767px) {
 	    		padding: 0;
 	    		margin: 15px 0 0 0;
 	    	}
@@ -317,13 +320,13 @@
 	    }
 
 	    .author-name {
-	    	font-family: $heading-font;
+	    	font-family: helpers.$heading-font;
 	    	font-size: 24px;
-	    	font-size: calc-rem-value(24);
+	    	font-size: helpers.calc-rem-value(24);
 	    	font-weight: 600;
 	    	display: inline-block;
 		    margin-bottom: 10px;
-		    color: $heading-color;
+		    color: helpers.$heading-color;
 	    }
 
 	    .social-link {
@@ -339,26 +342,26 @@
 	    .social-link a {
 	    	display: block;
 	    	font-size: 13px;
-	    	font-size: calc-rem-value(13);
-	    	color: $heading-color;
+	    	font-size: helpers.calc-rem-value(13);
+	    	color: helpers.$heading-color;
 	    }
 
 	    .social-link a:hover {
-	    	color: $theme-primary-color;
+	    	color: helpers.$theme-primary-color;
 	    }
 	}
 
 	/*** more-posts ***/
 	.more-posts {
 		overflow: hidden;
-	    border: 1px solid $border-color-s2;
+	    border: 1px solid helpers.$border-color-s2;
 	    padding: 0 25px;
 
 		> div {
 			width: 50%;
 			float: left;
 
-			@include media-query(767px) {
+			@include helpers.media-query(767px) {
 				width: 100%;
 				float: none;
 			}
@@ -372,28 +375,28 @@
 		.next-post {
 		    padding: 40px 0;
 
-		     @include media-query(767px) {
+		     @include helpers.media-query(767px) {
 				padding: 25px 15px !important;
 			}
 		}
 
 		.next-post {
 			text-align: right;
-		    border-left: 1px solid $border-color-s2;
+		    border-left: 1px solid helpers.$border-color-s2;
 		    padding-left: 15px;
 		    padding-right: 5px;
 
-		    @include media-query(767px) {
+		    @include helpers.media-query(767px) {
 				border-left: 0;
 				text-align: left;
-				border-top: 1px solid $border-color-s2;
+				border-top: 1px solid helpers.$border-color-s2;
 			}
 
 			.post-control-link {
 				padding-right: 25px;
 				position: relative;
 
-				@include media-query(767px) {
+				@include helpers.media-query(767px) {
 					padding-right: 0;
 				}
 
@@ -404,7 +407,7 @@
 					right: 0;
 					top: 0;
 
-					@include media-query(767px) {
+					@include helpers.media-query(767px) {
 						display: none;
 					}
 				}
@@ -420,7 +423,7 @@
 				padding-left: 25px;
 				position: relative;
 
-				@include media-query(767px) {
+				@include helpers.media-query(767px) {
 					padding-left: 0;
 				}
 
@@ -431,7 +434,7 @@
 					left: 0;
 					top: 0;
 
-					@include media-query(767px) {
+					@include helpers.media-query(767px) {
 						display: none;
 					}
 				}
@@ -445,28 +448,28 @@
 
 		.post-control-link {
 			font-size: 14px;
-			font-size: calc-rem-value(14);
-			color: $text-color;
+			font-size: helpers.calc-rem-value(14);
+			color: helpers.$text-color;
 			text-transform: uppercase;
 			font-weight: 600;
 			letter-spacing: 2px;
 		}
 
 		.post-name {
-			font-family: $heading-font;
+			font-family: helpers.$heading-font;
 			font-size: 18px;
-			font-size: calc-rem-value(18);
-			color: $heading-color;
+			font-size: helpers.calc-rem-value(18);
+			color: helpers.$heading-color;
 			margin: 0.7em 0 0;
 
-			@include media-query(991px) {
+			@include helpers.media-query(991px) {
 				font-size: 18px;
-				font-size: calc-rem-value(18);
+				font-size: helpers.calc-rem-value(18);
 			}
 		}
 
 		a:hover .post-control-link  {
-			color: $theme-primary-color;
+			color: helpers.$theme-primary-color;
 		}
 	}
 
@@ -479,7 +482,7 @@
 			border-bottom: 1px solid #e4effb;
 			padding: 35px;
 
-			@include media-query(991px) {
+			@include helpers.media-query(991px) {
 				padding: 35px 25px;
 			}
 		}
@@ -500,15 +503,15 @@
 
 		.comments-title {
 			font-size: 22px;
-			font-size: calc-rem-value(22);
+			font-size: helpers.calc-rem-value(22);
 			font-weight: 500;
 			margin: 0 0 1em;
 			text-transform: uppercase;
 			letter-spacing: 3px;
 
-			@include media-query(991px) {
+			@include helpers.media-query(991px) {
 				font-size: 20px;
-				font-size: calc-rem-value(20);
+				font-size: helpers.calc-rem-value(20);
 			}
 		}
 
@@ -520,7 +523,7 @@
 			position: absolute;
 			left: 35px;
 
-			@include media-query(767px) {
+			@include helpers.media-query(767px) {
 				position: static;
 			}
 
@@ -532,7 +535,7 @@
 		.comment-main-area {
 			padding-left: 100px;
 
-			@include media-query(767px) {
+			@include helpers.media-query(767px) {
 				padding-left: 0;
 				margin-top: 25px;
 			}
@@ -545,46 +548,46 @@
 		.comments-meta {
 
 			h4 {
-				font-family: $heading-font;
+				font-family: helpers.$heading-font;
 				font-size: 18px;
-				font-size: calc-rem-value(18);
-				color: $heading-color;
+				font-size: helpers.calc-rem-value(18);
+				color: helpers.$heading-color;
 				font-weight: bold;
 				margin: 0 0 1em;
 			}
 
 			h4 span {
 				font-size: 15px;
-				font-size: calc-rem-value(15);
-				color: $text-color;
+				font-size: helpers.calc-rem-value(15);
+				color: helpers.$text-color;
 				font-weight: normal;
 				text-transform: none;
 				display: inline-block;
 				padding-left: 5px;
-				font-family: $base-font;
+				font-family: helpers.$base-font;
 
-				@include media-query(767px) {
+				@include helpers.media-query(767px) {
 					padding-left: 0;
 				}
 			}
 		}
 
 		.comment-reply-link {
-			font-family: $heading-font;
+			font-family: helpers.$heading-font;
 			font-size: 14px;
-			font-size: calc-rem-value(14);
+			font-size: helpers.calc-rem-value(14);
 			font-weight: 600;
-			color: $dark-gray;
+			color: helpers.$dark-gray;
 			text-align: center;
 			border-radius: 50px;
 			display: inline-block;
-            font-family: $base-font;
+            font-family: helpers.$base-font;
 			text-decoration: underline;
 			text-transform: uppercase;
 			letter-spacing: 1px;
 
 			&:hover{
-				color: $theme-primary-color;
+				color: helpers.$theme-primary-color;
 			}
 		}
 	}
@@ -596,20 +599,20 @@
 
 		.comment-reply-title {
 			font-size: 22px;
-			font-size: calc-rem-value(22);
+			font-size: helpers.calc-rem-value(22);
 			margin: 0 0 1.5em;
 			text-transform: uppercase;
 			letter-spacing: 2px;
 
-			@include media-query(991px) {
+			@include helpers.media-query(991px) {
 				font-size: 20px;
-				font-size: calc-rem-value(20);
+				font-size: helpers.calc-rem-value(20);
 			}
 		}
 
 		form input,
 		form textarea {
-			background-color: $white;
+			background-color: helpers.$white;
 			width: 100%;
 			height: 55px;
 			border: 1px solid #a4adbe;
@@ -618,14 +621,14 @@
 	        outline: 0;
 	        border-radius: 30px;
 	        box-shadow: none;
-	        @include transition-time(0.3s);
+	        @include helpers.transition-time(0.3s);
 
 			&:focus {
 				box-shadow: none;
-				border-color: $theme-primary-color;
+				border-color: helpers.$theme-primary-color;
 			}
 
-			@include media-query(991px) {
+			@include helpers.media-query(991px) {
 				height: 40px;
 			}
 		}
@@ -634,7 +637,7 @@
 			height: 220px;
 			padding: 15px;
 
-			@include media-query(991px) {
+			@include helpers.media-query(991px) {
 				height: 150px;
 			}
 		}
@@ -647,7 +650,7 @@
 			width: 49%;
 			float: left;
 
-			@include media-query(767px) {
+			@include helpers.media-query(767px) {
 				width: 100%;
 				float: none;
 			}
@@ -657,17 +660,17 @@
 			width: 49%;
 			float: right;
 
-			@include media-query(767px) {
+			@include helpers.media-query(767px) {
 				width: 100%;
 				float: none;
 			}
 		}
 
 		.form-submit input {
-			font-family: $heading-font;
+			font-family: helpers.$heading-font;
 			max-width: 180px;
 			background-color: #1e2845;
-			color: $white;
+			color: helpers.$white;
 			margin-bottom: 0;
 			border: 0;
 			outline: 0;
@@ -678,14 +681,14 @@
 		}
 
 		.form-submit input:hover {
-			background-color:$dark-gray;
+			background-color:helpers.$dark-gray;
 		}
 	}
 }
 
 .wpo-blog-single-left-sidebar-section {
 	.blog-sidebar {
-		@include widther(1200px) {
+		@include helpers.widther(1200px) {
 			padding-right: 45px;
 			padding-left: 0;
 		}

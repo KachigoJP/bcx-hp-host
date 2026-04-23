@@ -38,8 +38,6 @@
   &:hover,
   &:focus,
   &:active {
-    //background: color.adjust($theme-primary-color, $lightness: -5%);
-    //@include linear-gradient-bg(left, #00ded8, #00a7d5);
     color: helpers.$white;
   }
 

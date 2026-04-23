@@ -1,3 +1,6 @@
+@use "sass:color";
+@use "../helpers" as helpers;
+
 /*--------------------------------------------------------------
 10. about-page
 --------------------------------------------------------------*/
@@ -18,7 +21,7 @@
         }
     
         span {
-            color: $theme-primary-color-s2;
+            color: helpers.$theme-primary-color-s2;
         }
     } 
     
@@ -48,7 +51,7 @@
             top: -30px;
             width: 107%;
             height: 56%;
-            @include linear-gradient-bg( to right, color.adjust($theme-primary-color-s2, $lightness: -10%), $theme-primary-color-s2);
+            @include helpers.linear-gradient-bg( to right, color.adjust(helpers.$theme-primary-color-s2, $lightness: -10%), helpers.$theme-primary-color-s2);
             content: "";
             z-index: -1;
         }
@@ -200,10 +203,10 @@ History Timeline Styles
             top: 0;
             bottom: 0;
             width: 4px;
-            background: linear-gradient(180deg, $theme-primary-color-s2 0%, color.adjust($theme-primary-color-s2, $lightness: +20%) 100%);
+            background: linear-gradient(180deg, helpers.$theme-primary-color-s2 0%, color.adjust(helpers.$theme-primary-color-s2, $lightness: +20%) 100%);
             transform: translateX(-50%);
             border-radius: 2px;
-            box-shadow: 0 0 20px rgba($theme-primary-color-s2, 0.3);
+            box-shadow: 0 0 20px rgba(helpers.$theme-primary-color-s2, 0.3);
             
             @media(max-width: 768px) {
                 left: 30px;
@@ -299,14 +302,14 @@ History Timeline Styles
             display: inline-block;
             width: 80px;
             height: 80px;
-            background: linear-gradient(135deg, $theme-primary-color-s2 0%, color.adjust($theme-primary-color-s2, $lightness: +15%) 100%);
+            background: linear-gradient(135deg, helpers.$theme-primary-color-s2 0%, color.adjust(helpers.$theme-primary-color-s2, $lightness: +15%) 100%);
             border-radius: 50%;
             text-align: center;
             line-height: 80px;
             font-size: 18px;
             font-weight: 700;
             color: #fff;
-            box-shadow: 0 8px 25px rgba($theme-primary-color-s2, 0.4);
+            box-shadow: 0 8px 25px rgba(helpers.$theme-primary-color-s2, 0.4);
             border: 6px solid #fff;
             position: relative;
             transition: all 0.3s ease;
@@ -318,14 +321,14 @@ History Timeline Styles
                 left: -10px;
                 right: -10px;
                 bottom: -10px;
-                border: 2px solid rgba($theme-primary-color-s2, 0.2);
+                border: 2px solid rgba(helpers.$theme-primary-color-s2, 0.2);
                 border-radius: 50%;
                 animation: pulse 2s infinite;
             }
             
             &:hover {
                 transform: scale(1.1);
-                box-shadow: 0 12px 35px rgba($theme-primary-color-s2, 0.6);
+                box-shadow: 0 12px 35px rgba(helpers.$theme-primary-color-s2, 0.6);
             }
             
             @media(max-width: 768px) {
@@ -344,7 +347,7 @@ History Timeline Styles
         border-radius: 20px;
         box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
         position: relative;
-        border: 1px solid rgba($theme-primary-color-s2, 0.1);
+        border: 1px solid rgba(helpers.$theme-primary-color-s2, 0.1);
         transition: all 0.3s ease;
         
         &::before {
@@ -360,13 +363,13 @@ History Timeline Styles
         &:hover {
             transform: translateY(-5px);
             box-shadow: 0 15px 50px rgba(0, 0, 0, 0.12);
-            border-color: rgba($theme-primary-color-s2, 0.2);
+            border-color: rgba(helpers.$theme-primary-color-s2, 0.2);
         }
         
         h4 {
             font-size: 24px;
             font-weight: 700;
-            color: $theme-primary-color-s2;
+            color: helpers.$theme-primary-color-s2;
             margin-bottom: 15px;
             line-height: 1.3;
             position: relative;
@@ -378,7 +381,7 @@ History Timeline Styles
                 left: 0;
                 width: 50px;
                 height: 3px;
-                background: linear-gradient(90deg, $theme-primary-color-s2, color.adjust($theme-primary-color-s2, $lightness: +30%));
+                background: linear-gradient(90deg, helpers.$theme-primary-color-s2, color.adjust(helpers.$theme-primary-color-s2, $lightness: +30%));
                 border-radius: 2px;
                 
                 @media(max-width: 768px) {
@@ -514,7 +517,7 @@ Mission Section Styles
         transition: all 0.4s ease;
         position: relative;
         overflow: hidden;
-        border: 1px solid rgba($theme-primary-color-s2, 0.1);
+        border: 1px solid rgba(helpers.$theme-primary-color-s2, 0.1);
         height: 100%;
         display: flex;
         flex-direction: column;
@@ -528,7 +531,7 @@ Mission Section Styles
             left: 0;
             right: 0;
             height: 4px;
-            background: linear-gradient(90deg, $theme-primary-color-s2, color.adjust($theme-primary-color-s2, $lightness: +30%));
+            background: linear-gradient(90deg, helpers.$theme-primary-color-s2, color.adjust(helpers.$theme-primary-color-s2, $lightness: +30%));
             transform: scaleX(0);
             transition: transform 0.4s ease;
         }
@@ -540,7 +543,7 @@ Mission Section Styles
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba($theme-primary-color-s2, 0.05) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(helpers.$theme-primary-color-s2, 0.05) 0%, transparent 70%);
             opacity: 0;
             transition: opacity 0.4s ease;
             pointer-events: none;
@@ -549,7 +552,7 @@ Mission Section Styles
         &:hover {
             transform: translateY(-10px);
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-            border-color: rgba($theme-primary-color-s2, 0.3);
+            border-color: rgba(helpers.$theme-primary-color-s2, 0.3);
             
             &::before {
                 transform: scaleX(1);
@@ -569,7 +572,7 @@ Mission Section Styles
             }
             
             h3 {
-                color: $theme-primary-color-s2;
+                color: helpers.$theme-primary-color-s2;
                 transform: translateY(-5px);
             }
         }
@@ -588,7 +591,7 @@ Mission Section Styles
     .wpo-mission-icon {
         width: 100px;
         height: 100px;
-        background: linear-gradient(135deg, $theme-primary-color-s2 0%, color.adjust($theme-primary-color-s2, $lightness: +15%) 100%);
+        background: linear-gradient(135deg, helpers.$theme-primary-color-s2 0%, color.adjust(helpers.$theme-primary-color-s2, $lightness: +15%) 100%);
         border-radius: 50%;
         display: flex;
         align-items: center;
@@ -596,7 +599,7 @@ Mission Section Styles
         margin: 0 auto 25px auto;
         position: relative;
         transition: all 0.4s ease;
-        box-shadow: 0 8px 25px rgba($theme-primary-color-s2, 0.3);
+        box-shadow: 0 8px 25px rgba(helpers.$theme-primary-color-s2, 0.3);
         
         &::before {
             content: '';
@@ -605,7 +608,7 @@ Mission Section Styles
             left: -5px;
             right: -5px;
             bottom: -5px;
-            background: linear-gradient(135deg, $theme-primary-color-s2, color.adjust($theme-primary-color-s2, $lightness: +30%));
+            background: linear-gradient(135deg, helpers.$theme-primary-color-s2, color.adjust(helpers.$theme-primary-color-s2, $lightness: +30%));
             border-radius: 50%;
             opacity: 0;
             transition: opacity 0.4s ease;
@@ -658,7 +661,7 @@ Mission Section Styles
             transform: translateX(-50%);
             width: 40px;
             height: 3px;
-            background: linear-gradient(90deg, $theme-primary-color-s2, color.adjust($theme-primary-color-s2, $lightness: +30%));
+            background: linear-gradient(90deg, helpers.$theme-primary-color-s2, color.adjust(helpers.$theme-primary-color-s2, $lightness: +30%));
             border-radius: 2px;
             opacity: 0;
             transition: opacity 0.4s ease;

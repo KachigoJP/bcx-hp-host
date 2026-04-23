@@ -1,6 +1,9 @@
+@use "sass:color";
+@use "../helpers" as helpers;
+
 /* 1.1	Theme Reset Style */
 html {
-    font-size: $base-font-size + px;
+    font-size: helpers.$base-font-size + px;
 }
 
 :root {
@@ -18,21 +21,21 @@ img {
 }
 
 body {
-    font-family: $base-font;
-    color: $body-color;
-    background-color: $body-bg-color;
+    font-family: helpers.$base-font;
+    color: helpers.$body-color;
+    background-color: helpers.$body-bg-color;
     font-size: 15px;
     overflow-x: unset;
-    font-size: calc-rem-value(15);
+    font-size: helpers.calc-rem-value(15);
 
-    @include media-query(767px) {
+    @include helpers.media-query(767px) {
         font-size: 14px;
     }
 }
 
 p {
     font-size: 16px;
-    color: $body-color;
+    color: helpers.$body-color;
     line-height: 1.8em;
 }
 
@@ -42,8 +45,8 @@ h3,
 h4,
 h5,
 h6 {
-    color: $heading-color;
-    font-family: $heading-font;
+    color: helpers.$heading-color;
+    font-family: helpers.$heading-font;
 }
 
 ul {
@@ -54,7 +57,7 @@ ul {
 
 a {
     text-decoration: none;
-    @include transition-time(0.2s);
+    @include helpers.transition-time(0.2s);
 }
 
 a:hover {
@@ -88,7 +91,7 @@ h2.hidden {
 .section-padding {
     padding: 20px 0;
 
-    @include media-query(767px) {
+    @include helpers.media-query(767px) {
         padding: 20px 0;
     }
 }
@@ -107,7 +110,7 @@ h2.hidden {
 
     label.error {
         color: red;
-        font-size: calc-rem-value(14);
+        font-size: helpers.calc-rem-value(14);
         font-weight: normal;
         margin: 5px 0 0 0;
         text-align: left;
@@ -120,8 +123,8 @@ h2.hidden {
 
         i {
             font-size: 30px;
-            font-size: calc-rem-value(30);
-            color: $theme-primary-color;
+            font-size: helpers.calc-rem-value(30);
+            color: helpers.$theme-primary-color;
             display: inline-block;
             -webkit-animation: rotating linear 2s infinite;
             animation: rotating linear 2s infinite;
@@ -131,13 +134,13 @@ h2.hidden {
     #success,
     #error {
         width: 100%;
-        color: $white;
+        color: helpers.$white;
         padding: 5px 10px;
         font-size: 16px;
         text-align: center;
         display: none;
 
-        @include media-query(767px) {
+        @include helpers.media-query(767px) {
             font-size: 15px;
         }
     }
@@ -186,11 +189,11 @@ h2.hidden {
 
 /*** back to top **/
 .back-to-top {
-    background-color: color.adjust($theme-primary-color, $alpha: -0.3);
+    background-color: color.adjust(helpers.$theme-primary-color, $alpha: -0.3);
     width: 45px;
     height: 45px;
     line-height: 45px;
-    border: 2px solid $theme-primary-color;
+    border: 2px solid helpers.$theme-primary-color;
     border-radius: 45px;
     text-align: center;
     display: none;
@@ -198,33 +201,33 @@ h2.hidden {
     z-index: 999;
     right: 15px;
     bottom: 15px;
-    @include transition-time(0.2s);
+    @include helpers.transition-time(0.2s);
 
-    @include media-query(991px) {
+    @include helpers.media-query(991px) {
         width: 35px;
         height: 35px;
         line-height: 35px;
     }
 
     &:hover {
-        background-color: $theme-primary-color;
+        background-color: helpers.$theme-primary-color;
     }
 }
 
 .back-to-top i {
     font-size: 18px;
-    font-size: calc-rem-value(18);
+    font-size: helpers.calc-rem-value(18);
     color: #fff;
     position: absolute;
     left: 50%;
     top: 50%;
-    @include center-by-translating();
+    @include helpers.center-by-translating();
 }
 
 
 /** for popup image ***/
 .mfp-wrap {
-    background-color: color.adjust($black, $alpha: -0.1);
+    background-color: color.adjust(helpers.$black, $alpha: -0.1);
     z-index: 99999;
 }
 
@@ -358,7 +361,7 @@ ul.smothscroll a:hover {
     color: #fff;
 }
 
-@include media-query(md) {
+@include helpers.media-query(md) {
     ul.smothscroll a {
         width: 30px;
         height: 30px;
@@ -380,29 +383,29 @@ ul.smothscroll a:hover {
         width: 40px;
         height: 40px;
         line-height: 30px;
-        background: $dark-gray;
-        color: $white;
+        background: helpers.$dark-gray;
+        color: helpers.$white;
         border-radius: 50%;
         border: 0;
     }
 
     iframe {
-        @include widther(lg) {
+        @include helpers.widther(lg) {
             width: 800px;
             height: 450px;
         }
 
-        @include media-query(lg) {
+        @include helpers.media-query(lg) {
             width: 600px;
             height: 400px;
         }
 
-        @include media-query(620px) {
+        @include helpers.media-query(620px) {
             width: 400px;
             height: 200px;
         }
 
-        @include media-query(xs) {
+        @include helpers.media-query(xs) {
             width: 300px;
             height: 200px;
         }
@@ -431,7 +434,7 @@ ul.smothscroll a:hover {
         i {
             margin-right: 6px;
             font-size: 13px;
-            color: $theme-primary-color;
+            color: helpers.$theme-primary-color;
         }
         
         &:not(:last-child) {
@@ -439,7 +442,7 @@ ul.smothscroll a:hover {
         }
     }
     
-    @include media-query(767px) {
+    @include helpers.media-query(767px) {
         gap: 10px;
         
         span {
@@ -470,7 +473,7 @@ ul.smothscroll a:hover {
         i {
             margin-right: 6px;
             font-size: 13px;
-            color: $theme-primary-color;
+            color: helpers.$theme-primary-color;
         }
         
         &:not(:last-child) {
@@ -478,7 +481,7 @@ ul.smothscroll a:hover {
         }
     }
     
-    @include media-query(767px) {
+    @include helpers.media-query(767px) {
         gap: 10px;
         
         span {
@@ -510,7 +513,7 @@ ul.smothscroll a:hover {
         i {
             margin-right: 6px;
             font-size: 13px;
-            color: $theme-primary-color;
+            color: helpers.$theme-primary-color;
         }
         
         &:not(:last-child) {
@@ -518,7 +521,7 @@ ul.smothscroll a:hover {
         }
     }
     
-    @include media-query(767px) {
+    @include helpers.media-query(767px) {
         gap: 10px;
         
         span {
@@ -550,7 +553,7 @@ ul.smothscroll a:hover {
         i {
             margin-right: 6px;
             font-size: 13px;
-            color: $theme-primary-color;
+            color: helpers.$theme-primary-color;
         }
         
         &:not(:last-child) {
@@ -558,7 +561,7 @@ ul.smothscroll a:hover {
         }
     }
     
-    @include media-query(767px) {
+    @include helpers.media-query(767px) {
         gap: 10px;
         
         span {
@@ -590,7 +593,7 @@ ul.smothscroll a:hover {
         i {
             margin-right: 6px;
             font-size: 13px;
-            color: $theme-primary-color;
+            color: helpers.$theme-primary-color;
         }
         
         &:not(:last-child) {
@@ -598,7 +601,7 @@ ul.smothscroll a:hover {
         }
     }
     
-    @include media-query(767px) {
+    @include helpers.media-query(767px) {
         gap: 10px;
         
         span {
@@ -630,7 +633,7 @@ ul.smothscroll a:hover {
         i {
             margin-right: 6px;
             font-size: 13px;
-            color: $theme-primary-color;
+            color: helpers.$theme-primary-color;
         }
         
         &:not(:last-child) {
@@ -638,7 +641,7 @@ ul.smothscroll a:hover {
         }
     }
     
-    @include media-query(767px) {
+    @include helpers.media-query(767px) {
         gap: 10px;
         
         span {
@@ -669,7 +672,7 @@ ul.smothscroll a:hover {
         i {
             margin-right: 6px;
             font-size: 13px;
-            color: $theme-primary-color;
+            color: helpers.$theme-primary-color;
         }
         
         &:not(:last-child) {
@@ -677,7 +680,7 @@ ul.smothscroll a:hover {
         }
     }
     
-    @include media-query(767px) {
+    @include helpers.media-query(767px) {
         gap: 10px;
         
         span {
