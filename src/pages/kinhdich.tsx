@@ -8,7 +8,7 @@ const HomePage: React.FC = () => {
 
   return (
     <span>
-      <section className="wpo-about-section-s2 section-padding">
+      <section className="wpo-about-section style-s2 section-padding">
         <div className="container">
           <div className="row align-items-center">
             <div className="col-lg-6 col-md-12 col-12">

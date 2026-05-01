@@ -96,7 +96,7 @@ const HomePage: React.FC = () => {
 
   return (
     <Fragment>
-      <section className="wpo-about-section-s2">
+      <section className="wpo-about-section style-s2">
         <div className="container">
           <div className="row align-items-center">
             <div className="col-lg-6 col-md-12 col-12">

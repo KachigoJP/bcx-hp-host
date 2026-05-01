@@ -1,0 +1,154 @@
+@use "sass:color";
+@use "../../helpers" as helpers;
+
+/*--------------------------------------------------------------
+wpo-testimonial-area
+--------------------------------------------------------------*/
+
+.wpo-testimonial-area {
+  .wpo-testimonial-wrap {
+    .wpo-testimonial-item {
+      .wpo-testimonial-img {
+        margin-bottom: 25px;
+        width: 150px;
+        height: 150px;
+
+        @media (max-width: 767px) {
+          margin: 0 auto;
+          margin-bottom: 25px;
+        }
+
+        img {
+          border-radius: 50%;
+        }
+      }
+
+      .wpo-testimonial-content {
+        h2 {
+          font-size: 25px;
+          font-weight: 600;
+        }
+
+        p {
+          font-size: 22px;
+          line-height: 42px;
+          margin-bottom: 25px;
+          position: relative;
+          z-index: 1;
+
+          &:before {
+            position: absolute;
+            left: -35px;
+            top: 13px;
+            content: "\f107";
+            font-family: "Flaticon";
+            z-index: -1;
+            font-size: 60px;
+            color: #fbb59f;
+
+            @media (max-width: 767px) {
+              left: 0;
+            }
+          }
+
+          @media (max-width: 991px) {
+            font-size: 18px;
+            line-height: 34px;
+          }
+        }
+      }
+
+      @media (max-width: 767px) {
+        text-align: center;
+      }
+    }
+
+    .slick-slider {
+      padding-bottom: 130px;
+      position: relative;
+
+      @media (max-width: 991px) {
+        padding-bottom: 0px;
+      }
+
+      button {
+        position: absolute;
+        left: 51%;
+        bottom: -30px;
+        transform: translateY(-50%);
+        height: 50px;
+        width: 50px;
+        line-height: 62px;
+        text-align: center;
+        background: helpers.$white;
+        transition: all 0.3s;
+        border: 1px solid #ebebeb;
+        font-size: 20px;
+        border-radius: 5px;
+        top: auto;
+        font-size: 0;
+
+        &:hover {
+          background: helpers.$theme-primary-color;
+          color: helpers.$white;
+        }
+
+        @media (max-width: 991px) {
+          display: none;
+        }
+
+        &.slick-prev {
+          left: 45%;
+
+          @include helpers.media-query(767px) {
+            display: none !important;
+          }
+
+          &:before {
+            font-family: "themify";
+            content: "\e629";
+            opacity: 1;
+            color: helpers.$dark-gray;
+          }
+        }
+      }
+    }
+
+    .slick-slide {
+      padding: 0 50px;
+    }
+
+    .slick-prev,
+    .slick-next {
+      background-color: color.adjust(helpers.$theme-primary-color, $alpha: -0.3);
+      width: 45px;
+      height: 45px;
+      z-index: 10;
+      @include helpers.rounded-border(50%);
+      transition: all 0.3s;
+      border: 2px solid helpers.$theme-primary-color;
+      bottom: 0;
+
+      &:hover {
+        background-color: helpers.$theme-primary-color;
+      }
+
+      @include helpers.media-query(991px) {
+        display: none !important;
+      }
+    }
+
+    .slick-next {
+      @include helpers.media-query(991px) {
+        display: none !important;
+      }
+
+      &:before {
+        font-family: "themify";
+        content: "\e628";
+        opacity: 1;
+        color: helpers.$dark-gray;
+      }
+    }
+  }
+}

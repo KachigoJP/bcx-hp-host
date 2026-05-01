@@ -1,6 +1,10 @@
 @use "sass:color";
 @use "../helpers" as helpers;
 
+.bg-green {
+  background: helpers.$section-bg-color2;
+}
+
 /* 1.1	Theme Reset Style */
 html {
     font-size: helpers.$base-font-size + px;

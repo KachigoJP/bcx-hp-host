@@ -21,7 +21,7 @@ const EventSection: React.FC<EventSection3Props> = () => {
   };
 
   return (
-    <div className="wpo-event-area-s2 bg-green section-padding">
+    <div className="wpo-event-area style-s2 bg-green section-padding">
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-lg-6">

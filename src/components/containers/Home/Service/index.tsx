@@ -19,7 +19,7 @@ const ServiceSection: React.FC<ServiceProps> = ({
   };
 
   return (
-    <section className="wpo-features-section-s6 section-padding">
+    <section className="wpo-features-section style-s6 section-padding">
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-lg-6">
