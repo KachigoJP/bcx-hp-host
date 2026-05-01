@@ -1,8 +1,7 @@
 import React from "react";
 import Slider from "react-slick";
 import { StaticImageData } from "next/image";
-import Image from "next/image";
-import styles from "@components/containers/Home/Team/TeamSocial.module.css";
+import { Settings } from "react-slick";
 import TeamItem from "@components/common/TeamItem";
 
 export interface TeamItem {
@@ -25,7 +24,7 @@ const TeamSection: React.FC<TeamProps> = ({
   subtitle,
   description,
 }) => {
-  const settings = {
+  const settings: Settings = {
     dots: false,
     arrows: false,
     speed: 1000,
@@ -92,30 +91,6 @@ const TeamSection: React.FC<TeamProps> = ({
             <Slider {...settings}>
               {items.slice(0, 6).map((team: TeamItem, tm: number) => (
                 <TeamItem key={tm} {...team} onClick={clickHandler} />
-                // <div key={tm} className={`wpo-team-item ${styles.wpoTeamItem}`}>
-                //   <div className={`wpo-team-img ${styles.wpoTeamImg}`}>
-                //     <Image
-                //       src={team.tImg || "/assets/images/default/team_item.jpg"}
-                //       alt={team.name}
-                //       width={300}
-                //       height={300}
-                //       style={{ width: "100%", height: "auto" }}
-                //     />
-                //     <div className={`wpo-team-social ${styles.wpoTeamSocial}`}>
-                //       <ul>
-                //         <li>
-                //           <a href={"#"}>
-                //             <i className="ti-gmail"></i>
-                //           </a>
-                //         </li>
-                //       </ul>
-                //     </div>
-                //   </div>
-                //   <div className="wpo-team-content">
-                //     <h3>{team.name}</h3>
-                //     <span>{team.title}</span>
-                //   </div>
-                // </div>
               ))}
             </Slider>
           </div>

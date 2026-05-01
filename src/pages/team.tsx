@@ -8,7 +8,6 @@ import {
   TeamContent,
   TeamMember,
 } from "@/utils/interfaces";
-import styles from "@components/containers/Home/Team/TeamSocial.module.css";
 import Layout, { LayoutProps } from "@components/layout";
 import SEO from "@components/layout/SEO";
 import { SEOProps } from "@components/layout/SEO/interface";
@@ -115,7 +114,7 @@ export const getServerSideProps = async () => {
       "Đội ngũ tình nguyện viên nhiệt tình và giàu kinh nghiệm, luôn sẵn sàng hỗ trợ và đồng hành cùng các thành viên trong mọi hoạt động. Chúng tôi tin rằng sức mạnh của cộng đồng đến từ sự đóng góp của từng cá nhân.",
   };
 
-  const teamMembers: TeamMember[] = sampleTeamData.map(member => ({
+  const teamMembers: TeamMember[] = sampleTeamData.map((member) => ({
     name: member.name,
     title: member.title,
     image: member.tImg,
@@ -144,7 +143,8 @@ export const getServerSideProps = async () => {
     sectionIntro: {
       tag: "Giá trị",
       title: "Giá trị của đội ngũ",
-      description: "Những giá trị cốt lõi mà đội ngũ Bàn Chân Xanh luôn hướng tới",
+      description:
+        "Những giá trị cốt lõi mà đội ngũ Bàn Chân Xanh luôn hướng tới",
     },
     items: [
       {
@@ -186,7 +186,7 @@ export const getServerSideProps = async () => {
   };
 };
 
-const TeamPage: React.FC<TeamProps> = props => {
+const TeamPage: React.FC<TeamProps> = (props) => {
   const [globalData, setGlobalData] = useState<GlobalInfo | null>(null);
   const [teamContent, setTeamContent] = useState<TeamContent | null>(null);
   const [seoData, setSeoData] = useState<SEOProps | null>(null);
@@ -227,8 +227,8 @@ const TeamPage: React.FC<TeamProps> = props => {
   useEffect(() => {
     // Team members animation observer
     const teamMembersObserver = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
+      (entries) => {
+        entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add("animate");
           }
@@ -237,13 +237,13 @@ const TeamPage: React.FC<TeamProps> = props => {
       {
         threshold: 0.2,
         rootMargin: "0px 0px -50px 0px",
-      }
+      },
     );
 
     // Team values animation observer
     const teamValuesObserver = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
+      (entries) => {
+        entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add("animate");
           }
@@ -252,12 +252,13 @@ const TeamPage: React.FC<TeamProps> = props => {
       {
         threshold: 0.2,
         rootMargin: "0px 0px -50px 0px",
-      }
+      },
     );
 
     // Observe team members
     if (teamMembersRef.current) {
-      const teamItems = teamMembersRef.current.querySelectorAll(".wpo-team-item");
+      const teamItems =
+        teamMembersRef.current.querySelectorAll(".wpo-team-item");
       teamItems.forEach((item, index) => {
         (item as HTMLElement).style.transitionDelay = `${index * 0.15}s`;
         teamMembersObserver.observe(item);
@@ -266,7 +267,9 @@ const TeamPage: React.FC<TeamProps> = props => {
 
     // Observe team values
     if (teamValuesRef.current) {
-      const valueItems = teamValuesRef.current.querySelectorAll(".wpo-team-value-item");
+      const valueItems = teamValuesRef.current.querySelectorAll(
+        ".wpo-team-value-item",
+      );
       valueItems.forEach((item, index) => {
         (item as HTMLElement).style.transitionDelay = `${index * 0.1}s`;
         teamValuesObserver.observe(item);
@@ -279,130 +282,135 @@ const TeamPage: React.FC<TeamProps> = props => {
     };
   }, [teamContent, props.teamContent]);
 
-
   const pageIntro = teamContent?.pageIntro || props.teamContent.pageIntro;
   const joinSection = teamContent?.joinSection || props.teamContent.joinSection;
   const teamMembers = teamContent?.teamMembers || props.teamContent.teamMembers;
-  const teamValuesSection = teamContent?.teamValuesSection || props.teamContent.teamValuesSection;
+  const teamValuesSection =
+    teamContent?.teamValuesSection || props.teamContent.teamValuesSection;
 
   return (
-    <Layout data={globalData ? convertGlobalInfoToLayoutData(globalData) : props.layout.data}>
+    <Layout
+      data={
+        globalData
+          ? convertGlobalInfoToLayoutData(globalData)
+          : props.layout.data
+      }
+    >
       <SEO {...(seoData || props.seo)} />
 
       {/* Team Intro Section */}
-      {
-        pageIntro && (
-          <section className="wpo-team-intro-section section-padding section-padding-top">
-            <div className="container">
-              <div className="row justify-content-center">
-                <div className="col-lg-8">
-                  <div className="wpo-section-title text-center">
-                    <span>{pageIntro?.tag}</span>
-                    <h2>{pageIntro?.title}</h2>
-                    <p>{pageIntro?.description}</p>
-                  </div>
+      {pageIntro && (
+        <section className="wpo-team-intro-section section-padding section-padding-top">
+          <div className="container">
+            <div className="row justify-content-center">
+              <div className="col-lg-8">
+                <div className="wpo-section-title text-center">
+                  <span>{pageIntro?.tag}</span>
+                  <h2>{pageIntro?.title}</h2>
+                  <p>{pageIntro?.description}</p>
                 </div>
               </div>
             </div>
-          </section>
-        )
-      }
+          </div>
+        </section>
+      )}
 
       {/* Team Members Section */}
       <section className="wpo-team-section section-padding">
         <div className="container">
           <div className="row" ref={teamMembersRef}>
-            {teamMembers && teamMembers.length > 0 && teamMembers.map((member, index) => {
-              const imageSrc =
-                typeof member.image === "string"
-                  ? member.image
-                  : getStrapiImageUrl(member.image?.url || '');
+            {teamMembers &&
+              teamMembers.length > 0 &&
+              teamMembers.map((member, index) => {
+                const imageSrc =
+                  typeof member.image === "string"
+                    ? member.image
+                    : getStrapiImageUrl(member.image?.url || "");
 
-              return (
-                <div key={index} className="col-lg-3 col-md-6 col-sm-6 col-12">
-                  <div className={`wpo-team-item ${styles.wpoTeamItem}`}>
-                    <div className={`wpo-team-img ${styles.wpoTeamImg}`}>
-                      <Image
-                        src={imageSrc}
-                        alt={member.name}
-                        width={300}
-                        height={300}
-                        style={{ width: "100%", height: "auto" }}
-                      />
-                      <div className={`wpo-team-social ${styles.wpoTeamSocial}`}>
-                        <ul>
-                          <li>
-                            <a href={member.socialLinks?.facebook || "#"}>
-                              <i className="ti-facebook"></i>
-                            </a>
-                          </li>
-                          <li>
-                            <a href={member.socialLinks?.twitter || "#"}>
-                              <i className="ti-twitter-alt"></i>
-                            </a>
-                          </li>
-                          <li>
-                            <a href={member.socialLinks?.instagram || "#"}>
-                              <i className="ti-instagram"></i>
-                            </a>
-                          </li>
-                          <li>
-                            <a href={member.socialLinks?.linkedin || "#"}>
-                              <i className="ti-linkedin"></i>
-                            </a>
-                          </li>
-                        </ul>
+                return (
+                  <div
+                    key={index}
+                    className="col-lg-3 col-md-6 col-sm-6 col-12"
+                  >
+                    <div className={`wpo-team-item ${styles.wpoTeamItem}`}>
+                      <div className={`wpo-team-img ${styles.wpoTeamImg}`}>
+                        <Image
+                          src={imageSrc}
+                          alt={member.name}
+                          width={300}
+                          height={300}
+                          style={{ width: "100%", height: "auto" }}
+                        />
+                        <div
+                          className={`wpo-team-social ${styles.wpoTeamSocial}`}
+                        >
+                          <ul>
+                            <li>
+                              <a href={member.socialLinks?.facebook || "#"}>
+                                <i className="ti-facebook"></i>
+                              </a>
+                            </li>
+                            <li>
+                              <a href={member.socialLinks?.twitter || "#"}>
+                                <i className="ti-twitter-alt"></i>
+                              </a>
+                            </li>
+                            <li>
+                              <a href={member.socialLinks?.instagram || "#"}>
+                                <i className="ti-instagram"></i>
+                              </a>
+                            </li>
+                            <li>
+                              <a href={member.socialLinks?.linkedin || "#"}>
+                                <i className="ti-linkedin"></i>
+                              </a>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div className="wpo-team-content">
+                        <h3>{member.name}</h3>
+                        <span>{member.title}</span>
                       </div>
                     </div>
-                    <div className="wpo-team-content">
-                      <h3>{member.name}</h3>
-                      <span>{member.title}</span>
-                    </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
           </div>
         </div>
       </section>
 
       {/* Join Team Section */}
-      {
-        joinSection && (
-          <section className="wpo-join-team-section section-padding">
-            <div className="container">
-              <div className="row">
-                <div className="col-lg-8 offset-lg-2">
-                  <div className="wpo-join-team-content text-center">
-                    <div className="wpo-section-title">
-                      <span>
-                        {joinSection?.sectionIntro?.tag}
-                      </span>
-                      <h2>
-                        {joinSection?.sectionIntro?.title}
-                      </h2>
-                      <p style={{ textAlign: "center", margin: "0 auto", maxWidth: "580px" }}>
-                        {
-                          joinSection?.sectionIntro?.description
-                        }
-                      </p>
-                    </div>
-                    <div className="wpo-join-team-btn">
-                      <a
-                        href={joinSection?.button?.link}
-                        className="theme-btn"
-                      >
-                        {joinSection?.button?.text}
-                      </a>
-                    </div>
+      {joinSection && (
+        <section className="wpo-join-team-section section-padding">
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-8 offset-lg-2">
+                <div className="wpo-join-team-content text-center">
+                  <div className="wpo-section-title">
+                    <span>{joinSection?.sectionIntro?.tag}</span>
+                    <h2>{joinSection?.sectionIntro?.title}</h2>
+                    <p
+                      style={{
+                        textAlign: "center",
+                        margin: "0 auto",
+                        maxWidth: "580px",
+                      }}
+                    >
+                      {joinSection?.sectionIntro?.description}
+                    </p>
+                  </div>
+                  <div className="wpo-join-team-btn">
+                    <a href={joinSection?.button?.link} className="theme-btn">
+                      {joinSection?.button?.text}
+                    </a>
                   </div>
                 </div>
               </div>
             </div>
-          </section>
-        )
-      }
-
+          </div>
+        </section>
+      )}
 
       {/* Team Values Section */}
       <section className="wpo-team-values-section section-padding">
@@ -410,26 +418,23 @@ const TeamPage: React.FC<TeamProps> = props => {
           <div className="row">
             <div className="col-lg-12">
               <div className="wpo-section-title text-center">
-                <span>
-                  {
-                    teamValuesSection?.sectionIntro?.tag
-                  }
-                </span>
-                <h2>
-                  {
-                    teamValuesSection?.sectionIntro?.title
-                  }
-                </h2>
-                <p style={{ textAlign: "center", margin: "0 auto", maxWidth: "580px" }}>
-                  {
-                    teamValuesSection?.sectionIntro?.description
-                  }
+                <span>{teamValuesSection?.sectionIntro?.tag}</span>
+                <h2>{teamValuesSection?.sectionIntro?.title}</h2>
+                <p
+                  style={{
+                    textAlign: "center",
+                    margin: "0 auto",
+                    maxWidth: "580px",
+                  }}
+                >
+                  {teamValuesSection?.sectionIntro?.description}
                 </p>
               </div>
             </div>
           </div>
           <div className="row" ref={teamValuesRef}>
-            {teamValuesSection?.items && teamValuesSection.items.length > 0 &&
+            {teamValuesSection?.items &&
+              teamValuesSection.items.length > 0 &&
               teamValuesSection.items.map((item, index) => (
                 <div key={index} className="col-lg-3 col-md-6 col-12">
                   <div className="wpo-team-value-item">

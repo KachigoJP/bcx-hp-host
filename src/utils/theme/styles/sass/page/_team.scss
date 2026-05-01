@@ -693,6 +693,11 @@ Team Page Enhanced Styles
 
 // Enhanced Team Member Cards
 .wpo-team-section {
+  .wpo-team-wrap {
+    .slick-list {
+      padding-bottom: 30px;
+    }
+  }
   .wpo-team-item {
     background: #fff;
     border-radius: 20px;
