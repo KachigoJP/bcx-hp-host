@@ -1,6 +1,6 @@
 import React from "react";
 import Slider from "react-slick";
-import HeroItem, { HeroItemProps } from "@components/common/HeroItem";
+import HeroItem, { HeroItemProps } from "@components/common/Hero/HeroItem";
 
 export interface HeroProps {
     items: HeroItemProps[]

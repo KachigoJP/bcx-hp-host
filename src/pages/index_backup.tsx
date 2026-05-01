@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from "react";
 
 // Source
-import About, { AboutProps } from "@components/containers/Home/About";
+import About, { AboutProps } from "@components/common/About";
 import Achievements, {
   AchievementsProps,
-} from "@components/containers/Home/Achievements";
-import CTA, { CTAProps } from "@components/containers/Home/CTA";
-import Hero, { HeroProps } from "@components/containers/Home/Hero";
-import Partner, { PartnerProps } from "@components/containers/Home/Partner";
-import Project, { ProjectProps } from "@components/containers/Home/Project";
-import Service, { ServiceProps } from "@components/containers/Home/Service";
-import Team, { TeamProps } from "@components/containers/Home/Team";
+} from "@components/common/Achievements";
+import CTA, { CTAProps } from "@components/common/CTA";
+import Hero, { HeroProps } from "@components/common/Hero";
+import Partner, { PartnerProps } from "@components/common/Partner";
+import Project, { ProjectProps } from "@components/common/Project";
+import Service, { ServiceProps } from "@components/common/Service";
+import Team, { TeamProps } from "@components/common/Team";
 import Testimonial, {
   TestimonialProps,
-} from "@components/containers/Home/Testimonial";
+} from "@components/common/Testimonial";
 import Layout, { LayoutProps } from "@components/layout";
 import SEO from "@components/layout/SEO";
 

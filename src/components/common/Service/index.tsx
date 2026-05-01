@@ -1,4 +1,4 @@
-import ServiceItem, { ServiceItemProps } from "@components/common/ServiceItem";
+import ServiceItem, { ServiceItemProps } from "@components/common/Service/ServiceItem";
 import React from "react";
 
 export interface ServiceProps {

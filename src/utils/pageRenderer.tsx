@@ -4,21 +4,21 @@ import { getStrapiImageUrl } from "@utils/apps";
 import { SEOProps } from "@components/layout/SEO/interface";
 
 // Import section components
-import About, { AboutProps } from "@components/containers/Home/About";
+import About, { AboutProps } from "@components/common/About";
 import Achievements, {
   AchievementsProps,
-} from "@components/containers/Home/Achievements";
-import CTA, { CTAProps } from "@components/containers/Home/CTA";
-import Hero, { HeroProps } from "@components/containers/Home/Hero";
-import Service, { ServiceProps } from "@components/containers/Home/Service";
+} from "@components/common/Achievements";
+import CTA, { CTAProps } from "@components/common/CTA";
+import Hero, { HeroProps } from "@components/common/Hero";
+import Service, { ServiceProps } from "@components/common/Service";
 import Testimonial, {
   TestimonialProps,
-} from "@components/containers/Home/Testimonial";
-import Partner, { PartnerProps } from "@components/containers/Home/Partner";
-import Project, { ProjectProps } from "@components/containers/Home/Project";
-import Team, { TeamProps } from "@components/containers/Home/Team";
-import Event from "@components/containers/Home/Event";
-import Blog from "@components/containers/Home/Blog";
+} from "@components/common/Testimonial";
+import Partner, { PartnerProps } from "@components/common/Partner";
+import Project, { ProjectProps } from "@components/common/Project";
+import Team, { TeamProps } from "@components/common/Team";
+import Event from "@components/common/Event";
+import Blog from "@components/common/Blog";
 
 /**
  * Transform SEO data from Strapi to SEO component props

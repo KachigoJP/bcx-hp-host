@@ -4,7 +4,7 @@ import SEO from "@components/layout/SEO";
 import { SEOProps } from "@components/layout/SEO/interface";
 import { PageContent } from "@/utils/interfaces";
 import { BlocksRenderer } from "@/components/RichText";
-import Hero from "@components/containers/Home/Hero";
+import Hero from "@components/common/Hero";
 import {
   transformHeroData,
   renderSection,
@@ -26,7 +26,12 @@ export interface DynamicPageProps {
  * Shows skeleton loader when pageData is unavailable
  * Caches successful page loads for offline viewing
  */
-const DynamicPage: React.FC<DynamicPageProps> = ({ layout, seo, pageData, slug }) => {
+const DynamicPage: React.FC<DynamicPageProps> = ({
+  layout,
+  seo,
+  pageData,
+  slug,
+}) => {
   // Cache page data when successfully loaded and clear retry count
   useEffect(() => {
     if (pageData && slug) {

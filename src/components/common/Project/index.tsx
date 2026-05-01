@@ -1,4 +1,4 @@
-import ProjectItem from '@components/common/ProjectItem';
+import ProjectItem from '@components/common/Project/ProjectItem';
 import { StaticImageData } from 'next/image';
 import React from 'react';
 

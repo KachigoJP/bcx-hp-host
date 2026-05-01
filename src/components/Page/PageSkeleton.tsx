@@ -4,7 +4,7 @@ import NetworkError from "./NetworkError";
 import { getPage, getCacheAge, formatCacheAge } from "@/utils/pageCache";
 import { isOnline } from "@/utils/networkStatus";
 import { PageContent } from "@/utils/interfaces";
-import Hero from "@components/containers/Home/Hero";
+import Hero from "@components/common/Hero";
 import { BlocksRenderer } from "@/components/RichText";
 import {
   transformHeroData,

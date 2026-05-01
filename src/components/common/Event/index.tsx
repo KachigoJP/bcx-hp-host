@@ -1,7 +1,7 @@
-import React from 'react'
-import Link from 'next/link'
-import Image from 'next/image'
-import Events from '../../../../api/event'
+import React from "react";
+import Link from "next/link";
+import Image, { StaticImageData } from "next/image";
+import Events from "@api/event";
 
 interface Event {
   eImg: string;

@@ -1,62 +1,61 @@
 import React from "react";
 import Slider from "react-slick";
 import { StaticImageData } from "next/image";
-import { Settings } from "react-slick";
-import TeamItem from "@components/common/TeamItem";
+import TestimonialItem from "@components/common/Testimonial/TestimonialItem";
 
-export interface TeamItem {
-  tImg?: string | StaticImageData;
-  slug: string;
-  name: string;
-  title: string;
-}
-
-export interface TeamProps {
+export interface TestimonialItem {
+  image: string | StaticImageData;
   title: string;
   subtitle: string;
   description: string;
-  items: TeamItem[];
 }
 
-const TeamSection: React.FC<TeamProps> = ({
-  items,
+export interface TestimonialProps {
+  title: string;
+  subtitle: string;
+  description: string;
+  items: TestimonialItem[];
+}
+
+const TestimonialSection: React.FC<TestimonialProps> = ({
   title,
   subtitle,
   description,
+  items,
 }) => {
-  const settings: Settings = {
+  const settings = {
     dots: false,
-    arrows: false,
+    arrows: true,
     speed: 1000,
-    slidesToShow: 4,
+    slidesToShow: 2,
     slidesToScroll: 1,
     autoplay: true,
     responsive: [
       {
         breakpoint: 1500,
         settings: {
-          slidesToShow: 4,
+          slidesToShow: 2,
           slidesToScroll: 1,
         },
       },
       {
         breakpoint: 1200,
         settings: {
-          slidesToShow: 3,
+          slidesToShow: 2,
           slidesToScroll: 1,
         },
       },
       {
         breakpoint: 991,
         settings: {
-          slidesToShow: 3,
+          slidesToShow: 2,
           slidesToScroll: 1,
         },
       },
       {
         breakpoint: 767,
         settings: {
-          slidesToShow: 2,
+          slidesToShow: 1,
           slidesToScroll: 1,
         },
       },
@@ -70,12 +69,8 @@ const TeamSection: React.FC<TeamProps> = ({
     ],
   };
 
-  const clickHandler = () => {
-    window.scrollTo(10, 0);
-  };
-
   return (
-    <section className="wpo-team-section section-padding">
+    <div className="wpo-testimonial-area section-padding">
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-lg-6">
@@ -86,18 +81,24 @@ const TeamSection: React.FC<TeamProps> = ({
             </div>
           </div>
         </div>
-        <div className="wpo-team-wrap">
-          <div className="team-slider">
+        <div className="wpo-testimonial-wrap">
+          <div className="testimonial-slider owl-carousel">
             <Slider {...settings}>
-              {items.slice(0, 6).map((team: TeamItem, tm: number) => (
-                <TeamItem key={tm} {...team} onClick={clickHandler} />
+              {items.map((item, idx) => (
+                <TestimonialItem
+                  key={idx}
+                  image={item.image}
+                  description={item.description}
+                  title={item.title}
+                  subtitle={item.subtitle}
+                />
               ))}
             </Slider>
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 
-export default TeamSection;
+export default TestimonialSection;
