@@ -11,9 +11,7 @@ import Achievements, {
 import CTA, { CTAProps } from "@components/common/CTA";
 import Hero, { HeroProps } from "@components/common/Hero";
 import Service, { ServiceProps } from "@components/common/Service";
-import Testimonial, {
-  TestimonialProps,
-} from "@components/common/Testimonial";
+import Testimonial, { TestimonialProps } from "@components/common/Testimonial";
 import Partner, { PartnerProps } from "@components/common/Partner";
 import Project, { ProjectProps } from "@components/common/Project";
 import Team, { TeamProps } from "@components/common/Team";
@@ -53,13 +51,14 @@ export const transformHeroData = (
   if (!pageData?.heros || pageData.heros.length === 0) {
     return null;
   }
+  console.log("pageData.heros", pageData.heros[1]);
 
   return {
     items: pageData.heros
       .sort((a, b) => a.position - b.position)
       .map((hero) => ({
-        backgroundImage: hero.images?.data?.[0]
-          ? getStrapiImageUrl(hero.images.data[0].attributes.url || "")
+        backgroundImage: hero.images?.formats
+          ? getStrapiImageUrl(hero.images.formats?.large?.url || "")
           : "/images/hero-nature-mountain.jpg",
         title: hero.title,
         subtitle: hero.subtitle || "",
@@ -201,7 +200,6 @@ export const renderSection = (
       return <Project key={key} {...projectProps} />;
 
     case "teams":
-      console.log("section teams", section);
       const teamProps: TeamProps = {
         title: section.title,
         subtitle: section.subtitle || "",

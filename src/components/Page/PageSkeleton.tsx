@@ -5,12 +5,12 @@ import { getPage, getCacheAge, formatCacheAge } from "@/utils/pageCache";
 import { isOnline } from "@/utils/networkStatus";
 import { PageContent } from "@/utils/interfaces";
 import Hero from "@components/common/Hero";
-import { BlocksRenderer } from "@/components/RichText";
+import { BlocksRenderer } from "@components/common/BlocksRenderer";
 import {
   transformHeroData,
   renderSection,
   getSortedSections,
-} from "@/utils/pageRenderer";
+} from "./DynamicPage/PageRenderer";
 import styles from "./PageSkeleton.module.scss";
 
 interface PageSkeletonProps {

@@ -3,14 +3,14 @@ import Layout, { LayoutProps } from "@components/layout";
 import SEO from "@components/layout/SEO";
 import { SEOProps } from "@components/layout/SEO/interface";
 import { PageContent } from "@/utils/interfaces";
-import { BlocksRenderer } from "@/components/RichText";
+import { BlocksRenderer } from "@components/common/BlocksRenderer";
 import Hero from "@components/common/Hero";
 import {
   transformHeroData,
   renderSection,
   getSortedSections,
-} from "@/utils/pageRenderer";
-import PageSkeleton from "./PageSkeleton";
+} from "./PageRenderer";
+import PageSkeleton from "../PageSkeleton";
 import { savePage } from "@/utils/pageCache";
 
 export interface DynamicPageProps {

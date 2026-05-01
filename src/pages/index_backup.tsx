@@ -11,9 +11,7 @@ import Partner, { PartnerProps } from "@components/common/Partner";
 import Project, { ProjectProps } from "@components/common/Project";
 import Service, { ServiceProps } from "@components/common/Service";
 import Team, { TeamProps } from "@components/common/Team";
-import Testimonial, {
-  TestimonialProps,
-} from "@components/common/Testimonial";
+import Testimonial, { TestimonialProps } from "@components/common/Testimonial";
 import Layout, { LayoutProps } from "@components/layout";
 import SEO from "@components/layout/SEO";
 

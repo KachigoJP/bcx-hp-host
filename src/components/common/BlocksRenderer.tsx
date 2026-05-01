@@ -129,7 +129,7 @@ const BlockNode: React.FC<{ block: StrapiBlockContent; index: number }> = ({
  * Main component to render Strapi Blocks editor content
  * Supports both new Blocks format (array) and legacy string format
  */
-const BlocksRenderer: React.FC<BlocksRendererProps> = ({
+export const BlocksRenderer: React.FC<BlocksRendererProps> = ({
   content,
   className = "rich-text-content",
 }) => {
@@ -160,5 +160,3 @@ const BlocksRenderer: React.FC<BlocksRendererProps> = ({
 
   return null;
 };
-
-export default BlocksRenderer;

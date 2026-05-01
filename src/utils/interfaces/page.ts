@@ -13,18 +13,8 @@ export interface PageHero {
   subtitle?: string;
   description?: string;
   url?: string;
-  images?: {
-    data: Array<{
-      id: number;
-      attributes: StrapiImage;
-    }>;
-  };
-  video?: {
-    data: Array<{
-      id: number;
-      attributes: StrapiImage;
-    }>;
-  };
+  images?: StrapiImage;
+  video?: StrapiImage;
   btn_title?: string;
   type: "hero" | "hero2" | "hero3" | "hero4" | "hero5" | "hero6" | "hero7";
 }

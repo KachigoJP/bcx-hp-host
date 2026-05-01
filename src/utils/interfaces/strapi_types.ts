@@ -3,7 +3,6 @@
  * Common TypeScript interfaces for Strapi responses
  */
 
-
 // Base Strapi response structure
 export interface StrapiResponse<T> {
   data: T;
@@ -38,14 +37,16 @@ export interface StrapiSingleResponse<T> {
 
 // Collection response (Strapi v5 - flattened structure, no attributes nesting)
 export interface StrapiCollectionResponse<T> {
-  data: Array<{
-    id: number;
-    documentId: string; // Strapi v5 document ID
-    locale?: string;
-    createdAt?: string;
-    updatedAt?: string;
-    publishedAt?: string;
-  } & T>; // Content attributes are spread directly, not nested in 'attributes'
+  data: Array<
+    {
+      id: number;
+      documentId: string; // Strapi v5 document ID
+      locale?: string;
+      createdAt?: string;
+      updatedAt?: string;
+      publishedAt?: string;
+    } & T
+  >; // Content attributes are spread directly, not nested in 'attributes'
   meta?: {
     pagination?: {
       page: number;
@@ -158,10 +159,16 @@ export interface StrapiImage {
   width?: number;
   height?: number;
   formats?: {
+    thumbnail?: {
+      url: string;
+    };
     small?: {
       url: string;
     };
-    thumbnail?: {
+    medium?: {
+      url: string;
+    };
+    large?: {
       url: string;
     };
   };
