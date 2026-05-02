@@ -103,10 +103,11 @@ export const renderSection = (
         about: {},
       };
       if (section.about) {
+        console.log("SECTION about", section.about);
         aboutProps.about = {
           ...section.about,
           image: section.about.image
-            ? getStrapiImageUrl(section.about.image.formats?.medium?.url || "")
+            ? getStrapiImageUrl(section.about.image.formats?.large?.url || "")
             : undefined,
         };
       }
@@ -167,7 +168,6 @@ export const renderSection = (
       return <Testimonial key={key} {...testimonialProps} />;
 
     case "parters":
-      console.log("pageData.heros", section);
       const partnerProps: PartnerProps = {
         title: section.title,
         subtitle: section.subtitle || "",
@@ -208,8 +208,8 @@ export const renderSection = (
       };
       if (section.members && section.members.length > 0) {
         teamProps.items = section.members.map((member) => ({
-          tImg: member.image?.data?.[0]
-            ? getStrapiImageUrl(member.image.data[0].attributes.url || "")
+          tImg: member.avatar
+            ? getStrapiImageUrl(member.avatar.formats?.medium?.url || "")
             : undefined,
           slug: member.email || "",
           name: member.full_name,

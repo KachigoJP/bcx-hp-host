@@ -86,12 +86,7 @@ export interface PageMember {
   full_name: string;
   team?: TeamMember[];
   email?: string;
-  image?: {
-    data: Array<{
-      id: number;
-      attributes: StrapiImage;
-    }>;
-  };
+  avatar?: StrapiImage;
 }
 
 export interface TeamMember {
