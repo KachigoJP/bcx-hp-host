@@ -103,7 +103,6 @@ export const renderSection = (
         about: {},
       };
       if (section.about) {
-        console.log("SECTION about", section.about);
         aboutProps.about = {
           ...section.about,
           image: section.about.image
@@ -117,12 +116,14 @@ export const renderSection = (
       const ctaProps: CTAProps = {
         title: section.title,
         subtitle: section.subtitle || section.description || "",
-        backgroundImage: "",
+        description: section.description || "",
+        image: "",
         buttonText: "",
         buttonLink: "",
       };
       if (section.CTA) {
-        ctaProps.backgroundImage = section.CTA.image
+        console.log("section.CTA.image.formats", section.CTA.image?.formats);
+        ctaProps.image = section.CTA.image
           ? getStrapiImageUrl(section.CTA.image.formats?.medium?.url || "")
           : "/images/cta-group-hiking.jpg";
         ctaProps.buttonText = section.CTA.action || "Tham gia ngay";
