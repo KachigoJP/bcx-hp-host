@@ -9,7 +9,7 @@ import Achievements, {
   AchievementsProps,
 } from "@components/common/Achievements";
 import CTA, { CTAProps } from "@components/common/CTA";
-import Hero, { HeroProps } from "@components/common/Hero";
+import { HeroProps } from "@components/common/Hero";
 import Service, { ServiceProps } from "@components/common/Service";
 import Testimonial, { TestimonialProps } from "@components/common/Testimonial";
 import Partner, { PartnerProps } from "@components/common/Partner";
@@ -51,7 +51,6 @@ export const transformHeroData = (
   if (!pageData?.heros || pageData.heros.length === 0) {
     return null;
   }
-  console.log("pageData.heros", pageData.heros[1]);
 
   return {
     items: pageData.heros
@@ -106,10 +105,8 @@ export const renderSection = (
       if (section.about) {
         aboutProps.about = {
           ...section.about,
-          image: section.about.image?.data?.[0]
-            ? getStrapiImageUrl(
-                section.about.image.data[0].attributes.url || "",
-              )
+          image: section.about.image
+            ? getStrapiImageUrl(section.about.image.formats?.medium?.url || "")
             : undefined,
         };
       }
@@ -124,8 +121,8 @@ export const renderSection = (
         buttonLink: "",
       };
       if (section.CTA) {
-        ctaProps.backgroundImage = section.CTA.image?.data?.[0]
-          ? getStrapiImageUrl(section.CTA.image.data[0].attributes.url || "")
+        ctaProps.backgroundImage = section.CTA.image
+          ? getStrapiImageUrl(section.CTA.image.formats?.medium?.url || "")
           : "/images/cta-group-hiking.jpg";
         ctaProps.buttonText = section.CTA.action || "Tham gia ngay";
         ctaProps.buttonLink = section.CTA.url || "/join";
@@ -157,8 +154,10 @@ export const renderSection = (
       };
       if (section.testimonials && section.testimonials.length > 0) {
         testimonialProps.items = section.testimonials.map((testimonial) => ({
-          image: testimonial.avatar?.data?.[0]
-            ? getStrapiImageUrl(testimonial.avatar.data[0].attributes.url || "")
+          image: testimonial.avatar
+            ? getStrapiImageUrl(
+                testimonial.avatar.formats?.thumbnail?.url || "",
+              )
             : "/images/testimonial-member-1.jpg",
           title: testimonial.title,
           subtitle: testimonial.subtitle || "",
@@ -168,6 +167,7 @@ export const renderSection = (
       return <Testimonial key={key} {...testimonialProps} />;
 
     case "parters":
+      console.log("pageData.heros", section);
       const partnerProps: PartnerProps = {
         title: section.title,
         subtitle: section.subtitle || "",
@@ -176,8 +176,8 @@ export const renderSection = (
       };
       if (section.partners && section.partners.length > 0) {
         partnerProps.items = section.partners.map((partner) =>
-          partner.logo?.data?.[0]
-            ? getStrapiImageUrl(partner.logo.data[0].attributes.url || "")
+          partner.logo?.formats
+            ? getStrapiImageUrl(partner.logo.formats.thumbnail?.url || "")
             : "/assets/images/default/partner.jpg",
         );
       }

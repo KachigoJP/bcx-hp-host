@@ -32,18 +32,8 @@ export interface PageService {
 export interface PageAbout {
   linkText?: string;
   linkHref?: string;
-  media?: {
-    data: Array<{
-      id: number;
-      attributes: StrapiImage;
-    }>;
-  };
-  image?: {
-    data: Array<{
-      id: number;
-      attributes: StrapiImage;
-    }>;
-  };
+  media?: StrapiImage;
+  image?: StrapiImage;
   content?: StrapiRichText; // Blocks editor content
 }
 
@@ -57,12 +47,7 @@ export interface PageFunfact {
 export interface PageCTA {
   title: string;
   url?: string;
-  image?: {
-    data: Array<{
-      id: number;
-      attributes: StrapiImage;
-    }>;
-  };
+  image?: StrapiImage;
   action?: string;
 }
 
@@ -71,22 +56,12 @@ export interface PageTestimonial {
   title: string;
   subtitle?: string;
   description?: string;
-  avatar?: {
-    data: Array<{
-      id: number;
-      attributes: StrapiImage;
-    }>;
-  };
+  avatar?: StrapiImage;
 }
 
 // Partner component interface (ui.partner)
 export interface PagePartner {
-  logo?: {
-    data: Array<{
-      id: number;
-      attributes: StrapiImage;
-    }>;
-  };
+  logo?: StrapiImage;
   title?: string;
   subtitle?: string;
   description?: string;
