@@ -122,7 +122,6 @@ export const renderSection = (
         buttonLink: "",
       };
       if (section.CTA) {
-        console.log("section.CTA.image.formats", section.CTA.image?.formats);
         ctaProps.image = section.CTA.image
           ? getStrapiImageUrl(section.CTA.image.formats?.medium?.url || "")
           : "/images/cta-group-hiking.jpg";
@@ -155,11 +154,13 @@ export const renderSection = (
         items: [],
       };
       if (section.testimonials && section.testimonials.length > 0) {
+        console.log(
+          "testimonialProps.items",
+          section.testimonials[0].avatar?.formats?.small,
+        );
         testimonialProps.items = section.testimonials.map((testimonial) => ({
           image: testimonial.avatar
-            ? getStrapiImageUrl(
-                testimonial.avatar.formats?.thumbnail?.url || "",
-              )
+            ? getStrapiImageUrl(testimonial.avatar.formats?.small?.url || "")
             : "/images/testimonial-member-1.jpg",
           title: testimonial.title,
           subtitle: testimonial.subtitle || "",

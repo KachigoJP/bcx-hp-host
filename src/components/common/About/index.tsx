@@ -32,7 +32,7 @@ const AboutSection: React.FC<AboutProps> = (props) => {
               <div className="wpo-about-img">
                 <Image
                   src={about.image || DEFAULT_IMAGES.SKELETON_500_670}
-                  width={581}
+                  width={500}
                   height={670}
                   alt=""
                 />
