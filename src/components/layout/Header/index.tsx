@@ -1,12 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import React, { FormEvent, useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
-import MenuItem from "@components/common/MenuItem";
 import MobileMenu from "@components/layout/MobileMenu";
 import { authService } from "@/lib/strapi/services";
 import { HeaderButton, IMenuItem, User } from "@utils/interfaces/index";
-import { useRouter } from "next/router";
+import MenuItem from "./MenuItem";
 
 export interface HeaderData {
   logo: string;

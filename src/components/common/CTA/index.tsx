@@ -13,59 +13,27 @@ export interface CTAProps {
   buttonLink: string;
 }
 
-const CTA: React.FC<CTAProps> = ({
-  image,
-  title,
-  subtitle,
-  description,
-  buttonText,
-  buttonLink,
-}) => {
-  const clickHandler = () => {
-    window.scrollTo(10, 0);
-  };
-
+const CTA: React.FC<CTAProps> = ({ image, title, buttonText, buttonLink }) => {
   return (
-    <section
-      //   className={`${styles["wpo-cta-section"]} section-padding`}
-      className="wpo-cta-area section-padding"
-    >
+    <section className={`${styles["wpo-cta-area"]} section-padding`}>
       <div className="container-fluid">
         <div className="row">
           <div className="col-12">
-            <div className="wpo-cta-section">
-              <div className="wpo-cta-content">
+            <div className={styles["wpo-cta-section"]}>
+              <div className={styles["wpo-cta-content"]}>
                 <h2>{title}</h2>
                 <Link href={buttonLink}>{buttonText}</Link>
               </div>
-              <div className="volunteer-img">
+              <div className={styles["volunteer-img"]}>
                 <Image src={image} alt="" width={365} height={512} />
               </div>
-              <div className="shape">
+              <div className={styles["shape"]}>
                 <Image src={shape} alt="" width={100} height={1000} />
               </div>
             </div>
           </div>
         </div>
       </div>
-      {/* <div className="container">
-        <div className="row justify-content-center">
-          <div className="col-lg-8">
-            <div className={styles["wpo-cta-content"]}>
-              <span>{subtitle}</span>
-              <h2>{title}</h2>
-              <p>{description}</p>
-              <Link
-                onClick={clickHandler}
-                className={styles["theme-btn"]}
-                href={buttonLink}
-              >
-                {buttonText}
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div> */}
     </section>
   );
 };

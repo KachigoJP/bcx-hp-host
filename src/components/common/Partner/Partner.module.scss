@@ -1,0 +1,32 @@
+@use "utils/theme/styles/sass/helpers" as helpers;
+
+/*--------------------------------------------------------------
+partners-section
+--------------------------------------------------------------*/
+
+.partners-section {
+  .container {
+    position: relative;
+    padding: 25px 15px;
+  }
+
+  .grid {
+    text-align: center;
+  }
+
+  .grid img {
+    width: auto;
+    margin: 0 auto;
+    display: inline-block;
+  }
+
+  .owl-nav {
+    display: none;
+  }
+
+  &.title-none {
+    .wpo-section-title {
+      display: none;
+    }
+  }
+}

@@ -100,6 +100,7 @@ const nextConfig: NextConfig = {
                       ...useEntry.options?.sassOptions,
                       quietDeps: true, // Silence @import deprecation warnings
                       silenceDeprecations: ["import"], // Specifically silence @import warnings
+                      loadPaths: ["src"],
                     },
                   };
                 }

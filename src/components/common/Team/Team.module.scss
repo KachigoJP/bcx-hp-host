@@ -1,0 +1,50 @@
+@use "utils/theme/styles/sass/helpers" as helpers;
+
+/*--------------------------------------------------------------
+wpo-team-area
+--------------------------------------------------------------*/
+
+.wpo-team-area {
+  background: helpers.$section-bg-color;
+
+  .team-slider.owl-carousel .owl-stage-outer {
+    overflow: inherit;
+  }
+
+  .owl-nav {
+    display: none;
+  }
+
+  .wpo-team-item {
+    .wpo-team-content {
+      padding-top: 25px;
+
+      h2 {
+        font-size: 25px;
+
+        a {
+          color: helpers.$dark-gray;
+
+          &:hover {
+            color: helpers.$theme-primary-color;
+          }
+        }
+      }
+    }
+
+    .wpo-team-img {
+      img {
+        width: 100%;
+      }
+    }
+  }
+
+  .slick-slide {
+    padding: 0 10px;
+  }
+
+  .slick-list {
+    overflow: inherit;
+    padding: 0 0 30px 0;
+  }
+}
