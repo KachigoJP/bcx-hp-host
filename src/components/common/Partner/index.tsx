@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import Slider from "react-slick";
+import styles from "./Partner.module.scss";
 export interface PartnerProps {
   title: string;
   subtitle: string;
@@ -56,7 +57,7 @@ const PartnerSection: React.FC<PartnerProps> = (props) => {
   };
 
   return (
-    <section className={`partners-section section-padding`}>
+    <section className={`${styles["partners-section"]} section-padding`}>
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-lg-6">
@@ -72,7 +73,7 @@ const PartnerSection: React.FC<PartnerProps> = (props) => {
             <div className="partner-grids partners-slider owl-carousel">
               <Slider {...settings}>
                 {props.items.map((item, key) => (
-                  <div className="grid" key={key}>
+                  <div className={styles["grid"]} key={key}>
                     <Image src={item} width={45} height={45} alt="" />
                   </div>
                 ))}

@@ -3,6 +3,7 @@ import Slider from "react-slick";
 import { StaticImageData } from "next/image";
 import { Settings } from "react-slick";
 import TeamItem from "@components/common/Team/TeamItem";
+import styles from "./Team.module.scss";
 
 export interface TeamItem {
   tImg?: string | StaticImageData;
@@ -75,7 +76,7 @@ const TeamSection: React.FC<TeamProps> = ({
   };
 
   return (
-    <section className="wpo-team-section section-padding">
+    <section className={`${styles["wpo-team-area"]} section-padding`}>
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-lg-6">
@@ -87,7 +88,7 @@ const TeamSection: React.FC<TeamProps> = ({
           </div>
         </div>
         <div className="wpo-team-wrap">
-          <div className="team-slider">
+          <div className={styles["team-slider"]}>
             <Slider {...settings}>
               {items.slice(0, 6).map((team: TeamItem, tm: number) => (
                 <TeamItem key={tm} {...team} onClick={clickHandler} />

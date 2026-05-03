@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import Image, { StaticImageData } from "next/image";
 import Events from "@api/event";
+import styles from "./Event.module.scss";
 
 interface Event {
   eImg: string;
@@ -21,7 +22,7 @@ const EventSection: React.FC<EventSection3Props> = () => {
   };
 
   return (
-    <div className="wpo-event-area style-s2 bg-green section-padding">
+    <div className={`${styles["wpo-event-area"]} ${styles["style-s2"]} bg-green section-padding`}>
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-lg-6">
@@ -35,17 +36,17 @@ const EventSection: React.FC<EventSection3Props> = () => {
             </div>
           </div>
         </div>
-        <div className="wpo-event-wrap">
+        <div className={styles["wpo-event-wrap"]}>
           <div className="row justify-content-center">
             <div className="col col-lg-10">
               {Events.slice(3, 6).map((event: Event, eitem: number) => (
-                <div className="wpo-event-single" key={eitem}>
-                  <div className="wpo-event-item">
-                    <div className="wpo-event-img">
+                <div className={styles["wpo-event-single"]} key={eitem}>
+                  <div className={styles["wpo-event-item"]}>
+                    <div className={styles["wpo-event-img"]}>
                       <Image src={event.eImg} alt="" />
                     </div>
-                    <div className="wpo-event-content">
-                      <div className="wpo-event-text-top">
+                    <div className={styles["wpo-event-content"]}>
+                      <div className={styles["wpo-event-text-top"]}>
                         <span>{event.date}</span>
                         <h2>
                           <Link
@@ -59,7 +60,7 @@ const EventSection: React.FC<EventSection3Props> = () => {
                         <p>{event.dec}</p>
                         <Link
                           onClick={ClickHandler}
-                          className="read-more"
+                          className={styles["read-more"]}
                           href="/event-single/[slug]"
                           as={`/event-single/${event.slug}`}
                         >

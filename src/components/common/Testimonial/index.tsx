@@ -2,6 +2,7 @@ import React from "react";
 import Slider from "react-slick";
 import { StaticImageData } from "next/image";
 import TestimonialItem from "@components/common/Testimonial/TestimonialItem";
+import styles from "./Testimonial.module.scss";
 
 export interface TestimonialItem {
   image: string | StaticImageData;
@@ -70,7 +71,7 @@ const TestimonialSection: React.FC<TestimonialProps> = ({
   };
 
   return (
-    <div className="wpo-testimonial-area section-padding">
+    <div className={`${styles["wpo-testimonial-area"]} section-padding`}>
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-lg-6">
@@ -81,7 +82,7 @@ const TestimonialSection: React.FC<TestimonialProps> = ({
             </div>
           </div>
         </div>
-        <div className="wpo-testimonial-wrap">
+        <div className={styles["wpo-testimonial-wrap"]}>
           <div className="testimonial-slider owl-carousel">
             <Slider {...settings}>
               {items.map((item, idx) => (

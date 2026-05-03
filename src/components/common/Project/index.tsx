@@ -1,6 +1,7 @@
 import ProjectItem from '@components/common/Project/ProjectItem';
 import { StaticImageData } from 'next/image';
 import React from 'react';
+import styles from './Project.module.scss';
 
 export interface ProjectItem {
     image: string | StaticImageData;
@@ -19,12 +20,12 @@ const ProjectSection: React.FC<ProjectProps> = (props) => {
     }
 
     return (
-        <section className='wpo-project-section section-padding'>
+        <section className={`${styles["wpo-project-section"]} section-padding`}>
             <div className="container-fluid">
                 <div className="sortable-gallery">
                     <div className="row">
                         <div className="col-lg-12">
-                            <div className="project-grids gallery-container clearfix">
+                            <div className={`${styles["project-grids"]} gallery-container clearfix`}>
                                 {props.items.slice(0, 6).map((item, idx) => (
                                     <ProjectItem key={idx} {...item} onClick={clickHandler} />
                                 ))}

@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import Image, { StaticImageData } from "next/image";
 import blogs from "@api/blogs";
+import styles from "./Blog.module.scss";
 
 interface Blog {
   screens: StaticImageData;
@@ -22,7 +23,7 @@ const BlogSection: React.FC<BlogSectionProps> = () => {
   };
 
   return (
-    <section className="wpo-blog-section section-padding">
+    <section className={`${styles["wpo-blog-section"]} section-padding`}>
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-lg-6">
@@ -36,16 +37,16 @@ const BlogSection: React.FC<BlogSectionProps> = () => {
             </div>
           </div>
         </div>
-        <div className="wpo-blog-items">
+        <div className={styles["wpo-blog-items"]}>
           <div className="row">
             {blogs.slice(0, 3).map((blog, Bitem) => (
               <div className="col col-lg-4 col-md-6 col-12" key={Bitem}>
-                <div className="wpo-blog-item">
-                  <div className="wpo-blog-img">
+                <div className={styles["wpo-blog-item"]}>
+                  <div className={styles["wpo-blog-img"]}>
                     <Image src={blog.screens} alt="" />
                   </div>
-                  <div className="wpo-blog-content">
-                    <div className="wpo-blog-content-top">
+                  <div className={styles["wpo-blog-content"]}>
+                    <div className={styles["wpo-blog-content-top"]}>
                       <h2>
                         <Link
                           onClick={ClickHandler}
@@ -56,12 +57,12 @@ const BlogSection: React.FC<BlogSectionProps> = () => {
                         </Link>
                       </h2>
                     </div>
-                    <div className="wpo-blog-content-btm">
-                      <div className="wpo-blog-content-btm-left">
-                        <div className="wpo-blog-content-btm-left-img">
+                    <div className={styles["wpo-blog-content-btm"]}>
+                      <div className={styles["wpo-blog-content-btm-left"]}>
+                        <div className={styles["wpo-blog-content-btm-left-img"]}>
                           <Image src={blog.authorImg} alt="" />
                         </div>
-                        <div className="wpo-blog-content-btm-left-text">
+                        <div className={styles["wpo-blog-content-btm-left-text"]}>
                           <h4>
                             <Link
                               onClick={ClickHandler}
@@ -73,7 +74,7 @@ const BlogSection: React.FC<BlogSectionProps> = () => {
                           </h4>
                         </div>
                       </div>
-                      <div className="wpo-blog-content-btm-right">
+                      <div className={styles["wpo-blog-content-btm-right"]}>
                         <span>
                           <i className="fi flaticon-chat-comment-oval-speech-bubble-with-text-lines"></i>{" "}
                           {blog.comment}

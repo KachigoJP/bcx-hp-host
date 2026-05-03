@@ -332,8 +332,8 @@ const TeamPage: React.FC<TeamProps> = (props) => {
                     key={index}
                     className="col-lg-3 col-md-6 col-sm-6 col-12"
                   >
-                    <div className={`wpo-team-item ${styles.wpoTeamItem}`}>
-                      <div className={`wpo-team-img ${styles.wpoTeamImg}`}>
+                    <div className={`wpo-team-item`}>
+                      <div className={`wpo-team-img`}>
                         <Image
                           src={imageSrc}
                           alt={member.name}
@@ -341,9 +341,7 @@ const TeamPage: React.FC<TeamProps> = (props) => {
                           height={300}
                           style={{ width: "100%", height: "auto" }}
                         />
-                        <div
-                          className={`wpo-team-social ${styles.wpoTeamSocial}`}
-                        >
+                        <div className={`wpo-team-social`}>
                           <ul>
                             <li>
                               <a href={member.socialLinks?.facebook || "#"}>
