@@ -1,0 +1,63 @@
+@use "sass:color";
+@use "utils/theme/styles/sass/helpers" as helpers;
+
+/*--------------------------------------------------------------
+wpo-transparency-section
+--------------------------------------------------------------*/
+
+.wpo-transparency-section {
+    @include helpers.linear-gradient-bg(
+        to right,
+        color.adjust(helpers.$theme-primary-color, $lightness: -6%),
+        color.adjust(helpers.$theme-primary-color, $alpha: -0.15)
+    );
+
+    .section-title-light {
+        span {
+            color: color.adjust(helpers.$white, $alpha: -0.2);
+        }
+
+        h2 {
+            color: helpers.$white;
+        }
+
+        p {
+            color: color.adjust(helpers.$white, $alpha: -0.15);
+        }
+    }
+
+    .transparency-item {
+        text-align: center;
+        padding: 30px 20px;
+        margin-bottom: 30px;
+
+        .transparency-icon {
+            width: 80px;
+            height: 80px;
+            line-height: 80px;
+            margin: 0 auto 20px;
+            background: rgba(255, 255, 255, 0.15);
+            @include helpers.rounded-border(50%);
+            text-align: center;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+
+            .fi {
+                font-size: 36px;
+                color: helpers.$white;
+            }
+        }
+
+        h4 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: helpers.$white;
+        }
+
+        p {
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 0;
+        }
+    }
+}

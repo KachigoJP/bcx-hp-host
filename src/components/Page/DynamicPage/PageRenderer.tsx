@@ -154,10 +154,6 @@ export const renderSection = (
         items: [],
       };
       if (section.testimonials && section.testimonials.length > 0) {
-        console.log(
-          "testimonialProps.items",
-          section.testimonials[0].avatar?.formats?.small,
-        );
         testimonialProps.items = section.testimonials.map((testimonial) => ({
           image: testimonial.avatar
             ? getStrapiImageUrl(testimonial.avatar.formats?.small?.url || "")

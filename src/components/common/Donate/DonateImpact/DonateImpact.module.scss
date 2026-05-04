@@ -1,0 +1,60 @@
+@use "sass:color";
+@use "utils/theme/styles/sass/helpers" as helpers;
+
+/*--------------------------------------------------------------
+wpo-impact-section
+--------------------------------------------------------------*/
+
+.wpo-impact-section {
+    background: helpers.$section-bg-color2;
+
+    .wpo-impact-item {
+        text-align: center;
+        padding: 40px 30px;
+        border-radius: 20px;
+        background: helpers.$white;
+        box-shadow: 0px 1px 15px 0px rgba(62, 65, 159, 0.1);
+        margin-bottom: 30px;
+        transition: all 0.3s;
+
+        &:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 5px 25px 0px rgba(62, 65, 159, 0.15);
+        }
+
+        @media (max-width: 991px) {
+            margin-bottom: 20px;
+            padding: 30px 20px;
+        }
+    }
+
+    .wpo-impact-icon {
+        width: 90px;
+        height: 90px;
+        line-height: 90px;
+        margin: 0 auto 20px;
+        background: #e0f5f3;
+        @include helpers.rounded-border(50%);
+        text-align: center;
+
+        .fi {
+            font-size: 45px;
+            color: helpers.$theme-primary-color;
+        }
+    }
+
+    .wpo-impact-text {
+        h3 {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: helpers.$heading-color;
+        }
+
+        p {
+            font-size: 16px;
+            margin-bottom: 0;
+            color: helpers.$text-color;
+        }
+    }
+}

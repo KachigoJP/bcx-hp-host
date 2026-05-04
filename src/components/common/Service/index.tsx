@@ -1,5 +1,6 @@
 import ServiceItem, { ServiceItemProps } from "@components/common/Service/ServiceItem";
 import React from "react";
+import styles from "./Service.module.scss";
 
 export interface ServiceProps {
   title: string;
@@ -19,7 +20,7 @@ const ServiceSection: React.FC<ServiceProps> = ({
   };
 
   return (
-    <section className="wpo-features-section style-s6 section-padding">
+    <section className={`${styles["wpo-features-section"]} section-padding`}>
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-lg-6">

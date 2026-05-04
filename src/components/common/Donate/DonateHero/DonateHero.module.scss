@@ -1,0 +1,52 @@
+@use "sass:color";
+@use "utils/theme/styles/sass/helpers" as helpers;
+
+/*--------------------------------------------------------------
+wpo-donate-hero-section
+--------------------------------------------------------------*/
+
+.wpo-donate-hero-section {
+    .wpo-about-img {
+        border-radius: 20px;
+        overflow: hidden;
+
+        img {
+            width: 100%;
+            height: auto;
+            border-radius: 20px;
+        }
+    }
+
+    .wpo-about-text {
+        padding-left: 30px;
+
+        @media (max-width: 991px) {
+            padding-left: 0;
+            margin-top: 40px;
+        }
+
+        .wpo-about-content {
+            margin-top: 30px;
+
+            ul {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+
+                li {
+                    display: flex;
+                    align-items: center;
+                    margin-bottom: 15px;
+                    font-size: 16px;
+                    color: helpers.$text-color;
+
+                    i {
+                        font-size: 18px;
+                        color: helpers.$theme-primary-color;
+                        margin-right: 12px;
+                    }
+                }
+            }
+        }
+    }
+}

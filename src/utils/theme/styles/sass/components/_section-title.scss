@@ -9,10 +9,23 @@
   }
 
   span {
-    font-size: 18px;
-    font-size: helpers.calc-rem-value(18);
-    color: helpers.$theme-primary-color;
-    font-family: helpers.$heading-font;
+    // font-size: 18px;
+    // font-size: helpers.calc-rem-value(18);
+    // color: helpers.$theme-primary-color;
+    // font-family: helpers.$heading-font;
+    display: inline-block;
+    padding: 8px 20px;
+    background: linear-gradient(
+      135deg,
+      helpers.$theme-primary-color,
+      helpers.$theme-secondary-color
+    );
+    color: white;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
   }
 
   h2 {
