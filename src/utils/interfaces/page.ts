@@ -201,6 +201,7 @@ export interface PageContent {
   updatedAt?: string;
   publishedAt?: string;
   locale?: string;
+  template: "default" | "section" | "content" | "donate";
 }
 
 // Helper type for Page response from Strapi

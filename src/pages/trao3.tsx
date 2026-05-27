@@ -107,7 +107,7 @@ const HomePage: React.FC = () => {
       } else {
         isFound = true;
       }
-      console.log("isFound", isFound);
+
       if (isFound) {
         setSearchResult(users[code]);
         setShowError(false);
@@ -420,7 +420,7 @@ const HomePage: React.FC = () => {
                                 onClick={() => onClickUseTicket(i)}
                               />
                             </li>
-                          )
+                          ),
                         )}
                       </ul>
                     </div>

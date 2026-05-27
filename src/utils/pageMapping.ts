@@ -1,5 +1,6 @@
 import { pageService } from "@/lib/strapi/services";
 import { createLogger } from "@/utils/logger";
+import { PageContent } from "./interfaces";
 
 const logger = createLogger("Utils:PageMapping");
 
@@ -37,9 +38,9 @@ export async function getPageMapping(): Promise<PageMapping> {
       return mapping;
     }
 
-    pagesResponse.data.forEach((page) => {
+    pagesResponse.data.forEach((page: PageContent) => {
       // In Strapi v5, documentId is at the root level, slug is in attributes
-      const slug = page.attributes?.slug;
+      const slug = page.slug;
       const documentId = page.documentId; // documentId is at root level, not in attributes
 
       if (slug && documentId) {
@@ -71,7 +72,7 @@ export async function getPageMapping(): Promise<PageMapping> {
  */
 export function getDocumentIdBySlug(
   mapping: PageMapping,
-  slug: string
+  slug: string,
 ): string | undefined {
   return mapping[slug];
 }

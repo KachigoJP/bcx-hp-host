@@ -1,0 +1,10 @@
+@use "sass:color";
+@use "utils/theme/styles/sass/helpers" as helpers;
+
+/*--------------------------------------------------------------
+wpo-policy-intro-section
+--------------------------------------------------------------*/
+
+.wpo-policy-intro-section {
+    background: helpers.$section-bg-color2;
+}

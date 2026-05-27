@@ -1,18 +1,24 @@
-import { globalService, policyService, seoService } from "@/lib/strapi/services";
+import { globalService, policyService } from "@/lib/strapi/services";
 import { convertGlobalInfoToLayoutData } from "@/utils/apps";
 import {
-  ButtonDetail,
   GlobalInfo,
   PolicyContent,
   SectionIcon,
   SectionIntro,
-  SectionListTextItems
+  SectionListTextItems,
 } from "@/utils/interfaces";
 import Layout, { LayoutProps } from "@components/layout";
 import SEO from "@components/layout/SEO";
 import { SEOProps } from "@components/layout/SEO/interface";
+import PolicyActivityPolicies from "@components/common/Policy/PolicyActivityPolicies";
+import PolicyCodeOfConduct from "@components/common/Policy/PolicyCodeOfConduct";
+import PolicyContact from "@components/common/Policy/PolicyContact";
+import PolicyCoreValues from "@components/common/Policy/PolicyCoreValues";
+import PolicyFinancial from "@components/common/Policy/PolicyFinancial";
+import PolicyIntro from "@components/common/Policy/PolicyIntro";
+import PolicyMissionVision from "@components/common/Policy/PolicyMissionVision";
 import { getDefaultLayoutData } from "@utils/layoutData";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 interface PolicyProps {
   layout: LayoutProps;
@@ -50,7 +56,7 @@ export const getServerSideProps = async () => {
     tag: "Quy định",
     title: "Chính sách hoạt động",
     description: "Các quy định và nguyên tắc khi tham gia các hoạt động của tổ chức",
-  }
+  };
 
   const coreValueSectionItems: SectionIcon[] = [
     {
@@ -125,7 +131,7 @@ export const getServerSideProps = async () => {
     title: "Chính sách tài chính",
     description:
       "Chúng tôi cam kết minh bạch và trách nhiệm trong việc quản lý tài chính, đảm bảo mọi khoản thu chi đều được sử dụng đúng mục đích và có báo cáo rõ ràng.",
-  }
+  };
 
   const financialPolicySectionItems: SectionListTextItems[] = [
     {
@@ -182,7 +188,6 @@ export const getServerSideProps = async () => {
       "Chúng tôi luôn lắng nghe và tiếp thu mọi ý kiến đóng góp từ thành viên. Mọi khiếu nại và góp ý đều được xử lý nghiêm túc và kịp thời.",
   };
 
-
   const contactPolicySectionItems: SectionListTextItems[] = [
     {
       title: "Quy trình xử lý",
@@ -203,11 +208,6 @@ export const getServerSideProps = async () => {
       ],
     },
   ];
-
-  const contactPolicyActionButton: ButtonDetail = {
-    text: "Liên hệ với chúng tôi",
-    link: "/contact",
-  };
 
   const policyContent: PolicyContent = {
     pageIntro: {
@@ -236,7 +236,10 @@ export const getServerSideProps = async () => {
     contactPolicySection: {
       sectionIntro: contactPolicySectionIntro,
       items: contactPolicySectionItems,
-      button: contactPolicyActionButton,
+      button: {
+        text: "Liên hệ với chúng tôi",
+        link: "/contact",
+      },
     },
   };
 
@@ -252,23 +255,16 @@ export const getServerSideProps = async () => {
 const PolicyPage: React.FC<PolicyProps> = props => {
   const [globalData, setGlobalData] = useState<GlobalInfo | null>(null);
   const [policyContent, setPolicyContent] = useState<PolicyContent | null>(null);
-  const [seoData, setSeoData] = useState<SEOProps | null>(null);
-  const missionVisionRef = useRef<HTMLDivElement>(null);
-  const coreValuesRef = useRef<HTMLDivElement>(null);
-  const activityPoliciesRef = useRef<HTMLDivElement>(null);
-  const financialPolicyRef = useRef<HTMLDivElement>(null);
-  const codeOfConductRef = useRef<HTMLDivElement>(null);
-  const contactPolicyRef = useRef<HTMLDivElement>(null);
+  const [seoData] = useState<SEOProps | null>(null);
 
   useEffect(() => {
     const fetchGlobalData = async () => {
-      const globalData = await globalService.get({
-        populate: "*",
-      });
-      setGlobalData(globalData);
+      const data = await globalService.get({ populate: "*" });
+      setGlobalData(data);
     };
+
     const fetchPolicyContent = async () => {
-      const policyContent = await policyService.get({
+      const data = await policyService.get({
         populate: {
           "populate[pageIntro][populate]": "*",
           "populate[missionVision][populate]": "*",
@@ -279,453 +275,63 @@ const PolicyPage: React.FC<PolicyProps> = props => {
           "populate[contactPolicySection][populate]": "*",
         },
       });
-      setPolicyContent(policyContent);
+      setPolicyContent(data);
     };
-    /* const fetchSeoData = async () => {
-      const seoData = await seoService.get({
-        populate: {
-          "populate[pages][populate]": "*",
-        },
-      });
-      setSeoData(seoData);
-    }; */
+
     fetchGlobalData();
     fetchPolicyContent();
-    // fetchSeoData(); // Disabled - SEO content type not created
   }, []);
 
-  useEffect(() => {
-    // Mission & Vision animation observer
-    const missionVisionObserver = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("animate");
-          }
-        });
-      },
-      {
-        threshold: 0.2,
-        rootMargin: "0px 0px -50px 0px",
-      }
-    );
-
-    // Core Values animation observer
-    const coreValuesObserver = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("animate");
-          }
-        });
-      },
-      {
-        threshold: 0.2,
-        rootMargin: "0px 0px -50px 0px",
-      }
-    );
-
-    // Activity Policies animation observer
-    const activityPoliciesObserver = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("animate");
-          }
-        });
-      },
-      {
-        threshold: 0.2,
-        rootMargin: "0px 0px -50px 0px",
-      }
-    );
-
-    // Financial Policy animation observer
-    const financialPolicyObserver = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("animate");
-          }
-        });
-      },
-      {
-        threshold: 0.2,
-        rootMargin: "0px 0px -50px 0px",
-      }
-    );
-
-    // Code of Conduct animation observer
-    const codeOfConductObserver = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("animate");
-          }
-        });
-      },
-      {
-        threshold: 0.2,
-        rootMargin: "0px 0px -50px 0px",
-      }
-    );
-
-    // Contact Policy animation observer
-    const contactPolicyObserver = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("animate");
-          }
-        });
-      },
-      {
-        threshold: 0.2,
-        rootMargin: "0px 0px -50px 0px",
-      }
-    );
-
-    // Observe Mission & Vision
-    if (missionVisionRef.current) {
-      const policyItems = missionVisionRef.current.querySelectorAll(".wpo-policy-item");
-      policyItems.forEach((item, index) => {
-        (item as HTMLElement).style.transitionDelay = `${index * 0.15}s`;
-        missionVisionObserver.observe(item);
-      });
-    }
-
-    // Observe Core Values
-    if (coreValuesRef.current) {
-      const valueItems = coreValuesRef.current.querySelectorAll(".wpo-value-item");
-      valueItems.forEach((item, index) => {
-        (item as HTMLElement).style.transitionDelay = `${index * 0.1}s`;
-        coreValuesObserver.observe(item);
-      });
-    }
-
-    // Observe Activity Policies
-    if (activityPoliciesRef.current) {
-      const policyDetails = activityPoliciesRef.current.querySelectorAll(".wpo-policy-detail");
-      policyDetails.forEach((item, index) => {
-        (item as HTMLElement).style.transitionDelay = `${index * 0.1}s`;
-        activityPoliciesObserver.observe(item);
-      });
-    }
-
-    // Observe Financial Policy
-    if (financialPolicyRef.current) {
-      const policyItems = financialPolicyRef.current.querySelectorAll(".wpo-financial-policy-item");
-      policyItems.forEach((item, index) => {
-        (item as HTMLElement).style.transitionDelay = `${index * 0.1}s`;
-        financialPolicyObserver.observe(item);
-      });
-    }
-
-    // Observe Code of Conduct
-    if (codeOfConductRef.current) {
-      const conductItems = codeOfConductRef.current.querySelectorAll(".wpo-conduct-item");
-      conductItems.forEach((item, index) => {
-        (item as HTMLElement).style.transitionDelay = `${index * 0.1}s`;
-        codeOfConductObserver.observe(item);
-      });
-    }
-
-    // Observe Contact Policy
-    if (contactPolicyRef.current) {
-      const policyItems = contactPolicyRef.current.querySelectorAll(".wpo-contact-policy-item");
-      policyItems.forEach((item, index) => {
-        (item as HTMLElement).style.transitionDelay = `${index * 0.1}s`;
-        contactPolicyObserver.observe(item);
-      });
-    }
-
-    return () => {
-      missionVisionObserver.disconnect();
-      coreValuesObserver.disconnect();
-      activityPoliciesObserver.disconnect();
-      financialPolicyObserver.disconnect();
-      codeOfConductObserver.disconnect();
-      contactPolicyObserver.disconnect();
-    };
-  }, [policyContent, props.policyContent]);
-
-  const pageIntro = policyContent?.pageIntro || props.policyContent.pageIntro;
-  const missionVision = policyContent?.missionVision || props.policyContent.missionVision;
-  const coreValuesSection = policyContent?.coreValuesSection || props.policyContent.coreValuesSection;
-  const activityPoliciesSection = policyContent?.activityPoliciesSection || props.policyContent.activityPoliciesSection;
-  const financialPolicySection = policyContent?.financialPolicySection || props.policyContent.financialPolicySection;
-  const codeOfConductSection = policyContent?.codeOfConductSection || props.policyContent.codeOfConductSection;
-  const contactPolicySection = policyContent?.contactPolicySection || props.policyContent.contactPolicySection;
+  const content = policyContent || props.policyContent;
+  const layoutData = globalData ? convertGlobalInfoToLayoutData(globalData) : props.layout.data;
 
   return (
-    <Layout data={globalData ? convertGlobalInfoToLayoutData(globalData) : props.layout.data}>
+    <Layout data={layoutData}>
       <SEO {...(seoData || props.seo)} />
 
-      {/* Policy Intro Section */}
-      <section className="wpo-policy-intro-section section-padding section-padding-top">
-        <div className="container">
-          <div className="row justify-content-center">
-            <div className="col-lg-8">
-              <div className="wpo-section-title text-center">
-                <span>{pageIntro?.tag}</span>
-                <h2>{pageIntro?.title}</h2>
-                <p>{pageIntro?.description}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {content.pageIntro && (
+        <PolicyIntro {...content.pageIntro} />
+      )}
 
-      {/* Mission & Vision Section */}
-      <section className="wpo-mission-vision-section section-padding">
-        <div className="container">
-          <div className="row" ref={missionVisionRef}>
-            {missionVision && missionVision.length > 0 && missionVision.map(
-              (item, index) => (
-                <div key={index} className="col-lg-6 col-md-6 col-12">
-                  <div className="wpo-policy-item">
-                    <div className="wpo-policy-icon">
-                      <i className={item.icon}></i>
-                    </div>
-                    <h3>{item.title}</h3>
-                    <p>{item.description}</p>
-                  </div>
-                </div>
-              )
-            )}
-          </div>
-        </div>
-      </section>
+      {content.missionVision && content.missionVision.length > 0 && (
+        <PolicyMissionVision items={content.missionVision} />
+      )}
 
-      {/* Core Values Section */}
-      <section className="wpo-core-values-section section-padding">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-12">
-              <div className="wpo-section-title text-center">
-                <span>
-                  {
-                    coreValuesSection?.sectionIntro.tag
-                  }
-                </span>
-                <h2>
-                  {
-                    coreValuesSection?.sectionIntro.title
-                  }
-                </h2>
-                <p>
-                  {
-                    coreValuesSection?.sectionIntro.description
-                  }
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="row" ref={coreValuesRef}>
-            {coreValuesSection?.items && coreValuesSection?.items.length > 0 && coreValuesSection?.items.map(
-              (value, index) => (
-                <div key={index} className="col-lg-3 col-md-6 col-12">
-                  <div className="wpo-value-item text-center">
-                    <div className="wpo-value-icon">
-                      <i className={value.icon}></i>
-                    </div>
-                    <h4>{value.title}</h4>
-                    <p>{value.description}</p>
-                  </div>
-                </div>
-              )
-            )}
-          </div>
-        </div>
-      </section>
+      {content.coreValuesSection && (
+        <PolicyCoreValues
+          sectionIntro={content.coreValuesSection.sectionIntro}
+          items={content.coreValuesSection.items}
+        />
+      )}
 
-      {/* Activity Policies Section */}
-      <section className="wpo-activity-policies-section section-padding">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-12">
-              <div className="wpo-section-title text-center">
-                <span>
-                  {
-                    activityPoliciesSection?.sectionIntro.tag
-                  }
-                </span>
-                <h2>
-                  {
-                    activityPoliciesSection?.sectionIntro.title
-                  }
-                </h2>
-                <p>
-                  {
-                    activityPoliciesSection?.sectionIntro.description
-                  }
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="row" ref={activityPoliciesRef}>
-            {activityPoliciesSection?.items && activityPoliciesSection?.items.length > 0 && activityPoliciesSection?.items.map(
-              (detail, index) => (
-                <div key={index} className="col-lg-6 col-md-6 col-12">
-                  <div className="wpo-policy-detail">
-                    <h4>{detail.title}</h4>
-                    <ul>
-                      {detail.items &&
-                        detail.items.length > 0 &&
-                        detail.items?.map((item, itemIndex) => <li key={itemIndex}>{item.text}</li>)}
-                    </ul>
-                  </div>
-                </div>
-              ))}
-          </div>
-        </div>
-      </section>
+      {content.activityPoliciesSection && (
+        <PolicyActivityPolicies
+          sectionIntro={content.activityPoliciesSection.sectionIntro}
+          items={content.activityPoliciesSection.items}
+        />
+      )}
 
-      {/* Financial Policy Section */}
-      <section className="wpo-financial-policy-section section-padding">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-8 offset-lg-2">
-              <div className="wpo-financial-policy-content text-center">
-                <div className="wpo-section-title">
-                  <span>
-                    {
-                      financialPolicySection?.sectionIntro.tag
-                    }
-                  </span>
-                  <h2>
-                    {
-                      financialPolicySection?.sectionIntro.title
-                    }
-                  </h2>
-                  <p>
-                    {
-                      financialPolicySection?.sectionIntro.description
-                    }
-                  </p>
-                </div>
-                <div className="wpo-financial-policy-details" ref={financialPolicyRef}>
-                  <div className="row">
-                    {financialPolicySection?.items && financialPolicySection?.items.length > 0 && financialPolicySection?.items.map((item, index) => (
-                      <div key={index} className="col-lg-6 col-md-6 col-12">
-                        <div className="wpo-financial-policy-item">
-                          <h4>{item.title}</h4>
-                          <ul>
-                            {item.items &&
-                              item.items.length > 0 &&
-                              item.items?.map((policyItem, itemIndex) => (
-                                <li key={itemIndex}>{policyItem.text}</li>
-                              ))}
-                          </ul>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {content.financialPolicySection && (
+        <PolicyFinancial
+          sectionIntro={content.financialPolicySection.sectionIntro}
+          items={content.financialPolicySection.items}
+        />
+      )}
 
-      {/* Code of Conduct Section */}
-      <section className="wpo-code-conduct-section section-padding">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-12">
-              <div className="wpo-section-title text-center">
-                <span>
-                  {
-                    codeOfConductSection?.sectionIntro?.tag
-                  }
-                </span>
-                <h2>
-                  {
-                    codeOfConductSection?.sectionIntro?.title
-                  }
-                </h2>
-                <p>
-                  {
-                    codeOfConductSection?.sectionIntro?.description
-                  }
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="row" ref={codeOfConductRef}>
-            {codeOfConductSection?.items && codeOfConductSection?.items.length > 0 && codeOfConductSection?.items.map((conduct, index) => (
-              <div key={index} className="col-lg-4 col-md-6 col-12">
-                <div className="wpo-conduct-item text-center">
-                  <div className="wpo-conduct-icon">
-                    <i className={conduct.icon}></i>
-                  </div>
-                  <h4>{conduct.title}</h4>
-                  <p>{conduct.description}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {content.codeOfConductSection && (
+        <PolicyCodeOfConduct
+          sectionIntro={content.codeOfConductSection.sectionIntro}
+          items={content.codeOfConductSection.items}
+        />
+      )}
 
-      {/* Contact Policy Section */}
-      <section className="wpo-contact-policy-section section-padding">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-8 offset-lg-2">
-              <div className="wpo-contact-policy-content text-center">
-                <div className="wpo-section-title">
-                  <span>
-                    {
-                      contactPolicySection?.sectionIntro?.tag
-                    }
-                  </span>
-                  <h2>
-                    {
-                      contactPolicySection?.sectionIntro?.title
-                    }
-                  </h2>
-                  <p>
-                    {
-                      contactPolicySection?.sectionIntro?.description
-                    }
-                  </p>
-                </div>
-                <div className="wpo-contact-policy-details" ref={contactPolicyRef}>
-                  <div className="row">
-                    {contactPolicySection?.items && contactPolicySection?.items.length > 0 && contactPolicySection?.items.map((item, index) => (
-                      <div key={index} className="col-lg-6 col-md-6 col-12">
-                        <div className="wpo-contact-policy-item">
-                          <h4>{item.title}</h4>
-                          <ul>
-                            {item.items &&
-                              item.items.length > 0 &&
-                              item.items?.map((policyItem, itemIndex) => (
-                                <li key={itemIndex}>{policyItem.text}</li>
-                              ))}
-                          </ul>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                <div className="wpo-contact-policy-action">
-                  <a
-                    href={
-                      contactPolicySection?.button?.link
-                    }
-                    className="theme-btn"
-                  >
-                    {
-                      contactPolicySection?.button?.text
-                    }
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {content.contactPolicySection && (
+        <PolicyContact
+          sectionIntro={content.contactPolicySection.sectionIntro}
+          items={content.contactPolicySection.items}
+          button={content.contactPolicySection.button}
+        />
+      )}
     </Layout>
   );
 };

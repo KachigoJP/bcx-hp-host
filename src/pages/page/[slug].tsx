@@ -1,5 +1,5 @@
 import { GetStaticPaths, GetStaticProps } from "next";
-import DynamicPage, { DynamicPageProps } from "@/components/Page/DynamicPage";
+import DynamicPage, { DynamicPageProps } from "@components/Page/DynamicPage";
 import { getPageMapping, getDocumentIdBySlug } from "@/utils/pageMapping";
 import { fetchPageByDocumentId } from "@/utils/pageData";
 import { createLogger } from "@/utils/logger";

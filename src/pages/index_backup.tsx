@@ -188,8 +188,7 @@ export const getServerSideProps = async () => {
       locale: "vi-VN", // Vietnamese locale
       publicationState: "live",
     });
-    pageData = pageResponse.data?.attributes || null;
-    console.log("page Data", pageData);
+    pageData = pageResponse.data || null;
   } catch (error) {
     console.error("Error fetching:", error);
   }
