@@ -217,12 +217,65 @@ const ContactPage: React.FC<ContactProps> = (props) => {
         <Layout data={layoutData}>
             <SEO {...(seoData || props.seo)} />
 
-            <div className="contact-page">
-                {/* Contact Info Section */}
-                <section className="wpo-contact-info-section">
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-lg-12">
+            {/* Contact Info Section */}
+            <section className="wpo-contact-info-section section-padding section-padding-top">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-lg-12">
+                            <div className="wpo-section-title text-center">
+                                <span>Liên hệ với chúng tôi</span>
+                                <h2>Thông tin liên hệ</h2>
+                                <p>Chúng tôi luôn sẵn sàng lắng nghe và hỗ trợ bạn. Hãy liên hệ với chúng tôi qua các kênh sau:</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-lg-4 col-md-6 col-12">
+                            <div className="wpo-contact-info-item">
+                                <div className="wpo-contact-info-icon">
+                                    <i className="fi flaticon-placeholder"></i>
+                                </div>
+                                <h4>Địa chỉ</h4>
+                                <p>
+                                    Tokyo, Nhật Bản<br />
+                                    Văn phòng chính: Shibuya, Tokyo
+                                </p>
+                            </div>
+                        </div>
+                        <div className="col-lg-4 col-md-6 col-12">
+                            <div className="wpo-contact-info-item">
+                                <div className="wpo-contact-info-icon">
+                                    <i className="fi flaticon-share"></i>
+                                </div>
+                                <h4>Fanpage</h4>
+                                <p>
+                                    <a href="https://www.facebook.com/banchanxanhjp" target="_blank" rel="noopener noreferrer">Bàn Chân Xanh</a><br />
+                                    Nhắn tin qua Facebook
+                                </p>
+                            </div>
+                        </div>
+                        <div className="col-lg-4 col-md-6 col-12">
+                            <div className="wpo-contact-info-item">
+                                <div className="wpo-contact-info-icon">
+                                    <i className="fi flaticon-graduation-cap"></i>
+                                </div>
+                                <h4>Email</h4>
+                                <p>
+                                    <a href="mailto:info@banchanxanh.com">info@banchanxanh.com</a><br />
+                                    Phản hồi trong 24h
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Contact Form Section */}
+            <section className="wpo-contact-form-section section-padding">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-lg-8 offset-lg-2">
+                            <div className="wpo-contact-form-wrap">
                                 <div className="wpo-section-title text-center">
                                     <span>{pageIntro?.tag}</span>
                                     <h2>{pageIntro?.title}</h2>
@@ -244,165 +297,165 @@ const ContactPage: React.FC<ContactProps> = (props) => {
                             ))}
                         </div>
                     </div>
-                </section>
+                </div>
+            </section>
 
-                {/* Contact Form Section */}
-                <section className="wpo-contact-form-section">
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-lg-8 offset-lg-2">
-                                <div className="wpo-contact-form-wrap">
-                                    <div className="wpo-section-title text-center">
-                                        <span>{contactFormSection?.tag}</span>
-                                        <h2>{contactFormSection?.title}</h2>
-                                        <p>{contactFormSection?.description}</p>
-                                    </div>
-                                    <form className="wpo-contact-form" onSubmit={handleContactSubmit}>
-                                        <div className="row">
-                                            <div className="col-lg-6 col-md-6 col-12">
-                                                <div className="formGroup">
-                                                    <label>Họ và tên <span>*</span></label>
-                                                    <input type="text" className="formControl" placeholder="Nhập họ và tên của bạn" required />
-                                                </div>
-                                            </div>
-                                            <div className="col-lg-6 col-md-6 col-12">
-                                                <div className="formGroup">
-                                                    <label>Email <span>*</span></label>
-                                                    <input type="email" className="formControl" placeholder="Nhập địa chỉ email của bạn" required />
-                                                </div>
-                                            </div>
-                                            <div className="col-lg-6 col-md-6 col-12">
-                                                <div className="formGroup">
-                                                    <label>Số điện thoại</label>
-                                                    <input type="tel" className="formControl" placeholder="Nhập số điện thoại của bạn" />
-                                                </div>
-                                            </div>
-                                            <div className="col-lg-6 col-md-6 col-12">
-                                                <div className="formGroup">
-                                                    <label>Chủ đề <span>*</span></label>
-                                                    <select className="formControl" required>
-                                                        <option value="">Chọn chủ đề</option>
-                                                        <option value="general">Thông tin chung</option>
-                                                        <option value="activities">Tham gia hoạt động</option>
-                                                        <option value="volunteer">Tình nguyện viên</option>
-                                                        <option value="donation">Đóng góp</option>
-                                                        <option value="partnership">Hợp tác</option>
-                                                        <option value="other">Khác</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div className="col-lg-12">
-                                                <div className="formGroup">
-                                                    <label>Nội dung tin nhắn <span>*</span></label>
-                                                    <textarea className="formControl" rows={6} placeholder="Nhập nội dung tin nhắn của bạn..." required></textarea>
-                                                </div>
-                                            </div>
-                                            <div className="col-lg-12">
-                                                <div className="formGroup text-center">
-                                                    <button type="submit" className="submitButton">
-                                                        <span>Gửi tin nhắn</span>
-                                                    </button>
-                                                </div>
+            {/* Contact Form Section */}
+            <section className="wpo-contact-form-section">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-lg-8 offset-lg-2">
+                            <div className="wpo-contact-form-wrap">
+                                <div className="wpo-section-title text-center">
+                                    <span>{contactFormSection?.tag}</span>
+                                    <h2>{contactFormSection?.title}</h2>
+                                    <p>{contactFormSection?.description}</p>
+                                </div>
+                                <form className="wpo-contact-form" onSubmit={handleContactSubmit}>
+                                    <div className="row">
+                                        <div className="col-lg-6 col-md-6 col-12">
+                                            <div className="formGroup">
+                                                <label>Họ và tên <span>*</span></label>
+                                                <input type="text" className="formControl" placeholder="Nhập họ và tên của bạn" required />
                                             </div>
                                         </div>
-                                    </form>
-                                </div>
+                                        <div className="col-lg-6 col-md-6 col-12">
+                                            <div className="formGroup">
+                                                <label>Email <span>*</span></label>
+                                                <input type="email" className="formControl" placeholder="Nhập địa chỉ email của bạn" required />
+                                            </div>
+                                        </div>
+                                        <div className="col-lg-6 col-md-6 col-12">
+                                            <div className="formGroup">
+                                                <label>Số điện thoại</label>
+                                                <input type="tel" className="formControl" placeholder="Nhập số điện thoại của bạn" />
+                                            </div>
+                                        </div>
+                                        <div className="col-lg-6 col-md-6 col-12">
+                                            <div className="formGroup">
+                                                <label>Chủ đề <span>*</span></label>
+                                                <select className="formControl" required>
+                                                    <option value="">Chọn chủ đề</option>
+                                                    <option value="general">Thông tin chung</option>
+                                                    <option value="activities">Tham gia hoạt động</option>
+                                                    <option value="volunteer">Tình nguyện viên</option>
+                                                    <option value="donation">Đóng góp</option>
+                                                    <option value="partnership">Hợp tác</option>
+                                                    <option value="other">Khác</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div className="col-lg-12">
+                                            <div className="formGroup">
+                                                <label>Nội dung tin nhắn <span>*</span></label>
+                                                <textarea className="formControl" rows={6} placeholder="Nhập nội dung tin nhắn của bạn..." required></textarea>
+                                            </div>
+                                        </div>
+                                        <div className="col-lg-12">
+                                            <div className="formGroup text-center">
+                                                <button type="submit" className="submitButton">
+                                                    <span>Gửi tin nhắn</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
-                </section>
+                </div>
+            </section>
 
-                {/* Social Media Section */}
-                <section className="wpo-social-media-section">
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-lg-12">
-                                <div className="wpo-section-title text-center">
-                                    <span>Kết nối với chúng tôi</span>
-                                    <h2>Mạng xã hội</h2>
-                                    <p>Theo dõi các hoạt động và cập nhật mới nhất từ Bàn Chân Xanh</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col-lg-4 col-md-6 col-12">
-                                <div className="wpo-social-item">
-                                    <div className="wpo-social-icon">
-                                        <i className="ti-facebook"></i>
-                                    </div>
-                                    <h4>Facebook</h4>
-                                    <p>Theo dõi các hoạt động và sự kiện của chúng tôi</p>
-                                    <a href="https://facebook.com/banchanxanh" target="_blank" rel="noopener noreferrer" className="theme-btn">
-                                        Theo dõi
-                                    </a>
-                                </div>
-                            </div>
-                            <div className="col-lg-4 col-md-6 col-12">
-                                <div className="wpo-social-item">
-                                    <div className="wpo-social-icon">
-                                        <i className="ti-instagram"></i>
-                                    </div>
-                                    <h4>Instagram</h4>
-                                    <p>Xem những hình ảnh đẹp từ các hoạt động</p>
-                                    <a href="https://instagram.com/banchanxanh" target="_blank" rel="noopener noreferrer" className="theme-btn">
-                                        Theo dõi
-                                    </a>
-                                </div>
-                            </div>
-                            <div className="col-lg-4 col-md-6 col-12">
-                                <div className="wpo-social-item">
-                                    <div className="wpo-social-icon">
-                                        <i className="ti-email"></i>
-                                    </div>
-                                    <h4>Newsletter</h4>
-                                    <p>Nhận thông báo về các hoạt động sắp tới</p>
-                                    <a href="/join" className="theme-btn">
-                                        Đăng ký
-                                    </a>
-                                </div>
+            {/* Social Media Section */}
+            <section className="wpo-social-media-section">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-lg-12">
+                            <div className="wpo-section-title text-center">
+                                <span>Kết nối với chúng tôi</span>
+                                <h2>Mạng xã hội</h2>
+                                <p>Theo dõi các hoạt động và cập nhật mới nhất từ Bàn Chân Xanh</p>
                             </div>
                         </div>
                     </div>
-                </section>
+                    <div className="row">
+                        <div className="col-lg-4 col-md-6 col-12">
+                            <div className="wpo-social-item">
+                                <div className="wpo-social-icon">
+                                    <i className="ti-facebook"></i>
+                                </div>
+                                <h4>Facebook</h4>
+                                <p>Theo dõi các hoạt động và sự kiện của chúng tôi</p>
+                                <a href="https://facebook.com/banchanxanh" target="_blank" rel="noopener noreferrer" className="theme-btn">
+                                    Theo dõi
+                                </a>
+                            </div>
+                        </div>
+                        <div className="col-lg-4 col-md-6 col-12">
+                            <div className="wpo-social-item">
+                                <div className="wpo-social-icon">
+                                    <i className="ti-instagram"></i>
+                                </div>
+                                <h4>Instagram</h4>
+                                <p>Xem những hình ảnh đẹp từ các hoạt động</p>
+                                <a href="https://instagram.com/banchanxanh" target="_blank" rel="noopener noreferrer" className="theme-btn">
+                                    Theo dõi
+                                </a>
+                            </div>
+                        </div>
+                        <div className="col-lg-4 col-md-6 col-12">
+                            <div className="wpo-social-item">
+                                <div className="wpo-social-icon">
+                                    <i className="ti-email"></i>
+                                </div>
+                                <h4>Newsletter</h4>
+                                <p>Nhận thông báo về các hoạt động sắp tới</p>
+                                <a href="/join" className="theme-btn">
+                                    Đăng ký
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-                {/* FAQ Section */}
-                <section className="wpo-faq-section">
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-lg-12">
-                                <div className="wpo-section-title text-center">
-                                    <span>Câu hỏi thường gặp</span>
-                                    <h2>FAQ</h2>
-                                    <p>Những câu hỏi thường gặp về Bàn Chân Xanh</p>
-                                </div>
+            {/* FAQ Section */}
+            <section className="wpo-faq-section">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-lg-12">
+                            <div className="wpo-section-title text-center">
+                                <span>Câu hỏi thường gặp</span>
+                                <h2>FAQ</h2>
+                                <p>Những câu hỏi thường gặp về Bàn Chân Xanh</p>
                             </div>
                         </div>
-                        <div className="row">
-                            <div className="col-lg-8 offset-lg-2">
-                                <div className="wpo-faq-wrap">
-                                    <div className="wpo-faq-item">
-                                        <h4>Làm thế nào để tham gia hoạt động của Bàn Chân Xanh?</h4>
-                                        <p>Bạn có thể đăng ký tham gia qua trang web, gửi email hoặc liên hệ trực tiếp qua điện thoại. Chúng tôi sẽ gửi thông tin chi tiết về hoạt động và hướng dẫn đăng ký.</p>
-                                    </div>
-                                    <div className="wpo-faq-item">
-                                        <h4>Chi phí tham gia các hoạt động như thế nào?</h4>
-                                        <p>Hầu hết các hoạt động của chúng tôi đều miễn phí hoặc chỉ thu một khoản phí nhỏ để trang trải chi phí tổ chức. Thông tin chi tiết sẽ được thông báo trước mỗi hoạt động.</p>
-                                    </div>
-                                    <div className="wpo-faq-item">
-                                        <h4>Tôi có thể trở thành tình nguyện viên không?</h4>
-                                        <p>Có, chúng tôi luôn chào đón những tình nguyện viên nhiệt tình. Bạn có thể liên hệ với chúng tôi để tìm hiểu về các cơ hội tình nguyện phù hợp.</p>
-                                    </div>
-                                    <div className="wpo-faq-item">
-                                        <h4>Làm thế nào để đóng góp cho tổ chức?</h4>
-                                        <p>Bạn có thể đóng góp bằng nhiều cách: tham gia hoạt động, trở thành tình nguyện viên, hoặc đóng góp tài chính. Thông tin chi tiết có tại trang Đóng góp.</p>
-                                    </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-lg-8 offset-lg-2">
+                            <div className="wpo-faq-wrap">
+                                <div className="wpo-faq-item">
+                                    <h4>Làm thế nào để tham gia hoạt động của Bàn Chân Xanh?</h4>
+                                    <p>Bạn có thể đăng ký tham gia qua trang web, gửi email hoặc liên hệ trực tiếp qua điện thoại. Chúng tôi sẽ gửi thông tin chi tiết về hoạt động và hướng dẫn đăng ký.</p>
+                                </div>
+                                <div className="wpo-faq-item">
+                                    <h4>Chi phí tham gia các hoạt động như thế nào?</h4>
+                                    <p>Hầu hết các hoạt động của chúng tôi đều miễn phí hoặc chỉ thu một khoản phí nhỏ để trang trải chi phí tổ chức. Thông tin chi tiết sẽ được thông báo trước mỗi hoạt động.</p>
+                                </div>
+                                <div className="wpo-faq-item">
+                                    <h4>Tôi có thể trở thành tình nguyện viên không?</h4>
+                                    <p>Có, chúng tôi luôn chào đón những tình nguyện viên nhiệt tình. Bạn có thể liên hệ với chúng tôi để tìm hiểu về các cơ hội tình nguyện phù hợp.</p>
+                                </div>
+                                <div className="wpo-faq-item">
+                                    <h4>Làm thế nào để đóng góp cho tổ chức?</h4>
+                                    <p>Bạn có thể đóng góp bằng nhiều cách: tham gia hoạt động, trở thành tình nguyện viên, hoặc đóng góp tài chính. Thông tin chi tiết có tại trang Đóng góp.</p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </section>
-            </div>
-        </Layout>
+                </div>
+            </section>
+        </Layout >
     );
 };
 

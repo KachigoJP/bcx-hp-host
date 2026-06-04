@@ -1,13 +1,13 @@
 import React from 'react';
 import Link from 'next/link';
-import Image, { StaticImageData } from 'next/image'
+import Image from 'next/image'
 import blogs from '../../../../api/blogs';
 
 interface Blog {
-    screens: StaticImageData;
+    screens: string;
     slug: string;
     title: string;
-    authorImg: StaticImageData;
+    authorImg: string;
     author: string;
     comment: number;
 }

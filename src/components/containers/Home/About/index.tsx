@@ -37,12 +37,12 @@ const About: React.FC<AboutProps> = ({ totalRaised, about, totalNeed = 100, imag
                                         </div>
                                         <div className="wpo-total-raised-text">
                                             <ul>
-                                                <li>Total Raised<span>${totalRaised}</span></li>
+                                                <li>Tổng quỹ<span>{totalRaised} JPY</span></li>
                                             </ul>
                                             <div className="progress-section">
                                                 <div className="process">
                                                     <div className="progress">
-                                                        <div className="progress-bar" style={{width: `${completePercent}%`}}>
+                                                        <div className="progress-bar" style={{ width: `${completePercent}%` }}>
                                                             <div className="progress-value"></div>
                                                         </div>
                                                     </div>
@@ -60,7 +60,7 @@ const About: React.FC<AboutProps> = ({ totalRaised, about, totalNeed = 100, imag
                     </div>
                     <div className="col-lg-6 col-md-12 col-12">
                         <div className="wpo-about-text">
-                            <span>About Us</span>
+                            <span>Về chúng tôi</span>
                             <h2>{about.title}</h2>
                             <p>{about.description}</p>
                             <ul>
