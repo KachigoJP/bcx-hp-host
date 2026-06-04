@@ -204,8 +204,8 @@ const HomePage: React.FC = () => {
                     </a>
                   </li>
                   <li>
-                    <b>Thông tin liên hệ:</b> 080-5988-2754 (Anh Chiến)
-                    080-4734-3979 (Chị Giang)
+                    <b>Thông tin liên hệ:</b>{" "}
+                    <a href="https://www.facebook.com/banchanxanhjp" target="_blank" rel="noopener noreferrer">Fanpage Bàn Chân Xanh</a>
                   </li>
                 </ul>
                 <div>

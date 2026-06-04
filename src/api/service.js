@@ -1,39 +1,39 @@
-import himg1 from "/public/images/service-single/1.jpg";
-import himg2 from "/public/images/service-single/2.jpg";
-import himg3 from "/public/images/service-single/3.jpg";
-import cimg from "/public/images/service-single/4.jpg";
-import mimg from "/public/images/service-single/5.jpg";
-import eimg from "/public/images/service-single/6.jpg";
-import seimg from "/public/images/service-single/7.jpg";
-import ptimg from "/public/images/service-single/8.jpg";
-import rhimg from "/public/images/service-single/9.jpg";
+const himg1 = "/images/service-single/1.jpg";
+const himg2 = "/images/service-single/2.jpg";
+const himg3 = "/images/service-single/3.jpg";
+const cimg = "/images/service-single/4.jpg";
+const mimg = "/images/service-single/5.jpg";
+const eimg = "/images/service-single/6.jpg";
+const seimg = "/images/service-single/7.jpg";
+const ptimg = "/images/service-single/8.jpg";
+const rhimg = "/images/service-single/9.jpg";
 
-import wimg1 from "/public/images/service-single/w1.jpg";
-import wimg2 from "/public/images/service-single/w2.jpg";
+const wimg1 = "/images/service-single/w1.jpg";
+const wimg2 = "/images/service-single/w2.jpg";
 
-import ocimg from "/public/images/service-single/10.jpg";
-import ocimg2 from "/public/images/service-single/11.jpg";
-import ocimg3 from "/public/images/service-single/12.jpg";
-import ocimg4 from "/public/images/service-single/13.jpg";
-import ocimg5 from "/public/images/service-single/14.jpg";
+const ocimg = "/images/service-single/10.jpg";
+const ocimg2 = "/images/service-single/11.jpg";
+const ocimg3 = "/images/service-single/12.jpg";
+const ocimg4 = "/images/service-single/13.jpg";
+const ocimg5 = "/images/service-single/14.jpg";
 
-import wpimg1 from "/public/images/service-single/15.jpg";
-import wpimg2 from "/public/images/service-single/16.jpg";
-import wpimg3 from "/public/images/service-single/17.jpg";
+const wpimg1 = "/images/service-single/15.jpg";
+const wpimg2 = "/images/service-single/16.jpg";
+const wpimg3 = "/images/service-single/17.jpg";
 
-import wpimg4 from "/public/images/service-single/wp1.jpg";
-import wpimg5 from "/public/images/service-single/wp2.jpg";
+const wpimg4 = "/images/service-single/wp1.jpg";
+const wpimg5 = "/images/service-single/wp2.jpg";
 
-import ntimg1 from "/public/images/service-single/18.jpg";
-import ntimg3 from "/public/images/service-single/19.jpg";
-import ntimg2 from "/public/images/service-single/20.jpg";
+const ntimg1 = "/images/service-single/18.jpg";
+const ntimg3 = "/images/service-single/19.jpg";
+const ntimg2 = "/images/service-single/20.jpg";
 
-import ntimg4 from "/public/images/service-single/nt1.jpg";
-import ntimg5 from "/public/images/service-single/nt2.jpg";
+const ntimg4 = "/images/service-single/nt1.jpg";
+const ntimg5 = "/images/service-single/nt2.jpg";
 
-import picon1 from "/public/images/icon/1.png";
-import picon2 from "/public/images/icon/2.png";
-import picon3 from "/public/images/icon/3.png";
+const picon1 = "/images/icon/1.png";
+const picon2 = "/images/icon/2.png";
+const picon3 = "/images/icon/3.png";
 
 const Services = [
   {

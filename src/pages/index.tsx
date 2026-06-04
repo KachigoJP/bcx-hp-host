@@ -75,21 +75,22 @@ export const getServerSideProps = async () => {
     description: "Kết nối con người - Gắn bó thiên nhiên",
   };
   const aboutData: AboutProps = {
-    totalRaised: 25000,
+    totalRaised: 1424600,
     about: {
-      title: "Về Tổ Chức Bàn Chân Xanh",
+      title: "“BÀN CHÂN XANH” là một tổ chức phi lợi nhuận",
       description:
-        "Bàn Chân Xanh là tổ chức phi lợi nhuận dành cho người Việt Nam ở Nhật Bản. Chúng tôi lan tỏa tình yêu thiên nhiên và kết nối cộng đồng thông qua các hoạt động ngoài trời ý nghĩa.",
+        "Bàn Chân Xanh được thành lập bởi những người trẻ đam mê leo núi đã và đang sinh sống và làm việc tại Nhật Bản. Chúng tôi tổ chức các hoạt động ngoài trời như leo núi, cắm trại, workshop… để gây quỹ hỗ trợ các em nhỏ vùng núi phía Bắc Việt Nam, đồng thời để kết nối những người Việt trẻ đang sinh sống tại Nhật Bản.  Các các nhân, tổ chức có thể quyên góp ủng hộ theo các hình thức:",
       points: [
-        "Tổ chức các hoạt động hiking, camping và workshop",
-        "Kết nối cộng đồng người Việt tại Nhật Bản",
-        "Lan tỏa tình yêu thiên nhiên và bảo vệ môi trường",
+        "quyên góp tiền mặt, mua thêm các sản phẩm leo núi (khăn rằn, áo, túi totte …) khi tham gia các hành trình leo núi",
+        "quyên góp qua hình thức chuyển khoản vào tài khoản tại Nhật Bản và Việt Nam",
+        "quyên góp sách cũ, các trang bị leo núi và các hình thức khác…",
+        "tài trợ cho các sự kiện của Bàn Chân Xanh"
       ],
       linkText: "Tìm hiểu thêm",
       linkHref: "/about",
     },
-    image: "/images/about-community-vietnamese.jpg",
-    totalNeed: 1000,
+    image: "/assets/images/about-us.jpg",
+    totalNeed: 1000000,
   };
 
   const heroData: HeroProps = {
@@ -112,12 +113,12 @@ export const getServerSideProps = async () => {
       },
       {
         backgroundImage: "/images/hero-hiking-trail.jpg",
-        title: "Xây dựng cộng đồng bền vững",
+        title: "TRAO 2026",
         subtitle:
-          "Cùng nhau bảo vệ môi trường và tạo ra những trải nghiệm ý nghĩa cho cộng đồng người Việt.",
-        link: "/about",
-        text: "Đóng góp",
-      },
+          "Cùng tham gia sự kiện thường niên của Bàn Chân Xanh, tổng kết một năm hoạt động, cùng kết nối và tạo ra những trải nghiệm ý nghĩa cho cộng đồng người Việt.",
+        link: "/trao-2026",
+        text: "Thông tin chi tiết",
+      }
     ],
   };
 
@@ -142,31 +143,31 @@ export const getServerSideProps = async () => {
   };
 
   const testimonialsData = {
-    title: "Cảm Nghĩ Của Người Tham Gia",
-    subtitle: "Chia sẻ từ cộng đồng",
+    title: "Người tham gia nói gì về chúng tôi",
+    subtitle: "Testimonial",
     description:
       "Những trải nghiệm và cảm nghĩ chân thực từ các thành viên đã tham gia hoạt động cùng Bàn Chân Xanh",
     items: [
       {
-        image: "/images/testimonial-member-1.jpg",
+        image: "/assets/images/testimonial/img-1.jpg",
         description:
-          "Tham gia hoạt động hiking cùng Bàn Chân Xanh đã mang lại cho tôi những trải nghiệm tuyệt vời. Không chỉ được khám phá thiên nhiên đẹp mà còn kết bạn với nhiều người Việt tuyệt vời.",
-        title: "Nguyễn Minh Anh",
-        subtitle: "Thành viên từ 2022",
+          "Kết thúc chuyến đi đã mấy ngày nhưng dư âm vẫn còn đọng lại đến ngày hôm nay. Cảm ơn Bàn Chân Xanh đã mang đến cho mình 2 ngày cuối tuần thật tuyệt vời.🥰 Cùng nhau leo núi, cùng nhau quây quần bên bếp nướng, hát hò hay chơi những trò chơi mà mình chưa bao giờ nghĩ là sẽ dám thử sức. Hơn tất cả, Bàn Chân Xanh còn là một chương trình thiện nguyện vô cùng ý nghĩa 😊",
+        title: "Thuy Nga Nguyen",
+        subtitle: "HT01.",
       },
       {
-        image: "/images/testimonial-member-2.jpg",
+        image: "/assets/images/testimonial/img-2.jpg",
         description:
-          "Các workshop về bảo vệ môi trường rất bổ ích. Tôi đã học được nhiều kiến thức và cách sống xanh hơn. Cảm ơn Bàn Chân Xanh đã tạo ra cộng đồng ý nghĩa này.",
-        title: "Trần Thị Lan",
-        subtitle: "Thành viên từ 2021",
+          "Một ngày leo núi để chữa lành cùng BÀN CHÂN XANH😌 Xin chân thành cám ơn các anh chị em trong ban tổ chức rất rất rất nhiều ạ😍 Lâu lắm rồi mình mới tham gia một hoạt động của người Việt ở Nhật, và cũng lâu lắm rồi mới được cười nhiều như vậy. Cười từ lúc lên núi, xuống núi vẫn chưa khép được miệng :)) Thời tiết sương mù nhưng trong lòng thì đầy nắng ấm 🙂",
+        title: "Bui Thanh Hai",
+        subtitle: "HT02. ",
       },
       {
-        image: "/images/testimonial-member-3.jpg",
+        image: "/assets/images/testimonial/img-3.jpg",
         description:
-          "Camping cùng nhóm là trải nghiệm khó quên nhất của tôi ở Nhật. Mọi người rất thân thiện và hỗ trợ lẫn nhau. Đây thực sự là một gia đình thứ hai của tôi.",
-        title: "Lê Văn Hùng",
-        subtitle: "Thành viên từ 2020",
+          "Bàn Chân Xanh-một tổ chức từ thiện phi lợi nhuận thông qua các hoạt động leo núi gây quỹ để quyên góp, giúp đỡ các trẻ em vùng cao, một hoạt động ý nghĩa nhất mà em đã tham gia ở Nhật Bản, khi mà vừa có thể góp một phần nhỏ bé của mình vào việc giúp đỡ trẻ em khó khăn, vừa có cơ hội khám phá những vùng đất mới, lại được gặp gỡ và đồng hành cùng với những người anh, người chị, người em, người bạn tuyệt vời😊. Mỗi hành trình đều đem lại mỗi trải nghiệm thú vị khác nhau vì thế đừng bỏ lỡ những hành trình của Bàn Chân xanh nhé, nhiều điều thú vị và hấp dẫn đang chờ đón mọi người đó ạ 😊",
+        title: "Tam Nguyen",
+        subtitle: "HT03.",
       },
     ],
   };

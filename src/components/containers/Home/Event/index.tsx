@@ -1,10 +1,10 @@
 import React from 'react'
 import Link from 'next/link'
-import Image, { StaticImageData } from 'next/image'
+import Image from 'next/image'
 import Events from '../../../../api/event'
 
 interface Event {
-    eImg: StaticImageData;
+    eImg: string;
     date: string;
     eTitle: string;
     slug: string;
