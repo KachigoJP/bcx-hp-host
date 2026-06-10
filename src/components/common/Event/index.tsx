@@ -5,7 +5,7 @@ import Events from "@api/event";
 import styles from "./Event.module.scss";
 
 interface Event {
-  eImg: string;
+  eImg: string | StaticImageData;
   date: string;
   eTitle: string;
   slug: string;

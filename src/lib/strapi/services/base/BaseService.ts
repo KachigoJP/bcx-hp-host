@@ -35,8 +35,7 @@ export abstract class BaseService<T> {
         }
       );
 
-      // For single types, return the attributes directly
-      return response.data.data?.attributes || (response.data.data as any);
+      return response.data.data as T;
     } catch (error: any) {
       throw this.handleError(error);
     }
@@ -59,8 +58,7 @@ export abstract class BaseService<T> {
         }
       );
 
-      // For single types, return the attributes directly
-      return response.data.data?.attributes || (response.data.data as any);
+      return response.data.data as T;
     } catch (error: any) {
       throw this.handleError(error);
     }

@@ -1,4 +1,4 @@
-import { globalService, reportService, seoService } from "@/lib/strapi/services";
+import { globalService, reportService } from "@/lib/strapi/services";
 import { convertGlobalInfoToLayoutData } from "@/utils/apps";
 import {
   BaseDetail,
@@ -229,7 +229,6 @@ export const getServerSideProps = async () => {
 const ReportPage: React.FC<ReportProps> = props => {
   const [globalData, setGlobalData] = useState<GlobalInfo | null>(null);
   const [reportContent, setReportContent] = useState<ReportContent | null>(null);
-  const [seoData, setSeoData] = useState<SEOProps | null>(null);
   const statisticsRef = useRef<HTMLDivElement>(null);
   const monthlyReportsRef = useRef<HTMLDivElement>(null);
   const annualReportsRef = useRef<HTMLDivElement>(null);
@@ -382,7 +381,7 @@ const ReportPage: React.FC<ReportProps> = props => {
 
   return (
     <Layout data={globalData ? convertGlobalInfoToLayoutData(globalData) : props.layout.data}>
-      <SEO {...(seoData || props.seo)} />
+      <SEO {...props.seo} />
 
       {/* Report Intro Section */}
       <section className="wpo-report-intro-section section-padding section-padding-top">

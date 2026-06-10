@@ -1,5 +1,6 @@
 import {
   StrapiError,
+  StrapiEntity,
   StrapiQueryParams,
   StrapiSingleResponse,
 } from "@/utils/interfaces/strapi_types";
@@ -19,7 +20,7 @@ interface UseFetchSingleOptions {
 }
 
 interface UseFetchSingleReturn<T> {
-  data: { id: number; attributes: T } | null;
+  data: StrapiEntity<T> | null;
   loading: boolean;
   error: StrapiError | null;
   refetch: () => Promise<void>;
@@ -34,7 +35,7 @@ export function useFetchSingle<T>(
   params?: StrapiQueryParams,
   options: UseFetchSingleOptions = { autoFetch: true }
 ): UseFetchSingleReturn<T> {
-  const [data, setData] = useState<{ id: number; attributes: T } | null>(null);
+  const [data, setData] = useState<StrapiEntity<T> | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<StrapiError | null>(null);
 

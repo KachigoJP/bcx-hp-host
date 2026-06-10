@@ -4,15 +4,12 @@ import { initializeApp } from "firebase/app";
 import {
   getFirestore,
   doc,
-  getDoc,
   updateDoc,
   collection,
   getDocs,
-  setDoc,
   Timestamp,
   DocumentData,
 } from "firebase/firestore";
-import { useTranslation } from "react-i18next";
 import { Spinner } from "reactstrap";
 
 // Source
@@ -33,8 +30,6 @@ const app = initializeApp(firebaseConfig);
 const firestore = getFirestore(app);
 
 const HomePage: React.FC = () => {
-  const { t } = useTranslation();
-
   const [showError, setShowError] = React.useState(false);
   const [isRuleShow, setIsRuleShow] = React.useState(false);
   const [isDetailShow, setIsDetailShow] = React.useState(false);
@@ -45,7 +40,6 @@ const HomePage: React.FC = () => {
     DocumentData | undefined
   >(undefined);
   const [users, setUsers] = React.useState<any>({});
-  const [validUsers, setValidUsers] = React.useState<any>({});
   const [imageLoadStatus, setImageLoadStatus] = React.useState<any>({});
 
   React.useEffect(() => {
@@ -61,10 +55,6 @@ const HomePage: React.FC = () => {
           [userData.code]: userData,
         }));
         if (userData.money === userData.transfered) {
-          setValidUsers((prev: any) => ({
-            ...prev,
-            [userData.code]: userData,
-          }));
         }
       });
     };

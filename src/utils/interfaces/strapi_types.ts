@@ -16,16 +16,20 @@ export interface StrapiResponse<T> {
   };
 }
 
+export interface StrapiEntityMeta {
+  id: number;
+  documentId: string;
+  locale?: string;
+  createdAt?: string;
+  updatedAt?: string;
+  publishedAt?: string;
+}
+
+export type StrapiEntity<T> = StrapiEntityMeta & T;
+
 // Single item response (Strapi v5 - flattened structure, no attributes nesting)
 export interface StrapiSingleResponse<T> {
-  data: {
-    id: number;
-    documentId: string; // Strapi v5 document ID
-    locale?: string;
-    createdAt?: string;
-    updatedAt?: string;
-    publishedAt?: string;
-  } & T; // Content attributes are spread directly, not nested in 'attributes'
+  data: StrapiEntity<T>;
   meta?: Record<string, any>;
   error?: {
     status: number;
@@ -37,16 +41,7 @@ export interface StrapiSingleResponse<T> {
 
 // Collection response (Strapi v5 - flattened structure, no attributes nesting)
 export interface StrapiCollectionResponse<T> {
-  data: Array<
-    {
-      id: number;
-      documentId: string; // Strapi v5 document ID
-      locale?: string;
-      createdAt?: string;
-      updatedAt?: string;
-      publishedAt?: string;
-    } & T
-  >; // Content attributes are spread directly, not nested in 'attributes'
+  data: StrapiEntity<T>[];
   meta?: {
     pagination?: {
       page: number;

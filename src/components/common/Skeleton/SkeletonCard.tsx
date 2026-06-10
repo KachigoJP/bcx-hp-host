@@ -125,7 +125,7 @@ export const SkeletonPage: React.FC = () => {
   );
 };
 
-export default {
+const skeletonCardExports = {
   SkeletonCard,
   SkeletonHero,
   SkeletonList,
@@ -133,3 +133,5 @@ export default {
   SkeletonGrid,
   SkeletonPage,
 };
+
+export default skeletonCardExports;

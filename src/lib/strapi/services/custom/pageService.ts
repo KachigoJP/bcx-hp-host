@@ -36,7 +36,7 @@ class PageService extends CollectionService<PageContent> {
 
       // Return first matching page or null if not found
       if (response.data && response.data.length > 0) {
-        return response.data[0].attributes;
+        return response.data[0];
       }
 
       return null;

@@ -114,7 +114,7 @@ export async function fetchPageBySlug(slug: string): Promise<{
       pageData,
       slug,
     };
-  } catch (e) {
+  } catch {
     logger.error("Page data fetched error");
 
     return {
@@ -255,7 +255,7 @@ export async function getStaticPageProps(slug: string): Promise<{
   };
 }
 
-export default {
+const pageDataUtils = {
   fetchPageBySlug,
   fetchPageByDocumentId,
   fetchPageOptimized,
@@ -263,3 +263,5 @@ export default {
   getStaticPageProps,
   PAGE_POPULATE_CONFIG,
 };
+
+export default pageDataUtils;

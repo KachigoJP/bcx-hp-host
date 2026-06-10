@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import * as RichText from "@components/RichText";
+import * as RichText from "@components/common/BlocksRenderer";
 import { StrapiRichText } from "@/utils/interfaces/strapi_blocks";
 import DEFAULT_IMAGES from "@utils/images"; // Adjust the import path as needed
 

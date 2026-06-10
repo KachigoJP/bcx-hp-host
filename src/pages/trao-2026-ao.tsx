@@ -1,5 +1,4 @@
 import React, { Fragment } from "react";
-import Image from "next/image";
 
 const COLORS = [
   { value: "black", label: "Đen", hex: "#212121", textColor: "#fff" },

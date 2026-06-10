@@ -54,7 +54,7 @@ export class SingleTypeService<T> extends BaseService<T> {
         }
       );
 
-      return response.data.data?.attributes || (response.data.data as any);
+      return response.data.data as T;
     } catch (error: any) {
       throw this.handleError(error);
     }

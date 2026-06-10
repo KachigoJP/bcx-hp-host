@@ -1,10 +1,6 @@
 import { ErrorContent } from "@/utils/interfaces/error";
 import Error from "@components/containers/404";
-import Layout from "@components/layout";
-import SEO from "@components/layout/SEO";
-import { SEOProps } from "@components/layout/SEO/interface";
-import { getDefaultLayoutData } from "@utils/layoutData";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 // Default content for 404 page (fallback if Strapi is not available)
 const defaultErrorContent: ErrorContent = {
@@ -20,8 +16,6 @@ const defaultErrorContent: ErrorContent = {
 
 const Page404: React.FC = () => {
   const [error404Content] = useState<ErrorContent>(defaultErrorContent);
-
-  useEffect(() => {}, []);
 
   return <Error content={error404Content} />;
 };

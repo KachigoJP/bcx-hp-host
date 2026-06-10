@@ -24,9 +24,9 @@ export async function getNavigationFromPages(): Promise<NavItem[]> {
 
     // Create navigation items
     const navItems: NavItem[] = pagesResponse.data.map((page) => ({
-      label: page.attributes.title,
-      url: page.attributes.url || `/page/${page.attributes.slug}`,
-      slug: page.attributes.slug,
+      label: page.title,
+      url: page.url || `/page/${page.slug}`,
+      slug: page.slug,
       documentId: page.documentId,
     }));
 

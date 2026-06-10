@@ -1,4 +1,4 @@
-import { globalService, seoService, workshopService } from "@/lib/strapi/services";
+import { globalService, workshopService } from "@/lib/strapi/services";
 import { convertGlobalInfoToLayoutData, getStrapiImageUrl } from "@/utils/apps";
 import {
     GlobalInfo,
@@ -286,7 +286,6 @@ export const getServerSideProps = async () => {
 const WorkshopPage: React.FC<WorkshopProps> = (props) => {
     const [globalData, setGlobalData] = useState<GlobalInfo | null>(null);
     const [workshopContent, setWorkshopContent] = useState<WorkshopContent | null>(null);
-    const [seoData, setSeoData] = useState<SEOProps | null>(null);
 
     useEffect(() => {
         const fetchGlobalData = async () => {
@@ -338,7 +337,7 @@ const WorkshopPage: React.FC<WorkshopProps> = (props) => {
 
     return (
         <Layout data={layoutData}>
-            <SEO {...(seoData || props.seo)} />
+            <SEO {...props.seo} />
 
             {/* Hero Section */}
             <section className="workshop-page">

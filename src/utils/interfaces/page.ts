@@ -84,12 +84,12 @@ export interface PageProject {
 // Team component interface (ui.team)
 export interface PageMember {
   full_name: string;
-  team?: TeamMember[];
+  team?: PageTeamMember[];
   email?: string;
   avatar?: StrapiImage;
 }
 
-export interface TeamMember {
+export interface PageTeamMember {
   title: string;
   team: string;
 }

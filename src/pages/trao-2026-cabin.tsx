@@ -1,7 +1,5 @@
 import React, { Fragment } from "react";
 
-const CABINS = Array.from({ length: 20 }, (_, i) => i + 1);
-
 // Layout giả định 4 hàng × 5 cabin — thay bằng sơ đồ thật sau
 const GRID_ROWS = [
   [1, 2, 3, 4, 5],

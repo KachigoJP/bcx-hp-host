@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Skeleton } from "@/components/common/Skeleton/Skeleton";
 import NetworkError from "./NetworkError";
 import { getPage, getCacheAge, formatCacheAge } from "@/utils/pageCache";
@@ -28,9 +28,7 @@ type LoadingPhase = "skeleton" | "loading" | "slow" | "error" | "cached";
 export const PageSkeleton: React.FC<PageSkeletonProps> = ({ slug }) => {
   const RETRY_KEY = `retry_count_${slug || "default"}`;
   const MAX_RETRIES = 3;
-
-  // Get retry count from sessionStorage to persist across reloads
-  const getStoredRetryCount = (): number => {
+  const getStoredRetryCount = React.useCallback((): number => {
     if (typeof window === "undefined") return 0;
     try {
       const stored = sessionStorage.getItem(RETRY_KEY);
@@ -38,7 +36,7 @@ export const PageSkeleton: React.FC<PageSkeletonProps> = ({ slug }) => {
     } catch {
       return 0;
     }
-  };
+  }, [RETRY_KEY]);
 
   const [phase, setPhase] = useState<LoadingPhase>("skeleton");
   const [cachedData, setCachedData] = useState<PageContent | null>(null);
@@ -74,7 +72,7 @@ export const PageSkeleton: React.FC<PageSkeletonProps> = ({ slug }) => {
         setPhase("error");
       }
     }
-  }, []);
+  }, [getStoredRetryCount, slug]);
 
   // Try to load cached data
   useEffect(() => {
@@ -175,7 +173,7 @@ export const PageSkeleton: React.FC<PageSkeletonProps> = ({ slug }) => {
 
       return () => clearTimeout(retryTimer);
     }
-  }, [phase, retryCount, maxRetriesReached, cachedData]);
+  }, [phase, retryCount, maxRetriesReached, cachedData, RETRY_KEY]);
 
   // Handle manual retry
   const handleRetry = () => {

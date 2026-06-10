@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import { DonationMethod } from "@/utils/interfaces/donate";
-import { SectionDetailSectionIconItems, SectionIntro } from "@/utils/interfaces";
+import { SectionIntro } from "@/utils/interfaces";
 import styles from "./DonateMethods.module.scss";
 
 export interface DonateMethodsProps {

@@ -86,7 +86,7 @@ export function getCacheAge(slug: string): number | null {
     }
 
     return Date.now() - parseInt(cachedTimestamp, 10);
-  } catch (error) {
+  } catch {
     return null;
   }
 }
@@ -151,12 +151,12 @@ export function getCachedSlugs(): string[] {
     return keys
       .filter((key) => key.startsWith(CACHE_PREFIX))
       .map((key) => key.replace(CACHE_PREFIX, ""));
-  } catch (error) {
+  } catch {
     return [];
   }
 }
 
-export default {
+const pageCacheUtils = {
   savePage,
   getPage,
   getCacheAge,
@@ -165,3 +165,5 @@ export default {
   clearAllPages,
   getCachedSlugs,
 };
+
+export default pageCacheUtils;

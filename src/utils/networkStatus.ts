@@ -193,7 +193,7 @@ export function monitorNetworkStatus(
   };
 }
 
-export default {
+const networkStatusUtils = {
   isOnline,
   detectErrorType,
   getErrorMessage,
@@ -201,3 +201,5 @@ export default {
   getNetworkStatus,
   monitorNetworkStatus,
 };
+
+export default networkStatusUtils;

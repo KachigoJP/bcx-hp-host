@@ -1,4 +1,5 @@
 import {
+  StrapiEntity,
   StrapiCollectionResponse,
   StrapiError,
   StrapiQueryParams,
@@ -18,7 +19,7 @@ interface UseFetchCollectionOptions {
 }
 
 interface UseFetchCollectionReturn<T> {
-  data: Array<{ id: number; attributes: T }> | null;
+  data: StrapiEntity<T>[] | null;
   loading: boolean;
   error: StrapiError | null;
   refetch: () => Promise<void>;
@@ -37,9 +38,7 @@ export function useFetchCollection<T>(
   params?: StrapiQueryParams,
   options: UseFetchCollectionOptions = { autoFetch: true }
 ): UseFetchCollectionReturn<T> {
-  const [data, setData] = useState<Array<{ id: number; attributes: T }> | null>(
-    null
-  );
+  const [data, setData] = useState<StrapiEntity<T>[] | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<StrapiError | null>(null);
   const [pagination, setPagination] = useState<{

@@ -103,10 +103,6 @@ const CABIN_NUMBERS = Array.from({ length: 20 }, (_, i) => i + 1);
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
-function generateCode(): string {
-  return `BCX${Math.floor(100000 + Math.random() * 900000)}`;
-}
-
 const emptyMember = (): Member => ({ name: "", gender: "", age: "", relation: "" });
 
 function calcFees(step1: Step1, step2: Step2, step3: Step3) {
@@ -682,7 +678,7 @@ const Step4PaymentForm: React.FC<{
   data: Step4;
   onChange: (patch: Partial<Step4>) => void;
   errors: Partial<Record<string, string>>;
-}> = ({ step1, step2, step3, step5, reservation, data, onChange, errors }) => {
+}> = ({ step1, step2, step3, step5, reservation, onChange, errors }) => {
   const [preview, setPreview] = React.useState<string>("");
 
   const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {

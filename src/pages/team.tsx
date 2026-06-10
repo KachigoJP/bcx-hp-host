@@ -1,4 +1,4 @@
-import { globalService, seoService, teamService } from "@/lib/strapi/services";
+import { globalService, teamService } from "@/lib/strapi/services";
 import { convertGlobalInfoToLayoutData, getStrapiImageUrl } from "@/utils/apps";
 import {
   GlobalInfo,
@@ -189,7 +189,6 @@ export const getServerSideProps = async () => {
 const TeamPage: React.FC<TeamProps> = (props) => {
   const [globalData, setGlobalData] = useState<GlobalInfo | null>(null);
   const [teamContent, setTeamContent] = useState<TeamContent | null>(null);
-  const [seoData, setSeoData] = useState<SEOProps | null>(null);
   const teamMembersRef = useRef<HTMLDivElement>(null);
   const teamValuesRef = useRef<HTMLDivElement>(null);
 
@@ -296,7 +295,7 @@ const TeamPage: React.FC<TeamProps> = (props) => {
           : props.layout.data
       }
     >
-      <SEO {...(seoData || props.seo)} />
+      <SEO {...props.seo} />
 
       {/* Team Intro Section */}
       {pageIntro && (

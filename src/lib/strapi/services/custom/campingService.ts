@@ -29,7 +29,7 @@ class CampingService extends SingleTypeService<CampingContent> {
         }
       );
 
-      return response.data.data?.attributes || (response.data.data as any);
+      return response.data.data as CampingContent;
     } catch (error: any) {
       throw this.handleError(error);
     }

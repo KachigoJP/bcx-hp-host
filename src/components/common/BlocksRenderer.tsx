@@ -107,6 +107,7 @@ const BlockNode: React.FC<{ block: StrapiBlockContent; index: number }> = ({
       if (!block.image) return null;
       return (
         <figure key={index}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={getStrapiImageUrl(block.image.url)}
             alt={block.image.alternativeText || ""}
