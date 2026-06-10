@@ -11,14 +11,27 @@ import {
   Step6Form,
 } from "../components/trao2026";
 import { STEPS } from "../components/trao2026/constants";
-import { buildParticipants, calcFees, calcProductFee, fmtYen } from "../components/trao2026/helpers";
-import type { Step1, Step2, Step3, Step4, Step5, Step6 } from "../components/trao2026/types";
+import {
+  buildParticipants,
+  calcFees,
+  calcProductFee,
+  fmtYen,
+} from "../components/trao2026/helpers";
+import type {
+  Step1,
+  Step2,
+  Step3,
+  Step4,
+  Step5,
+  Step6,
+} from "../components/trao2026/types";
 
 const initialStep1: Step1 = {
   email: "",
   name: "",
   gender: "",
   age: "",
+  disabled: false,
   facebook: "",
   phone: "",
   emergency_phone: "",
@@ -30,10 +43,22 @@ const initialStep1: Step1 = {
 const RegisterPage: React.FC = () => {
   const [currentStep, setCurrentStep] = React.useState(1);
   const [step1, setStep1] = React.useState<Step1>(initialStep1);
-  const [step2, setStep2] = React.useState<Step2>({ register_type: "", members: [] });
-  const [step3, setStep3] = React.useState<Step3>({ transport: "", bus_departure: "" });
-  const [step4, setStep4] = React.useState<Step4>({ receipt_file: null, receipt_url: "" });
-  const [reservation, setReservation] = React.useState<{ code: string; password: string } | null>(null);
+  const [step2, setStep2] = React.useState<Step2>({
+    register_type: "",
+    members: [],
+  });
+  const [step3, setStep3] = React.useState<Step3>({
+    transport: "",
+    bus_departure: "",
+  });
+  const [step4, setStep4] = React.useState<Step4>({
+    receipt_file: null,
+    receipt_url: "",
+  });
+  const [reservation, setReservation] = React.useState<{
+    code: string;
+    password: string;
+  } | null>(null);
   const [reserving, setReserving] = React.useState(false);
   const [step5, setStep5] = React.useState<Step5>({
     food_allergy: "",
@@ -47,7 +72,10 @@ const RegisterPage: React.FC = () => {
 
   const [errors, setErrors] = React.useState<Record<string, string>>({});
   const [submitting, setSubmitting] = React.useState(false);
-  const [allCodes, setAllCodes] = React.useState<{ rep: string; members: string[] } | null>(null);
+  const [allCodes, setAllCodes] = React.useState<{
+    rep: string;
+    members: string[];
+  } | null>(null);
   const [submitError, setSubmitError] = React.useState("");
 
   React.useEffect(() => {
@@ -63,12 +91,16 @@ const RegisterPage: React.FC = () => {
         if (data.ok) {
           setReservation({ code: data.code, password: data.password });
         } else {
-          setSubmitError(data.error ?? "Không thể tạo mã đăng ký. Vui lòng thử lại.");
+          setSubmitError(
+            data.error ?? "Không thể tạo mã đăng ký. Vui lòng thử lại.",
+          );
         }
       })
       .catch(() => {
         if (!cancelled) {
-          setSubmitError("Không thể tạo mã đăng ký. Vui lòng kiểm tra kết nối.");
+          setSubmitError(
+            "Không thể tạo mã đăng ký. Vui lòng kiểm tra kết nối.",
+          );
         }
       })
       .finally(() => {
@@ -85,28 +117,34 @@ const RegisterPage: React.FC = () => {
   const validateStep1 = (): boolean => {
     const e: Record<string, string> = {};
     if (!step1.email.trim()) e.email = "Vui lòng nhập email";
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(step1.email)) e.email = "Email không hợp lệ";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(step1.email))
+      e.email = "Email không hợp lệ";
     if (!step1.name.trim()) e.name = "Vui lòng nhập họ và tên";
     if (!step1.gender) e.gender = "Vui lòng chọn giới tính";
     if (!step1.age.trim()) e.age = "Vui lòng nhập tuổi";
-    else if (Number(step1.age) < 1 || Number(step1.age) > 120) e.age = "Tuổi không hợp lệ";
+    else if (Number(step1.age) < 1 || Number(step1.age) > 120)
+      e.age = "Tuổi không hợp lệ";
     if (!step1.facebook.trim()) e.facebook = "Vui lòng nhập link Facebook";
     if (!step1.phone.trim()) e.phone = "Vui lòng nhập số điện thoại";
-    if (!step1.emergency_phone.trim()) e.emergency_phone = "Vui lòng nhập số điện thoại khẩn cấp";
-    if (!step1.emergency_relation.trim()) e.emergency_relation = "Vui lòng nhập quan hệ";
+    if (!step1.emergency_phone.trim())
+      e.emergency_phone = "Vui lòng nhập số điện thoại khẩn cấp";
+    if (!step1.emergency_relation.trim())
+      e.emergency_relation = "Vui lòng nhập quan hệ";
     setErrors(e);
     return Object.keys(e).length === 0;
   };
 
   const validateStep2 = (): boolean => {
     const e: Record<string, string> = {};
-    if (!step2.register_type) e.register_type = "Vui lòng chọn hình thức đăng ký";
+    if (!step2.register_type)
+      e.register_type = "Vui lòng chọn hình thức đăng ký";
     if (step2.register_type === "group") {
       step2.members.forEach((member, i) => {
         if (!member.name.trim()) e[`member_${i}_name`] = "Bắt buộc";
         if (!member.gender) e[`member_${i}_gender`] = "Bắt buộc";
         if (!member.age.trim()) e[`member_${i}_age`] = "Bắt buộc";
-        else if (Number(member.age) < 1 || Number(member.age) > 120) e[`member_${i}_age`] = "Không hợp lệ";
+        else if (Number(member.age) < 1 || Number(member.age) > 120)
+          e[`member_${i}_age`] = "Không hợp lệ";
         if (!member.relation.trim()) e[`member_${i}_relation`] = "Bắt buộc";
       });
     }
@@ -145,7 +183,8 @@ const RegisterPage: React.FC = () => {
 
   const validateStep6 = (): boolean => {
     const e: Record<string, string> = {};
-    if (!step4.receipt_file) e.receipt_file = "Vui lòng upload ảnh chụp màn hình chuyển khoản";
+    if (!step4.receipt_file)
+      e.receipt_file = "Vui lòng upload ảnh chụp màn hình chuyển khoản";
     setErrors(e);
     return Object.keys(e).length === 0;
   };
@@ -194,21 +233,31 @@ const RegisterPage: React.FC = () => {
     setSubmitError("");
 
     try {
-      if (!reservation) throw new Error("Chưa có mã đăng ký. Vui lòng thử lại.");
+      if (!reservation)
+        throw new Error("Chưa có mã đăng ký. Vui lòng thử lại.");
 
       const code = reservation.code;
       const fees = calcFees(step1, step2, step3);
 
-      let receipt: { base64: string; mimeType: string; filename: string } | null = null;
+      let receipt: {
+        base64: string;
+        mimeType: string;
+        filename: string;
+      } | null = null;
       if (step4.receipt_file) {
         const file = step4.receipt_file;
         const base64 = await new Promise<string>((resolve, reject) => {
           const reader = new FileReader();
-          reader.onload = () => resolve((reader.result as string).split(",")[1]);
+          reader.onload = () =>
+            resolve((reader.result as string).split(",")[1]);
           reader.onerror = reject;
           reader.readAsDataURL(file);
         });
-        receipt = { base64, mimeType: file.type, filename: `${code}_${file.name}` };
+        receipt = {
+          base64,
+          mimeType: file.type,
+          filename: `${code}_${file.name}`,
+        };
       }
 
       const formData = {
@@ -217,6 +266,7 @@ const RegisterPage: React.FC = () => {
         name: step1.name.trim(),
         gender: step1.gender,
         age: Number(step1.age),
+        disabled: step1.disabled,
         facebook: step1.facebook.trim(),
         phone: step1.phone.trim(),
         emergency_phone: step1.emergency_phone.trim(),
@@ -234,7 +284,8 @@ const RegisterPage: React.FC = () => {
         food_allergy: step5.food_allergy.trim() || null,
         want_products: step5.want_products,
         products: step5.want_products === "yes" ? step5.products : null,
-        product_fee: step5.want_products === "yes" ? calcProductFee(step5.products) : 0,
+        product_fee:
+          step5.want_products === "yes" ? calcProductFee(step5.products) : 0,
         volunteer: step5.volunteer,
         volunteer_teams: step5.volunteer === "yes" ? step5.volunteer_teams : [],
         note: step5.note.trim() || null,
@@ -253,7 +304,8 @@ const RegisterPage: React.FC = () => {
 
       setAllCodes({ rep: data.repCode, members: data.memberCodes ?? [] });
     } catch (err: unknown) {
-      const msg = err instanceof Error ? err.message : "Đã xảy ra lỗi khi gửi thông tin.";
+      const msg =
+        err instanceof Error ? err.message : "Đã xảy ra lỗi khi gửi thông tin.";
       setSubmitError(msg);
     } finally {
       setSubmitting(false);
@@ -272,14 +324,21 @@ const RegisterPage: React.FC = () => {
               <div style={{ fontSize: 64, marginBottom: 16 }}>🎉</div>
               <h3 className="text-success fw-bold">Đăng ký thành công!</h3>
               <p className="text-muted">
-                Xin chào <strong>{step1.name}</strong>, thông tin của bạn đã được ghi nhận.
+                Xin chào <strong>{step1.name}</strong>, thông tin của bạn đã
+                được ghi nhận.
               </p>
 
               <div
                 className="p-3 my-4 rounded text-start"
-                style={{ backgroundColor: "#f0f7f0", border: "2px dashed #4caf50" }}
+                style={{
+                  backgroundColor: "#f0f7f0",
+                  border: "2px dashed #4caf50",
+                }}
               >
-                <p className="fw-bold mb-2 text-center" style={{ fontSize: 15 }}>
+                <p
+                  className="fw-bold mb-2 text-center"
+                  style={{ fontSize: 15 }}
+                >
                   Mã đăng ký của từng người tham gia
                 </p>
                 <table className="table table-sm mb-0">
@@ -294,11 +353,19 @@ const RegisterPage: React.FC = () => {
                     <tr>
                       <td>{step1.name}</td>
                       <td>
-                        <span className="badge" style={{ backgroundColor: "#2e7d32" }}>
-                          {step2.register_type === "individual" ? "Cá nhân" : "Đại diện"}
+                        <span
+                          className="badge"
+                          style={{ backgroundColor: "#2e7d32" }}
+                        >
+                          {step2.register_type === "individual"
+                            ? "Cá nhân"
+                            : "Đại diện"}
                         </span>
                       </td>
-                      <td className="fw-bold text-success" style={{ letterSpacing: 2 }}>
+                      <td
+                        className="fw-bold text-success"
+                        style={{ letterSpacing: 2 }}
+                      >
                         {allCodes.rep}
                       </td>
                     </tr>
@@ -308,7 +375,10 @@ const RegisterPage: React.FC = () => {
                         <td>
                           <span className="badge bg-secondary">Thành viên</span>
                         </td>
-                        <td className="fw-bold text-success" style={{ letterSpacing: 2 }}>
+                        <td
+                          className="fw-bold text-success"
+                          style={{ letterSpacing: 2 }}
+                        >
                           {allCodes.members[i]}
                         </td>
                       </tr>
@@ -328,21 +398,32 @@ const RegisterPage: React.FC = () => {
                     {fees.children > 0 ? `, ${fees.children} trẻ em` : ""})
                   </li>
                   <li>
-                    Phương tiện: {step3.transport === "bus" ? `Xe bus BTC (${step3.bus_departure})` : "Tự túc"}
+                    Phương tiện:{" "}
+                    {step3.transport === "bus"
+                      ? `Xe bus BTC (${step3.bus_departure})`
+                      : "Tự túc"}
                   </li>
                   <li>
-                    Tổng phí dự kiến: <strong className="text-success">{fmtYen(fees.total)}</strong>
+                    Tổng phí dự kiến:{" "}
+                    <strong className="text-success">
+                      {fmtYen(fees.total)}
+                    </strong>
                   </li>
                 </ul>
               </div>
 
               <p style={{ fontSize: 14 }} className="text-muted">
-                Vui lòng <strong>lưu lại các mã đăng ký</strong> trên. Ban tổ chức sẽ liên hệ qua
-                Facebook hoặc số điện thoại để xác nhận và hướng dẫn các bước tiếp theo.
+                Vui lòng <strong>lưu lại các mã đăng ký</strong> trên. Ban tổ
+                chức sẽ liên hệ qua Facebook hoặc số điện thoại để xác nhận và
+                hướng dẫn các bước tiếp theo.
               </p>
               <p className="text-muted" style={{ fontSize: 12 }}>
                 Liên hệ:{" "}
-                <a href="https://www.facebook.com/banchanxanhjp" target="_blank" rel="noopener noreferrer">
+                <a
+                  href="https://www.facebook.com/banchanxanhjp"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   Fanpage Bàn Chân Xanh
                 </a>
               </p>
@@ -389,28 +470,36 @@ const RegisterPage: React.FC = () => {
                   {currentStep === 1 && (
                     <Step1Form
                       data={step1}
-                      onChange={(patch) => setStep1((prev) => ({ ...prev, ...patch }))}
+                      onChange={(patch) =>
+                        setStep1((prev) => ({ ...prev, ...patch }))
+                      }
                       errors={errors}
                     />
                   )}
                   {currentStep === 2 && (
                     <Step2Form
                       data={step2}
-                      onChange={(patch) => setStep2((prev) => ({ ...prev, ...patch }))}
+                      onChange={(patch) =>
+                        setStep2((prev) => ({ ...prev, ...patch }))
+                      }
                       errors={errors}
                     />
                   )}
                   {currentStep === 3 && (
                     <Step3Form
                       data={step3}
-                      onChange={(patch) => setStep3((prev) => ({ ...prev, ...patch }))}
+                      onChange={(patch) =>
+                        setStep3((prev) => ({ ...prev, ...patch }))
+                      }
                       errors={errors}
                     />
                   )}
                   {currentStep === 4 && (
                     <Step5Form
                       data={step5}
-                      onChange={(patch) => setStep5((prev) => ({ ...prev, ...patch }))}
+                      onChange={(patch) =>
+                        setStep5((prev) => ({ ...prev, ...patch }))
+                      }
                       errors={errors}
                     />
                   )}
@@ -418,7 +507,9 @@ const RegisterPage: React.FC = () => {
                     <Step6Form
                       step2={step2}
                       data={step6}
-                      onChange={(patch) => setStep6((prev) => ({ ...prev, ...patch }))}
+                      onChange={(patch) =>
+                        setStep6((prev) => ({ ...prev, ...patch }))
+                      }
                       errors={errors}
                     />
                   )}
@@ -436,13 +527,20 @@ const RegisterPage: React.FC = () => {
                         step5={step5}
                         reservation={reservation}
                         data={step4}
-                        onChange={(patch) => setStep4((prev) => ({ ...prev, ...patch }))}
+                        onChange={(patch) =>
+                          setStep4((prev) => ({ ...prev, ...patch }))
+                        }
                         errors={errors}
                       />
                     ))}
 
                   {(currentStep === 2 || currentStep === 3) && (
-                    <CostSummaryCard step1={step1} step2={step2} step3={step3} compact />
+                    <CostSummaryCard
+                      step1={step1}
+                      step2={step2}
+                      step3={step3}
+                      compact
+                    />
                   )}
                   {currentStep === 4 && (
                     <CostSummaryCard
@@ -454,7 +552,9 @@ const RegisterPage: React.FC = () => {
                     />
                   )}
 
-                  {submitError && <div className="alert alert-danger mt-3">{submitError}</div>}
+                  {submitError && (
+                    <div className="alert alert-danger mt-3">{submitError}</div>
+                  )}
 
                   <div className="d-flex justify-content-between mt-4">
                     {currentStep > 1 ? (
@@ -470,11 +570,19 @@ const RegisterPage: React.FC = () => {
                     )}
 
                     {currentStep < TOTAL_STEPS ? (
-                      <button type="button" className="btn btn-success" onClick={goNext}>
+                      <button
+                        type="button"
+                        className="btn btn-success"
+                        onClick={goNext}
+                      >
                         Tiếp theo →
                       </button>
                     ) : (
-                      <button type="submit" className="btn btn-success btn-lg" disabled={submitting}>
+                      <button
+                        type="submit"
+                        className="btn btn-success btn-lg"
+                        disabled={submitting}
+                      >
                         {submitting ? (
                           <>
                             <span className="spinner-border spinner-border-sm me-2" />
@@ -489,9 +597,16 @@ const RegisterPage: React.FC = () => {
                 </form>
               </div>
 
-              <p className="text-center text-muted mt-3" style={{ fontSize: 12 }}>
+              <p
+                className="text-center text-muted mt-3"
+                style={{ fontSize: 12 }}
+              >
                 Mọi thắc mắc liên hệ:{" "}
-                <a href="https://www.facebook.com/banchanxanhjp" target="_blank" rel="noopener noreferrer">
+                <a
+                  href="https://www.facebook.com/banchanxanhjp"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   Fanpage Bàn Chân Xanh
                 </a>
               </p>

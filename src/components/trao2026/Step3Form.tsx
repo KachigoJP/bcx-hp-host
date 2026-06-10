@@ -1,5 +1,7 @@
 import React from "react";
 
+import { FEE_BUS_OTHER, FEE_BUS_TOKYO } from "./constants";
+import { fmtYen } from "./helpers";
 import type { Step3 } from "./types";
 
 type Props = {
@@ -68,7 +70,14 @@ const Step3Form: React.FC<Props> = ({ data, onChange, errors }) => (
                 onChange={() => onChange({ bus_departure: city })}
               />
               <label className="form-check-label" htmlFor={`bus-${city}`}>
-                {city}
+                {city}{" "}
+                <span className="text-muted" style={{ fontSize: 12 }}>
+                  (
+                  {city === "Tokyo"
+                    ? fmtYen(FEE_BUS_TOKYO)
+                    : fmtYen(FEE_BUS_OTHER)}
+                  /người)
+                </span>
               </label>
             </div>
           ))}

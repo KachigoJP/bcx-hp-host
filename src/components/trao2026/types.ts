@@ -5,6 +5,7 @@ export type Step1 = {
   name: string;
   gender: Gender;
   age: string;
+  disabled: boolean;
   facebook: string;
   phone: string;
   emergency_phone: string;
@@ -17,6 +18,7 @@ export type Member = {
   name: string;
   gender: Gender;
   age: string;
+  disabled: boolean;
   relation: string;
 };
 

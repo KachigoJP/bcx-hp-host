@@ -58,6 +58,7 @@
     "eslint-config-next": "15.1.6",
     "eslint-plugin-typescript": "^0.14.0",
     "git-hooks-plus": "^1.0.1",
+    "prettier": "^3.8.3",
     "typescript": "^5.7.3"
   }
 }

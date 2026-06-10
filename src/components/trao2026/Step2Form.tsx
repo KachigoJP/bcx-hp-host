@@ -11,11 +11,14 @@ type Props = {
 
 const Step2Form: React.FC<Props> = ({ data, onChange, errors }) => {
   const updateMember = (index: number, patch: Partial<Member>) => {
-    const updated = data.members.map((member, i) => (i === index ? { ...member, ...patch } : member));
+    const updated = data.members.map((member, i) =>
+      i === index ? { ...member, ...patch } : member,
+    );
     onChange({ members: updated });
   };
 
-  const addMember = () => onChange({ members: [...data.members, emptyMember()] });
+  const addMember = () =>
+    onChange({ members: [...data.members, emptyMember()] });
   const removeMember = (index: number) =>
     onChange({ members: data.members.filter((_, i) => i !== index) });
 
@@ -34,7 +37,9 @@ const Step2Form: React.FC<Props> = ({ data, onChange, errors }) => {
               type="radio"
               id="type-individual"
               checked={data.register_type === "individual"}
-              onChange={() => onChange({ register_type: "individual", members: [] })}
+              onChange={() =>
+                onChange({ register_type: "individual", members: [] })
+              }
             />
             <label className="form-check-label" htmlFor="type-individual">
               <strong>Cá nhân</strong> — Chỉ đăng ký cho bản thân
@@ -46,7 +51,9 @@ const Step2Form: React.FC<Props> = ({ data, onChange, errors }) => {
               type="radio"
               id="type-group"
               checked={data.register_type === "group"}
-              onChange={() => onChange({ register_type: "group", members: [emptyMember()] })}
+              onChange={() =>
+                onChange({ register_type: "group", members: [emptyMember()] })
+              }
             />
             <label className="form-check-label" htmlFor="type-group">
               <strong>Gia đình / Nhóm bạn</strong> — Đăng ký cùng nhiều người
@@ -66,7 +73,8 @@ const Step2Form: React.FC<Props> = ({ data, onChange, errors }) => {
             Thành viên trong nhóm <span className="text-danger">*</span>
           </label>
           <p className="text-muted mb-3" style={{ fontSize: 13 }}>
-            Nhập thông tin từng thành viên tham gia cùng (không bao gồm người đại diện đăng ký).
+            Nhập thông tin từng thành viên tham gia cùng (không bao gồm người
+            đại diện đăng ký).
           </p>
 
           {data.members.map((member, i) => (
@@ -97,34 +105,74 @@ const Step2Form: React.FC<Props> = ({ data, onChange, errors }) => {
                     onChange={(e) => updateMember(i, { name: e.target.value })}
                   />
                   {errors[`member_${i}_name`] && (
-                    <div className="invalid-feedback">{errors[`member_${i}_name`]}</div>
+                    <div className="invalid-feedback">
+                      {errors[`member_${i}_name`]}
+                    </div>
                   )}
                 </div>
                 <div className="col-md-3">
-                  <select
-                    className={`form-control form-control-sm ${errors[`member_${i}_gender`] ? "is-invalid" : ""}`}
-                    value={member.gender}
-                    onChange={(e) => updateMember(i, { gender: e.target.value as Gender })}
+                  <div
+                    className="d-flex gap-3 align-items-center"
+                    style={{ paddingTop: 6 }}
                   >
-                    <option value="">Giới tính *</option>
-                    <option value="Nam">Nam</option>
-                    <option value="Nữ">Nữ</option>
-                    <option value="Khác">Khác</option>
-                  </select>
+                    {(["Nam", "Nữ", "Khác"] as Gender[]).map((g) => (
+                      <div className="form-check mb-0" key={g}>
+                        <input
+                          className="form-check-input"
+                          type="radio"
+                          id={`member-${i}-gender-${g}`}
+                          checked={member.gender === g}
+                          onChange={() => updateMember(i, { gender: g })}
+                        />
+                        <label
+                          className="form-check-label"
+                          style={{ fontSize: 13 }}
+                          htmlFor={`member-${i}-gender-${g}`}
+                        >
+                          {g}
+                        </label>
+                      </div>
+                    ))}
+                  </div>
                   {errors[`member_${i}_gender`] && (
-                    <div className="invalid-feedback">{errors[`member_${i}_gender`]}</div>
+                    <div className="text-danger" style={{ fontSize: 12 }}>
+                      {errors[`member_${i}_gender`]}
+                    </div>
                   )}
                 </div>
-                <div className="col-md-2">
-                  <input
-                    type="number"
-                    className={`form-control form-control-sm ${errors[`member_${i}_age`] ? "is-invalid" : ""}`}
-                    placeholder="Tuổi *"
-                    value={member.age}
-                    onChange={(e) => updateMember(i, { age: e.target.value })}
-                  />
+                <div className="col-md-3">
+                  <div className="d-flex align-items-center gap-2">
+                    <input
+                      type="number"
+                      className={`form-control form-control-sm ${errors[`member_${i}_age`] ? "is-invalid" : ""}`}
+                      placeholder="Tuổi *"
+                      value={member.age}
+                      onChange={(e) => updateMember(i, { age: e.target.value })}
+                      style={{ maxWidth: 80 }}
+                    />
+                    <div className="form-check mb-0">
+                      <input
+                        className="form-check-input"
+                        type="checkbox"
+                        id={`member-${i}-disabled`}
+                        checked={member.disabled}
+                        onChange={(e) =>
+                          updateMember(i, { disabled: e.target.checked })
+                        }
+                      />
+                      <label
+                        className="form-check-label"
+                        style={{ fontSize: 13 }}
+                        htmlFor={`member-${i}-disabled`}
+                      >
+                        Khuyết tật
+                      </label>
+                    </div>
+                  </div>
                   {errors[`member_${i}_age`] && (
-                    <div className="invalid-feedback">{errors[`member_${i}_age`]}</div>
+                    <div className="text-danger" style={{ fontSize: 12 }}>
+                      {errors[`member_${i}_age`]}
+                    </div>
                   )}
                 </div>
                 <div className="col-md-4">
@@ -133,10 +181,14 @@ const Step2Form: React.FC<Props> = ({ data, onChange, errors }) => {
                     className={`form-control form-control-sm ${errors[`member_${i}_relation`] ? "is-invalid" : ""}`}
                     placeholder="Quan hệ với đại diện *"
                     value={member.relation}
-                    onChange={(e) => updateMember(i, { relation: e.target.value })}
+                    onChange={(e) =>
+                      updateMember(i, { relation: e.target.value })
+                    }
                   />
                   {errors[`member_${i}_relation`] && (
-                    <div className="invalid-feedback">{errors[`member_${i}_relation`]}</div>
+                    <div className="invalid-feedback">
+                      {errors[`member_${i}_relation`]}
+                    </div>
                   )}
                 </div>
               </div>

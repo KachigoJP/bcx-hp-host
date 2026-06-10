@@ -1,13 +1,19 @@
 import type { ProductOrder } from "./types";
 
-export const FEE_ADULT = 20000;
-export const FEE_CHILD = 10000;
-export const FEE_BUS = 10000;
-export const CHILD_AGE_LIMIT = 12;
+export const FEE_ADULT = 16500; // Người lớn & trẻ em trên 12 tuổi
+export const FEE_CHILD = 8000; // Trẻ em 6–12 tuổi
+export const FEE_BUS_TOKYO = 7000; // Xe bus từ Tokyo
+export const FEE_BUS_OTHER = 9000; // Xe bus từ Osaka / Nagoya
+export const CHILD_AGE_LIMIT = 12; // trên 12 → người lớn
+export const CHILD_FREE_AGE_LIMIT = 6; // dưới 6 → miễn phí
 
 export const PRODUCTS = [
   { key: "khan_ran" as keyof ProductOrder, label: "Khăn Rằn", price: 800 },
-  { key: "khan_tho_cam" as keyof ProductOrder, label: "Khăn Thổ Cẩm", price: 1300 },
+  {
+    key: "khan_tho_cam" as keyof ProductOrder,
+    label: "Khăn Thổ Cẩm",
+    price: 1300,
+  },
   { key: "tui_to_te" as keyof ProductOrder, label: "Túi Tò Te", price: 1200 },
 ];
 

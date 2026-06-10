@@ -14,7 +14,7 @@ const Step1Form: React.FC<Props> = ({ data, onChange, errors }) => {
     name: keyof Step1,
     type = "text",
     placeholder = "",
-    required = true
+    required = true,
   ) => (
     <div className="mb-3">
       <label className="form-label fw-semibold">
@@ -65,8 +65,44 @@ const Step1Form: React.FC<Props> = ({ data, onChange, errors }) => {
         )}
       </div>
 
-      {field("Tuổi", "age", "number", "25")}
-      {field("Link Facebook", "facebook", "url", "https://facebook.com/yourprofile")}
+      <div className="mb-3">
+        <label className="form-label fw-semibold">
+          Tuổi <span className="text-danger">*</span>
+        </label>
+        <div className="d-flex align-items-center gap-3">
+          <input
+            type="number"
+            className={`form-control ${errors.age ? "is-invalid" : ""}`}
+            placeholder="25"
+            value={data.age}
+            onChange={(e) => onChange({ age: e.target.value })}
+            style={{ maxWidth: 120 }}
+          />
+          <div className="form-check mb-0">
+            <input
+              className="form-check-input"
+              type="checkbox"
+              id="rep-disabled"
+              checked={data.disabled}
+              onChange={(e) => onChange({ disabled: e.target.checked })}
+            />
+            <label className="form-check-label" htmlFor="rep-disabled">
+              Người khuyết tật
+            </label>
+          </div>
+        </div>
+        {errors.age && (
+          <div className="text-danger mt-1" style={{ fontSize: 13 }}>
+            {errors.age}
+          </div>
+        )}
+      </div>
+      {field(
+        "Link Facebook",
+        "facebook",
+        "url",
+        "https://facebook.com/yourprofile",
+      )}
       {field("Số điện thoại", "phone", "tel", "090-1234-5678")}
 
       <div className="mb-3">
@@ -106,7 +142,13 @@ const Step1Form: React.FC<Props> = ({ data, onChange, errors }) => {
         Thông tin tùy chọn (không bắt buộc)
       </p>
 
-      {field("Địa chỉ nhà", "address", "text", "Vd: 1-2-3 Shinjuku, Tokyo", false)}
+      {field(
+        "Địa chỉ nhà",
+        "address",
+        "text",
+        "Vd: 1-2-3 Shinjuku, Tokyo",
+        false,
+      )}
 
       <div className="mb-3">
         <label className="form-label fw-semibold">Nhóm máu</label>
@@ -116,13 +158,24 @@ const Step1Form: React.FC<Props> = ({ data, onChange, errors }) => {
           onChange={(e) => onChange({ blood_type: e.target.value })}
         >
           <option value="">-- Chọn nhóm máu --</option>
-          {["A", "B", "AB", "O", "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"].map(
-            (bloodType) => (
-              <option key={bloodType} value={bloodType}>
-                {bloodType}
-              </option>
-            )
-          )}
+          {[
+            "A",
+            "B",
+            "AB",
+            "O",
+            "A+",
+            "A-",
+            "B+",
+            "B-",
+            "AB+",
+            "AB-",
+            "O+",
+            "O-",
+          ].map((bloodType) => (
+            <option key={bloodType} value={bloodType}>
+              {bloodType}
+            </option>
+          ))}
         </select>
       </div>
     </>

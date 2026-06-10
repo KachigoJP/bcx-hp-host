@@ -2,8 +2,8 @@ import React from "react";
 
 import {
   CHILD_AGE_LIMIT,
+  CHILD_FREE_AGE_LIMIT,
   FEE_ADULT,
-  FEE_BUS,
   FEE_CHILD,
   PRODUCTS,
 } from "./constants";
@@ -18,9 +18,16 @@ type Props = {
   compact?: boolean;
 };
 
-const CostSummaryCard: React.FC<Props> = ({ step1, step2, step3, step5, compact }) => {
+const CostSummaryCard: React.FC<Props> = ({
+  step1,
+  step2,
+  step3,
+  step5,
+  compact,
+}) => {
   const fees = calcFees(step1, step2, step3);
-  const productFee = step5 && step5.want_products === "yes" ? calcProductFee(step5.products) : 0;
+  const productFee =
+    step5 && step5.want_products === "yes" ? calcProductFee(step5.products) : 0;
   const grandTotal = fees.total + productFee;
 
   if (!step2.register_type) return null;
@@ -37,22 +44,46 @@ const CostSummaryCard: React.FC<Props> = ({ step1, step2, step3, step5, compact 
         <tbody>
           {fees.adults > 0 && (
             <tr>
-              <td className="ps-0 border-0">Người lớn ({fees.adults} × {fmtYen(FEE_ADULT)})</td>
-              <td className="text-end border-0 fw-semibold">{fmtYen(fees.adults * FEE_ADULT)}</td>
+              <td className="ps-0 border-0">
+                Người lớn &gt;{CHILD_AGE_LIMIT} tuổi ({fees.adults} ×{" "}
+                {fmtYen(FEE_ADULT)})
+              </td>
+              <td className="text-end border-0 fw-semibold">
+                {fmtYen(fees.adults * FEE_ADULT)}
+              </td>
             </tr>
           )}
           {fees.children > 0 && (
             <tr>
               <td className="ps-0 border-0">
-                Trẻ em &lt;{CHILD_AGE_LIMIT} tuổi ({fees.children} × {fmtYen(FEE_CHILD)})
+                Trẻ em {CHILD_FREE_AGE_LIMIT}–{CHILD_AGE_LIMIT} tuổi (
+                {fees.children} × {fmtYen(FEE_CHILD)})
               </td>
-              <td className="text-end border-0 fw-semibold">{fmtYen(fees.children * FEE_CHILD)}</td>
+              <td className="text-end border-0 fw-semibold">
+                {fmtYen(fees.children * FEE_CHILD)}
+              </td>
+            </tr>
+          )}
+          {fees.free > 0 && (
+            <tr>
+              <td className="ps-0 border-0">
+                Người khuyết tật / Trẻ em &lt;{CHILD_FREE_AGE_LIMIT} tuổi (
+                {fees.free} người)
+              </td>
+              <td className="text-end border-0 fw-semibold text-success">
+                Miễn phí
+              </td>
             </tr>
           )}
           {step3.transport === "bus" && (
             <tr>
-              <td className="ps-0 border-0">Xe bus ({fees.total_people} × {fmtYen(FEE_BUS)})</td>
-              <td className="text-end border-0 fw-semibold">{fmtYen(fees.bus_fee)}</td>
+              <td className="ps-0 border-0">
+                Xe bus {step3.bus_departure} ({fees.total_people} ×{" "}
+                {fmtYen(fees.fee_per_bus)})
+              </td>
+              <td className="text-end border-0 fw-semibold">
+                {fmtYen(fees.bus_fee)}
+              </td>
             </tr>
           )}
           {productFee > 0 &&
@@ -65,13 +96,18 @@ const CostSummaryCard: React.FC<Props> = ({ step1, step2, step3, step5, compact 
                   <td className="ps-0 border-0">
                     {product.label} ({qty} × {fmtYen(product.price)})
                   </td>
-                  <td className="text-end border-0 fw-semibold">{fmtYen(qty * product.price)}</td>
+                  <td className="text-end border-0 fw-semibold">
+                    {fmtYen(qty * product.price)}
+                  </td>
                 </tr>
               );
             })}
           <tr style={{ borderTop: "1px solid #a5d6a7" }}>
             <td className="ps-0 fw-bold">Tổng dự kiến</td>
-            <td className="text-end fw-bold text-success" style={{ fontSize: compact ? 15 : 17 }}>
+            <td
+              className="text-end fw-bold text-success"
+              style={{ fontSize: compact ? 15 : 17 }}
+            >
               {fmtYen(grandTotal)}
             </td>
           </tr>
@@ -79,7 +115,8 @@ const CostSummaryCard: React.FC<Props> = ({ step1, step2, step3, step5, compact 
       </table>
       {step3.transport !== "bus" && step3.transport !== "own" && (
         <p className="text-muted mb-0 mt-1" style={{ fontSize: 12 }}>
-          * Phí xe bus sẽ được tính thêm nếu bạn chọn xe ban tổ chức ở bước tiếp theo.
+          * Phí xe bus sẽ được tính thêm nếu bạn chọn xe ban tổ chức ở bước tiếp
+          theo.
         </p>
       )}
     </div>
