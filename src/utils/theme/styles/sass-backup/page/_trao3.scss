@@ -1,0 +1,64 @@
+.wpo-trao-text {
+    max-width: 595px;
+
+    h2 {
+        font-size: 40px;
+        font-family: $heading-font;
+        margin-bottom: 20px;
+        line-height: 65px;
+
+        @media(max-width:1200px) {
+            font-size: 34px;
+            line-height: 50px;
+        }
+
+        @media(max-width:600px) {
+            font-size: 30px;
+        }
+    }
+
+    span {
+        color: $theme-primary-color;
+        font-size: 18px;
+        font-family: $heading-font;
+        display: block;
+        margin-bottom: 10px;
+        font-weight: 600;
+    }
+
+    p {
+        margin-bottom: 20px;
+    }
+
+    ul {
+        list-style: none;
+        margin-bottom: 30px;
+
+        li {
+            padding: 6px 0;
+            padding-left: 30px;
+            position: relative;
+            text-align: left;
+
+            &:before {
+                position: absolute;
+                left: 0;
+                top: 50%;
+                transform: translateY(-50%);
+                content: "\f11d";
+                font-family: "Flaticon";
+                color: $theme-primary-color-s2;
+            }
+
+            &.info:before {
+                position: absolute;
+                left: 0;
+                top: 50%;
+                transform: translateY(-50%);
+                content: "\f10d";
+                font-family: "Flaticon";
+                color: $theme-primary-color-s2;
+            }
+        }
+    }
+}

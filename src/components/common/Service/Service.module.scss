@@ -1,0 +1,82 @@
+@use "sass:color";
+@use "utils/theme/styles/sass/helpers" as helpers;
+
+/*--------------------------------------------------------------
+wpo-features-section (style-s6)
+--------------------------------------------------------------*/
+
+.wpo-features-section {
+  background: helpers.$section-bg-color2;
+
+  .wpo-features-item {
+    text-align: left;
+    padding: 50px;
+    max-width: 100%;
+    border-radius: 50px;
+    background: helpers.$white;
+    box-shadow: 0px 1px 15px 0px rgba(62, 65, 159, 0.15);
+
+    @media (max-width: 1200px) {
+      padding: 30px;
+    }
+
+    @media (max-width: 991px) {
+      margin-bottom: 20px;
+      padding: 20px;
+    }
+  }
+
+  .wpo-features-icon {
+    margin: 0;
+    top: 0;
+    width: 100px;
+    height: 100px;
+    line-height: 100px;
+    margin-bottom: 20px;
+    box-shadow: 0px 1px 15px 0px rgba(62, 65, 159, 0.05);
+    background: #e0f5f3;
+    @include helpers.rounded-border(50%);
+    text-align: center;
+
+    .fi,
+    .icon i {
+      font-size: 50px;
+      color: #26877c;
+    }
+  }
+
+  .wpo-features-text {
+    margin-top: 0;
+
+    h2 {
+      font-size: 26px;
+      font-weight: 500;
+      margin-bottom: 20px;
+
+      a {
+        color: helpers.$heading-color;
+
+        &:hover {
+          color: helpers.$theme-primary-color;
+        }
+      }
+    }
+
+    p {
+      margin-bottom: 0;
+      font-size: 17px;
+    }
+
+    a {
+      &.read {
+        font-size: 18px;
+        color: helpers.$dark-gray;
+        font-family: helpers.$heading-font;
+
+        &:hover {
+          color: helpers.$theme-primary-color;
+        }
+      }
+    }
+  }
+}

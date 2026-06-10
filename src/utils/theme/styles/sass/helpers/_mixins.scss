@@ -1,3 +1,22 @@
+@use "sass:map";
+@use "breakpoints";
+
+$named-breakpoints: (
+    xl: breakpoints.$breakpoint-xl,
+    lg: breakpoints.$breakpoint-lg,
+    md: breakpoints.$breakpoint-md,
+    sm: breakpoints.$breakpoint-sm,
+    xs: breakpoints.$breakpoint-xs,
+);
+
+@function breakpoint-value($length) {
+    @if map.has-key($named-breakpoints, $length) {
+        @return map.get($named-breakpoints, $length);
+    }
+
+    @return $length;
+}
+
 @mixin background-style( $path, $position, $bg-size, $repeat, $attachment ) {
     background: url($path) $position/$bg-size $repeat $attachment;
 }
@@ -73,38 +92,56 @@
 }
 
 @mixin widther( $length ) {
-    @media screen and (min-width: $length)  {
+    @media screen and (min-width: breakpoint-value($length))  {
         @content;
     }
 }
 
 @mixin media-query( $length ) {
-    @media (max-width: $length) {
+    @media (max-width: breakpoint-value($length)) {
+        @content;
+    }
+}
+
+@mixin respond-up($length) {
+    @include widther($length) {
+        @content;
+    }
+}
+
+@mixin respond-down($length) {
+    @include media-query($length) {
         @content;
     }
 }
 
 @mixin placeholder-style( $color, $font-size:14px, $font-style: italic ) {
+    &::placeholder {
+        font-size: $font-size;
+        font-style: $font-style;
+        color: $color;
+    }
+
     ::-webkit-input-placeholder {
-        font-style: $font-size;
+        font-size: $font-size;
         font-style: $font-style;
         color: $color;
     }
 
     :-moz-placeholder {
-        font-style: $font-size;
+        font-size: $font-size;
         font-style: $font-style;
         color: $color;
     }
 
     ::-moz-placeholder {
-        font-style: $font-size;
+        font-size: $font-size;
         font-style: $font-style;
         color: $color;
     }
 
     :-ms-input-placeholder {
-        font-style: $font-size;
+        font-size: $font-size;
         font-style: $font-style;
         color: $color;
     }

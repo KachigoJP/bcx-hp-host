@@ -1,7 +1,7 @@
-import React from "react";
-import Image, { StaticImageData } from "next/image";
-import Link from "next/link";
 import { IMenuItem } from "@utils/interfaces/index.jsx";
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
 
 export interface FooterData {
   logo: string;
@@ -11,8 +11,12 @@ export interface FooterData {
   facebook: string;
   instagram: string;
   google: string;
-  quicklinks: IMenuItem[];
-  menus: IMenuItem[];
+  footerQuicklinksTitle: string;
+  footerQuicklinks: IMenuItem[];
+  footerMenusTitle: string;
+  footerMenus: IMenuItem[];
+  footerContactTitle: string;
+  footerContactDescription: string;
 }
 
 interface FooterProps {
@@ -32,31 +36,37 @@ const Footer: React.FC<FooterProps> = ({ data }) => {
                 </div>
                 <p>{data.footerSlogan}</p>
                 <ul>
-                  <li>
-                    <Link href={data.facebook}>
-                      <i className="ti-facebook"></i>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href={data.instagram}>
-                      <i className="ti-instagram"></i>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href={data.google}>
-                      <i className="ti-google"></i>
-                    </Link>
-                  </li>
+                  {data.facebook && (
+                    <li>
+                      <Link href={data.facebook}>
+                        <i className="ti-facebook"></i>
+                      </Link>
+                    </li>
+                  )}
+                  {data.instagram && (
+                    <li>
+                      <Link href={data.instagram}>
+                        <i className="ti-instagram"></i>
+                      </Link>
+                    </li>
+                  )}
+                  {data.google && (
+                    <li>
+                      <Link href={data.google}>
+                        <i className="ti-google"></i>
+                      </Link>
+                    </li>
+                  )}
                 </ul>
               </div>
             </div>
             <div className="col col-lg-3 col-md-6 col-sm-12 col-12">
               <div className="widget link-widget">
                 <div className="widget-title">
-                  <h3>Latest News</h3>
+                  <h3>{data.footerMenusTitle}</h3>
                 </div>
                 <ul>
-                  {data.menus.map((item, i) => (
+                  {data.footerMenus && data.footerMenus.length > 0 && data.footerMenus.map((item, i) => (
                     <li key={i}>
                       <Link href={item.link}>{item.title}</Link>
                     </li>
@@ -67,10 +77,10 @@ const Footer: React.FC<FooterProps> = ({ data }) => {
             <div className="col col-lg-3 col-md-6 col-sm-12 col-12">
               <div className="widget link-widget">
                 <div className="widget-title">
-                  <h3>Quick Links</h3>
+                  <h3>{data.footerQuicklinksTitle}</h3>
                 </div>
                 <ul>
-                  {data.quicklinks.map((item, i) => (
+                  {data.footerQuicklinks && data.footerQuicklinks.length > 0 && data.footerQuicklinks.map((item, i) => (
                     <li key={i}>
                       <Link href={item.link}>{item.title}</Link>
                     </li>
@@ -81,11 +91,11 @@ const Footer: React.FC<FooterProps> = ({ data }) => {
             <div className="col col-lg-3 col-md-6 col-sm-12 col-12">
               <div className="widget wpo-service-link-widget">
                 <div className="widget-title">
-                  <h3>Contact </h3>
+                  <h3>{data.footerContactTitle}</h3>
                 </div>
                 <div className="contact-ft">
                   <p>
-                    Would you have any enquiries.Please feel free to contact us
+                    {data.footerContactDescription}
                   </p>
                   <ul>
                     <li>
@@ -109,8 +119,7 @@ const Footer: React.FC<FooterProps> = ({ data }) => {
             <div className="col col-xs-12">
               <p className="copyright">
                 {" "}
-                &copy; 2025 Design By <Link href="/">Chien Kieu</Link>. All
-                Rights Reserved.
+                &copy; 2025 Bàn Chân Xanh. Tất cả quyền được bảo lưu.
               </p>
             </div>
           </div>

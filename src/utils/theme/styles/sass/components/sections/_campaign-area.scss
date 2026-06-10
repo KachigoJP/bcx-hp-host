@@ -1,0 +1,243 @@
+@use "sass:color";
+@use "../../helpers" as helpers;
+
+/*--------------------------------------------------------------
+wpo-campaign-area
+--------------------------------------------------------------*/
+
+.wpo-campaign-area,
+.wpo-campaign-area-s2,
+.wpo-campaign-area-s3,
+.wpo-campaign-area-s4 {
+  padding-bottom: 90px;
+
+  @media (max-width: 991px) {
+    padding-bottom: 70px;
+  }
+
+  .progress-section {
+    padding-top: 20px;
+  }
+
+  .progress {
+    height: 8px;
+    overflow: unset;
+    background-color: #ffdcd1;
+    margin-bottom: 15px;
+  }
+
+  .progress .progress-bar {
+    border-radius: 15px;
+    box-shadow: none;
+    position: relative;
+    animation: animate-positive 4s;
+    background: helpers.$theme-primary-color;
+    height: 8px;
+  }
+
+  .progress-bar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    background-color: #f26522;
+    transition: width 0.6s ease;
+    overflow: unset;
+  }
+
+  .progress .progress-value {
+    text-align: center;
+    left: 90%;
+    position: absolute;
+    color: helpers.$dark-gray;
+    font-weight: 700;
+    font-size: 14px;
+    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.45);
+    top: -30px;
+    line-height: 20px;
+  }
+
+  .wpo-campaign-content h2 {
+    font-size: 25px;
+    line-height: 35px;
+    margin-top: 0;
+    font-weight: 600;
+    margin-bottom: 15px;
+
+    a {
+      color: helpers.$dark-gray;
+
+      &:hover {
+        color: helpers.$theme-primary-color;
+      }
+    }
+  }
+
+  .wpo-campaign-item {
+    padding: 15px;
+    box-shadow: 0px 1px 15px 0px rgba(62, 65, 159, 0.15);
+    border-radius: 15px;
+    background: helpers.$white;
+    margin-bottom: 30px;
+
+    .wpo-campaign-img {
+      position: relative;
+
+      .thumb,
+      .thumb-2 {
+        position: absolute;
+        left: 20px;
+        top: 20px;
+        @include helpers.linear-gradient-bg(
+          to right,
+          color.adjust(helpers.$theme-primary-color, $lightness: -9%),
+          helpers.$theme-primary-color
+        );
+        padding: 4px 20px;
+        border-radius: 4px;
+        color: helpers.$white;
+      }
+
+      .thumb-2 {
+        @include helpers.linear-gradient-bg(
+          to right,
+          color.adjust(helpers.$theme-primary-color-s2, $lightness: -9%),
+          helpers.$theme-primary-color-s2
+        );
+      }
+
+      img {
+        border-radius: 15px;
+        width: 100%;
+      }
+    }
+  }
+
+  .wpo-campaign-text-top {
+    padding: 15px;
+    padding-top: 22px;
+
+    @media (max-width: 1400px) {
+      padding: 15px 0;
+    }
+  }
+
+  .wpo-campaign-content ul {
+    list-style: none;
+  }
+
+  .wpo-campaign-text-top ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .wpo-campaign-text-top ul li {
+    font-size: 14px;
+    color: helpers.$dark-gray;
+    display: flex;
+    align-items: center;
+  }
+
+  .wpo-campaign-text-top ul li span {
+    font-weight: 700;
+
+    a {
+      color: helpers.$dark-gray;
+
+      &:hover {
+        color: helpers.$theme-primary-color;
+      }
+    }
+  }
+
+  .campaign-btn ul {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    padding-top: 30px;
+    border-top: 1px solid #ebebeb;
+
+    li {
+      span {
+        img {
+          border-radius: 50%;
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+
+  .campaign-btn ul li a.e-btn {
+    display: block;
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+    font-weight: 500;
+    width: 150px;
+    border-radius: 40px;
+    margin-left: auto;
+    border: 1px solid helpers.$theme-primary-color-s2;
+    color: helpers.$dark-gray;
+
+    &:hover {
+      background: helpers.$theme-primary-color-s2;
+      color: helpers.$white;
+    }
+
+    @media (max-width: 1200px) {
+      height: 40px;
+      line-height: 40px;
+      width: 90px;
+      font-size: 12px;
+    }
+  }
+
+  .wpo-campaign-single {
+    padding: 0 5px;
+  }
+
+  @media (max-width: 1200px) {
+    .wpo-campaign-content h2 {
+      font-size: 20px;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .wpo-campaign-content h2 {
+      font-size: 20px;
+    }
+  }
+}
+
+/*--------------------------------------------------------------
+wpo-campaign-area-s2 variant (style3)
+--------------------------------------------------------------*/
+
+.wpo-campaign-area-s2 {
+  background: helpers.$section-bg-color2;
+  padding-top: 0;
+}
+
+/*--------------------------------------------------------------
+wpo-campaign-area-s3 variant (style4)
+--------------------------------------------------------------*/
+
+.wpo-campaign-area-s3 {
+  background: helpers.$section-bg-color2;
+}
+
+/*--------------------------------------------------------------
+wpo-campaign-area-s4 variant (style5)
+--------------------------------------------------------------*/
+
+.wpo-campaign-area-s4 {
+  background: helpers.$section-bg-color2;
+
+  .wpo-campaign-text-top {
+    padding: 15px 6px;
+  }
+}

@@ -1,0 +1,89 @@
+@use "sass:color";
+@use "utils/theme/styles/sass/helpers" as helpers;
+
+/*--------------------------------------------------------------
+wpo-recent-donations-section
+--------------------------------------------------------------*/
+
+.wpo-recent-donations-section {
+    background: helpers.$section-bg-color2;
+
+    .donation-card {
+        display: flex;
+        align-items: flex-start;
+        gap: 20px;
+        padding: 25px;
+        background: helpers.$white;
+        border-radius: 15px;
+        box-shadow: 0px 1px 15px 0px rgba(62, 65, 159, 0.08);
+        margin-bottom: 30px;
+        transition: all 0.3s;
+
+        &:hover {
+            transform: translateY(-4px);
+            box-shadow: 0px 5px 20px 0px rgba(62, 65, 159, 0.12);
+        }
+    }
+
+    .donation-icon {
+        flex-shrink: 0;
+        width: 60px;
+        height: 60px;
+        line-height: 60px;
+        background: #e0f5f3;
+        @include helpers.rounded-border(50%);
+        text-align: center;
+
+        .fi {
+            font-size: 28px;
+            color: helpers.$theme-primary-color;
+        }
+    }
+
+    .donation-info {
+        flex: 1;
+
+        h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: helpers.$heading-color;
+        }
+
+        p {
+            font-size: 14px;
+            color: helpers.$text-color;
+            margin-bottom: 10px;
+        }
+    }
+
+    .donation-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+    }
+
+    .donation-title {
+        font-size: 14px;
+        color: helpers.$text-color;
+        font-weight: 500;
+    }
+
+    .donation-amount {
+        font-size: 15px;
+        font-weight: 600;
+        color: helpers.$theme-primary-color;
+    }
+
+    .donation-date {
+        font-size: 13px;
+        color: helpers.$text-color;
+
+        i {
+            font-size: 13px;
+            margin-right: 5px;
+            color: helpers.$theme-primary-color;
+        }
+    }
+}

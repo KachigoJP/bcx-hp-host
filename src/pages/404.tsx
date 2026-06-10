@@ -1,32 +1,23 @@
-import React from 'react';
-import Layout from '@components/layout';
-import PageTitle from '@components/common/PageTitle';
-import Error from '@components/containers/404';
+import { ErrorContent } from "@/utils/interfaces/error";
+import Error from "@components/containers/404";
+import React, { useState } from "react";
 
-interface PageProps { }
+// Default content for 404 page (fallback if Strapi is not available)
+const defaultErrorContent: ErrorContent = {
+  mainTitle: "Ôi! Bạn đã lạc đường rồi",
+  subtitle: "Không tìm thấy trang",
+  description:
+    "Trang bạn đang tìm kiếm không tồn tại hoặc đã bị di chuyển. Hãy quay về trang chủ hoặc khám phá các hoạt động thú vị của chúng tôi.",
+  primaryButton: {
+    text: "Về trang chủ",
+    link: "/",
+  },
+};
 
-const Page404: React.FC<PageProps> = (props) => {
-    return (
-        <Layout data={{
-            logo: "/assets/images/logo.png",
-            slogan: "",
-            footerSlogan:
-                "Welcome and open yourself to your truest love this year with us! With the Release Process",
-            facebook: "",
-            instagram: "",
-            google: "",
-            email: "thongbao@banchanxanh.com",
-            phone: "(+081) 080-5988-2754",
-            headerHenu: [],
-            footerQuicklinks: [],
-            footerMenu: [],
-        }}>
-            <PageTitle pageTitle={'404'} pagesub={'404'} />
-            <Error />
-        </Layout>
-    );
+const Page404: React.FC = () => {
+  const [error404Content] = useState<ErrorContent>(defaultErrorContent);
+
+  return <Error content={error404Content} />;
 };
 
 export default Page404;
-
-

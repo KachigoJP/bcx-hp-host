@@ -1,13 +1,11 @@
-import { ToastContainer } from "react-toastify";
-import Head from "next/head";
 import type { AppProps } from "next/app";
+import Head from "next/head";
+import { ToastContainer } from "react-toastify";
 
 // import 3rd CSS
-import "react-toastify/dist/ReactToastify.css";
-import "react-toastify/dist/ReactToastify.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import "slick-carousel/slick/slick.css";
 
 // import them CSS
 import "@utils/theme/styles/animate.css";
@@ -16,7 +14,7 @@ import "@utils/theme/styles/font-awesome.min.css";
 import "@utils/theme/styles/themify-icons.css";
 
 // import custom CSS
-import "@styles/sass/style.scss";
+import "@utils/theme/styles/sass/style.scss";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -28,7 +26,18 @@ function MyApp({ Component, pageProps }: AppProps) {
         </title>
       </Head>
       <Component {...pageProps} />
-      <ToastContainer />
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 }

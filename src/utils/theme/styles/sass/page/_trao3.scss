@@ -1,9 +1,11 @@
+@use "../helpers" as helpers;
+
 .wpo-trao-text {
     max-width: 595px;
 
     h2 {
         font-size: 40px;
-        font-family: $heading-font;
+        font-family: helpers.$heading-font;
         margin-bottom: 20px;
         line-height: 65px;
 
@@ -18,9 +20,9 @@
     }
 
     span {
-        color: $theme-primary-color;
+        color: helpers.$theme-primary-color;
         font-size: 18px;
-        font-family: $heading-font;
+        font-family: helpers.$heading-font;
         display: block;
         margin-bottom: 10px;
         font-weight: 600;
@@ -47,7 +49,7 @@
                 transform: translateY(-50%);
                 content: "\f11d";
                 font-family: "Flaticon";
-                color: $theme-primary-color-s2;
+                color: helpers.$theme-primary-color-s2;
             }
 
             &.info:before {
@@ -57,7 +59,7 @@
                 transform: translateY(-50%);
                 content: "\f10d";
                 font-family: "Flaticon";
-                color: $theme-primary-color-s2;
+                color: helpers.$theme-primary-color-s2;
             }
         }
     }

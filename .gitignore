@@ -32,6 +32,10 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
+
+# one-off scripts chứa credentials — không commit
+/scripts/
 
 # vercel
 .vercel

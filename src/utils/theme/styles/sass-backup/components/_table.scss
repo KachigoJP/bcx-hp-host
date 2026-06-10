@@ -1,0 +1,25 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+
+    th {
+        background-color: #f2f2f2;
+        padding: 10px;
+        text-align: left;
+    }
+}
+
+.column {
+    display: inline-block;
+    /* Or float: left; */
+    width: 25%;
+    /* Each column takes up 25% of the container */
+    padding: 10px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.column-small {
+    width: 15%;
+    /* Make this column smaller */
+}

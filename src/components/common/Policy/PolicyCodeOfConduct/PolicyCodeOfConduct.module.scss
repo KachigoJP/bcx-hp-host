@@ -1,0 +1,70 @@
+@use "sass:color";
+@use "utils/theme/styles/sass/helpers" as helpers;
+
+/*--------------------------------------------------------------
+wpo-code-conduct-section
+--------------------------------------------------------------*/
+
+.wpo-code-conduct-section {
+    @include helpers.linear-gradient-bg(
+        to right,
+        color.adjust(helpers.$theme-primary-color, $lightness: -6%),
+        color.adjust(helpers.$theme-primary-color, $alpha: -0.15)
+    );
+
+    :global(.wpo-section-title) {
+        span {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        h2 {
+            color: helpers.$white;
+        }
+
+        p {
+            color: rgba(255, 255, 255, 0.85);
+        }
+    }
+
+    .wpo-conduct-item {
+        padding: 35px 25px;
+        margin-bottom: 30px;
+        opacity: 0;
+        transform: translateY(25px);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+
+        &:global(.animate) {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .wpo-conduct-icon {
+        width: 80px;
+        height: 80px;
+        line-height: 80px;
+        background: rgba(255, 255, 255, 0.15);
+        @include helpers.rounded-border(50%);
+        text-align: center;
+        margin: 0 auto 20px;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+
+        i {
+            font-size: 36px;
+            color: helpers.$white;
+        }
+    }
+
+    h4 {
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 12px;
+        color: helpers.$white;
+    }
+
+    p {
+        font-size: 15px;
+        color: rgba(255, 255, 255, 0.85);
+        margin-bottom: 0;
+    }
+}

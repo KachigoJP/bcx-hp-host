@@ -3,11 +3,12 @@ import Image from "next/image";
 import { useTranslation } from "react-i18next";
 
 const HomePage: React.FC = () => {
-  const { t } = useTranslation();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { t: _t } = useTranslation();
 
   return (
     <span>
-      <section className="wpo-about-section-s2 section-padding">
+      <section className="wpo-about-section style-s2 section-padding">
         <div className="container">
           <div className="row align-items-center">
             <div className="col-lg-6 col-md-12 col-12">

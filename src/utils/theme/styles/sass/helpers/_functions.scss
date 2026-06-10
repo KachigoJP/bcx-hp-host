@@ -1,3 +1,5 @@
+@use "fonts";
+
 @function calc_rem_value($font-size) {
-    @return (calc(1 / $base-font-size) * $font-size) + rem;
+    @return (calc(1 / fonts.$base-font-size) * $font-size) + rem;
 }

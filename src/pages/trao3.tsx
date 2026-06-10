@@ -4,15 +4,14 @@ import { initializeApp } from "firebase/app";
 import {
   getFirestore,
   doc,
-  getDoc,
   updateDoc,
   collection,
   getDocs,
-  setDoc,
   Timestamp,
   DocumentData,
 } from "firebase/firestore";
 import { useTranslation } from "react-i18next";
+import { Spinner } from "reactstrap";
 
 // Source
 const firebaseConfig = {
@@ -32,16 +31,22 @@ const app = initializeApp(firebaseConfig);
 const firestore = getFirestore(app);
 
 const HomePage: React.FC = () => {
-  const { t } = useTranslation();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { t: _t } = useTranslation();
 
+  const [showError, setShowError] = React.useState(false);
+  const [isRuleShow, setIsRuleShow] = React.useState(false);
   const [isDetailShow, setIsDetailShow] = React.useState(false);
+  const [isMapShow, setIsMapShow] = React.useState(false);
   const [inputCode, setInputCode] = React.useState("");
   const [inputSearch, setInputSearch] = React.useState("");
   const [searchResult, setSearchResult] = React.useState<
     DocumentData | undefined
   >(undefined);
   const [users, setUsers] = React.useState<any>({});
-  const [validUsers, setValidUsers] = React.useState<any>({});
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_validUsers, _setValidUsers] = React.useState<any>({});
+  const [imageLoadStatus, setImageLoadStatus] = React.useState<any>({});
 
   React.useEffect(() => {
     const getData = async () => {
@@ -56,7 +61,7 @@ const HomePage: React.FC = () => {
           [userData.code]: userData,
         }));
         if (userData.money === userData.transfered) {
-          setValidUsers((prev: any) => ({
+          _setValidUsers((prev: any) => ({
             ...prev,
             [userData.code]: userData,
           }));
@@ -71,6 +76,14 @@ const HomePage: React.FC = () => {
     setIsDetailShow(!isDetailShow);
   };
 
+  const onClickMap = () => {
+    setIsMapShow(!isMapShow);
+  };
+
+  const onClickRule = () => {
+    setIsRuleShow(!isRuleShow);
+  };
+
   const onChangeInputCode = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputCode(e.target.value);
   };
@@ -82,21 +95,29 @@ const HomePage: React.FC = () => {
   const onClickSearch = () => {
     // Handle search logic here
     const code = inputCode.trim();
-    console.log("Searching for code:", code, "and search:", inputSearch);
+
     if (users[code]) {
-      let isFound =
-        users[code].phone_number.replace(/[^0-9a-zA-Z]/g, "") ===
-        inputSearch.trim().replace(/[^0-9a-zA-Z]/g, "");
-      isFound = isFound || users[code].email === inputSearch;
+      let isFound = false;
+      if (users[code].phone && users[code].email) {
+        isFound =
+          isFound ||
+          users[code].phone.replace(/[^0-9a-zA-Z]/g, "") ===
+            inputSearch.trim().replace(/[^0-9a-zA-Z]/g, "");
+        isFound = isFound || users[code].email === inputSearch;
+      } else {
+        isFound = true;
+      }
 
       if (isFound) {
         setSearchResult(users[code]);
+        setShowError(false);
       } else {
         setSearchResult(undefined);
+        setShowError(true);
       }
     } else {
-      console.log("User not found");
       setSearchResult(undefined);
+      setShowError(true);
     }
   };
 
@@ -109,7 +130,6 @@ const HomePage: React.FC = () => {
   const onClickConfirmUse = async (index: number) => {
     if (searchResult) {
       const userRef = doc(firestore, "trao2025", searchResult.code);
-      console.log("Updating ticket:", index, "for user:", searchResult.code);
       await updateDoc(userRef, {
         [`ticket_${index}`]: 1,
         updated_at: Timestamp.now(),
@@ -121,9 +141,13 @@ const HomePage: React.FC = () => {
     }
   };
 
+  const onLoadingComplete = async (name: string) => {
+    setImageLoadStatus((prev: any) => ({ ...prev, [name]: true }));
+  };
+
   return (
     <Fragment>
-      <section className="wpo-about-section-s2">
+      <section className="wpo-about-section style-s2">
         <div className="container">
           <div className="row align-items-center">
             <div className="col-lg-6 col-md-12 col-12">
@@ -133,12 +157,14 @@ const HomePage: React.FC = () => {
                     src="/assets/images/trao3.png"
                     width={581}
                     height={576}
+                    loading="lazy"
                     alt=""
                     style={{
                       width: 400,
                       height: 500,
                     }}
                   />
+
                   <div className="round-ball-1"></div>
                   <div className="round-ball-2"></div>
                   <div className="round-ball-3"></div>
@@ -159,55 +185,170 @@ const HomePage: React.FC = () => {
                   giản là những người muốn tìm kiếm sự cho đi và kết nối.
                 </p>
                 <ul>
-                  <li>Đơn vị tổ chức: BÀN CHÂN XANH</li>
-                  <li>Ngày tổ chức: 30-31 tháng 8 2025</li>
                   <li>
-                    Địa điểm: 老谷の森 川のほとりのキャンプ場 -{" "}
+                    <b>Đơn vị tổ chức:</b> BÀN CHÂN XANH
+                  </li>
+                  <li>
+                    <b>Ngày tổ chức:</b> 30-31 tháng 8 2025
+                  </li>
+                  <li>
+                    <b>Địa điểm:</b> 老谷の森 川のほとりのキャンプ場 -{" "}
                     <a href="https://maps.app.goo.gl/J2aqKPwjrC1BFPn68">
                       Google Map
                     </a>
                   </li>
+                  <li>
+                    <b>Địa điểm onsen gần nhất:</b> 明宝温泉 湯星館 -{" "}
+                    <a href="https://maps.app.goo.gl/kFyQe4L2gXfffSrD9?g_st=com.google.maps.preview.cop/">
+                      Google Map
+                    </a>
+                  </li>
+                  <li>
+                    <b>Thông tin liên hệ:</b>{" "}
+                    <a href="https://www.facebook.com/banchanxanhjp" target="_blank" rel="noopener noreferrer">Fanpage Bàn Chân Xanh</a>
+                  </li>
                 </ul>
-                <p>
-                  <a
-                    className={`collapsible-trigger ${
-                      isDetailShow ? "expanded" : ""
-                    }`}
-                    onClick={onClickDetail}
-                  >
-                    Xem Lịch Trình Sự Kiện
-                  </a>
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          className={`collapsible-container ${isDetailShow ? "expanded" : ""}`}
-        >
-          <div className="container">
-            <div className="row justify-content-center">
-              <div className="col-lg-6">
-                <div className="wpo-trao-text">
-                  <h4>
-                    Chương trình sẽ được cập nhật thường xuyên, hãy theo dõi để
-                    không bỏ lỡ bất kỳ thông tin nào nhé!
-                  </h4>
-                  <p>Ngày 30/08/2025</p>
-                  <ul>
-                    <li>12:00: Checkin</li>
-                  </ul>
-                  <p>Ngày 31/08/2025</p>
-                  <ul>
-                    <li>6:00: Ăn sáng</li>
-                  </ul>
+                <div>
+                  <b>LƯU Ý:</b>
+                  <p>
+                    Thành viên xe bus Tokyo cần chuẩn bị{" "}
+                    <span style={{ display: "unset" }}>
+                      9000 Yên (Phí di chuyển).{" "}
+                    </span>
+                    Và sẽ được thu trực tiếp tại bãi trại, các bạn vui lòng
+                    chuẩn bị sẵn tiền mặt.
+                  </p>
+                  <p className="text-primary text-bold">
+                    Chúng mình sẽ bán thêm các đồ thiện nguyện tại sự kiện, và
+                    sẽ nhận quyên góp. Các bạn vui lòng mang theo tiền mặt để
+                    ủng hộ nhé!
+                  </p>
                 </div>
               </div>
             </div>
           </div>
         </div>
+
+        <div className={"section-padding"}>
+          <p>
+            <a
+              className={`collapsible-trigger ${
+                isRuleShow ? "expanded" : ""
+              } text-danger`}
+              onClick={onClickRule}
+            >
+              Xem Nội Quy Bãi Trại (Quan Trọng)
+            </a>
+          </p>
+          {isRuleShow ? (
+            <div
+              className={`collapsible-container ${
+                isRuleShow ? "expanded" : ""
+              }`}
+            >
+              <div className="container">
+                <div className="row justify-content-center text-center">
+                  <div className="col-lg-6">
+                    {!imageLoadStatus["rule"] ? (
+                      <Spinner>
+                        <span>Loading...</span>
+                      </Spinner>
+                    ) : null}
+                    <Image
+                      src="/assets/images/trao_rule.png"
+                      width={412}
+                      height={566}
+                      alt=""
+                      style={{
+                        width: 412,
+                        height: 566,
+                      }}
+                      onLoadingComplete={() => onLoadingComplete("rule")}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          ) : null}
+          <p>
+            <a
+              className={`collapsible-trigger ${
+                isDetailShow ? "expanded" : ""
+              }`}
+              onClick={onClickDetail}
+            >
+              Xem Lịch Trình Sự Kiện
+            </a>
+          </p>
+          {isDetailShow ? (
+            <div
+              className={`collapsible-container ${
+                isDetailShow ? "expanded" : ""
+              }`}
+            >
+              <div className="container">
+                <div className="row justify-content-center">
+                  <div className="col-lg-6">
+                    {!imageLoadStatus["schedule"] ? (
+                      <Spinner>
+                        <span>Loading...</span>
+                      </Spinner>
+                    ) : null}
+                    <Image
+                      src="/assets/images/trao_schedule.jpg"
+                      width={400}
+                      height={200}
+                      alt=""
+                      style={{
+                        width: 400,
+                        height: 200,
+                      }}
+                      onLoadingComplete={() => onLoadingComplete("schedule")}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          ) : null}
+          <p>
+            <a
+              className={`collapsible-trigger ${isMapShow ? "expanded" : ""}`}
+              onClick={onClickMap}
+            >
+              Xem Bản Đồ Sự Kiện
+            </a>
+          </p>
+          {isMapShow ? (
+            <div
+              className={`collapsible-container ${isMapShow ? "expanded" : ""}`}
+            >
+              <div className="container">
+                <div className="row justify-content-center">
+                  <div className="col-lg-6">
+                    {!imageLoadStatus["map"] ? (
+                      <Spinner>
+                        <span>Loading...</span>
+                      </Spinner>
+                    ) : null}
+                    <Image
+                      src="/assets/images/trao_map.png"
+                      width={400}
+                      height={283}
+                      alt=""
+                      style={{
+                        width: 400,
+                        height: 283,
+                      }}
+                      onLoadingComplete={() => onLoadingComplete("map")}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          ) : null}
+        </div>
       </section>
-      <div className="wpo-features-section-s6">
+      <div className="wpo-features-section style-s6 section-padding">
         <div className="container">
           <div className="row justify-content-center">
             <div className="col-lg-6 col-md-12 col-12">
@@ -255,13 +396,13 @@ const HomePage: React.FC = () => {
                           Số người: {searchResult.num_person}
                         </li>
                         <li className="info">
-                          Điện thoại: {searchResult.phone_number}
+                          Điện thoại: {searchResult.phone}
                         </li>
                         <li className="info">Nơi ngủ: {searchResult.stay}</li>
 
                         {Array.from({ length: searchResult.num_person }).map(
                           (_, i) => (
-                            <li className="info">
+                            <li className="info" key={i}>
                               Phiếu ăn sáng:
                               <input
                                 type="button"
@@ -279,13 +420,13 @@ const HomePage: React.FC = () => {
                                 onClick={() => onClickUseTicket(i)}
                               />
                             </li>
-                          )
+                          ),
                         )}
                       </ul>
                     </div>
                   </div>
                 ) : (
-                  <div className="row m-2 text-danger">
+                  <div className="row m-2 text-danger" hidden={!showError}>
                     Không tìm thấy thông tin
                   </div>
                 )}

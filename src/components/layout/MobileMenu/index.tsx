@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { Collapse, CardBody, Card } from "reactstrap";
-import Link from "next/link";
 import { IMenuItem } from "@utils/interfaces/index";
+import Link from "next/link";
+import React, { useState } from "react";
+import { Card, CardBody, Collapse } from "reactstrap";
 
 export interface MobileMenuProps {
   menus: IMenuItem[];
@@ -33,36 +33,40 @@ const MobileMenu: React.FC<MobileMenuProps> = (props) => {
         </div>
 
         <ul className="responsivemenu">
-          {props.menus.map((item) => (
-            <li key={item.id}>
-              {item.submenu ? (
-                <p onClick={handleSetIsOpen(item.id)}>
+          {props.menus && props.menus.length > 0 && props.menus.map((item) => (
+            <li key={item.menuId}>
+              {Array.isArray(item.subMenuItems) && item.subMenuItems.length > 0 ? (
+                <p onClick={handleSetIsOpen(item.menuId)}>
                   {item.title}
-                  {item.submenu ? (
+                  {Array.isArray(item.subMenuItems) && item.subMenuItems.length > 0 ? (
                     <i className="fa fa-angle-right" aria-hidden="true"></i>
                   ) : (
                     ""
                   )}
                 </p>
               ) : (
-                <Link onClick={ClickHandler} href={item.link}>
-                  {item.title}
-                </Link>
+                item.link && (
+                  <Link onClick={ClickHandler} href={item.link}>
+                    {item.title}
+                  </Link>
+                )
               )}
-              {item.submenu && (
-                <Collapse isOpen={item.id === isOpen}>
+              {Array.isArray(item.subMenuItems) && item.subMenuItems.length > 0 && (
+                <Collapse isOpen={item.menuId === isOpen}>
                   <Card>
                     <CardBody>
                       <ul>
-                        {item.submenu.map((submenu: IMenuItem) => (
-                          <li key={submenu.id}>
-                            <Link
-                              onClick={ClickHandler}
-                              className="active"
-                              href={submenu.link}
-                            >
-                              {submenu.title}
-                            </Link>
+                        {item.subMenuItems.map((submenu: IMenuItem) => (
+                          <li key={submenu.menuId}>
+                            {submenu.link && (
+                              <Link
+                                onClick={ClickHandler}
+                                className="active"
+                                href={submenu.link}
+                              >
+                                {submenu.title}
+                              </Link>
+                            )}
                           </li>
                         ))}
                       </ul>

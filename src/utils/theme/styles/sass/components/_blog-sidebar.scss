@@ -1,17 +1,20 @@
+@use "sass:color";
+@use "../helpers" as helpers;
+
 /*------------------------------------
 	blog sidebar
 ------------------------------------*/
 .blog-sidebar {
-	@include widther(992px) {
+	@include helpers.widther(992px) {
 		padding-left: 45px;
 	}
 
-	@include media-query(991px) {
+	@include helpers.media-query(991px) {
 		margin-top: 80px;
 		max-width: 100%;
 	}
 
-	@include media-query(767px) {
+	@include helpers.media-query(767px) {
 		margin-top: 60px;
 	}
 
@@ -19,17 +22,17 @@
 
 		h3 {
 			font-size: 23px;
-			font-size: calc-rem-value(23);
-			color: $dark-gray;
+			font-size: helpers.calc-rem-value(23);
+			color: helpers.$dark-gray;
 			margin: 0 0 1.3em;
 			position: relative;
 			text-transform: capitalize;
-			font-family: $heading-font;
+			font-family: helpers.$heading-font;
 			padding-bottom: 20px;
 
 			&:before {
 				content: "";
-				background-color: $theme-primary-color;
+				background-color: helpers.$theme-primary-color;
 				width: 55px;
 				height: 4px;
 				position: absolute;
@@ -62,27 +65,27 @@
 		}
 
 		input {
-			background-color: transparentize($theme-primary-color, 0.95);
+			background-color: color.adjust(helpers.$theme-primary-color, $alpha: -0.95);
 			height: 70px;
 			font-size: 16px;
-			font-size: calc-rem-value(16);
+			font-size: helpers.calc-rem-value(16);
 			padding: 6px 50px 6px 20px;
 			border: 0;
 			border-radius: 5px;
 			box-shadow: none;
-			@include transition-time(0.3s);
+			@include helpers.transition-time(0.3s);
 		}
 
 		input:focus {
-			background-color: transparentize($theme-primary-color, 0.9);
+			background-color: color.adjust(helpers.$theme-primary-color, $alpha: -0.9);
 		}
 
 		form button {
 			background: transparent;
 			font-size: 20px;
-			font-size: calc-rem-value(20);
-			color: $white;
-			background-color: $theme-primary-color;
+			font-size: helpers.calc-rem-value(20);
+			color: helpers.$white;
+			background-color: helpers.$theme-primary-color;
 			border: 0;
 			outline: 0;
 			position: absolute;
@@ -92,7 +95,7 @@
 			line-height: 50px;
 			width: 50px;
 			border-radius: 6px;
-			@include translatingY();
+			@include helpers.translatingY();
 		}
 	}
 
@@ -105,7 +108,7 @@
 		position: relative;
 		z-index: 1;
 
-		@media(max-width:1200px){
+		@include helpers.media-query(1200px){
           padding: 35px;
 		}
 
@@ -143,7 +146,7 @@
 					width: 40px;
 					height: 40px;
 					line-height: 40px;
-					background-color: $white;
+					background-color: helpers.$white;
 					border-radius: 50%;
 				}
 			}
@@ -156,20 +159,20 @@
 
 		p {
 			font-size: 15px;
-			font-size: calc-rem-value(15);
+			font-size: helpers.calc-rem-value(15);
 			margin-bottom: 1.2em;
 		}
 
 		a {
-			font-family: $heading-font;
+			font-family: helpers.$heading-font;
 			font-size: 14px;
-			font-size: calc-rem-value(14);
-			color: $heading-color;
+			font-size: helpers.calc-rem-value(14);
+			color: helpers.$heading-color;
 			text-decoration: underline;
 		}
 
 		a:hover {
-			color: $theme-primary-color;
+			color: helpers.$theme-primary-color;
 		}
 	}
 
@@ -182,12 +185,12 @@
 
 		ul li {
 			font-size: 19px;
-			font-size: calc-rem-value(19);
+			font-size: helpers.calc-rem-value(19);
 			position: relative;
 
-			@include media-query(767px) {
+			@include helpers.media-query(767px) {
 				font-size: 16px;
-				font-size: calc-rem-value(16);
+				font-size: helpers.calc-rem-value(16);
 			}
 
 			span {
@@ -204,7 +207,7 @@
 		ul a {
 			display: block;
 			color: #474f62;
-			font-family: $heading-font;
+			font-family: helpers.$heading-font;
 
 
 			span{
@@ -217,16 +220,16 @@
 				border-radius: 50%;
 				font-size: 18px;
 
-				@include media-query(767px) {
+				@include helpers.media-query(767px) {
 					font-size: 14px;
-					font-size: calc-rem-value(14);
+					font-size: helpers.calc-rem-value(14);
 				}
 			}
 		}
 
 		ul a:hover,
 		ul li:hover:before {
-			color: $theme-primary-color;
+			color: helpers.$theme-primary-color;
 		}
 	}
 
@@ -262,36 +265,36 @@
 
 		.post h4 {
 			font-size: 18px;
-			font-size: calc-rem-value(18);
+			font-size: helpers.calc-rem-value(18);
 			font-weight: 400;
 			line-height: 1.4em;
 			margin: 0 0 0.3em;
-			font-family: $heading-font;
+			font-family: helpers.$heading-font;
 			color: #4d4d4d;
 
-			@include media-query(1199px) {
+			@include helpers.media-query(1199px) {
 				margin: 0;
 			}
 
-			@include media-query(767px) {
+			@include helpers.media-query(767px) {
 				font-size: 16px;
-				font-size: calc-rem-value(16);
+				font-size: helpers.calc-rem-value(16);
 			}
 		}
 
 		.post h4 a {
 			display: inline-block;
-			color: $heading-color;
+			color: helpers.$heading-color;
 		}
 
 		.post h4 a:hover {
-			color: $theme-primary-color;
+			color: helpers.$theme-primary-color;
 		}
 
 		.post .details .date {
 			font-size: 13px;
-			font-size: calc-rem-value(13);
-			color: $text-color;
+			font-size: helpers.calc-rem-value(13);
+			color: helpers.$text-color;
 
 			i {
 				display: inline-block;
@@ -344,7 +347,7 @@
 
 		ul li a {
 			font-size: 15px;
-			font-size: calc-rem-value(15);
+			font-size: helpers.calc-rem-value(15);
 			display: inline-block;
 			padding: 5px 18px;
 			color: #232f4b;
@@ -353,8 +356,8 @@
 		}
 
 		ul li a:hover {
-			background: $theme-primary-color;
-			color: $white;
+			background: helpers.$theme-primary-color;
+			color: helpers.$white;
 		}
 	}
 
@@ -362,10 +365,10 @@
 
 	.wpo-contact-widget{
 		border: 0;
-		background: $dark-gray;
+		background: helpers.$dark-gray;
 		padding: 30px 40px;
 
-		@media(max-width:1200px){
+		@include helpers.media-query(1200px){
 			padding: 20px;
 		}
 	
@@ -373,7 +376,7 @@
 			font-size: 36px;
 			font-weight: 700;
 			text-align: left;
-			color: $white;
+			color: helpers.$white;
 			margin-bottom: 20px;
 	
 			&::before{
@@ -383,7 +386,7 @@
 		}
 	
 		p{
-			color: $white;
+			color: helpers.$white;
 			font-size: 18px;
 		}
 	
@@ -391,9 +394,9 @@
 		a{
 			display:inline-block;
 			padding: 10px 20px;
-			border: 1px solid $white;
+			border: 1px solid helpers.$white;
 			font-size: 18px;
-			color: $white;
+			color: helpers.$white;
 			padding-right: 90px;
 			position: relative;
 			margin-top: 10px;

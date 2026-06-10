@@ -1,33 +1,61 @@
-import React from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import erimg from '/public/images/error-404.png';
+import { ErrorContent } from "@/utils/interfaces/error";
+import Link from "next/link";
+import React from "react";
 
-const Error: React.FC = () => {
-    const ClickHandler = () => {
-        window.scrollTo(10, 0);
-    };
+export interface ErrorProps {
+  content: ErrorContent;
+}
 
-    return (
-        <section className="error-404-section section-padding">
-            <div className="container">
-                <div className="row">
-                    <div className="col col-xs-12">
-                        <div className="content clearfix">
-                            <div className="error">
-                                <Image src={erimg} alt=""/>
-                            </div>
-                            <div className="error-message">
-                                <h3>Oops! Page Not Found!</h3>
-                                <p>We’re sorry but we can’t seem to find the page you requested. This might be because you have typed the web address incorrectly.</p>
-                                <Link onClick={ClickHandler} href="/home" className="theme-btn"> Back to home</Link>
-                            </div>
-                        </div>
-                    </div>
+const Error: React.FC<ErrorProps> = ({ content }) => {
+  const ClickHandler = () => {
+    window.scrollTo(0, 0);
+  };
+
+  return (
+    <section className="error-404-section section-padding">
+      <div className="container">
+        <div className="row justify-content-center">
+          <div className="col-lg-8 col-md-10 col-12">
+            <div className="error-404-content text-center">
+              {/* Animated 404 Number */}
+              <div className="error-404-number">
+                <div className="error-digit">
+                  <span className="digit-char">4</span>
+                  <i className="fi flaticon-forest"></i>
                 </div>
+                <div className="error-digit">
+                  <span className="digit-char">0</span>
+                  <i className="fi flaticon-placeholder"></i>
+                </div>
+                <div className="error-digit">
+                  <span className="digit-char">4</span>
+                  <i className="fi flaticon-forest"></i>
+                </div>
+              </div>
+
+              {/* Error Message */}
+              <div className="error-404-message">
+                <h2>{content.mainTitle}</h2>
+                <p>{content.description}</p>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="error-404-actions">
+                <Link
+                  onClick={ClickHandler}
+                  href={content.primaryButton.link}
+                  className="theme-btn"
+                >
+                  <i className="fi flaticon-checked"></i>
+                  {content.primaryButton.text}
+                </Link>
+              </div>
             </div>
-        </section>
-    );
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 };
 
 export default Error;

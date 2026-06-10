@@ -1,9 +1,11 @@
+@use "../helpers" as helpers;
+
 /**** pagination ****/
 .pagination-wrapper {
 	text-align: center;
 	margin-top: 60px;
 
-	@include media-query(991px) {
+	@include helpers.media-query(991px) {
 		text-align: left;
 		margin-top: 40px;
 	}
@@ -15,11 +17,11 @@
 		text-align: center;
 
 		li {
-			font-family: $heading-font;
+			font-family: helpers.$heading-font;
 			float: left;
 			margin-right: 10px;
 
-			@include media-query(767px) {
+			@include helpers.media-query(767px) {
 				margin-right: 5px;
 			}
 		}
@@ -34,31 +36,31 @@
 			height: 50px;
 			line-height: 50px;
 			font-size: 16px;
-			font-size: calc-rem-value(16);
+			font-size: helpers.calc-rem-value(16);
 			font-weight: 600;
-			color: $dark-gray;
+			color: helpers.$dark-gray;
 			background: #ebf4fc;
 			display: block;
 
-			@include media-query(991px) {
+			@include helpers.media-query(991px) {
 				width: 40px;
 				height: 40px;
 				line-height: 40px;
 				font-size: 15px;
-				font-size: calc-rem-value(15);
+				font-size: helpers.calc-rem-value(15);
 			}
 		}
 
 		.active a,
 		li a:hover {
-			background: $theme-primary-color-s2;
-			border-color: $theme-primary-color-s2;
-			color: $white;
+			background: helpers.$theme-primary-color-s2;
+			border-color: helpers.$theme-primary-color-s2;
+			color: helpers.$white;
 		}
 
 		.fi:before {
 			font-size: 15px;
-			font-size: calc-rem-value(15);
+			font-size: helpers.calc-rem-value(15);
 		}
 	}
 }
@@ -70,11 +72,11 @@
 .pagination-wrapper-right {
 	text-align: right;
 
-	@include widther(1200px) {
+	@include helpers.widther(1200px) {
 		padding-right: 50px;
 	}
 
-	@include media-query(991px) {
+	@include helpers.media-query(991px) {
 		margin-top: 45px;
 		text-align: left;
 	}
