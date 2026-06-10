@@ -1,6 +1,5 @@
 import Link from "next/link";
 import React from "react";
-import shape from "/public/images/cta-shape.png";
 import Image from "next/image";
 import styles from "./CTA.module.scss";
 
@@ -28,7 +27,12 @@ const CTA: React.FC<CTAProps> = ({ image, title, buttonText, buttonLink }) => {
                 <Image src={image} alt="" width={365} height={512} />
               </div>
               <div className={styles["shape"]}>
-                <Image src={shape} alt="" width={100} height={1000} />
+                <Image
+                  src="/images/cta-shape.png"
+                  alt=""
+                  width={100}
+                  height={1000}
+                />
               </div>
             </div>
           </div>
