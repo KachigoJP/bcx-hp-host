@@ -21,18 +21,31 @@ export type EmailData = {
   volunteer: string;
   volunteer_teams: string[];
   note: string;
-  representative: { name: string; shirt_size: string; shirt_color: string; cabin: string };
-  members: Array<{ name: string; shirt_size: string; shirt_color: string; cabin: string }>;
+  representative: {
+    name: string;
+    shirt_size: string;
+    shirt_color: string;
+    cabin: string;
+  };
+  members: Array<{
+    name: string;
+    shirt_size: string;
+    shirt_color: string;
+    cabin: string;
+  }>;
 };
 
 function colorLabel(v: string) {
-  return v === "black" ? "Đen" : v === "white" ? "Trắng" : v === "blue" ? "Xanh" : v || "—";
+  return v === "white" ? "Trắng" : v === "green" ? "Xanh lá" : v || "—";
 }
 
 function buildHtml(d: EmailData): string {
   const grandTotal = d.fee_total + d.fee_product;
   const allParticipants = [
-    { ...d.representative, role: d.reg_type === "Cá nhân" ? "Cá nhân" : "Đại diện" },
+    {
+      ...d.representative,
+      role: d.reg_type === "Cá nhân" ? "Cá nhân" : "Đại diện",
+    },
     ...d.members.map((m) => ({ ...m, role: "Thành viên" })),
   ];
 
@@ -44,7 +57,7 @@ function buildHtml(d: EmailData): string {
         <td style="padding:8px;border:1px solid #e0e0e0;text-align:center">${p.shirt_size || "—"}</td>
         <td style="padding:8px;border:1px solid #e0e0e0;text-align:center">${colorLabel(p.shirt_color)}</td>
         <td style="padding:8px;border:1px solid #e0e0e0;text-align:center">${p.cabin ? `Cabin ${p.cabin}` : "—"}</td>
-      </tr>`
+      </tr>`,
     )
     .join("");
 
@@ -130,7 +143,7 @@ function buildHtml(d: EmailData): string {
     <!-- Chỉnh sửa -->
     <div style="background:#e8f5e9;border-radius:8px;padding:16px;margin-bottom:20px;text-align:center">
       <p style="margin:0 0 8px;font-size:14px">Muốn chỉnh sửa size áo hoặc chỗ ngủ? Dùng mã và mật khẩu tại:</p>
-      <a href="https://banchanxanh.jp/trao-2026-chinhsua"
+      <a href="https://banchanxanh.jp/trao-2026-tra-cuu"
          style="display:inline-block;background:#2e7d32;color:#fff;padding:10px 24px;border-radius:6px;text-decoration:none;font-weight:600">
         Chỉnh sửa thông tin →
       </a>

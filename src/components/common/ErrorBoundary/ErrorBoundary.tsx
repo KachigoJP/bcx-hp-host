@@ -92,7 +92,8 @@ export class ErrorBoundary extends Component<
             <div className={styles.errorIcon}>⚠️</div>
             <h2 className={styles.errorTitle}>Đã xảy ra lỗi</h2>
             <p className={styles.errorMessage}>
-              Xin lỗi, có lỗi xảy ra khi hiển thị nội dung này. Vui lòng thử lại.
+              Xin lỗi, có lỗi xảy ra khi hiển thị nội dung này. Vui lòng thử
+              lại.
             </p>
 
             {showError && error && (
@@ -112,17 +113,14 @@ export class ErrorBoundary extends Component<
             )}
 
             <div className={styles.errorActions}>
-              <button
-                className={styles.retryButton}
-                onClick={this.handleReset}
-              >
+              <button className={styles.retryButton} onClick={this.handleReset}>
                 Thử lại
               </button>
               <button
                 className={styles.homeButton}
-                onClick={() => (window.location.href = "/")}
+                onClick={() => (window.location.href = "/trao-2026")}
               >
-                Về trang chủ
+                Về trang thông tin TRAO
               </button>
             </div>
           </div>

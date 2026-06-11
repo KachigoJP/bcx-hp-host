@@ -4,12 +4,15 @@ import { initializeApp } from "firebase/app";
 import {
   getFirestore,
   doc,
+  getDoc,
   updateDoc,
   collection,
   getDocs,
+  setDoc,
   Timestamp,
   DocumentData,
 } from "firebase/firestore";
+import { useTranslation } from "react-i18next";
 import { Spinner } from "reactstrap";
 
 // Source
@@ -30,6 +33,8 @@ const app = initializeApp(firebaseConfig);
 const firestore = getFirestore(app);
 
 const HomePage: React.FC = () => {
+  const { t } = useTranslation();
+
   const [showError, setShowError] = React.useState(false);
   const [isRuleShow, setIsRuleShow] = React.useState(false);
   const [isDetailShow, setIsDetailShow] = React.useState(false);
@@ -40,6 +45,7 @@ const HomePage: React.FC = () => {
     DocumentData | undefined
   >(undefined);
   const [users, setUsers] = React.useState<any>({});
+  const [validUsers, setValidUsers] = React.useState<any>({});
   const [imageLoadStatus, setImageLoadStatus] = React.useState<any>({});
 
   React.useEffect(() => {
@@ -55,6 +61,10 @@ const HomePage: React.FC = () => {
           [userData.code]: userData,
         }));
         if (userData.money === userData.transfered) {
+          setValidUsers((prev: any) => ({
+            ...prev,
+            [userData.code]: userData,
+          }));
         }
       });
     };
@@ -92,7 +102,7 @@ const HomePage: React.FC = () => {
         isFound =
           isFound ||
           users[code].phone.replace(/[^0-9a-zA-Z]/g, "") ===
-          inputSearch.trim().replace(/[^0-9a-zA-Z]/g, "");
+            inputSearch.trim().replace(/[^0-9a-zA-Z]/g, "");
         isFound = isFound || users[code].email === inputSearch;
       } else {
         isFound = true;
@@ -167,7 +177,8 @@ const HomePage: React.FC = () => {
                 <span>Bàn Chân Xanh</span>
                 <h2>TRAO 2026</h2>
                 <h4>
-                  SỰ KIỆN HỘI NGỘ LỚN NHẤT TRONG NĂM DO <br />BÀN CHÂN XANH TỔ CHỨC
+                  SỰ KIỆN HỘI NGỘ LỚN NHẤT TRONG NĂM DO <br />
+                  BÀN CHÂN XANH TỔ CHỨC
                 </h4>
                 <p>
                   Là nơi hội ngộ của những người yêu thích thể thao và thiên
@@ -189,16 +200,30 @@ const HomePage: React.FC = () => {
                   </li>
                   <li>
                     <b>Thông tin liên hệ:</b>{" "}
-                    <a href="https://www.facebook.com/banchanxanhjp" target="_blank" rel="noopener noreferrer">Fanpage Bàn Chân Xanh</a>
+                    <a
+                      href="https://www.facebook.com/banchanxanhjp"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Fanpage Bàn Chân Xanh
+                    </a>
                   </li>
                 </ul>
                 <div>
                   <p>
-                    <a href="/trao-2026-ca-nhan" className="btn btn-primary">Đăng ký tham gia</a>
+                    <a
+                      href="/trao-2026-form-dang-ky"
+                      className="btn btn-primary"
+                    >
+                      Đăng ký tham gia
+                    </a>
                   </p>
                   <p style={{ marginTop: 12, fontSize: 14, color: "#555" }}>
                     Đã đăng ký?{" "}
-                    <a href="/trao-2026-chinhsua" className="text-success fw-semibold">
+                    <a
+                      href="/trao-2026-tra-cuu"
+                      className="text-success fw-semibold"
+                    >
                       Tra cứu thông tin đăng ký tại đây →
                     </a>
                   </p>
@@ -216,8 +241,9 @@ const HomePage: React.FC = () => {
         <div className={"section-padding"}>
           <p>
             <a
-              className={`collapsible-trigger ${isRuleShow ? "expanded" : ""
-                } text-danger`}
+              className={`collapsible-trigger ${
+                isRuleShow ? "expanded" : ""
+              } text-danger`}
               onClick={onClickRule}
             >
               Xem Nội Quy Bãi Trại (Quan Trọng)
@@ -225,8 +251,9 @@ const HomePage: React.FC = () => {
           </p>
           {isRuleShow ? (
             <div
-              className={`collapsible-container ${isRuleShow ? "expanded" : ""
-                }`}
+              className={`collapsible-container ${
+                isRuleShow ? "expanded" : ""
+              }`}
             >
               <div className="container">
                 <div className="row justify-content-center text-center">
@@ -254,8 +281,9 @@ const HomePage: React.FC = () => {
           ) : null}
           <p>
             <a
-              className={`collapsible-trigger ${isDetailShow ? "expanded" : ""
-                }`}
+              className={`collapsible-trigger ${
+                isDetailShow ? "expanded" : ""
+              }`}
               onClick={onClickDetail}
             >
               Xem Lịch Trình Sự Kiện
@@ -263,8 +291,9 @@ const HomePage: React.FC = () => {
           </p>
           {isDetailShow ? (
             <div
-              className={`collapsible-container ${isDetailShow ? "expanded" : ""
-                }`}
+              className={`collapsible-container ${
+                isDetailShow ? "expanded" : ""
+              }`}
             >
               <div className="container">
                 <div className="row justify-content-center">
@@ -386,10 +415,11 @@ const HomePage: React.FC = () => {
                               Phiếu ăn sáng:
                               <input
                                 type="button"
-                                className={`btn ${searchResult[`ticket_${i}`] === 1
-                                  ? "btn-outline-secondary"
-                                  : "btn-outline-primary"
-                                  } btn-sm`}
+                                className={`btn ${
+                                  searchResult[`ticket_${i}`] === 1
+                                    ? "btn-outline-secondary"
+                                    : "btn-outline-primary"
+                                } btn-sm`}
                                 value={
                                   searchResult[`ticket_${i}`] === 1
                                     ? "Đã Sử Dụng"
@@ -399,7 +429,7 @@ const HomePage: React.FC = () => {
                                 onClick={() => onClickUseTicket(i)}
                               />
                             </li>
-                          )
+                          ),
                         )}
                       </ul>
                     </div>

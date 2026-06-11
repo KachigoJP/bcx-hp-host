@@ -29,7 +29,14 @@ const QtyControl: React.FC<{
       >
         −
       </button>
-      <span style={{ minWidth: 24, textAlign: "center", fontWeight: 700, fontSize: 16 }}>
+      <span
+        style={{
+          minWidth: 24,
+          textAlign: "center",
+          fontWeight: 700,
+          fontSize: 16,
+        }}
+      >
         {value}
       </span>
       <button
@@ -41,7 +48,10 @@ const QtyControl: React.FC<{
         +
       </button>
       {value > 0 && (
-        <span className="text-success fw-semibold ms-1" style={{ fontSize: 13, minWidth: 60 }}>
+        <span
+          className="text-success fw-semibold ms-1"
+          style={{ fontSize: 13, minWidth: 60 }}
+        >
           = {fmtYen(value * price)}
         </span>
       )}
@@ -58,27 +68,18 @@ type Props = {
 const Step5Form: React.FC<Props> = ({ data, onChange, errors }) => {
   const toggleTeam = (team: string) => {
     const current = data.volunteer_teams ?? [];
-    const next = current.includes(team) ? current.filter((t) => t !== team) : [...current, team];
+    const next = current.includes(team)
+      ? current.filter((t) => t !== team)
+      : [...current, team];
     onChange({ volunteer_teams: next });
   };
 
-  const productFee = data.want_products === "yes" ? calcProductFee(data.products) : 0;
+  const productFee =
+    data.want_products === "yes" ? calcProductFee(data.products) : 0;
 
   return (
     <>
       <h5 className="mb-4 text-success fw-bold">Thông tin khác</h5>
-
-      <div className="mb-4">
-        <label className="form-label fw-semibold">Dị ứng thực phẩm</label>
-        <input
-          type="text"
-          className="form-control"
-          placeholder="Vd: hải sản, đậu phộng... (để trống nếu không có)"
-          value={data.food_allergy}
-          onChange={(e) => onChange({ food_allergy: e.target.value })}
-        />
-        <div className="form-text">Giúp ban tổ chức chuẩn bị bữa ăn phù hợp.</div>
-      </div>
 
       <div className="mb-4">
         <div
@@ -86,25 +87,13 @@ const Step5Form: React.FC<Props> = ({ data, onChange, errors }) => {
           style={{ backgroundColor: "#fff8e1", border: "1px solid #ffe082" }}
         >
           <p className="fw-bold mb-1" style={{ fontSize: 14 }}>
-            BÁN KHĂN RẰN, KHĂN THỔ CẨM, TÚI TÒ TE GÂY QUỸ CŨNG LÀ MỘT HOẠT ĐỘNG TRONG DỰ ÁN
-            BÀN CHÂN XANH.
+            BÁN KHĂN RẰN, KHĂN THỔ CẨM, TÚI TÒ TE GÂY QUỸ CŨNG LÀ MỘT HOẠT ĐỘNG
+            TRONG DỰ ÁN BÀN CHÂN XANH.
           </p>
           <p className="mb-2" style={{ fontSize: 14 }}>
             BẠN CÓ MUỐN SỞ HỮU CÁC SẢN PHẨM CHO HÀNH TRÌNH TUYỆT VỜI NÀY KHÔNG?
           </p>
           <div className="d-flex gap-3">
-            <div className="form-check">
-              <input
-                className="form-check-input"
-                type="radio"
-                id="products-no"
-                checked={data.want_products === "no"}
-                onChange={() => onChange({ want_products: "no" })}
-              />
-              <label className="form-check-label" htmlFor="products-no">
-                Không
-              </label>
-            </div>
             <div className="form-check">
               <input
                 className="form-check-input"
@@ -115,6 +104,18 @@ const Step5Form: React.FC<Props> = ({ data, onChange, errors }) => {
               />
               <label className="form-check-label" htmlFor="products-yes">
                 Có
+              </label>
+            </div>
+            <div className="form-check">
+              <input
+                className="form-check-input"
+                type="radio"
+                id="products-no"
+                checked={data.want_products === "no"}
+                onChange={() => onChange({ want_products: "no" })}
+              />
+              <label className="form-check-label" htmlFor="products-no">
+                Không
               </label>
             </div>
           </div>
@@ -136,7 +137,9 @@ const Step5Form: React.FC<Props> = ({ data, onChange, errors }) => {
                 label={product.label}
                 price={product.price}
                 value={data.products[product.key]}
-                onChange={(n) => onChange({ products: { ...data.products, [product.key]: n } })}
+                onChange={(n) =>
+                  onChange({ products: { ...data.products, [product.key]: n } })
+                }
               />
             ))}
             {productFee > 0 && (
@@ -153,7 +156,8 @@ const Step5Form: React.FC<Props> = ({ data, onChange, errors }) => {
 
       <div className="mb-4">
         <label className="form-label fw-semibold">
-          Bạn có muốn tham gia làm cộng tác viên không? <span className="text-danger">*</span>
+          Bạn có muốn tham gia làm cộng tác viên cho TRAO không?{" "}
+          <span className="text-danger">*</span>
         </label>
         <div className="d-flex gap-4">
           <div className="form-check">
@@ -174,10 +178,12 @@ const Step5Form: React.FC<Props> = ({ data, onChange, errors }) => {
               type="radio"
               id="volunteer-no"
               checked={data.volunteer === "no"}
-              onChange={() => onChange({ volunteer: "no", volunteer_teams: [] })}
+              onChange={() =>
+                onChange({ volunteer: "no", volunteer_teams: [] })
+              }
             />
             <label className="form-check-label" htmlFor="volunteer-no">
-              Không, cảm ơn
+              Không, mình chưa sẵn sàng
             </label>
           </div>
         </div>
@@ -206,7 +212,11 @@ const Step5Form: React.FC<Props> = ({ data, onChange, errors }) => {
                       checked={(data.volunteer_teams ?? []).includes(team)}
                       onChange={() => toggleTeam(team)}
                     />
-                    <label className="form-check-label" htmlFor={`team-${team}`} style={{ fontSize: 14 }}>
+                    <label
+                      className="form-check-label"
+                      htmlFor={`team-${team}`}
+                      style={{ fontSize: 14 }}
+                    >
                       {team}
                     </label>
                   </div>
@@ -218,7 +228,9 @@ const Step5Form: React.FC<Props> = ({ data, onChange, errors }) => {
       </div>
 
       <div className="mb-4">
-        <label className="form-label fw-semibold">Lời nhắn / Ghi chú / Câu hỏi cho Ban tổ chức</label>
+        <label className="form-label fw-semibold">
+          Lời nhắn / Ghi chú / Câu hỏi cho Ban tổ chức
+        </label>
         <textarea
           className="form-control"
           rows={4}
@@ -239,9 +251,10 @@ const Step5Form: React.FC<Props> = ({ data, onChange, errors }) => {
       >
         <strong>Ghi chú:</strong>
         <p className="mb-0 mt-1">
-          BÀN CHÂN XANH có thể sẽ sử dụng hình ảnh của bạn trong sự kiện để truyền thông trên
-          các nền tảng mạng xã hội. Nếu bạn không thích điều này có thể liên hệ trực tiếp với
-          một trong những thành viên BTC tại sự kiện. Hoặc liên hệ qua fanpage cho chúng mình nhé!
+          BÀN CHÂN XANH có thể sẽ sử dụng hình ảnh của bạn trong sự kiện để
+          truyền thông trên các nền tảng mạng xã hội. Nếu bạn không thích điều
+          này có thể liên hệ trực tiếp với một trong những thành viên BTC tại sự
+          kiện. Hoặc liên hệ qua fanpage cho chúng mình nhé!
         </p>
       </div>
     </>

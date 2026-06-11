@@ -42,7 +42,7 @@ const Step2Form: React.FC<Props> = ({ data, onChange, errors }) => {
               }
             />
             <label className="form-check-label" htmlFor="type-individual">
-              <strong>Cá nhân</strong> — Chỉ đăng ký cho bản thân
+              <strong>Cá nhân</strong> — Chỉ đăng ký cho mình
             </label>
           </div>
           <div className="form-check">
@@ -95,8 +95,9 @@ const Step2Form: React.FC<Props> = ({ data, onChange, errors }) => {
                   </button>
                 )}
               </div>
-              <div className="row g-2">
-                <div className="col-md-5">
+              {/* Hàng 1: Tên · Giới tính · Tuổi + Khuyết tật */}
+              <div className="row g-2 mb-2">
+                <div className="col-md-4">
                   <input
                     type="text"
                     className={`form-control form-control-sm ${errors[`member_${i}_name`] ? "is-invalid" : ""}`}
@@ -110,7 +111,7 @@ const Step2Form: React.FC<Props> = ({ data, onChange, errors }) => {
                     </div>
                   )}
                 </div>
-                <div className="col-md-3">
+                <div className="col-md-4">
                   <div
                     className="d-flex gap-3 align-items-center"
                     style={{ paddingTop: 6 }}
@@ -140,7 +141,7 @@ const Step2Form: React.FC<Props> = ({ data, onChange, errors }) => {
                     </div>
                   )}
                 </div>
-                <div className="col-md-3">
+                <div className="col-md-4">
                   <div className="d-flex align-items-center gap-2">
                     <input
                       type="number"
@@ -148,7 +149,7 @@ const Step2Form: React.FC<Props> = ({ data, onChange, errors }) => {
                       placeholder="Tuổi *"
                       value={member.age}
                       onChange={(e) => updateMember(i, { age: e.target.value })}
-                      style={{ maxWidth: 80 }}
+                      style={{ maxWidth: 75 }}
                     />
                     <div className="form-check mb-0">
                       <input
@@ -175,7 +176,10 @@ const Step2Form: React.FC<Props> = ({ data, onChange, errors }) => {
                     </div>
                   )}
                 </div>
-                <div className="col-md-4">
+              </div>
+              {/* Hàng 2: Quan hệ · Nhóm máu */}
+              <div className="row g-2 mb-2">
+                <div className="col-md-6">
                   <input
                     type="text"
                     className={`form-control form-control-sm ${errors[`member_${i}_relation`] ? "is-invalid" : ""}`}
@@ -190,6 +194,49 @@ const Step2Form: React.FC<Props> = ({ data, onChange, errors }) => {
                       {errors[`member_${i}_relation`]}
                     </div>
                   )}
+                </div>
+                <div className="col-md-3">
+                  <select
+                    className="form-select form-select-sm"
+                    value={member.blood_type}
+                    onChange={(e) =>
+                      updateMember(i, { blood_type: e.target.value })
+                    }
+                  >
+                    <option value="">Nhóm máu</option>
+                    {[
+                      "A",
+                      "B",
+                      "AB",
+                      "O",
+                      "A+",
+                      "A-",
+                      "B+",
+                      "B-",
+                      "AB+",
+                      "AB-",
+                      "O+",
+                      "O-",
+                    ].map((bt) => (
+                      <option key={bt} value={bt}>
+                        {bt}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+              {/* Hàng 3: Dị ứng thức ăn */}
+              <div className="row g-2">
+                <div className="col-12">
+                  <input
+                    type="text"
+                    className="form-control form-control-sm"
+                    placeholder="Dị ứng thức ăn (nếu có, để trống nếu không)"
+                    value={member.food_allergy}
+                    onChange={(e) =>
+                      updateMember(i, { food_allergy: e.target.value })
+                    }
+                  />
                 </div>
               </div>
             </div>

@@ -4,7 +4,7 @@ import { google } from "googleapis";
 function getAuth() {
   const client = new google.auth.OAuth2(
     process.env.GOOGLE_CLIENT_ID,
-    process.env.GOOGLE_CLIENT_SECRET
+    process.env.GOOGLE_CLIENT_SECRET,
   );
   client.setCredentials({ refresh_token: process.env.GOOGLE_REFRESH_TOKEN });
   return client;
@@ -12,30 +12,54 @@ function getAuth() {
 
 // Column indices (0-based) theo header hiện tại (33 cột)
 const C = {
-  CODE: 0,   NAME: 2,    EMAIL: 3,    GENDER: 4,   AGE: 5,
-  FACEBOOK: 6, PHONE: 7, EMERGENCY_PHONE: 8, EMERGENCY_REL: 9,
-  ADDRESS: 10, BLOOD: 11,
-  REG_TYPE: 12, NUM_PERSON: 13,
-  TRANSPORT: 14, BUS_DEP: 15,
-  FEE_EVENT: 16, FEE_BUS: 17, FEE_TOTAL: 18,
+  CODE: 0,
+  NAME: 2,
+  EMAIL: 3,
+  GENDER: 4,
+  AGE: 5,
+  FACEBOOK: 6,
+  PHONE: 7,
+  EMERGENCY_PHONE: 8,
+  EMERGENCY_REL: 9,
+  ADDRESS: 10,
+  BLOOD: 11,
+  REG_TYPE: 12,
+  NUM_PERSON: 13,
+  TRANSPORT: 14,
+  BUS_DEP: 15,
+  FEE_EVENT: 16,
+  FEE_BUS: 17,
+  FEE_TOTAL: 18,
   RECEIPT: 19,
-  FOOD_ALLERGY: 20, PRODUCTS: 21, FEE_PRODUCT: 22,
-  VOLUNTEER: 23, VOLUNTEER_TEAMS: 24,
-  NOTE: 25, STATUS: 26,
-  REP_CODE: 27, ROLE: 28,
-  SHIRT_SIZE: 29, SHIRT_COLOR: 30, CABIN: 31,
+  FOOD_ALLERGY: 20,
+  PRODUCTS: 21,
+  FEE_PRODUCT: 22,
+  VOLUNTEER: 23,
+  VOLUNTEER_TEAMS: 24,
+  NOTE: 25,
+  STATUS: 26,
+  REP_CODE: 27,
+  ROLE: 28,
+  SHIRT_SIZE: 29,
+  SHIRT_COLOR: 30,
+  CABIN: 31,
   PASSWORD: 32,
 };
 
 const COLOR_VALUE: Record<string, string> = {
-  "Đen": "black", "Trắng": "white", "Xanh": "blue",
+  Trắng: "white",
+  "Xanh lá": "green",
 };
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse,
+) {
   if (req.method !== "POST") return res.status(405).end();
 
   const { code, password } = req.body as { code: string; password: string };
-  if (!code || !password) return res.status(400).json({ ok: false, error: "Thiếu thông tin." });
+  if (!code || !password)
+    return res.status(400).json({ ok: false, error: "Thiếu thông tin." });
 
   try {
     const auth = getAuth();
@@ -50,7 +74,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // Tìm dòng đại diện
     const repIdx = rows.findIndex((r) => r[C.CODE] === code);
-    if (repIdx === -1) return res.status(404).json({ ok: false, error: "Không tìm thấy mã đăng ký." });
+    if (repIdx === -1)
+      return res
+        .status(404)
+        .json({ ok: false, error: "Không tìm thấy mã đăng ký." });
 
     const rep = rows[repIdx];
     if ((rep[C.PASSWORD] ?? "") !== password) {

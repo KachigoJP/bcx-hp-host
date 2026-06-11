@@ -2,6 +2,8 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { google } from "googleapis";
 import { Readable } from "stream";
 import { sendRegistrationEmail } from "../../lib/sendRegistrationEmail";
+import { updateCabinCounts, getAuth as getCabinAuth } from "./trao-2026-cabins";
+import { Logger } from "../../lib/logger";
 
 export const config = {
   api: { bodyParser: { sizeLimit: "15mb" } },
@@ -24,9 +26,8 @@ type ParticipantExtra = {
 };
 
 const COLOR_LABEL: Record<string, string> = {
-  black: "Đen",
   white: "Trắng",
-  blue: "Xanh",
+  green: "Xanh lá",
 };
 
 // ─── Google Auth ──────────────────────────────────────────────────────────────
@@ -34,7 +35,7 @@ const COLOR_LABEL: Record<string, string> = {
 function getAuth() {
   const client = new google.auth.OAuth2(
     process.env.GOOGLE_CLIENT_ID,
-    process.env.GOOGLE_CLIENT_SECRET
+    process.env.GOOGLE_CLIENT_SECRET,
   );
   client.setCredentials({ refresh_token: process.env.GOOGLE_REFRESH_TOKEN });
   return client;
@@ -56,7 +57,7 @@ function generateCodes(count: number, existing: Set<string>): string[] {
 // ─── Fetch existing codes from sheet ─────────────────────────────────────────
 
 async function fetchExistingCodes(
-  auth: ReturnType<typeof getAuth>
+  auth: ReturnType<typeof getAuth>,
 ): Promise<Set<string>> {
   const sheets = google.sheets({ version: "v4", auth });
   const res = await sheets.spreadsheets.values.get({
@@ -76,7 +77,7 @@ async function uploadToDrive(
   auth: ReturnType<typeof getAuth>,
   base64: string,
   mimeType: string,
-  filename: string
+  filename: string,
 ): Promise<string> {
   const drive = google.drive({ version: "v3", auth });
   const buffer = Buffer.from(base64, "base64");
@@ -103,7 +104,7 @@ async function uploadToDrive(
 
 async function appendRows(
   auth: ReturnType<typeof getAuth>,
-  rows: (string | number)[][]
+  rows: (string | number)[][],
 ) {
   const sheets = google.sheets({ version: "v4", auth });
   await sheets.spreadsheets.values.append({
@@ -116,8 +117,13 @@ async function appendRows(
 
 // ─── Handler ──────────────────────────────────────────────────────────────────
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse,
+) {
   if (req.method !== "POST") return res.status(405).end();
+
+  const log = new Logger();
 
   try {
     const body = req.body as {
@@ -128,26 +134,55 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const { formData, receipt } = body;
     const auth = getAuth();
 
-    // Dùng mã đã được reserve từ trước, chỉ sinh thêm mã cho thành viên
     const members = (formData.members as MemberInput[]) ?? [];
     const participants = (formData.participants as ParticipantExtra[]) ?? [];
     const repCode = formData.code as string;
     if (!repCode) throw new Error("Thiếu mã đăng ký từ bước reserve.");
 
+    log.info("register/start", "Bắt đầu xử lý đăng ký", {
+      code: repCode,
+      name: formData.name,
+      email: formData.email,
+      register_type: formData.register_type,
+      num_person: formData.num_person,
+      transport: formData.transport,
+      bus_departure: formData.bus_departure || null,
+      fee_total: formData.fee_total,
+      memberCount: members.length,
+      hasReceipt: !!receipt,
+    });
+
     // Lấy danh sách mã đã tồn tại để tránh trùng khi sinh mã thành viên
+    log.startStep();
     const existingCodes = await fetchExistingCodes(auth);
-    existingCodes.add(repCode); // tránh trùng với mã đại diện
-    const memberCodes = members.length > 0 ? generateCodes(members.length, existingCodes) : [];
+    existingCodes.add(repCode);
+    const memberCodes =
+      members.length > 0 ? generateCodes(members.length, existingCodes) : [];
+    log.info("register/codes", "Sinh mã thành viên hoàn tất", {
+      durationMs: log.elapsed(),
+      memberCodes,
+    });
 
     // Upload ảnh chuyển khoản
     let receiptLink = "";
     if (receipt) {
+      log.startStep();
       receiptLink = await uploadToDrive(
         auth,
         receipt.base64,
         receipt.mimeType,
-        `${repCode}_${receipt.filename}`
+        `${repCode}_${receipt.filename}`,
       );
+      log.info(
+        "register/upload-receipt",
+        "Upload ảnh chuyển khoản thành công",
+        {
+          durationMs: log.elapsed(),
+          receiptLink,
+        },
+      );
+    } else {
+      log.warn("register/upload-receipt", "Không có ảnh chuyển khoản");
     }
 
     const now = new Date().toLocaleString("vi-VN", { timeZone: "Asia/Tokyo" });
@@ -156,27 +191,27 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // ── Dòng đại diện ──────────────────────────────────────────────────────────
     const repRow: (string | number)[] = [
-      repCode,                                                    // Mã đăng ký
-      now,                                                        // Thời gian
-      formData.name as string,                                    // Họ tên
-      formData.email as string,                                   // Email
-      formData.gender as string,                                  // Giới tính
-      Number(formData.age),                                       // Tuổi
-      formData.facebook as string,                                // Facebook
-      formData.phone as string,                                   // SĐT
-      formData.emergency_phone as string,                         // SĐT khẩn cấp
-      formData.emergency_relation as string,                      // Quan hệ khẩn cấp
-      (formData.address as string) || "",                         // Địa chỉ
-      (formData.blood_type as string) || "",                      // Nhóm máu
+      repCode, // Mã đăng ký
+      now, // Thời gian
+      formData.name as string, // Họ tên
+      formData.email as string, // Email
+      formData.gender as string, // Giới tính
+      Number(formData.age), // Tuổi
+      formData.facebook as string, // Facebook
+      formData.phone as string, // SĐT
+      formData.emergency_phone as string, // SĐT khẩn cấp
+      formData.emergency_relation as string, // Quan hệ khẩn cấp
+      (formData.address as string) || "", // Địa chỉ
+      (formData.blood_type as string) || "", // Nhóm máu
       formData.register_type === "individual" ? "Cá nhân" : "Nhóm/Gia đình", // Hình thức
-      Number(formData.num_person),                                // Số người
-      transport,                                                  // Phương tiện
-      busDeparture,                                               // Nơi xuất phát
-      Number(formData.fee_event),                                 // Phí sự kiện
-      Number(formData.fee_bus),                                   // Phí xe bus
-      Number(formData.fee_total),                                 // Tổng phí
-      receiptLink,                                                // Link ảnh CK
-      (formData.food_allergy as string) || "",                    // Dị ứng
+      Number(formData.num_person), // Số người
+      transport, // Phương tiện
+      busDeparture, // Nơi xuất phát
+      Number(formData.fee_event), // Phí sự kiện
+      Number(formData.fee_bus), // Phí xe bus
+      Number(formData.fee_total), // Tổng phí
+      receiptLink, // Link ảnh CK
+      (formData.food_allergy as string) || "", // Dị ứng
       formData.want_products === "yes"
         ? (() => {
             const p = formData.products as Record<string, number>;
@@ -186,60 +221,71 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             if (p?.tui_to_te) parts.push(`Túi Tò Te x${p.tui_to_te}`);
             return parts.join(", ");
           })()
-        : "Không",                                               // Sản phẩm
-      Number(formData.product_fee) || 0,                         // Phí sản phẩm
-      formData.volunteer === "yes" ? "Có" : "Không",             // CTV
-      (formData.volunteer === "yes" && Array.isArray(formData.volunteer_teams))
+        : "Không", // Sản phẩm
+      Number(formData.product_fee) || 0, // Phí sản phẩm
+      formData.volunteer === "yes" ? "Có" : "Không", // CTV
+      formData.volunteer === "yes" && Array.isArray(formData.volunteer_teams)
         ? (formData.volunteer_teams as string[]).join(", ")
-        : "",                                                     // Team CTV
-      (formData.note as string) || "",                            // Ghi chú
-      "Chờ xác nhận",                                            // Trạng thái
-      "",                                                         // Mã đại diện (để trống vì là đại diện)
+        : "", // Team CTV
+      (formData.note as string) || "", // Ghi chú
+      "Chờ xác nhận", // Trạng thái
+      "", // Mã đại diện (để trống vì là đại diện)
       formData.register_type === "individual" ? "Cá nhân" : "Đại diện", // Vai trò
-      participants[0]?.shirt_size ?? "",                          // Size áo
-      COLOR_LABEL[participants[0]?.shirt_color] ?? "",            // Màu áo
+      participants[0]?.shirt_size ?? "", // Size áo
+      COLOR_LABEL[participants[0]?.shirt_color] ?? "", // Màu áo
       participants[0]?.stay ? `Cabin ${participants[0].stay}` : "", // Cabin
-      (formData.password as string) ?? "",                        // Mật khẩu
+      (formData.password as string) ?? "", // Mật khẩu
     ];
 
     // ── Dòng từng thành viên ───────────────────────────────────────────────────
     const memberRows: (string | number)[][] = members.map((m, i) => [
-      memberCodes[i],           // [0]  Mã đăng ký riêng
-      now,                      // [1]  Thời gian
-      m.name,                   // [2]  Họ tên
-      "",                       // [3]  Email
-      m.gender,                 // [4]  Giới tính
-      Number(m.age),            // [5]  Tuổi
-      "",                       // [6]  Facebook
-      "",                       // [7]  SĐT
-      "",                       // [8]  SĐT khẩn cấp
-      m.relation,               // [9]  Quan hệ với đại diện
-      "",                       // [10] Địa chỉ
-      "",                       // [11] Nhóm máu
-      "Thành viên nhóm",        // [12] Hình thức
-      "",                       // [13] Số người
-      transport,                // [14] Phương tiện
-      busDeparture,             // [15] Nơi xuất phát
-      "",                       // [16] Phí sự kiện
-      "",                       // [17] Phí xe bus
-      "",                       // [18] Tổng phí
-      "",                       // [19] Link ảnh CK
-      "",                       // [20] Dị ứng thực phẩm
-      "",                       // [21] Sản phẩm đặt mua
-      "",                       // [22] Phí sản phẩm (¥)
-      "",                       // [23] Cộng tác viên
-      "",                       // [24] Team CTV
-      "",                       // [25] Ghi chú
-      "Chờ xác nhận",           // [26] Trạng thái
-      repCode,                  // [27] Mã đại diện ← trỏ về người đăng ký
-      "Thành viên",             // [28] Vai trò
-      participants[i + 1]?.shirt_size ?? "",                      // [29] Size áo
-      COLOR_LABEL[participants[i + 1]?.shirt_color] ?? "",        // [30] Màu áo
+      memberCodes[i], // [0]  Mã đăng ký riêng
+      now, // [1]  Thời gian
+      m.name, // [2]  Họ tên
+      "", // [3]  Email
+      m.gender, // [4]  Giới tính
+      Number(m.age), // [5]  Tuổi
+      "", // [6]  Facebook
+      "", // [7]  SĐT
+      "", // [8]  SĐT khẩn cấp
+      m.relation, // [9]  Quan hệ với đại diện
+      "", // [10] Địa chỉ
+      "", // [11] Nhóm máu
+      "Thành viên nhóm", // [12] Hình thức
+      "", // [13] Số người
+      transport, // [14] Phương tiện
+      busDeparture, // [15] Nơi xuất phát
+      "", // [16] Phí sự kiện
+      "", // [17] Phí xe bus
+      "", // [18] Tổng phí
+      "", // [19] Link ảnh CK
+      "", // [20] Dị ứng thực phẩm
+      "", // [21] Sản phẩm đặt mua
+      "", // [22] Phí sản phẩm (¥)
+      "", // [23] Cộng tác viên
+      "", // [24] Team CTV
+      "", // [25] Ghi chú
+      "Chờ xác nhận", // [26] Trạng thái
+      repCode, // [27] Mã đại diện ← trỏ về người đăng ký
+      "Thành viên", // [28] Vai trò
+      participants[i + 1]?.shirt_size ?? "", // [29] Size áo
+      COLOR_LABEL[participants[i + 1]?.shirt_color] ?? "", // [30] Màu áo
       participants[i + 1]?.stay ? `Cabin ${participants[i + 1].stay}` : "", // [31] Cabin
-      "",                       // [32] Mật khẩu (trống — chỉ đại diện có mật khẩu)
+      "", // [32] Mật khẩu (trống — chỉ đại diện có mật khẩu)
     ]);
 
+    log.startStep();
     await appendRows(auth, [repRow, ...memberRows]);
+    log.info(
+      "register/write-sheet",
+      "Ghi dữ liệu vào Google Sheets thành công",
+      {
+        durationMs: log.elapsed(),
+        code: repCode,
+        memberCodes,
+        totalRows: 1 + memberRows.length,
+      },
+    );
 
     // Đánh dấu reservation là completed
     try {
@@ -257,11 +303,43 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           valueInputOption: "USER_ENTERED",
           requestBody: { values: [["completed"]] },
         });
+        log.info(
+          "register/update-reservation",
+          "Cập nhật trạng thái Reservations → completed",
+          { code: repCode },
+        );
+      } else {
+        log.warn(
+          "register/update-reservation",
+          "Không tìm thấy mã trong Reservations sheet",
+          { code: repCode },
+        );
       }
-    } catch { /* không làm hỏng flow chính nếu update reservations thất bại */ }
+    } catch (resErr) {
+      log.error(
+        "register/update-reservation",
+        "Không thể cập nhật Reservations (không ảnh hưởng đăng ký)",
+        resErr,
+      );
+    }
+
+    // Cập nhật cột F "Số đã đăng ký" trong sheet "Danh sách cabin" (fire-and-forget)
+    const cabinSheets = google.sheets({ version: "v4", auth: getCabinAuth() });
+    updateCabinCounts(cabinSheets, process.env.GOOGLE_SHEET_ID!).catch(
+      (err: unknown) =>
+        log.error(
+          "register/cabin-count",
+          "Không thể cập nhật số đã đăng ký cabin",
+          err,
+        ),
+    );
 
     // Gửi email xác nhận (fire-and-forget — không chặn response)
     if (formData.email) {
+      log.info("register/email-start", "Bắt đầu gửi email xác nhận", {
+        email: formData.email,
+        code: repCode,
+      });
       sendRegistrationEmail({
         name: String(formData.name),
         email: String(formData.email),
@@ -269,7 +347,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         password: String(formData.password),
         transport: formData.transport === "bus" ? "Xe bus BTC" : "Tự túc",
         bus_departure: String(formData.bus_departure ?? ""),
-        reg_type: formData.register_type === "individual" ? "Cá nhân" : "Nhóm/Gia đình",
+        reg_type:
+          formData.register_type === "individual" ? "Cá nhân" : "Nhóm/Gia đình",
         fee_event: Number(formData.fee_event),
         fee_bus: Number(formData.fee_bus),
         fee_total: Number(formData.fee_total),
@@ -277,7 +356,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         fee_product: Number(formData.product_fee ?? 0),
         food_allergy: String(formData.food_allergy ?? ""),
         volunteer: formData.volunteer === "yes" ? "Có" : "Không",
-        volunteer_teams: Array.isArray(formData.volunteer_teams) ? formData.volunteer_teams as string[] : [],
+        volunteer_teams: Array.isArray(formData.volunteer_teams)
+          ? (formData.volunteer_teams as string[])
+          : [],
         note: String(formData.note ?? ""),
         representative: {
           name: String(formData.name),
@@ -291,8 +372,29 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           shirt_color: participants[i + 1]?.shirt_color ?? "",
           cabin: participants[i + 1]?.stay ?? "",
         })),
-      }).catch((err: unknown) => console.error("Send email error:", err));
+      })
+        .then(() =>
+          log.info("register/email-done", "Gửi email xác nhận thành công", {
+            email: formData.email,
+            code: repCode,
+          }),
+        )
+        .catch((err: unknown) =>
+          log.error(
+            "register/email-error",
+            "Gửi email xác nhận thất bại",
+            err,
+            { email: formData.email, code: repCode },
+          ),
+        );
     }
+
+    log.info("register/done", "Đăng ký hoàn tất", {
+      code: repCode,
+      memberCodes,
+      name: formData.name,
+      email: formData.email,
+    });
 
     res.status(200).json({
       ok: true,
@@ -301,7 +403,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       receiptLink,
     });
   } catch (err) {
-    console.error("Register API error:", err);
+    log.error("register/error", "Xử lý đăng ký thất bại", err, {
+      code: (req.body?.formData?.code as string) ?? "unknown",
+    });
     res.status(500).json({ ok: false, error: "Lỗi server, vui lòng thử lại." });
   }
 }

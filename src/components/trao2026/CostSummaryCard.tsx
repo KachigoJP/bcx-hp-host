@@ -45,7 +45,7 @@ const CostSummaryCard: React.FC<Props> = ({
           {fees.adults > 0 && (
             <tr>
               <td className="ps-0 border-0">
-                Người lớn &gt;{CHILD_AGE_LIMIT} tuổi ({fees.adults} ×{" "}
+                Người lớn, trẻ em &gt;{CHILD_AGE_LIMIT} tuổi ({fees.adults} ×{" "}
                 {fmtYen(FEE_ADULT)})
               </td>
               <td className="text-end border-0 fw-semibold">

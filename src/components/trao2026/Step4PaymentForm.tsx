@@ -21,10 +21,16 @@ const Step4PaymentForm: React.FC<Props> = ({
   step3,
   step5,
   reservation,
+  data,
   onChange,
   errors,
 }) => {
   const [preview, setPreview] = React.useState<string>("");
+
+  // Reset preview khi file bị xóa từ bên ngoài (ví dụ khi nhấn Quay lại)
+  React.useEffect(() => {
+    if (!data.receipt_file) setPreview("");
+  }, [data.receipt_file]);
 
   const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0] ?? null;
@@ -43,9 +49,13 @@ const Step4PaymentForm: React.FC<Props> = ({
     <>
       <h5 className="mb-4 text-success fw-bold">Chuyển khoản</h5>
 
-      <div className="p-3 rounded mb-2" style={{ backgroundColor: "#1b5e20", color: "#fff" }}>
+      <div
+        className="p-3 rounded mb-2"
+        style={{ backgroundColor: "#1b5e20", color: "#fff" }}
+      >
         <p className="fw-semibold mb-2" style={{ fontSize: 13 }}>
-          ⚠️ Lưu lại thông tin này — dùng để tra cứu hoặc chỉnh sửa thông tin đăng ký
+          ⚠️ Lưu lại thông tin này — dùng để tra cứu hoặc chỉnh sửa thông tin
+          đăng ký
         </p>
         <div className="d-flex align-items-center gap-4 flex-wrap">
           <div>
@@ -91,13 +101,20 @@ const Step4PaymentForm: React.FC<Props> = ({
         className="text-white rounded px-3 py-2 mb-4"
         style={{ backgroundColor: "#2e7d32", fontSize: 12 }}
       >
-        Vui lòng lưu lại mã đăng ký và mật khẩu. Bạn sẽ cần dùng để tra cứu hoặc chỉnh sửa
-        thông tin sau khi hoàn tất. Nếu quên, liên hệ ban tổ chức để được cấp lại.
+        Vui lòng lưu lại mã đăng ký và mật khẩu. Bạn sẽ cần dùng để tra cứu hoặc
+        chỉnh sửa thông tin sau khi hoàn tất. Nếu quên, liên hệ ban tổ chức để
+        được cấp lại.
       </p>
 
-      <CostSummaryCard step1={step1} step2={step2} step3={step3} step5={step5} />
+      <CostSummaryCard
+        step1={step1}
+        step2={step2}
+        step3={step3}
+        step5={step5}
+      />
       <p className="text-muted mt-1 mb-4" style={{ fontSize: 12 }}>
-        * Phí trên chỉ mang tính dự kiến, ban tổ chức sẽ xác nhận sau khi nhận đăng ký.
+        * Phí trên chỉ mang tính dự kiến, ban tổ chức sẽ xác nhận sau khi nhận
+        đăng ký.
       </p>
 
       <div
@@ -106,9 +123,15 @@ const Step4PaymentForm: React.FC<Props> = ({
       >
         <h6 className="fw-bold mb-3">Thông tin chuyển khoản</h6>
         <ul className="mb-0" style={{ lineHeight: 2 }}>
-          <li><strong>Ngân hàng:</strong> PayPay銀行 (PayPay Bank)</li>
-          <li><strong>Số tài khoản:</strong> 店番 001 / 口座番号 1234567</li>
-          <li><strong>Tên tài khoản:</strong> BAN CHAN XANH</li>
+          <li>
+            <strong>Ngân hàng:</strong> PayPay銀行 (PayPay Bank)
+          </li>
+          <li>
+            <strong>Số tài khoản:</strong> 店番 001 / 口座番号 1234567
+          </li>
+          <li>
+            <strong>Tên tài khoản:</strong> BAN CHAN XANH
+          </li>
           <li>
             <strong>Nội dung CK:</strong>{" "}
             <span
@@ -122,18 +145,28 @@ const Step4PaymentForm: React.FC<Props> = ({
             >
               TRAO2026-{reservation?.code ?? "[Mã đăng ký]"}
             </span>
-            {reservation && <CopyButton text={`TRAO2026-${reservation.code}`} label="Copy" small />}
+            {reservation && (
+              <CopyButton
+                text={`TRAO2026-${reservation.code}`}
+                label="Copy"
+                small
+              />
+            )}
           </li>
         </ul>
-        <div className="mt-3 p-2 rounded text-danger" style={{ backgroundColor: "#ffebee", fontSize: 13 }}>
-          ⚠️ Nhập đúng nội dung chuyển khoản ở trên — KHÔNG dùng họ tên — để ban tổ chức xác
-          nhận nhanh chóng.
+        <div
+          className="mt-3 p-2 rounded text-danger"
+          style={{ backgroundColor: "#ffebee", fontSize: 13 }}
+        >
+          ⚠️ Nhập đúng nội dung chuyển khoản ở trên — KHÔNG dùng họ tên — để ban
+          tổ chức xác nhận nhanh chóng.
         </div>
       </div>
 
       <div className="mb-3">
         <label className="form-label fw-semibold">
-          Upload ảnh chụp màn hình chuyển khoản <span className="text-danger">*</span>
+          Upload ảnh chụp màn hình chuyển khoản{" "}
+          <span className="text-danger">*</span>
         </label>
         <input
           type="file"
@@ -141,8 +174,12 @@ const Step4PaymentForm: React.FC<Props> = ({
           accept="image/*"
           onChange={onFileChange}
         />
-        {errors.receipt_file && <div className="invalid-feedback">{errors.receipt_file}</div>}
-        <div className="form-text">Chấp nhận: JPG, PNG, HEIC, v.v. Dung lượng tối đa 10MB.</div>
+        {errors.receipt_file && (
+          <div className="invalid-feedback">{errors.receipt_file}</div>
+        )}
+        <div className="form-text">
+          Chấp nhận: JPG, PNG, HEIC, v.v. Dung lượng tối đa 10MB.
+        </div>
         {preview && (
           <div className="mt-3">
             <p className="text-muted mb-1" style={{ fontSize: 13 }}>

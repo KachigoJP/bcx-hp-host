@@ -55,14 +55,16 @@ export const getServerSideProps = async () => {
   const coreValuesSectionIntro: SectionIntro = {
     tag: "Quy định",
     title: "Chính sách hoạt động",
-    description: "Các quy định và nguyên tắc khi tham gia các hoạt động của tổ chức",
+    description:
+      "Các quy định và nguyên tắc khi tham gia các hoạt động của tổ chức",
   };
 
   const coreValueSectionItems: SectionIcon[] = [
     {
       icon: "fi flaticon-user",
       title: "Đoàn kết",
-      description: "Xây dựng tinh thần đoàn kết, hỗ trợ lẫn nhau trong cộng đồng",
+      description:
+        "Xây dựng tinh thần đoàn kết, hỗ trợ lẫn nhau trong cộng đồng",
     },
     {
       icon: "fi flaticon-forest",
@@ -84,7 +86,8 @@ export const getServerSideProps = async () => {
   const activityPoliciesSectionIntro: SectionIntro = {
     tag: "Quy định",
     title: "Chính sách hoạt động",
-    description: "Các quy định và nguyên tắc khi tham gia các hoạt động của tổ chức",
+    description:
+      "Các quy định và nguyên tắc khi tham gia các hoạt động của tổ chức",
   };
 
   const activityPoliciesSectionItems: SectionListTextItems[] = [
@@ -157,7 +160,8 @@ export const getServerSideProps = async () => {
   const codeOfConductSectionIntro: SectionIntro = {
     tag: "Ứng xử",
     title: "Quy tắc ứng xử",
-    description: "Bộ quy tắc ứng xử mà tất cả thành viên và tình nguyện viên phải tuân thủ",
+    description:
+      "Bộ quy tắc ứng xử mà tất cả thành viên và tình nguyện viên phải tuân thủ",
   };
 
   const codeOfConductSectionItems: SectionIcon[] = [
@@ -201,8 +205,7 @@ export const getServerSideProps = async () => {
     {
       title: "Kênh liên hệ",
       items: [
-        { text: "Email: info@banchanxanh.com" },
-        { text: "Điện thoại: 080-5988-2754" },
+        { text: "Email: banchanxanh.jp@gmail.com" },
         { text: "Facebook: facebook.com/banchanxanhjp" },
         { text: "Instagram: instagram.com/banchanxanh.kt" },
       ],
@@ -252,9 +255,11 @@ export const getServerSideProps = async () => {
   };
 };
 
-const PolicyPage: React.FC<PolicyProps> = props => {
+const PolicyPage: React.FC<PolicyProps> = (props) => {
   const [globalData, setGlobalData] = useState<GlobalInfo | null>(null);
-  const [policyContent, setPolicyContent] = useState<PolicyContent | null>(null);
+  const [policyContent, setPolicyContent] = useState<PolicyContent | null>(
+    null,
+  );
   const [seoData] = useState<SEOProps | null>(null);
 
   useEffect(() => {
@@ -283,15 +288,15 @@ const PolicyPage: React.FC<PolicyProps> = props => {
   }, []);
 
   const content = policyContent || props.policyContent;
-  const layoutData = globalData ? convertGlobalInfoToLayoutData(globalData) : props.layout.data;
+  const layoutData = globalData
+    ? convertGlobalInfoToLayoutData(globalData)
+    : props.layout.data;
 
   return (
     <Layout data={layoutData}>
       <SEO {...(seoData || props.seo)} />
 
-      {content.pageIntro && (
-        <PolicyIntro {...content.pageIntro} />
-      )}
+      {content.pageIntro && <PolicyIntro {...content.pageIntro} />}
 
       {content.missionVision && content.missionVision.length > 0 && (
         <PolicyMissionVision items={content.missionVision} />

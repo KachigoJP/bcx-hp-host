@@ -22,6 +22,8 @@ export const emptyMember = (): Member => ({
   age: "",
   disabled: false,
   relation: "",
+  blood_type: "",
+  food_allergy: "",
 });
 
 export function calcProductFee(products: ProductOrder): number {

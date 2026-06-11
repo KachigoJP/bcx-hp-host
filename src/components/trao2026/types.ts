@@ -12,6 +12,7 @@ export type Step1 = {
   emergency_relation: string;
   address: string;
   blood_type: string;
+  food_allergy: string;
 };
 
 export type Member = {
@@ -20,6 +21,8 @@ export type Member = {
   age: string;
   disabled: boolean;
   relation: string;
+  blood_type: string;
+  food_allergy: string;
 };
 
 export type Step2 = {
@@ -61,6 +64,16 @@ export type ParticipantExtra = {
 
 export type Step6 = {
   participants: ParticipantExtra[];
+};
+
+export type CabinInfo = {
+  number: number; // số TT (cột A)
+  group: string; // nhóm (cột B)
+  groupOrder: number; // thứ tự trong nhóm (cột C)
+  fullName: string; // tên đầy đủ (cột D, e.g. "Nhà chú Cuội 1")
+  capacity: number; // sức chứa (cột E)
+  registered: number; // số đã đăng ký (tính từ main sheet)
+  available: boolean;
 };
 
 export type Step1Errors = Partial<Record<keyof Step1, string>>;

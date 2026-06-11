@@ -27,12 +27,16 @@ export const VOLUNTEER_TEAMS = [
   "Team camera",
 ];
 
-export const SHIRT_SIZES = ["S", "M", "L"];
+export const SHIRT_SIZES = ["XS", "S", "M", "L"];
 
 export const SHIRT_COLORS = [
-  { value: "black", label: "Đen", hex: "#212121" },
   { value: "white", label: "Trắng", hex: "#f5f5f5", border: "#bdbdbd" },
-  { value: "blue", label: "Xanh", hex: "#1565c0" },
+  {
+    value: "green",
+    label: "Xanh lá",
+    hex: "rgb(232, 245, 233)",
+    border: "#a5d6a7",
+  },
 ];
 
 export const CABIN_NUMBERS = Array.from({ length: 20 }, (_, i) => i + 1);

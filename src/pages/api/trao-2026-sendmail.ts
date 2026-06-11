@@ -15,8 +15,18 @@ function buildHtml(data: {
   transport: string;
   bus_departure: string;
   reg_type: string;
-  members: Array<{ name: string; shirt_size: string; shirt_color: string; cabin: string }>;
-  representative: { name: string; shirt_size: string; shirt_color: string; cabin: string };
+  members: Array<{
+    name: string;
+    shirt_size: string;
+    shirt_color: string;
+    cabin: string;
+  }>;
+  representative: {
+    name: string;
+    shirt_size: string;
+    shirt_color: string;
+    cabin: string;
+  };
   fee_event: number;
   fee_bus: number;
   fee_total: number;
@@ -29,7 +39,10 @@ function buildHtml(data: {
 }): string {
   const grandTotal = data.fee_total + data.fee_product;
   const allParticipants = [
-    { ...data.representative, role: data.reg_type === "Cá nhân" ? "Cá nhân" : "Đại diện" },
+    {
+      ...data.representative,
+      role: data.reg_type === "Cá nhân" ? "Cá nhân" : "Đại diện",
+    },
     ...data.members.map((m) => ({ ...m, role: "Thành viên" })),
   ];
 
@@ -40,9 +53,9 @@ function buildHtml(data: {
         <td style="padding:8px;border:1px solid #e0e0e0">${p.name}</td>
         <td style="padding:8px;border:1px solid #e0e0e0;text-align:center">${p.role}</td>
         <td style="padding:8px;border:1px solid #e0e0e0;text-align:center">${p.shirt_size || "—"}</td>
-        <td style="padding:8px;border:1px solid #e0e0e0;text-align:center">${p.shirt_color === "black" ? "Đen" : p.shirt_color === "white" ? "Trắng" : p.shirt_color === "blue" ? "Xanh" : p.shirt_color || "—"}</td>
+        <td style="padding:8px;border:1px solid #e0e0e0;text-align:center">${p.shirt_color === "white" ? "Trắng" : p.shirt_color === "green" ? "Xanh lá" : p.shirt_color || "—"}</td>
         <td style="padding:8px;border:1px solid #e0e0e0;text-align:center">${p.cabin ? `Cabin ${p.cabin}` : "—"}</td>
-      </tr>`
+      </tr>`,
     )
     .join("");
 
@@ -132,9 +145,20 @@ function buildHtml(data: {
     <!-- Chỉnh sửa -->
     <div style="background:#e8f5e9;border-radius:8px;padding:16px;margin-bottom:20px;text-align:center">
       <p style="margin:0 0 8px;font-size:14px">Muốn chỉnh sửa size áo hoặc chỗ ngủ? Dùng mã và mật khẩu ở trên tại:</p>
-      <a href="https://banchanxanh.jp/trao-2026-chinhsua" style="display:inline-block;background:#2e7d32;color:#fff;padding:10px 24px;border-radius:6px;text-decoration:none;font-weight:600">
+      <a href="https://banchanxanh.jp/trao-2026-tra-cuu" style="display:inline-block;background:#2e7d32;color:#fff;padding:10px 24px;border-radius:6px;text-decoration:none;font-weight:600">
         Trang chỉnh sửa thông tin →
       </a>
+    </div>
+
+    <!-- Thông tin về TRAO 2026 -->
+    <div style="background:#fff8e1;border:1px solid #ffe082;border-radius:8px;padding:16px;margin-bottom:20px">
+      <h4 style="margin:0 0 12px;color:#e65100">💳 Thông tin chi tiết TRAO 2026</h4>
+      <p style="margin:4px 0;font-size:14px"><strong>🎊 Chủ đề:</strong>  TRUNG THU</p>
+      <p style="margin:4px 0;font-size:14px"><strong>⏰ Thời gian:</strong>  22/08/2026 (Thứ Bảy) - 23/08/2026 (Chủ Nhật)</p>
+      <p style="margin:4px 0;font-size:14px"><strong>🏠 Địa điểm</strong>  Kobu Camp Village - 甲武キャンプ村</p>
+      <p style="margin:4px 0;font-size:14px"><strong>            </strong>  〒409-0300 山梨県 北都留郡 丹波山村400</p>
+      <p style="margin:4px 0;font-size:14px"><strong>            </strong>  0428-88-0523</p>
+      <p style="margin:4px 0;font-size:14px"><strong>            </strong>  tabayama-kobu.jp</p>
     </div>
 
     <p style="color:#777;font-size:13px;line-height:1.6">
@@ -154,7 +178,10 @@ function buildHtml(data: {
 </html>`;
 }
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse,
+) {
   if (req.method !== "POST") return res.status(405).end();
 
   const body = req.body;
@@ -180,6 +207,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   } catch (err) {
     console.error("Send mail error:", err);
     // Không throw để không làm hỏng flow đăng ký
-    res.status(200).json({ ok: false, warning: "Gửi email thất bại, đăng ký vẫn thành công." });
+    res
+      .status(200)
+      .json({
+        ok: false,
+        warning: "Gửi email thất bại, đăng ký vẫn thành công.",
+      });
   }
 }

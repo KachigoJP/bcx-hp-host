@@ -178,6 +178,20 @@ const Step1Form: React.FC<Props> = ({ data, onChange, errors }) => {
           ))}
         </select>
       </div>
+
+      <div className="mb-3">
+        <label className="form-label fw-semibold">Dị ứng thực phẩm</label>
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Vd: hải sản, đậu phộng... (để trống nếu không có)"
+          value={data.food_allergy}
+          onChange={(e) => onChange({ food_allergy: e.target.value })}
+        />
+        <div className="form-text">
+          Giúp ban tổ chức chuẩn bị bữa ăn phù hợp.
+        </div>
+      </div>
     </>
   );
 };

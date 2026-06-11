@@ -51,10 +51,10 @@ export const getServerSideProps = async () => {
           value: "123 Đường ABC, Quận XYZ, Tokyo",
         },
         {
-          icon: "flaticon-phone-call",
-          title: "Điện thoại",
-          description: "Liên hệ trực tiếp qua số điện thoại",
-          value: "+81-90-1234-5678",
+          icon: "flaticon-facebook",
+          title: "Fanpage",
+          description: "Liên hệ với chúng tôi qua Facebook",
+          value: "facebook.com/banchanxanhjp",
         },
         {
           icon: "flaticon-email",
