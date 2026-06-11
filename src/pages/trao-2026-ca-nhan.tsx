@@ -51,34 +51,37 @@ const RegisterPage: React.FC = () => {
   const [submitError, setSubmitError] = React.useState("");
 
   React.useEffect(() => {
-    if (currentStep !== 6 || reservation || reserving) return;
+    if (currentStep !== 6 || reservation) return;
 
-    let cancelled = false;
+    const controller = new AbortController();
     setReserving(true);
+    setSubmitError("");
 
-    fetch("/api/trao-2026-reserve", { method: "POST" })
+    fetch("/api/trao-2026-reserve", {
+      method: "POST",
+      signal: controller.signal,
+    })
       .then((r) => r.json())
       .then((data) => {
-        if (cancelled) return;
         if (data.ok) {
           setReservation({ code: data.code, password: data.password });
         } else {
           setSubmitError(data.error ?? "Không thể tạo mã đăng ký. Vui lòng thử lại.");
         }
       })
-      .catch(() => {
-        if (!cancelled) {
+      .catch((err) => {
+        if (err.name !== "AbortError") {
           setSubmitError("Không thể tạo mã đăng ký. Vui lòng kiểm tra kết nối.");
         }
       })
       .finally(() => {
-        if (!cancelled) setReserving(false);
+        setReserving(false);
       });
 
     return () => {
-      cancelled = true;
+      controller.abort();
     };
-  }, [currentStep, reservation, reserving]);
+  }, [currentStep, reservation]);
 
   const TOTAL_STEPS = STEPS.length;
 
@@ -183,6 +186,10 @@ const RegisterPage: React.FC = () => {
   const goBack = () => {
     setErrors({});
     setCurrentStep((step) => step - 1);
+    if (currentStep === 6) {
+      setReserving(false)
+      setReservation(null);
+    };
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 

@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { google } from "googleapis";
 import { Readable } from "stream";
 import { sendRegistrationEmail } from "../../lib/sendRegistrationEmail";
+import { getAuth } from "./utils";
 
 export const config = {
   api: { bodyParser: { sizeLimit: "15mb" } },
@@ -28,17 +29,6 @@ const COLOR_LABEL: Record<string, string> = {
   white: "Trắng",
   blue: "Xanh",
 };
-
-// ─── Google Auth ──────────────────────────────────────────────────────────────
-
-function getAuth() {
-  const client = new google.auth.OAuth2(
-    process.env.GOOGLE_CLIENT_ID,
-    process.env.GOOGLE_CLIENT_SECRET
-  );
-  client.setCredentials({ refresh_token: process.env.GOOGLE_REFRESH_TOKEN });
-  return client;
-}
 
 // ─── Generate unique codes ────────────────────────────────────────────────────
 
