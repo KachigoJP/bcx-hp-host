@@ -1,14 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { google } from "googleapis";
-
-function getAuth() {
-  const client = new google.auth.OAuth2(
-    process.env.GOOGLE_CLIENT_ID,
-    process.env.GOOGLE_CLIENT_SECRET
-  );
-  client.setCredentials({ refresh_token: process.env.GOOGLE_REFRESH_TOKEN });
-  return client;
-}
+import { getAuth } from "./utils";
 
 type ParticipantUpdate = {
   rowIndex: number; // 1-based row number in sheet
@@ -18,7 +10,9 @@ type ParticipantUpdate = {
 };
 
 const COLOR_LABEL: Record<string, string> = {
-  black: "Đen", white: "Trắng", blue: "Xanh",
+  black: "Đen",
+  white: "Trắng",
+  blue: "Xanh",
 };
 
 // Cập nhật cột AA:AC (Size áo, Màu áo, Cabin) cho một dòng cụ thể
@@ -27,23 +21,28 @@ async function updateRow(
   rowIndex: number,
   shirt_size: string,
   shirt_color: string,
-  cabin: string
+  cabin: string,
 ) {
   await sheets.spreadsheets.values.update({
     spreadsheetId: process.env.GOOGLE_SHEET_ID!,
     range: `AD${rowIndex}:AF${rowIndex}`,
     valueInputOption: "USER_ENTERED",
     requestBody: {
-      values: [[
-        shirt_size,
-        COLOR_LABEL[shirt_color] ?? shirt_color,
-        cabin ? `Cabin ${cabin}` : "",
-      ]],
+      values: [
+        [
+          shirt_size,
+          COLOR_LABEL[shirt_color] ?? shirt_color,
+          cabin ? `Cabin ${cabin}` : "",
+        ],
+      ],
     },
   });
 }
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse,
+) {
   if (req.method !== "POST") return res.status(405).end();
 
   const { code, password, participants } = req.body as {
@@ -68,7 +67,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const rows = verify.data.values ?? [];
     const repRow = rows.find((r) => r[0] === code);
     if (!repRow) {
-      return res.status(404).json({ ok: false, error: "Không tìm thấy mã đăng ký." });
+      return res
+        .status(404)
+        .json({ ok: false, error: "Không tìm thấy mã đăng ký." });
     }
     if (repRow[32] !== password) {
       return res.status(401).json({ ok: false, error: "Mật khẩu không đúng." });
@@ -77,8 +78,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Cập nhật từng người song song
     await Promise.all(
       participants.map((p) =>
-        updateRow(sheets, p.rowIndex, p.shirt_size, p.shirt_color, p.cabin)
-      )
+        updateRow(sheets, p.rowIndex, p.shirt_size, p.shirt_color, p.cabin),
+      ),
     );
 
     // Cập nhật trạng thái đại diện thành "Đã chỉnh sửa"

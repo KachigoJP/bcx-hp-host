@@ -32,7 +32,7 @@ export abstract class BaseService<T> {
         {
           headers: getStrapiHeaders(),
           params: this.buildQueryParams(params),
-        }
+        },
       );
 
       return response.data.data as T;
@@ -47,7 +47,7 @@ export abstract class BaseService<T> {
   async getByField(
     field: string,
     value: string,
-    params?: StrapiQueryParams
+    params?: StrapiQueryParams,
   ): Promise<T> {
     try {
       const response = await axios.get<StrapiSingleResponse<T>>(
@@ -55,7 +55,7 @@ export abstract class BaseService<T> {
         {
           headers: getStrapiHeaders(),
           params: this.buildQueryParams(params),
-        }
+        },
       );
 
       return response.data.data as T;
@@ -80,6 +80,7 @@ export abstract class BaseService<T> {
       method: error.response?.config?.method,
       status: error.response?.status,
       statusText: error.response?.statusText,
+      data: error.response?.data,
     });
 
     if (error.response?.data?.error) {
