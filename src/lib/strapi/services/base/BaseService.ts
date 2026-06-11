@@ -80,6 +80,7 @@ export abstract class BaseService<T> {
       method: error.response?.config?.method,
       status: error.response?.status,
       statusText: error.response?.statusText,
+      data: error.response?.data,
     });
 
     if (error.response?.data?.error) {
