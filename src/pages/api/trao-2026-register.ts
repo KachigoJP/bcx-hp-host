@@ -2,7 +2,11 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { google } from "googleapis";
 import { Readable } from "stream";
 import { sendRegistrationEmail } from "../../lib/sendRegistrationEmail";
-import { updateCabinCounts, getAuth as getCabinAuth } from "./trao-2026-cabins";
+import {
+  fetchCabins,
+  updateCabinCounts,
+  getAuth as getCabinAuth,
+} from "./trao-2026-cabins";
 import { Logger } from "../../lib/logger";
 
 export const config = {
@@ -152,6 +156,15 @@ export default async function handler(
       hasReceipt: !!receipt,
     });
 
+    // Lấy danh sách cabin để map số cabin → tên nhà chòi
+    const cabinSheets = google.sheets({ version: "v4", auth: getCabinAuth() });
+    const cabinList = await fetchCabins(
+      cabinSheets,
+      process.env.GOOGLE_SHEET_ID!,
+    ).catch(() => []);
+    const cabinNameMap: Record<number, string> = {};
+    for (const c of cabinList) cabinNameMap[c.number] = c.fullName;
+
     // Lấy danh sách mã đã tồn tại để tránh trùng khi sinh mã thành viên
     log.startStep();
     const existingCodes = await fetchExistingCodes(auth);
@@ -233,8 +246,11 @@ export default async function handler(
       formData.register_type === "individual" ? "Cá nhân" : "Đại diện", // Vai trò
       participants[0]?.shirt_size ?? "", // Size áo
       COLOR_LABEL[participants[0]?.shirt_color] ?? "", // Màu áo
-      participants[0]?.stay ? `Cabin ${participants[0].stay}` : "", // Cabin
+      participants[0]?.stay
+        ? cabinNameMap[Number(participants[0].stay)] || participants[0].stay
+        : "", // Cabin
       (formData.password as string) ?? "", // Mật khẩu
+      Number(formData.donation) || 0, // Quyên góp
     ];
 
     // ── Dòng từng thành viên ───────────────────────────────────────────────────
@@ -270,8 +286,12 @@ export default async function handler(
       "Thành viên", // [28] Vai trò
       participants[i + 1]?.shirt_size ?? "", // [29] Size áo
       COLOR_LABEL[participants[i + 1]?.shirt_color] ?? "", // [30] Màu áo
-      participants[i + 1]?.stay ? `Cabin ${participants[i + 1].stay}` : "", // [31] Cabin
+      participants[i + 1]?.stay
+        ? cabinNameMap[Number(participants[i + 1].stay)] ||
+          participants[i + 1].stay
+        : "", // [31] Cabin
       "", // [32] Mật khẩu (trống — chỉ đại diện có mật khẩu)
+      "", // [33] Quyên góp (trống — chỉ đại diện ghi)
     ]);
 
     log.startStep();
@@ -324,7 +344,6 @@ export default async function handler(
     }
 
     // Cập nhật cột F "Số đã đăng ký" trong sheet "Danh sách cabin" (fire-and-forget)
-    const cabinSheets = google.sheets({ version: "v4", auth: getCabinAuth() });
     updateCabinCounts(cabinSheets, process.env.GOOGLE_SHEET_ID!).catch(
       (err: unknown) =>
         log.error(
@@ -354,6 +373,7 @@ export default async function handler(
         fee_total: Number(formData.fee_total),
         products: String(formData.products ?? ""),
         fee_product: Number(formData.product_fee ?? 0),
+        donation: Number(formData.donation ?? 0),
         food_allergy: String(formData.food_allergy ?? ""),
         volunteer: formData.volunteer === "yes" ? "Có" : "Không",
         volunteer_teams: Array.isArray(formData.volunteer_teams)
@@ -364,13 +384,18 @@ export default async function handler(
           name: String(formData.name),
           shirt_size: participants[0]?.shirt_size ?? "",
           shirt_color: participants[0]?.shirt_color ?? "",
-          cabin: participants[0]?.stay ?? "",
+          cabin: participants[0]?.stay
+            ? cabinNameMap[Number(participants[0].stay)] || participants[0].stay
+            : "",
         },
         members: members.map((m, i) => ({
           name: m.name,
           shirt_size: participants[i + 1]?.shirt_size ?? "",
           shirt_color: participants[i + 1]?.shirt_color ?? "",
-          cabin: participants[i + 1]?.stay ?? "",
+          cabin: participants[i + 1]?.stay
+            ? cabinNameMap[Number(participants[i + 1].stay)] ||
+              participants[i + 1].stay
+            : "",
         })),
       })
         .then(() =>

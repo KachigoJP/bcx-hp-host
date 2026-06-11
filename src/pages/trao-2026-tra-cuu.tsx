@@ -153,12 +153,14 @@ const ParticipantEditCard: React.FC<{
   allEdited,
   loadingCabins,
 }) => {
-  // Đếm số người đang chọn từng cabin trong toàn bộ danh sách (pending)
+  // Đếm số người đang chọn từng cabin (pending) — so sánh theo fullName
   const pendingCount: Record<number, number> = {};
   for (const p of allEdited) {
     if (p.cabin) {
-      const n = Number(p.cabin);
-      if (n > 0) pendingCount[n] = (pendingCount[n] ?? 0) + 1;
+      // Tìm cabin tương ứng theo fullName
+      const found = cabins.find((c) => c.fullName === p.cabin);
+      if (found)
+        pendingCount[found.number] = (pendingCount[found.number] ?? 0) + 1;
     }
   }
 
@@ -291,15 +293,14 @@ const ParticipantEditCard: React.FC<{
                       const pending = pendingCount[cabin.number] ?? 0;
                       const displayRegistered = cabin.registered + pending;
                       const displayFull = displayRegistered >= cabin.capacity;
-                      const isSelected = data.cabin === String(cabin.number);
+                      const isSelected = data.cabin === cabin.fullName;
                       return (
                         <ToggleChip
                           key={cabin.number}
                           selected={isSelected}
                           disabled={displayFull && !isSelected}
                           onClick={() =>
-                            !displayFull &&
-                            onChange({ cabin: String(cabin.number) })
+                            !displayFull && onChange({ cabin: cabin.fullName })
                           }
                           style={{
                             padding: "3px 10px",
@@ -749,7 +750,7 @@ const ChinhSuaPage: React.FC = () => {
                                     m.shirt_color ||
                                     "—"}
                                 </td>
-                                <td>{m.cabin ? `Cabin ${m.cabin}` : "—"}</td>
+                                <td>{m.cabin || "—"}</td>
                               </tr>
                             ))}
                           </tbody>
@@ -776,11 +777,7 @@ const ChinhSuaPage: React.FC = () => {
                       />
                       <InfoRow
                         label="Cabin"
-                        value={
-                          result.representative.cabin
-                            ? `Cabin ${result.representative.cabin}`
-                            : undefined
-                        }
+                        value={result.representative.cabin || undefined}
                       />
                     </tbody>
                   </table>
@@ -878,26 +875,62 @@ const ChinhSuaPage: React.FC = () => {
                       border: "1px solid #e8f5e9",
                     }}
                   >
-                    <p className="text-muted mb-4" style={{ fontSize: 13 }}>
+                    <p className="text-muted mb-3" style={{ fontSize: 13 }}>
                       Bạn có thể chỉnh sửa size áo, màu áo và cabin cho từng
-                      người tham gia. Xem{" "}
-                      <a
-                        href="/trao-2026-ao"
-                        target="_blank"
-                        className="text-success"
-                      >
-                        bảng size & màu
-                      </a>{" "}
-                      và{" "}
-                      <a
-                        href="/trao-2026-cabin"
-                        target="_blank"
-                        className="text-success"
-                      >
-                        sơ đồ cabin
-                      </a>
-                      .
+                      người tham gia. Tham khảo thông tin trước khi chọn:
                     </p>
+                    <div className="row g-2 mb-4">
+                      <div className="col-sm-6">
+                        <a
+                          href="/trao-2026-ao"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="d-flex align-items-center gap-3 p-3 rounded text-decoration-none"
+                          style={{
+                            backgroundColor: "#f0f7f0",
+                            border: "1px solid #a5d6a7",
+                          }}
+                        >
+                          <span style={{ fontSize: 24 }}>👕</span>
+                          <div>
+                            <div
+                              className="fw-semibold"
+                              style={{ color: "#1b5e20", fontSize: 13 }}
+                            >
+                              Bảng size & màu áo
+                            </div>
+                            <div style={{ fontSize: 11, color: "#888" }}>
+                              Tham khảo trước khi chọn
+                            </div>
+                          </div>
+                        </a>
+                      </div>
+                      <div className="col-sm-6">
+                        <a
+                          href="/trao-2026-cabin"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="d-flex align-items-center gap-3 p-3 rounded text-decoration-none"
+                          style={{
+                            backgroundColor: "#f0f7f0",
+                            border: "1px solid #a5d6a7",
+                          }}
+                        >
+                          <span style={{ fontSize: 24 }}>🏕️</span>
+                          <div>
+                            <div
+                              className="fw-semibold"
+                              style={{ color: "#1b5e20", fontSize: 13 }}
+                            >
+                              Danh sách cabin
+                            </div>
+                            <div style={{ fontSize: 11, color: "#888" }}>
+                              Sức chứa & tình trạng
+                            </div>
+                          </div>
+                        </a>
+                      </div>
+                    </div>
 
                     {edited.map((p, i) => (
                       <ParticipantEditCard

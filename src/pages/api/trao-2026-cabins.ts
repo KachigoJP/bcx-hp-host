@@ -45,13 +45,31 @@ export async function fetchCabins(
   const cabinRows = cabinRes.data.values ?? [];
   const mainCabinValues = (mainRes.data.values ?? []).flat();
 
-  // Đếm số người đã đăng ký cho từng cabin theo số TT (cột A)
+  // Đọc tên nhà chòi từ cabin sheet trước để build map fullName → number
+  const fullNameToNumber: Record<string, number> = {};
+  for (const row of cabinRows) {
+    const number = Number(String(row[0] ?? "").replace(/\D/g, ""));
+    const fullName = String(row[3] ?? "").trim();
+    if (number > 0 && fullName) fullNameToNumber[fullName] = number;
+  }
+
+  // Đếm số người đã đăng ký theo tên nhà chòi (cột AF lưu fullName)
+  // Tương thích ngược: vẫn nhận dạng format cũ "Cabin X" nếu còn trong sheet
   const registeredCount: Record<number, number> = {};
   for (const val of mainCabinValues) {
-    const match = String(val).match(/^Cabin\s+(\d+)$/i);
-    if (match) {
-      const n = Number(match[1]);
+    const v = String(val).trim();
+    if (!v) continue;
+    // Format mới: tên nhà chòi trực tiếp (vd: "Nhà chú Cuội 2")
+    if (fullNameToNumber[v] !== undefined) {
+      const n = fullNameToNumber[v];
       registeredCount[n] = (registeredCount[n] ?? 0) + 1;
+    } else {
+      // Format cũ: "Cabin X" — tương thích ngược
+      const match = v.match(/^Cabin\s+(\d+)$/i);
+      if (match) {
+        const n = Number(match[1]);
+        registeredCount[n] = (registeredCount[n] ?? 0) + 1;
+      }
     }
   }
 
@@ -89,7 +107,7 @@ export async function updateCabinCounts(
   const [cabinRes, mainRes] = await Promise.all([
     sheets.spreadsheets.values.get({
       spreadsheetId: sheetId,
-      range: `${CABIN_SHEET}!A2:A`,
+      range: `${CABIN_SHEET}!A2:D`, // đọc thêm cột D (fullName) để map
     }),
     sheets.spreadsheets.values
       .get({
@@ -99,18 +117,34 @@ export async function updateCabinCounts(
       .catch(() => ({ data: { values: [] as string[][] } })),
   ]);
 
-  const cabinNumbers = (cabinRes.data.values ?? []).map(([v]) =>
+  const cabinRows = cabinRes.data.values ?? [];
+  const cabinNumbers = cabinRows.map(([v]) =>
     Number(String(v ?? "").replace(/\D/g, "")),
   );
   const mainCabinValues = (mainRes.data.values ?? []).flat();
 
-  // Đếm từ main sheet
+  // Build fullName → number map để đếm theo tên nhà chòi
+  const fullNameToNumber: Record<string, number> = {};
+  for (const row of cabinRows) {
+    const number = Number(String(row[0] ?? "").replace(/\D/g, ""));
+    const fullName = String(row[3] ?? "").trim();
+    if (number > 0 && fullName) fullNameToNumber[fullName] = number;
+  }
+
+  // Đếm từ main sheet — hỗ trợ cả format mới (tên nhà chòi) và cũ ("Cabin X")
   const registeredCount: Record<number, number> = {};
   for (const val of mainCabinValues) {
-    const match = String(val).match(/^Cabin\s+(\d+)$/i);
-    if (match) {
-      const n = Number(match[1]);
+    const v = String(val).trim();
+    if (!v) continue;
+    if (fullNameToNumber[v] !== undefined) {
+      const n = fullNameToNumber[v];
       registeredCount[n] = (registeredCount[n] ?? 0) + 1;
+    } else {
+      const match = v.match(/^Cabin\s+(\d+)$/i);
+      if (match) {
+        const n = Number(match[1]);
+        registeredCount[n] = (registeredCount[n] ?? 0) + 1;
+      }
     }
   }
 

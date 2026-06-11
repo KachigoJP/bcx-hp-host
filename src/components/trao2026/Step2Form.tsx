@@ -6,15 +6,26 @@ import type { Gender, Member, Step2 } from "./types";
 type Props = {
   data: Step2;
   onChange: (patch: Partial<Step2>) => void;
+  onClearError: (key: string) => void;
   errors: Partial<Record<string, string>>;
 };
 
-const Step2Form: React.FC<Props> = ({ data, onChange, errors }) => {
-  const updateMember = (index: number, patch: Partial<Member>) => {
+const Step2Form: React.FC<Props> = ({
+  data,
+  onChange,
+  onClearError,
+  errors,
+}) => {
+  const updateMember = (
+    index: number,
+    patch: Partial<Member>,
+    clearKey?: string,
+  ) => {
     const updated = data.members.map((member, i) =>
       i === index ? { ...member, ...patch } : member,
     );
     onChange({ members: updated });
+    if (clearKey && errors[clearKey]) onClearError(clearKey);
   };
 
   const addMember = () =>
@@ -37,9 +48,10 @@ const Step2Form: React.FC<Props> = ({ data, onChange, errors }) => {
               type="radio"
               id="type-individual"
               checked={data.register_type === "individual"}
-              onChange={() =>
-                onChange({ register_type: "individual", members: [] })
-              }
+              onChange={() => {
+                onChange({ register_type: "individual", members: [] });
+                if (errors.register_type) onClearError("register_type");
+              }}
             />
             <label className="form-check-label" htmlFor="type-individual">
               <strong>Cá nhân</strong> — Chỉ đăng ký cho mình
@@ -51,9 +63,10 @@ const Step2Form: React.FC<Props> = ({ data, onChange, errors }) => {
               type="radio"
               id="type-group"
               checked={data.register_type === "group"}
-              onChange={() =>
-                onChange({ register_type: "group", members: [emptyMember()] })
-              }
+              onChange={() => {
+                onChange({ register_type: "group", members: [emptyMember()] });
+                if (errors.register_type) onClearError("register_type");
+              }}
             />
             <label className="form-check-label" htmlFor="type-group">
               <strong>Gia đình / Nhóm bạn</strong> — Đăng ký cùng nhiều người
@@ -103,7 +116,13 @@ const Step2Form: React.FC<Props> = ({ data, onChange, errors }) => {
                     className={`form-control form-control-sm ${errors[`member_${i}_name`] ? "is-invalid" : ""}`}
                     placeholder="Họ và tên *"
                     value={member.name}
-                    onChange={(e) => updateMember(i, { name: e.target.value })}
+                    onChange={(e) =>
+                      updateMember(
+                        i,
+                        { name: e.target.value },
+                        e.target.value.trim() ? `member_${i}_name` : undefined,
+                      )
+                    }
                   />
                   {errors[`member_${i}_name`] && (
                     <div className="invalid-feedback">
@@ -123,7 +142,9 @@ const Step2Form: React.FC<Props> = ({ data, onChange, errors }) => {
                           type="radio"
                           id={`member-${i}-gender-${g}`}
                           checked={member.gender === g}
-                          onChange={() => updateMember(i, { gender: g })}
+                          onChange={() =>
+                            updateMember(i, { gender: g }, `member_${i}_gender`)
+                          }
                         />
                         <label
                           className="form-check-label"
@@ -148,7 +169,17 @@ const Step2Form: React.FC<Props> = ({ data, onChange, errors }) => {
                       className={`form-control form-control-sm ${errors[`member_${i}_age`] ? "is-invalid" : ""}`}
                       placeholder="Tuổi *"
                       value={member.age}
-                      onChange={(e) => updateMember(i, { age: e.target.value })}
+                      onChange={(e) =>
+                        updateMember(
+                          i,
+                          { age: e.target.value },
+                          !!e.target.value.trim() &&
+                            Number(e.target.value) >= 1 &&
+                            Number(e.target.value) <= 120
+                            ? `member_${i}_age`
+                            : undefined,
+                        )
+                      }
                       style={{ maxWidth: 75 }}
                     />
                     <div className="form-check mb-0">
@@ -186,7 +217,13 @@ const Step2Form: React.FC<Props> = ({ data, onChange, errors }) => {
                     placeholder="Quan hệ với đại diện *"
                     value={member.relation}
                     onChange={(e) =>
-                      updateMember(i, { relation: e.target.value })
+                      updateMember(
+                        i,
+                        { relation: e.target.value },
+                        e.target.value.trim()
+                          ? `member_${i}_relation`
+                          : undefined,
+                      )
                     }
                   />
                   {errors[`member_${i}_relation`] && (

@@ -15,6 +15,7 @@ type Props = {
   step2: Step2;
   step3: Step3;
   step5?: Step5;
+  donation?: number;
   compact?: boolean;
 };
 
@@ -23,12 +24,13 @@ const CostSummaryCard: React.FC<Props> = ({
   step2,
   step3,
   step5,
+  donation = 0,
   compact,
 }) => {
   const fees = calcFees(step1, step2, step3);
   const productFee =
     step5 && step5.want_products === "yes" ? calcProductFee(step5.products) : 0;
-  const grandTotal = fees.total + productFee;
+  const grandTotal = fees.total + productFee + donation;
 
   if (!step2.register_type) return null;
 
@@ -102,6 +104,17 @@ const CostSummaryCard: React.FC<Props> = ({
                 </tr>
               );
             })}
+          {donation > 0 && (
+            <tr>
+              <td className="ps-0 border-0">❤️ Quyên góp thiện nguyện</td>
+              <td
+                className="text-end border-0 fw-semibold"
+                style={{ color: "#e65100" }}
+              >
+                {fmtYen(donation)}
+              </td>
+            </tr>
+          )}
           <tr style={{ borderTop: "1px solid #a5d6a7" }}>
             <td className="ps-0 fw-bold">Tổng dự kiến</td>
             <td

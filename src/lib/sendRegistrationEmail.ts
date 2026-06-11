@@ -17,6 +17,7 @@ export type EmailData = {
   fee_total: number;
   products: string;
   fee_product: number;
+  donation: number;
   food_allergy: string;
   volunteer: string;
   volunteer_teams: string[];
@@ -40,7 +41,7 @@ function colorLabel(v: string) {
 }
 
 function buildHtml(d: EmailData): string {
-  const grandTotal = d.fee_total + d.fee_product;
+  const grandTotal = d.fee_total + d.fee_product + d.donation;
   const allParticipants = [
     {
       ...d.representative,
@@ -56,7 +57,7 @@ function buildHtml(d: EmailData): string {
         <td style="padding:8px;border:1px solid #e0e0e0;text-align:center">${p.role}</td>
         <td style="padding:8px;border:1px solid #e0e0e0;text-align:center">${p.shirt_size || "—"}</td>
         <td style="padding:8px;border:1px solid #e0e0e0;text-align:center">${colorLabel(p.shirt_color)}</td>
-        <td style="padding:8px;border:1px solid #e0e0e0;text-align:center">${p.cabin ? `Cabin ${p.cabin}` : "—"}</td>
+        <td style="padding:8px;border:1px solid #e0e0e0;text-align:center">${p.cabin || "—"}</td>
       </tr>`,
     )
     .join("");
@@ -120,6 +121,7 @@ function buildHtml(d: EmailData): string {
       <tr><td style="padding:8px 0;color:#777">Phí sự kiện</td><td style="padding:8px 0;text-align:right">${fmtYen(d.fee_event)}</td></tr>
       ${d.fee_bus > 0 ? `<tr style="background:#f9f9f9"><td style="padding:8px 4px;color:#777">Phí xe bus</td><td style="padding:8px 4px;text-align:right">${fmtYen(d.fee_bus)}</td></tr>` : ""}
       ${d.fee_product > 0 ? `<tr><td style="padding:8px 0;color:#777">Sản phẩm (${d.products})</td><td style="padding:8px 0;text-align:right">${fmtYen(d.fee_product)}</td></tr>` : ""}
+      ${d.donation > 0 ? `<tr style="background:#fff8e1"><td style="padding:8px 4px;color:#e65100">❤️ Quyên góp thiện nguyện</td><td style="padding:8px 4px;text-align:right;color:#e65100;font-weight:600">${fmtYen(d.donation)}</td></tr>` : ""}
       <tr style="border-top:2px solid #4caf50">
         <td style="padding:10px 0;font-weight:700;font-size:16px">Tổng cộng</td>
         <td style="padding:10px 0;text-align:right;font-weight:700;font-size:18px;color:#1b5e20">${fmtYen(grandTotal)}</td>

@@ -10,9 +10,8 @@ type ParticipantUpdate = {
 };
 
 const COLOR_LABEL: Record<string, string> = {
-  black: "Đen",
   white: "Trắng",
-  blue: "Xanh",
+  green: "Xanh lá",
 };
 
 // Cập nhật cột AA:AC (Size áo, Màu áo, Cabin) cho một dòng cụ thể
@@ -29,11 +28,7 @@ async function updateRow(
     valueInputOption: "USER_ENTERED",
     requestBody: {
       values: [
-        [
-          shirt_size,
-          COLOR_LABEL[shirt_color] ?? shirt_color,
-          cabin ? `Cabin ${cabin}` : "",
-        ],
+        [shirt_size, COLOR_LABEL[shirt_color] ?? shirt_color, cabin || ""],
       ],
     },
   });

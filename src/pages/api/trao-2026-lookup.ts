@@ -93,7 +93,7 @@ export default async function handler(
         name: r[C.NAME] ?? "",
         shirt_size: r[C.SHIRT_SIZE] ?? "",
         shirt_color: COLOR_VALUE[r[C.SHIRT_COLOR]] ?? "",
-        cabin: r[C.CABIN]?.replace("Cabin ", "") ?? "",
+        cabin: r[C.CABIN] ?? "",
         relation: r[C.EMERGENCY_REL] ?? "",
         age: r[C.AGE] ?? "",
         gender: r[C.GENDER] ?? "",
@@ -137,7 +137,7 @@ export default async function handler(
         name: rep[C.NAME] ?? "",
         shirt_size: rep[C.SHIRT_SIZE] ?? "",
         shirt_color: COLOR_VALUE[rep[C.SHIRT_COLOR]] ?? "",
-        cabin: rep[C.CABIN]?.replace("Cabin ", "") ?? "",
+        cabin: rep[C.CABIN] ?? "",
       },
       members: memberRows,
     });

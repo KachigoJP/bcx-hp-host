@@ -1,5 +1,638 @@
 import React, { Fragment } from "react";
 
+const midAutumnStyles = `
+  @keyframes denSway {
+    0%, 100% { transform: rotate(-7deg); }
+    50%       { transform: rotate(7deg); }
+  }
+  @keyframes starTwinkle {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: 0.25; transform: scale(0.65); }
+  }
+  @keyframes floatMoon {
+    0%   { transform: translateY(0px); }
+    50%  { transform: translateY(-6px); }
+    100% { transform: translateY(0px); }
+  }
+  @keyframes banhGlow {
+    0%, 100% { filter: drop-shadow(0 0 3px rgba(230,81,0,.4)); }
+    50%       { filter: drop-shadow(0 0 8px rgba(230,81,0,.85)); }
+  }
+  .den-sway  { animation: denSway 3.2s ease-in-out infinite; display: inline-block; transform-origin: top center; }
+  .den-sway2 { animation: denSway 4.5s ease-in-out infinite reverse; display: inline-block; transform-origin: top center; }
+  .ma-star  { animation: starTwinkle 2s ease-in-out infinite; display: inline-block; }
+  .ma-star2 { animation: starTwinkle 2.7s ease-in-out infinite 0.7s; display: inline-block; }
+  .ma-moon  { animation: floatMoon 4s ease-in-out infinite; display: inline-block; }
+  .banh-glow { animation: banhGlow 2.5s ease-in-out infinite; display: inline-block; }
+
+  @keyframes riseLantern {
+    0%   { transform: translateY(0) rotate(var(--r, -3deg)); opacity: 0; }
+    6%   { opacity: 0.85; }
+    90%  { opacity: 0.72; }
+    100% { transform: translateY(-120vh) rotate(calc(var(--r, -3deg) * -1)); opacity: 0; }
+  }
+  .form-sky-lantern {
+    position: absolute;
+    animation: riseLantern var(--dur, 9s) linear var(--delay, 0s) infinite;
+    filter: drop-shadow(0 0 7px rgba(255,176,0,.65));
+    pointer-events: none;
+  }
+`;
+
+/* ── Đèn Ông Sao SVG ─────────────────────────────────────────────────────────
+   Đèn ngôi sao 5 cánh truyền thống Trung Thu Việt Nam
+*/
+const DenOngSao: React.FC<{
+  size?: number;
+  style?: React.CSSProperties;
+  className?: string;
+}> = ({ size = 28, style, className }) => (
+  <svg
+    width={size}
+    height={Math.round(size * 1.42)}
+    viewBox="0 0 32 46"
+    style={{ display: "inline-block", verticalAlign: "middle", ...style }}
+    className={className}
+    aria-label="Đèn ông sao"
+  >
+    {/* Hào quang */}
+    <polygon
+      points="16,2 20,11 29,12 22,18 24,27 16,22 8,27 10,18 3,12 12,11"
+      fill="#ffe082"
+      opacity="0.5"
+      style={{ filter: "blur(2.5px)" }}
+    />
+    {/* Ngôi sao — vàng cam, viền đỏ */}
+    <polygon
+      points="16,2 20,11 29,12 22,18 24,27 16,22 8,27 10,18 3,12 12,11"
+      fill="#f9a825"
+      stroke="#c62828"
+      strokeWidth="1.4"
+      strokeLinejoin="round"
+    />
+    {/* Ánh nến */}
+    <circle cx="16" cy="15" r="4.5" fill="#fff176" opacity="0.9" />
+    {/* Cán */}
+    <line
+      x1="16"
+      y1="27"
+      x2="16"
+      y2="44"
+      stroke="#5d4037"
+      strokeWidth="2.5"
+      strokeLinecap="round"
+    />
+    <line
+      x1="16"
+      y1="2"
+      x2="16"
+      y2="-2"
+      stroke="#5d4037"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+    />
+  </svg>
+);
+
+/* ── Đèn Trời SVG ────────────────────────────────────────────────────────────
+   Đèn trời (sky lantern) hình bầu dục thả lên trời
+*/
+const DenTroi: React.FC<{ size?: number; warm?: boolean }> = ({
+  size = 28,
+  warm = true,
+}) => {
+  const h = Math.round(size * 1.6);
+  const cx = size / 2;
+  const rx = size / 2 - 1;
+  const bodyH = Math.round(size * 0.95);
+  const cy = bodyH / 2 + 2;
+  const ry = bodyH / 2;
+  const flameY = cy + ry;
+  const flameH = Math.round(size * 0.28);
+  const color1 = warm ? "#ff8f00" : "#ffa726";
+  const color2 = warm ? "#ffe082" : "#fff9c4";
+  return (
+    <svg
+      width={size}
+      height={h}
+      viewBox={`0 0 ${size} ${h}`}
+      style={{ display: "block" }}
+    >
+      <ellipse
+        cx={cx}
+        cy={cy}
+        rx={rx}
+        ry={ry}
+        fill="#ffb300"
+        opacity="0.22"
+        style={{ filter: "blur(3px)" }}
+      />
+      <ellipse cx={cx} cy={cy} rx={rx} ry={ry} fill={color1} opacity="0.92" />
+      <line
+        x1={cx - rx + 2}
+        y1={cy}
+        x2={cx + rx - 2}
+        y2={cy}
+        stroke="#e65100"
+        strokeWidth="0.7"
+        opacity="0.5"
+      />
+      <line
+        x1={cx}
+        y1={cy - ry + 3}
+        x2={cx}
+        y2={cy + ry - 3}
+        stroke="#e65100"
+        strokeWidth="0.7"
+        opacity="0.5"
+      />
+      <ellipse
+        cx={cx}
+        cy={cy + ry - 1}
+        rx={Math.round(rx * 0.45)}
+        ry={Math.round(ry * 0.14)}
+        fill="none"
+        stroke="#bf360c"
+        strokeWidth="1"
+      />
+      <ellipse
+        cx={cx}
+        cy={flameY + flameH * 0.5}
+        rx={Math.round(size * 0.14)}
+        ry={flameH * 0.6}
+        fill="#ffee58"
+        opacity="0.95"
+      />
+      <ellipse
+        cx={cx}
+        cy={flameY + flameH * 0.45}
+        rx={Math.round(size * 0.07)}
+        ry={flameH * 0.4}
+        fill={color2}
+        opacity="0.9"
+      />
+      <line
+        x1={cx - 4}
+        y1={cy - ry + 1}
+        x2={cx - 4}
+        y2={cy - ry - 4}
+        stroke="#8d6e63"
+        strokeWidth="0.9"
+        strokeLinecap="round"
+      />
+      <line
+        x1={cx + 4}
+        y1={cy - ry + 1}
+        x2={cx + 4}
+        y2={cy - ry - 4}
+        stroke="#8d6e63"
+        strokeWidth="0.9"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+};
+
+// bottom: vị trí xuất phát (px), rải đều ~60px, trộn ngẫu nhiên để không thành hàng
+// 24 đèn/bên, delay cách đều 60/24 = 2.5s → luôn có đèn ở mọi tầng cao
+// dur ngẫu nhiên 52–72s để đèn bay rất chậm, thư thái; left/right trải khắp 240px
+const LEFT_LANTERNS = [
+  {
+    left: 12,
+    bottom: -50,
+    delay: "0.00s",
+    dur: "60s",
+    size: 28,
+    rotate: -5,
+    warm: true,
+  },
+  {
+    left: 80,
+    bottom: -50,
+    delay: "2.50s",
+    dur: "56s",
+    size: 18,
+    rotate: 4,
+    warm: false,
+  },
+  {
+    left: 175,
+    bottom: -50,
+    delay: "5.00s",
+    dur: "64s",
+    size: 34,
+    rotate: -3,
+    warm: true,
+  },
+  {
+    left: 38,
+    bottom: -50,
+    delay: "7.50s",
+    dur: "52s",
+    size: 22,
+    rotate: 6,
+    warm: false,
+  },
+  {
+    left: 130,
+    bottom: -50,
+    delay: "10.00s",
+    dur: "68s",
+    size: 16,
+    rotate: -4,
+    warm: true,
+  },
+  {
+    left: 215,
+    bottom: -50,
+    delay: "12.50s",
+    dur: "60s",
+    size: 30,
+    rotate: 3,
+    warm: false,
+  },
+  {
+    left: 60,
+    bottom: -50,
+    delay: "15.00s",
+    dur: "56s",
+    size: 20,
+    rotate: -6,
+    warm: true,
+  },
+  {
+    left: 155,
+    bottom: -50,
+    delay: "17.50s",
+    dur: "72s",
+    size: 38,
+    rotate: 5,
+    warm: false,
+  },
+  {
+    left: 22,
+    bottom: -50,
+    delay: "20.00s",
+    dur: "60s",
+    size: 14,
+    rotate: -2,
+    warm: true,
+  },
+  {
+    left: 100,
+    bottom: -50,
+    delay: "22.50s",
+    dur: "52s",
+    size: 26,
+    rotate: 4,
+    warm: false,
+  },
+  {
+    left: 195,
+    bottom: -50,
+    delay: "25.00s",
+    dur: "64s",
+    size: 18,
+    rotate: -5,
+    warm: true,
+  },
+  {
+    left: 48,
+    bottom: -50,
+    delay: "27.50s",
+    dur: "60s",
+    size: 32,
+    rotate: 7,
+    warm: false,
+  },
+  {
+    left: 140,
+    bottom: -50,
+    delay: "30.00s",
+    dur: "56s",
+    size: 22,
+    rotate: -3,
+    warm: true,
+  },
+  {
+    left: 72,
+    bottom: -50,
+    delay: "32.50s",
+    dur: "68s",
+    size: 16,
+    rotate: 5,
+    warm: false,
+  },
+  {
+    left: 225,
+    bottom: -50,
+    delay: "35.00s",
+    dur: "60s",
+    size: 28,
+    rotate: -4,
+    warm: true,
+  },
+  {
+    left: 18,
+    bottom: -50,
+    delay: "37.50s",
+    dur: "52s",
+    size: 20,
+    rotate: 3,
+    warm: false,
+  },
+  {
+    left: 110,
+    bottom: -50,
+    delay: "40.00s",
+    dur: "64s",
+    size: 36,
+    rotate: -6,
+    warm: true,
+  },
+  {
+    left: 185,
+    bottom: -50,
+    delay: "42.50s",
+    dur: "60s",
+    size: 14,
+    rotate: 4,
+    warm: false,
+  },
+  {
+    left: 55,
+    bottom: -50,
+    delay: "45.00s",
+    dur: "72s",
+    size: 24,
+    rotate: -3,
+    warm: true,
+  },
+  {
+    left: 160,
+    bottom: -50,
+    delay: "47.50s",
+    dur: "56s",
+    size: 30,
+    rotate: 6,
+    warm: false,
+  },
+  {
+    left: 30,
+    bottom: -50,
+    delay: "50.00s",
+    dur: "60s",
+    size: 18,
+    rotate: -5,
+    warm: true,
+  },
+  {
+    left: 210,
+    bottom: -50,
+    delay: "52.50s",
+    dur: "68s",
+    size: 22,
+    rotate: 2,
+    warm: false,
+  },
+  {
+    left: 88,
+    bottom: -50,
+    delay: "55.00s",
+    dur: "52s",
+    size: 16,
+    rotate: -4,
+    warm: true,
+  },
+  {
+    left: 135,
+    bottom: -50,
+    delay: "57.50s",
+    dur: "60s",
+    size: 32,
+    rotate: 5,
+    warm: false,
+  },
+];
+const RIGHT_LANTERNS = [
+  {
+    right: 14,
+    bottom: -50,
+    delay: "1.25s",
+    dur: "64s",
+    size: 30,
+    rotate: 5,
+    warm: false,
+  },
+  {
+    right: 85,
+    bottom: -50,
+    delay: "3.75s",
+    dur: "60s",
+    size: 20,
+    rotate: -4,
+    warm: true,
+  },
+  {
+    right: 170,
+    bottom: -50,
+    delay: "6.25s",
+    dur: "52s",
+    size: 36,
+    rotate: 3,
+    warm: false,
+  },
+  {
+    right: 42,
+    bottom: -50,
+    delay: "8.75s",
+    dur: "68s",
+    size: 16,
+    rotate: -6,
+    warm: true,
+  },
+  {
+    right: 125,
+    bottom: -50,
+    delay: "11.25s",
+    dur: "60s",
+    size: 28,
+    rotate: 4,
+    warm: false,
+  },
+  {
+    right: 205,
+    bottom: -50,
+    delay: "13.75s",
+    dur: "56s",
+    size: 18,
+    rotate: -3,
+    warm: true,
+  },
+  {
+    right: 65,
+    bottom: -50,
+    delay: "16.25s",
+    dur: "72s",
+    size: 40,
+    rotate: 6,
+    warm: false,
+  },
+  {
+    right: 150,
+    bottom: -50,
+    delay: "18.75s",
+    dur: "60s",
+    size: 22,
+    rotate: -5,
+    warm: true,
+  },
+  {
+    right: 28,
+    bottom: -50,
+    delay: "21.25s",
+    dur: "64s",
+    size: 14,
+    rotate: 3,
+    warm: false,
+  },
+  {
+    right: 110,
+    bottom: -50,
+    delay: "23.75s",
+    dur: "52s",
+    size: 32,
+    rotate: -4,
+    warm: true,
+  },
+  {
+    right: 188,
+    bottom: -50,
+    delay: "26.25s",
+    dur: "60s",
+    size: 24,
+    rotate: 5,
+    warm: false,
+  },
+  {
+    right: 50,
+    bottom: -50,
+    delay: "28.75s",
+    dur: "68s",
+    size: 18,
+    rotate: -2,
+    warm: true,
+  },
+  {
+    right: 135,
+    bottom: -50,
+    delay: "31.25s",
+    dur: "56s",
+    size: 26,
+    rotate: 4,
+    warm: false,
+  },
+  {
+    right: 78,
+    bottom: -50,
+    delay: "33.75s",
+    dur: "60s",
+    size: 16,
+    rotate: -6,
+    warm: true,
+  },
+  {
+    right: 218,
+    bottom: -50,
+    delay: "36.25s",
+    dur: "52s",
+    size: 34,
+    rotate: 3,
+    warm: false,
+  },
+  {
+    right: 20,
+    bottom: -50,
+    delay: "38.75s",
+    dur: "64s",
+    size: 20,
+    rotate: -4,
+    warm: true,
+  },
+  {
+    right: 100,
+    bottom: -50,
+    delay: "41.25s",
+    dur: "60s",
+    size: 14,
+    rotate: 6,
+    warm: false,
+  },
+  {
+    right: 175,
+    bottom: -50,
+    delay: "43.75s",
+    dur: "72s",
+    size: 28,
+    rotate: -3,
+    warm: true,
+  },
+  {
+    right: 58,
+    bottom: -50,
+    delay: "46.25s",
+    dur: "56s",
+    size: 22,
+    rotate: 5,
+    warm: false,
+  },
+  {
+    right: 145,
+    bottom: -50,
+    delay: "48.75s",
+    dur: "60s",
+    size: 38,
+    rotate: -5,
+    warm: true,
+  },
+  {
+    right: 35,
+    bottom: -50,
+    delay: "51.25s",
+    dur: "68s",
+    size: 16,
+    rotate: 2,
+    warm: false,
+  },
+  {
+    right: 200,
+    bottom: -50,
+    delay: "53.75s",
+    dur: "52s",
+    size: 30,
+    rotate: -4,
+    warm: true,
+  },
+  {
+    right: 90,
+    bottom: -50,
+    delay: "56.25s",
+    dur: "60s",
+    size: 18,
+    rotate: 4,
+    warm: false,
+  },
+  {
+    right: 160,
+    bottom: -50,
+    delay: "58.75s",
+    dur: "64s",
+    size: 24,
+    rotate: -6,
+    warm: true,
+  },
+];
+
 import {
   CostSummaryCard,
   ProgressBar,
@@ -32,7 +665,7 @@ const initialStep1: Step1 = {
   gender: "",
   age: "",
   disabled: false,
-  facebook: "",
+  facebook: "https://facebook.com/",
   phone: "",
   emergency_phone: "",
   emergency_relation: "",
@@ -55,6 +688,7 @@ const RegisterPage: React.FC = () => {
   const [step4, setStep4] = React.useState<Step4>({
     receipt_file: null,
     receipt_url: "",
+    donation: "",
   });
   const [reservation, setReservation] = React.useState<{
     code: string;
@@ -77,6 +711,15 @@ const RegisterPage: React.FC = () => {
   const [loadingCabins, setLoadingCabins] = React.useState(false);
 
   const [errors, setErrors] = React.useState<Record<string, string>>({});
+
+  const clearError = React.useCallback((key: string) => {
+    setErrors((prev) => {
+      if (!prev[key]) return prev; // không thay đổi nếu không có lỗi
+      const next = { ...prev };
+      delete next[key];
+      return next;
+    });
+  }, []);
   const [submitting, setSubmitting] = React.useState(false);
   const [allCodes, setAllCodes] = React.useState<{
     rep: string;
@@ -148,9 +791,20 @@ const RegisterPage: React.FC = () => {
     else if (Number(step1.age) < 1 || Number(step1.age) > 120)
       e.age = "Tuổi không hợp lệ";
     if (!step1.facebook.trim()) e.facebook = "Vui lòng nhập link Facebook";
+    else if (
+      !/^https?:\/\/(www\.)?(facebook\.com|fb\.com)\/.+/i.test(
+        step1.facebook.trim(),
+      )
+    )
+      e.facebook =
+        "Vui lòng nhập đúng link Facebook (bắt đầu bằng https://facebook.com/...)";
     if (!step1.phone.trim()) e.phone = "Vui lòng nhập số điện thoại";
+    else if (!/^[\d\s\-\+\(\)]{7,20}$/.test(step1.phone.trim()))
+      e.phone = "Số điện thoại không hợp lệ";
     if (!step1.emergency_phone.trim())
       e.emergency_phone = "Vui lòng nhập số điện thoại khẩn cấp";
+    else if (!/^[\d\s\-\+\(\)]{7,20}$/.test(step1.emergency_phone.trim()))
+      e.emergency_phone = "Số điện thoại không hợp lệ";
     if (!step1.emergency_relation.trim())
       e.emergency_relation = "Vui lòng nhập quan hệ";
     setErrors(e);
@@ -247,7 +901,7 @@ const RegisterPage: React.FC = () => {
     // Nếu đang ở bước thanh toán (step 6), xóa file đã chọn để tránh
     // tình trạng form tự động submit khi quay lại rồi tiến tới lại.
     if (currentStep === 6) {
-      setStep4({ receipt_file: null, receipt_url: "" });
+      setStep4((prev) => ({ ...prev, receipt_file: null, receipt_url: "" }));
     }
     setCurrentStep((step) => step - 1);
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -309,6 +963,7 @@ const RegisterPage: React.FC = () => {
         fee_event: fees.event_fee,
         fee_bus: fees.bus_fee,
         fee_total: fees.total,
+        donation: Number(step4.donation) || 0,
         food_allergy: step1.food_allergy.trim() || null,
         want_products: step5.want_products,
         products: step5.want_products === "yes" ? step5.products : null,
@@ -345,172 +1000,345 @@ const RegisterPage: React.FC = () => {
     const allMembers = step2.register_type === "group" ? step2.members : [];
 
     return (
-      <section className="wpo-about-section-s2 section-padding">
-        <div className="container">
-          <div className="row justify-content-center">
-            <div className="col-lg-7 col-md-10 col-12 text-center">
-              <div style={{ fontSize: 64, marginBottom: 16 }}>🎉</div>
-              <h3 className="text-success fw-bold">Đăng ký thành công!</h3>
-              <p className="text-muted">
-                Xin chào <strong>{step1.name}</strong>, thông tin của bạn đã
-                được ghi nhận.
-              </p>
-
-              <div
-                className="p-3 my-4 rounded text-start"
-                style={{
-                  backgroundColor: "#f0f7f0",
-                  border: "2px dashed #4caf50",
-                }}
-              >
-                <p
-                  className="fw-bold mb-2 text-center"
-                  style={{ fontSize: 15 }}
-                >
-                  Mã đăng ký của từng người tham gia
+      <Fragment>
+        <style>{midAutumnStyles}</style>
+        {/* Success banner */}
+        <div
+          style={{
+            background:
+              "linear-gradient(90deg,#7b1fa2 0%,#b71c1c 25%,#e65100 55%,#f57f17 75%,#e65100 90%,#b71c1c 100%)",
+            padding: "10px",
+            textAlign: "center",
+          }}
+        >
+          <DenOngSao
+            size={22}
+            className="den-sway"
+            style={{ marginRight: 10 }}
+          />
+          <span
+            style={{
+              color: "#ffe082",
+              fontWeight: 700,
+              fontSize: 13,
+              letterSpacing: 3,
+            }}
+          >
+            ✦ ĐÊM HỘI TRUNG THU · TRAO 2026 ✦
+          </span>
+          <DenOngSao
+            size={22}
+            className="den-sway2"
+            style={{ marginLeft: 10 }}
+          />
+        </div>
+        <section className="wpo-about-section-s2 section-padding">
+          <div className="container">
+            <div className="row justify-content-center">
+              <div className="col-lg-7 col-md-10 col-12 text-center">
+                <div className="d-flex align-items-center justify-content-center gap-2 mb-2">
+                  <DenOngSao size={26} className="den-sway" />
+                  <span
+                    className="ma-star"
+                    style={{ color: "#f57f17", fontSize: 14 }}
+                  >
+                    ✦
+                  </span>
+                  <span className="banh-glow" style={{ fontSize: 32 }}>
+                    🥮
+                  </span>
+                  <span className="ma-moon" style={{ fontSize: 26 }}>
+                    🌕
+                  </span>
+                  <span className="banh-glow" style={{ fontSize: 32 }}>
+                    🥮
+                  </span>
+                  <span
+                    className="ma-star2"
+                    style={{ color: "#f57f17", fontSize: 14 }}
+                  >
+                    ✦
+                  </span>
+                  <DenOngSao size={26} className="den-sway2" />
+                </div>
+                <div style={{ fontSize: 56, marginBottom: 8 }}>🎉</div>
+                <h3 className="text-success fw-bold">Đăng ký thành công!</h3>
+                <p className="text-muted">
+                  Xin chào <strong>{step1.name}</strong>, thông tin của bạn đã
+                  được ghi nhận.
                 </p>
-                <table className="table table-sm mb-0">
-                  <thead>
-                    <tr style={{ backgroundColor: "#c8e6c9" }}>
-                      <th>Họ tên</th>
-                      <th>Vai trò</th>
-                      <th className="text-success fw-bold">Mã đăng ký</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>{step1.name}</td>
-                      <td>
-                        <span
-                          className="badge"
-                          style={{ backgroundColor: "#2e7d32" }}
-                        >
-                          {step2.register_type === "individual"
-                            ? "Cá nhân"
-                            : "Đại diện"}
-                        </span>
-                      </td>
-                      <td
-                        className="fw-bold text-success"
-                        style={{ letterSpacing: 2 }}
-                      >
-                        {allCodes.rep}
-                      </td>
-                    </tr>
-                    {allMembers.map((member, i) => (
-                      <tr key={i}>
-                        <td>{member.name}</td>
+
+                <div
+                  className="p-3 my-4 rounded text-start"
+                  style={{
+                    backgroundColor: "#f0f7f0",
+                    border: "2px dashed #4caf50",
+                  }}
+                >
+                  <p
+                    className="fw-bold mb-2 text-center"
+                    style={{ fontSize: 15 }}
+                  >
+                    Mã đăng ký của từng người tham gia
+                  </p>
+                  <table className="table table-sm mb-0">
+                    <thead>
+                      <tr style={{ backgroundColor: "#c8e6c9" }}>
+                        <th>Họ tên</th>
+                        <th>Vai trò</th>
+                        <th className="text-success fw-bold">Mã đăng ký</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>{step1.name}</td>
                         <td>
-                          <span className="badge bg-secondary">Thành viên</span>
+                          <span
+                            className="badge"
+                            style={{ backgroundColor: "#2e7d32" }}
+                          >
+                            {step2.register_type === "individual"
+                              ? "Cá nhân"
+                              : "Đại diện"}
+                          </span>
                         </td>
                         <td
                           className="fw-bold text-success"
                           style={{ letterSpacing: 2 }}
                         >
-                          {allCodes.members[i]}
+                          {allCodes.rep}
                         </td>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+                      {allMembers.map((member, i) => (
+                        <tr key={i}>
+                          <td>{member.name}</td>
+                          <td>
+                            <span className="badge bg-secondary">
+                              Thành viên
+                            </span>
+                          </td>
+                          <td
+                            className="fw-bold text-success"
+                            style={{ letterSpacing: 2 }}
+                          >
+                            {allCodes.members[i]}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
 
-              <div
-                className="p-3 rounded text-start mb-4"
-                style={{ backgroundColor: "#f8f9fa", fontSize: 14 }}
-              >
-                <p className="mb-2 fw-semibold">Tóm tắt đăng ký:</p>
-                <table className="table table-sm mb-2">
-                  <thead>
-                    <tr style={{ backgroundColor: "#e8f5e9" }}>
-                      <th>Họ tên</th>
-                      <th>Tuổi</th>
-                      <th>Vai trò</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>{step1.name}</td>
-                      <td>{step1.age}</td>
-                      <td>
-                        <span
-                          className="badge"
-                          style={{ backgroundColor: "#2e7d32" }}
-                        >
-                          {step2.register_type === "individual"
-                            ? "Cá nhân"
-                            : "Đại diện"}
-                        </span>
-                      </td>
-                    </tr>
-                    {allMembers.map((m, i) => (
-                      <tr key={i}>
-                        <td>{m.name}</td>
-                        <td>{m.age}</td>
-                        <td>
-                          <span className="badge bg-secondary">Thành viên</span>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-                <ul className="mb-0">
-                  <li>
-                    Tổng số người: <strong>{fees.total_people}</strong> (
-                    {[
-                      fees.adults > 0 ? `${fees.adults} người lớn` : "",
-                      fees.children > 0 ? `${fees.children} trẻ em` : "",
-                      fees.free > 0 ? `${fees.free} miễn phí` : "",
-                    ]
-                      .filter(Boolean)
-                      .join(", ")}
-                    )
-                  </li>
-                  <li>
-                    Phương tiện:{" "}
-                    {step3.transport === "bus"
-                      ? `Xe bus BTC (${step3.bus_departure})`
-                      : "Tự túc"}
-                  </li>
-                  <li>
-                    Tổng phí dự kiến:{" "}
-                    <strong className="text-success">
-                      {fmtYen(fees.total)}
-                    </strong>
-                  </li>
-                </ul>
-              </div>
-
-              <p style={{ fontSize: 14 }} className="text-muted">
-                Vui lòng <strong>lưu lại các mã đăng ký</strong> trên. Ban tổ
-                chức sẽ liên hệ qua Facebook hoặc số điện thoại để xác nhận và
-                hướng dẫn các bước tiếp theo.
-              </p>
-              <p className="text-muted" style={{ fontSize: 12 }}>
-                Liên hệ:{" "}
-                <a
-                  href="https://www.facebook.com/banchanxanhjp"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <div
+                  className="p-3 rounded text-start mb-4"
+                  style={{ backgroundColor: "#f8f9fa", fontSize: 14 }}
                 >
-                  Fanpage Bàn Chân Xanh
-                </a>
-              </p>
-              <div className="mt-4">
-                <a href="/trao-2026" className="btn btn-success px-4">
-                  ← Xem thông tin chi tiết TRAO-2026
-                </a>
+                  <p className="mb-2 fw-semibold">Tóm tắt đăng ký:</p>
+                  <table className="table table-sm mb-2">
+                    <thead>
+                      <tr style={{ backgroundColor: "#e8f5e9" }}>
+                        <th>Họ tên</th>
+                        <th>Tuổi</th>
+                        <th>Vai trò</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>{step1.name}</td>
+                        <td>{step1.age}</td>
+                        <td>
+                          <span
+                            className="badge"
+                            style={{ backgroundColor: "#2e7d32" }}
+                          >
+                            {step2.register_type === "individual"
+                              ? "Cá nhân"
+                              : "Đại diện"}
+                          </span>
+                        </td>
+                      </tr>
+                      {allMembers.map((m, i) => (
+                        <tr key={i}>
+                          <td>{m.name}</td>
+                          <td>{m.age}</td>
+                          <td>
+                            <span className="badge bg-secondary">
+                              Thành viên
+                            </span>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                  <ul className="mb-0">
+                    <li>
+                      Tổng số người: <strong>{fees.total_people}</strong> (
+                      {[
+                        fees.adults > 0 ? `${fees.adults} người lớn` : "",
+                        fees.children > 0 ? `${fees.children} trẻ em` : "",
+                        fees.free > 0 ? `${fees.free} miễn phí` : "",
+                      ]
+                        .filter(Boolean)
+                        .join(", ")}
+                      )
+                    </li>
+                    <li>
+                      Phương tiện:{" "}
+                      {step3.transport === "bus"
+                        ? `Xe bus BTC (${step3.bus_departure})`
+                        : "Tự túc"}
+                    </li>
+                    <li>
+                      Tổng phí dự kiến:{" "}
+                      <strong className="text-success">
+                        {fmtYen(fees.total)}
+                      </strong>
+                    </li>
+                  </ul>
+                </div>
+
+                <p style={{ fontSize: 14 }} className="text-muted">
+                  Vui lòng <strong>lưu lại các mã đăng ký</strong> trên. Ban tổ
+                  chức sẽ liên hệ qua Facebook hoặc số điện thoại để xác nhận và
+                  hướng dẫn các bước tiếp theo.
+                </p>
+                <p className="text-muted" style={{ fontSize: 12 }}>
+                  Liên hệ:{" "}
+                  <a
+                    href="https://www.facebook.com/banchanxanhjp"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Fanpage Bàn Chân Xanh
+                  </a>
+                </p>
+                <div className="mt-4">
+                  <a href="/trao-2026" className="btn btn-success px-4">
+                    ← Xem thông tin chi tiết TRAO-2026
+                  </a>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </Fragment>
     );
   }
 
   return (
     <Fragment>
-      <section className="wpo-about-section-s2 section-padding">
+      <style>{midAutumnStyles}</style>
+
+      {/* ── Banner Trung Thu ─────────────────────────────────────── */}
+      <div
+        style={{
+          background:
+            "linear-gradient(90deg,#7b1fa2 0%,#b71c1c 25%,#e65100 55%,#f57f17 75%,#e65100 90%,#b71c1c 100%)",
+          padding: "9px 16px",
+          textAlign: "center",
+          position: "relative",
+          overflow: "hidden",
+        }}
+      >
+        {[
+          ["12%", 4],
+          ["30%", 6],
+          ["52%", 3],
+          ["70%", 6],
+          ["88%", 4],
+        ].map(([left, top], i) => (
+          <span
+            key={i}
+            className={i % 2 === 0 ? "ma-star" : "ma-star2"}
+            style={{
+              position: "absolute",
+              top: Number(top),
+              left: String(left),
+              fontSize: 8,
+              color: "#ffe082",
+              lineHeight: 1,
+            }}
+          >
+            ✦
+          </span>
+        ))}
+        <DenOngSao size={20} className="den-sway" style={{ marginRight: 10 }} />
+        <span
+          style={{
+            color: "#ffe082",
+            fontSize: 12,
+            fontWeight: 700,
+            letterSpacing: 3,
+            textTransform: "uppercase",
+          }}
+        >
+          ✦ ĐÊM HỘI TRUNG THU · TRAO 2026 ✦
+        </span>
+        <DenOngSao size={20} className="den-sway2" style={{ marginLeft: 10 }} />
+      </div>
+
+      <section
+        className="wpo-about-section-s2 section-padding"
+        style={{ position: "relative", overflow: "hidden" }}
+      >
+        {/* ── Đèn trời bên trái — ẩn trên màn hình nhỏ ── */}
+        <div
+          className="d-none d-lg-block"
+          style={{
+            position: "absolute",
+            left: 0,
+            top: 0,
+            bottom: 0,
+            width: 240,
+            pointerEvents: "none",
+          }}
+        >
+          {LEFT_LANTERNS.map((l, i) => (
+            <div
+              key={i}
+              className="form-sky-lantern"
+              style={{
+                left: l.left,
+                bottom: l.bottom,
+                ["--dur" as string]: l.dur,
+                ["--delay" as string]: l.delay,
+                ["--r" as string]: `${l.rotate}deg`,
+              }}
+            >
+              <DenTroi size={l.size} warm={l.warm} />
+            </div>
+          ))}
+        </div>
+
+        {/* ── Đèn trời bên phải — ẩn trên màn hình nhỏ ── */}
+        <div
+          className="d-none d-lg-block"
+          style={{
+            position: "absolute",
+            right: 0,
+            top: 0,
+            bottom: 0,
+            width: 240,
+            pointerEvents: "none",
+          }}
+        >
+          {RIGHT_LANTERNS.map((l, i) => (
+            <div
+              key={i}
+              className="form-sky-lantern"
+              style={{
+                right: l.right,
+                bottom: l.bottom,
+                ["--dur" as string]: l.dur,
+                ["--delay" as string]: l.delay,
+                ["--r" as string]: `${l.rotate}deg`,
+              }}
+            >
+              <DenTroi size={l.size} warm={l.warm} />
+            </div>
+          ))}
+        </div>
+
         <div className="container">
           <div className="row justify-content-center">
             <div className="col-lg-7 col-md-10 col-12">
@@ -526,7 +1354,45 @@ const RegisterPage: React.FC = () => {
                 >
                   Bàn Chân Xanh
                 </span>
-                <h2 className="mt-1">ĐĂNG KÝ TRAO 2026</h2>
+                <div className="mt-1 mb-1 d-flex align-items-center justify-content-center gap-2">
+                  <DenOngSao size={28} className="den-sway" />
+                  <span
+                    className="ma-moon"
+                    style={{ fontSize: 30, lineHeight: 1 }}
+                  >
+                    🌕
+                  </span>
+                  <span
+                    className="banh-glow"
+                    style={{ fontSize: 32, lineHeight: 1 }}
+                  >
+                    🥮
+                  </span>
+                  <span
+                    className="ma-moon"
+                    style={{ fontSize: 30, lineHeight: 1 }}
+                  >
+                    🌕
+                  </span>
+                  <DenOngSao size={28} className="den-sway2" />
+                </div>
+                <h2 className="mb-1">ĐĂNG KÝ TRAO 2026</h2>
+                <div
+                  style={{
+                    fontSize: 12,
+                    color: "#e65100",
+                    fontWeight: 600,
+                    letterSpacing: 2,
+                  }}
+                >
+                  <span className="ma-star" style={{ marginRight: 6 }}>
+                    ✦
+                  </span>
+                  Đêm Hội Trung Thu
+                  <span className="ma-star2" style={{ marginLeft: 6 }}>
+                    ✦
+                  </span>
+                </div>
               </div>
 
               <ProgressBar current={currentStep} />
@@ -542,6 +1408,7 @@ const RegisterPage: React.FC = () => {
                       onChange={(patch) =>
                         setStep1((prev) => ({ ...prev, ...patch }))
                       }
+                      onClearError={clearError}
                       errors={errors}
                     />
                   )}
@@ -551,6 +1418,7 @@ const RegisterPage: React.FC = () => {
                       onChange={(patch) =>
                         setStep2((prev) => ({ ...prev, ...patch }))
                       }
+                      onClearError={clearError}
                       errors={errors}
                     />
                   )}
@@ -560,6 +1428,7 @@ const RegisterPage: React.FC = () => {
                       onChange={(patch) =>
                         setStep3((prev) => ({ ...prev, ...patch }))
                       }
+                      onClearError={clearError}
                       errors={errors}
                     />
                   )}
@@ -569,6 +1438,7 @@ const RegisterPage: React.FC = () => {
                       onChange={(patch) =>
                         setStep5((prev) => ({ ...prev, ...patch }))
                       }
+                      onClearError={clearError}
                       errors={errors}
                     />
                   )}

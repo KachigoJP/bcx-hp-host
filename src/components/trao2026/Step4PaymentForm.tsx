@@ -106,11 +106,55 @@ const Step4PaymentForm: React.FC<Props> = ({
         được cấp lại.
       </p>
 
+      {/* ── Quyên góp thiện nguyện ──────────────────────────────────── */}
+      <div
+        className="rounded p-3 mb-3"
+        style={{ backgroundColor: "#fff8e1", border: "1px solid #ffe082" }}
+      >
+        <div
+          className="fw-semibold mb-1"
+          style={{ fontSize: 14, color: "#e65100" }}
+        >
+          ❤️ TRAO — Hoạt động gây quỹ thiện nguyện
+        </div>
+        <p
+          className="mb-3"
+          style={{ fontSize: 13, color: "#555", lineHeight: 1.7 }}
+        >
+          Nếu bạn muốn đóng góp thêm ngoài lệ phí tham gia, hãy nhập số tiền bên
+          dưới. Mọi khoản đóng góp đều được sử dụng minh bạch và thông báo sau
+          sự kiện.
+        </p>
+        <label className="form-label fw-semibold" style={{ fontSize: 13 }}>
+          Số tiền quyên góp (¥) — tùy tâm, không bắt buộc
+        </label>
+        <div className="input-group" style={{ maxWidth: 220 }}>
+          <input
+            type="number"
+            className="form-control"
+            placeholder="0"
+            min={0}
+            step={100}
+            value={data.donation}
+            onChange={(e) => onChange({ donation: e.target.value })}
+          />
+          <span className="input-group-text">¥</span>
+        </div>
+        {Number(data.donation) > 0 && (
+          <div className="mt-2" style={{ fontSize: 13, color: "#2e7d32" }}>
+            🙏 Cảm ơn bạn đã đóng góp{" "}
+            <strong>{Number(data.donation).toLocaleString("ja-JP")} ¥</strong>{" "}
+            cho quỹ thiện nguyện!
+          </div>
+        )}
+      </div>
+
       <CostSummaryCard
         step1={step1}
         step2={step2}
         step3={step3}
         step5={step5}
+        donation={Number(data.donation) || 0}
       />
       <p className="text-muted mt-1 mb-4" style={{ fontSize: 12 }}>
         * Phí trên chỉ mang tính dự kiến, ban tổ chức sẽ xác nhận sau khi nhận

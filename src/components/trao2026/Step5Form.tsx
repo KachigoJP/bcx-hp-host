@@ -62,10 +62,16 @@ const QtyControl: React.FC<{
 type Props = {
   data: Step5;
   onChange: (patch: Partial<Step5>) => void;
+  onClearError: (key: string) => void;
   errors: Partial<Record<string, string>>;
 };
 
-const Step5Form: React.FC<Props> = ({ data, onChange, errors }) => {
+const Step5Form: React.FC<Props> = ({
+  data,
+  onChange,
+  onClearError,
+  errors,
+}) => {
   const toggleTeam = (team: string) => {
     const current = data.volunteer_teams ?? [];
     const next = current.includes(team)
@@ -100,7 +106,10 @@ const Step5Form: React.FC<Props> = ({ data, onChange, errors }) => {
                 type="radio"
                 id="products-yes"
                 checked={data.want_products === "yes"}
-                onChange={() => onChange({ want_products: "yes" })}
+                onChange={() => {
+                  onChange({ want_products: "yes" });
+                  if (errors.want_products) onClearError("want_products");
+                }}
               />
               <label className="form-check-label" htmlFor="products-yes">
                 Có
@@ -112,7 +121,10 @@ const Step5Form: React.FC<Props> = ({ data, onChange, errors }) => {
                 type="radio"
                 id="products-no"
                 checked={data.want_products === "no"}
-                onChange={() => onChange({ want_products: "no" })}
+                onChange={() => {
+                  onChange({ want_products: "no" });
+                  if (errors.want_products) onClearError("want_products");
+                }}
               />
               <label className="form-check-label" htmlFor="products-no">
                 Không
@@ -166,7 +178,10 @@ const Step5Form: React.FC<Props> = ({ data, onChange, errors }) => {
               type="radio"
               id="volunteer-yes"
               checked={data.volunteer === "yes"}
-              onChange={() => onChange({ volunteer: "yes" })}
+              onChange={() => {
+                onChange({ volunteer: "yes" });
+                if (errors.volunteer) onClearError("volunteer");
+              }}
             />
             <label className="form-check-label" htmlFor="volunteer-yes">
               Có, tôi muốn đóng góp
@@ -178,9 +193,10 @@ const Step5Form: React.FC<Props> = ({ data, onChange, errors }) => {
               type="radio"
               id="volunteer-no"
               checked={data.volunteer === "no"}
-              onChange={() =>
-                onChange({ volunteer: "no", volunteer_teams: [] })
-              }
+              onChange={() => {
+                onChange({ volunteer: "no", volunteer_teams: [] });
+                if (errors.volunteer) onClearError("volunteer");
+              }}
             />
             <label className="form-check-label" htmlFor="volunteer-no">
               Không, mình chưa sẵn sàng

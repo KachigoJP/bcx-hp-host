@@ -38,6 +38,7 @@ export type Step3 = {
 export type Step4 = {
   receipt_file: File | null;
   receipt_url: string;
+  donation: string;
 };
 
 export type ProductOrder = {

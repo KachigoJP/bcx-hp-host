@@ -54,7 +54,7 @@ function buildHtml(data: {
         <td style="padding:8px;border:1px solid #e0e0e0;text-align:center">${p.role}</td>
         <td style="padding:8px;border:1px solid #e0e0e0;text-align:center">${p.shirt_size || "—"}</td>
         <td style="padding:8px;border:1px solid #e0e0e0;text-align:center">${p.shirt_color === "white" ? "Trắng" : p.shirt_color === "green" ? "Xanh lá" : p.shirt_color || "—"}</td>
-        <td style="padding:8px;border:1px solid #e0e0e0;text-align:center">${p.cabin ? `Cabin ${p.cabin}` : "—"}</td>
+        <td style="padding:8px;border:1px solid #e0e0e0;text-align:center">${p.cabin || "—"}</td>
       </tr>`,
     )
     .join("");
@@ -207,11 +207,9 @@ export default async function handler(
   } catch (err) {
     console.error("Send mail error:", err);
     // Không throw để không làm hỏng flow đăng ký
-    res
-      .status(200)
-      .json({
-        ok: false,
-        warning: "Gửi email thất bại, đăng ký vẫn thành công.",
-      });
+    res.status(200).json({
+      ok: false,
+      warning: "Gửi email thất bại, đăng ký vẫn thành công.",
+    });
   }
 }

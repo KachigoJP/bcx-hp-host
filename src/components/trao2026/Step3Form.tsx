@@ -7,10 +7,16 @@ import type { Step3 } from "./types";
 type Props = {
   data: Step3;
   onChange: (patch: Partial<Step3>) => void;
+  onClearError: (key: string) => void;
   errors: Partial<Record<keyof Step3, string>>;
 };
 
-const Step3Form: React.FC<Props> = ({ data, onChange, errors }) => (
+const Step3Form: React.FC<Props> = ({
+  data,
+  onChange,
+  onClearError,
+  errors,
+}) => (
   <>
     <h5 className="mb-4 text-success fw-bold">Phương tiện di chuyển</h5>
 
@@ -25,7 +31,10 @@ const Step3Form: React.FC<Props> = ({ data, onChange, errors }) => (
             type="radio"
             id="transport-own"
             checked={data.transport === "own"}
-            onChange={() => onChange({ transport: "own", bus_departure: "" })}
+            onChange={() => {
+              onChange({ transport: "own", bus_departure: "" });
+              if (errors.transport) onClearError("transport");
+            }}
           />
           <label className="form-check-label" htmlFor="transport-own">
             <strong>Ô tô riêng / Phương tiện cá nhân</strong>
@@ -37,7 +46,10 @@ const Step3Form: React.FC<Props> = ({ data, onChange, errors }) => (
             type="radio"
             id="transport-bus"
             checked={data.transport === "bus"}
-            onChange={() => onChange({ transport: "bus" })}
+            onChange={() => {
+              onChange({ transport: "bus" });
+              if (errors.transport) onClearError("transport");
+            }}
           />
           <label className="form-check-label" htmlFor="transport-bus">
             <strong>Xe bus Ban tổ chức</strong>
@@ -67,7 +79,10 @@ const Step3Form: React.FC<Props> = ({ data, onChange, errors }) => (
                 type="radio"
                 id={`bus-${city}`}
                 checked={data.bus_departure === city}
-                onChange={() => onChange({ bus_departure: city })}
+                onChange={() => {
+                  onChange({ bus_departure: city });
+                  if (errors.bus_departure) onClearError("bus_departure");
+                }}
               />
               <label className="form-check-label" htmlFor={`bus-${city}`}>
                 {city}{" "}
