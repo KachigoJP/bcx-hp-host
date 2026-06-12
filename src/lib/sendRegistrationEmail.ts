@@ -9,6 +9,7 @@ export type EmailData = {
   email: string;
   code: string;
   password: string;
+  payment_timing: "now" | "later";
   transport: string;
   bus_departure: string;
   reg_type: string;
@@ -142,14 +143,48 @@ function buildHtml(d: EmailData): string {
       <p style="margin:10px 0 0;font-size:12px;color:#e65100">⚠️ Nhập đúng nội dung — KHÔNG dùng họ tên.</p>
     </div>
 
-    <!-- Chỉnh sửa -->
+    ${
+      d.payment_timing === "later"
+        ? `
+    <!-- Chưa chuyển khoản — nhắc upload trong 24h -->
+    <div style="background:#fff3e0;border:2px solid #ff8f00;border-radius:8px;padding:18px;margin-bottom:20px">
+      <h4 style="margin:0 0 10px;color:#e65100">⏳ Bạn chưa chuyển khoản — vui lòng hoàn tất trong 24 giờ</h4>
+      <p style="margin:0 0 10px;font-size:14px;color:#555;line-height:1.7">
+        Đăng ký của bạn đang ở trạng thái <strong style="color:#e53935">Chưa chuyển khoản</strong>.
+        Vui lòng chuyển khoản theo thông tin trên và upload ảnh xác nhận trong vòng
+        <strong>24 giờ</strong> — sau đó đăng ký sẽ tự động hết hạn.
+      </p>
+      <p style="margin:0 0 14px;font-size:14px;color:#555;line-height:1.7">
+        Để upload ảnh chuyển khoản, chỉnh sửa size áo và chỗ ngủ, truy cập trang tra cứu
+        bằng mã và mật khẩu bên dưới:
+      </p>
+      <div style="background:#fff;border:1px solid #ffe082;border-radius:6px;padding:12px;margin-bottom:14px;text-align:center">
+        <p style="margin:0 0 4px;font-size:12px;color:#888;text-transform:uppercase;letter-spacing:1px">Mã đăng ký</p>
+        <p style="margin:0 0 8px;font-size:26px;font-weight:900;color:#1b5e20;letter-spacing:3px">${d.code}</p>
+        <p style="margin:0;font-size:13px;color:#555">Mật khẩu: <strong style="letter-spacing:2px">${d.password}</strong></p>
+      </div>
+      <div style="text-align:center">
+        <a href="https://banchanxanh.com/trao-2026-tra-cuu"
+           style="display:inline-block;background:#e65100;color:#fff;padding:12px 28px;border-radius:6px;text-decoration:none;font-weight:700;font-size:15px">
+          📤 Upload ảnh & chỉnh sửa thông tin →
+        </a>
+      </div>
+    </div>
+    `
+        : `
+    <!-- Đã chuyển khoản — chỉ hướng dẫn chỉnh sửa áo & cabin -->
     <div style="background:#e8f5e9;border-radius:8px;padding:16px;margin-bottom:20px;text-align:center">
-      <p style="margin:0 0 8px;font-size:14px">Muốn chỉnh sửa size áo hoặc chỗ ngủ? Dùng mã và mật khẩu tại:</p>
-      <a href="https://banchanxanh.jp/trao-2026-tra-cuu"
+      <p style="margin:0 0 6px;font-size:15px;font-weight:600;color:#1b5e20">✅ Chuyển khoản đã được ghi nhận!</p>
+      <p style="margin:0 0 12px;font-size:14px;color:#555">
+        Muốn chỉnh sửa size áo hoặc chỗ ngủ? Dùng mã và mật khẩu để truy cập trang tra cứu:
+      </p>
+      <a href="https://banchanxanh.com/trao-2026-tra-cuu"
          style="display:inline-block;background:#2e7d32;color:#fff;padding:10px 24px;border-radius:6px;text-decoration:none;font-weight:600">
-        Chỉnh sửa thông tin →
+        ✏️ Chỉnh sửa áo & chỗ ngủ →
       </a>
     </div>
+    `
+    }
 
     <p style="color:#777;font-size:13px;line-height:1.6">
       Thắc mắc liên hệ ban tổ chức:<br>

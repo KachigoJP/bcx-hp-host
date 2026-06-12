@@ -590,6 +590,8 @@ const Trao2026Page: React.FC = () => {
                 </a>
                 <a
                   href="/trao-2026-tra-cuu"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   style={{ fontSize: 14, color: "#2e7d32", fontWeight: 600 }}
                 >
                   Tra cứu thông tin đăng ký ↗

@@ -32,4 +32,3 @@ export * from "./team";
 export * from "./term";
 export * from "./workshop";
 export * from "./page";
-

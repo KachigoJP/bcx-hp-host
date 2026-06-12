@@ -36,6 +36,7 @@ export type Step3 = {
 };
 
 export type Step4 = {
+  payment_timing: "now" | "later" | "";
   receipt_file: File | null;
   receipt_url: string;
   donation: string;
@@ -75,6 +76,7 @@ export type CabinInfo = {
   capacity: number; // sức chứa (cột E)
   registered: number; // số đã đăng ký (tính từ main sheet)
   available: boolean;
+  note: string; // ghi chú (cột G)
 };
 
 export type Step1Errors = Partial<Record<keyof Step1, string>>;

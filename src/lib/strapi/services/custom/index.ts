@@ -4,5 +4,6 @@
  */
 
 export { default as campingService } from "./campingService";
+export { default as outdoorService } from "./outdoorService";
 export { default as seoService } from "./seoService";
 export { default as pageService } from "./pageService";

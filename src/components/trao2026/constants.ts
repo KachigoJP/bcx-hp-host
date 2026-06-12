@@ -30,7 +30,7 @@ export const VOLUNTEER_TEAMS = [
 export const SHIRT_SIZES = ["XS", "S", "M", "L"];
 
 export const SHIRT_COLORS = [
-  { value: "white", label: "Trắng", hex: "#f5f5f5", border: "#bdbdbd" },
+  { value: "white", label: "Trắng", hex: "#ffffff", border: "#bdbdbd" },
   {
     value: "green",
     label: "Xanh lá",

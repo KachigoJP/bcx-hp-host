@@ -38,7 +38,7 @@ export {
 } from "./factory";
 
 // Export custom services with specialized methods
-export { campingService, seoService } from "./custom";
+export { campingService, outdoorService, seoService } from "./custom";
 
 // Export authentication services
 export { authService, userService } from "./auth";

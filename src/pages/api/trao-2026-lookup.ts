@@ -43,6 +43,30 @@ const COLOR_VALUE: Record<string, string> = {
   "Xanh lá": "green",
 };
 
+// Parse timestamp lưu bởi register API: "DD/MM/YYYY hh:mm:ss" (JST = UTC+9)
+function parseRegistrationDate(str: string): Date | null {
+  if (!str) return null;
+  const m = str
+    .trim()
+    .match(/^(\d{2})\/(\d{2})\/(\d{4})\s+(\d{2}):(\d{2}):(\d{2})$/);
+  if (!m) {
+    console.error(
+      "[lookup] parseRegistrationDate: không nhận ra format:",
+      JSON.stringify(str),
+    );
+    return null;
+  }
+  const [, day, month, year, hours, minutes, seconds] = m.map(Number);
+  // Timestamp lưu theo JST (UTC+9) → chuyển sang UTC
+  return new Date(Date.UTC(year, month - 1, day, hours - 9, minutes, seconds));
+}
+
+function isExpiredPendingPayment(createdAtStr: string): boolean {
+  const created = parseRegistrationDate(createdAtStr);
+  if (!created) return false;
+  return Date.now() - created.getTime() > 24 * 60 * 60 * 1000;
+}
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
@@ -76,6 +100,20 @@ export default async function handler(
       return res.status(401).json({ ok: false, error: "Mật khẩu không đúng." });
     }
 
+    // Kiểm tra đăng ký "Chưa chuyển khoản" đã quá 24h chưa
+    const status = rep[C.STATUS] ?? "";
+    if (status === "Chưa chuyển khoản") {
+      const createdAtStr: string = rows[repIdx][1] ?? "";
+      const expired = isExpiredPendingPayment(createdAtStr);
+      if (expired) {
+        return res.status(410).json({
+          ok: false,
+          error: "Đăng ký đã hết hạn do chưa chuyển khoản sau 24 giờ.",
+          expired: true,
+        });
+      }
+    }
+
     // Tìm thành viên
     const memberRows = rows
       .map((r, i) => ({ r, i }))
@@ -93,7 +131,6 @@ export default async function handler(
 
     return res.status(200).json({
       ok: true,
-      // Thông tin tra cứu đầy đủ
       profile: {
         code,
         name: rep[C.NAME] ?? "",
@@ -123,7 +160,6 @@ export default async function handler(
         created_at: rows[repIdx][1] ?? "",
         receipt: rep[C.RECEIPT] ?? "",
       },
-      // Dữ liệu cho edit form
       representative: {
         rowIndex: repIdx + 2,
         name: rep[C.NAME] ?? "",

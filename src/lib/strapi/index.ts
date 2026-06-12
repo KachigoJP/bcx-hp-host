@@ -26,6 +26,7 @@ export {
   achievementService,
   activityService,
   campingService,
+  outdoorService,
   contactService,
   donateService,
   errorService,

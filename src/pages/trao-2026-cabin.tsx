@@ -29,7 +29,6 @@ const CabinPage: React.FC = () => {
   }
 
   const totalCapacity = cabins.reduce((s, c) => s + c.capacity, 0);
-  const totalRegistered = cabins.reduce((s, c) => s + c.registered, 0);
 
   return (
     <Fragment>
@@ -70,8 +69,8 @@ const CabinPage: React.FC = () => {
 
               {/* Tổng quan */}
               {!loading && !error && (
-                <div className="row g-3 mb-4">
-                  <div className="col-4">
+                <div className="row g-3 mb-4 justify-content-center">
+                  <div className="col-6 col-md-4">
                     <div
                       className="p-3 rounded text-center"
                       style={{
@@ -93,7 +92,7 @@ const CabinPage: React.FC = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="col-4">
+                  <div className="col-6 col-md-4">
                     <div
                       className="p-3 rounded text-center"
                       style={{
@@ -115,34 +114,6 @@ const CabinPage: React.FC = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="col-4">
-                    <div
-                      className="p-3 rounded text-center"
-                      style={{
-                        backgroundColor:
-                          totalRegistered >= totalCapacity
-                            ? "#ffebee"
-                            : "#e8f5e9",
-                        border: `1px solid ${totalRegistered >= totalCapacity ? "#ef9a9a" : "#a5d6a7"}`,
-                      }}
-                    >
-                      <div
-                        style={{
-                          fontSize: 28,
-                          fontWeight: 700,
-                          color:
-                            totalRegistered >= totalCapacity
-                              ? "#c62828"
-                              : "#2e7d32",
-                        }}
-                      >
-                        {totalRegistered}
-                      </div>
-                      <div style={{ fontSize: 13, color: "#555" }}>
-                        Đã đăng ký
-                      </div>
-                    </div>
-                  </div>
                 </div>
               )}
 
@@ -159,60 +130,33 @@ const CabinPage: React.FC = () => {
               {!loading &&
                 !error &&
                 groups.map((group) => {
-                  const groupCapacity = group.cabins.reduce(
-                    (s, c) => s + c.capacity,
-                    0,
-                  );
-                  const groupRegistered = group.cabins.reduce(
-                    (s, c) => s + c.registered,
-                    0,
-                  );
-                  const groupFull = groupRegistered >= groupCapacity;
-
                   return (
                     <div key={group.name} className="mb-4">
-                      <div className="d-flex align-items-center justify-content-between mb-2">
-                        <h5
-                          className="fw-bold mb-0"
-                          style={{ color: "#1b5e20" }}
-                        >
-                          🏠 {group.name}
-                        </h5>
-                        <span
-                          className="badge"
-                          style={{
-                            backgroundColor: groupFull ? "#c62828" : "#2e7d32",
-                            fontSize: 12,
-                            padding: "5px 10px",
-                          }}
-                        >
-                          {groupRegistered}/{groupCapacity} người
-                        </span>
-                      </div>
+                      <h5 className="fw-bold mb-2" style={{ color: "#1b5e20" }}>
+                        🏠 {group.name}
+                      </h5>
 
                       <div className="row g-2">
                         {group.cabins.map((cabin) => {
                           const full = !cabin.available;
-                          const pct =
-                            cabin.capacity > 0
-                              ? Math.round(
-                                  (cabin.registered / cabin.capacity) * 100,
-                                )
-                              : 0;
+                          const remaining = cabin.capacity - cabin.registered;
+                          const lowAvailability =
+                            !full && remaining < cabin.capacity / 2;
                           return (
                             <div
                               key={cabin.number}
                               className="col-6 col-md-4 col-lg-3"
                             >
                               <div
-                                className="p-2 rounded"
+                                className="p-2 rounded d-flex align-items-center justify-content-between"
                                 style={{
                                   border: `1.5px solid ${full ? "#ef9a9a" : "#a5d6a7"}`,
                                   backgroundColor: full ? "#ffebee" : "#f0f7f0",
+                                  minHeight: 44,
                                 }}
                               >
-                                <div className="d-flex justify-content-between align-items-center mb-1">
-                                  <span
+                                <div>
+                                  <div
                                     className="fw-bold"
                                     style={{
                                       fontSize: 15,
@@ -220,54 +164,104 @@ const CabinPage: React.FC = () => {
                                     }}
                                   >
                                     {cabin.fullName}
-                                  </span>
-                                  <span
-                                    className="badge"
-                                    style={{
-                                      fontSize: 10,
-                                      backgroundColor: full
-                                        ? "#c62828"
-                                        : cabin.registered > 0
-                                          ? "#f57f17"
-                                          : "#2e7d32",
-                                    }}
+                                  </div>
+                                  {cabin.note && (
+                                    <div
+                                      style={{
+                                        fontSize: 11,
+                                        color: "#777",
+                                        fontWeight: 400,
+                                        marginTop: 1,
+                                      }}
+                                    >
+                                      {cabin.note}
+                                    </div>
+                                  )}
+                                </div>
+                                {full ? (
+                                  <svg
+                                    width="22"
+                                    height="22"
+                                    viewBox="0 0 40 40"
+                                    style={{ display: "block", flexShrink: 0 }}
                                   >
-                                    {full
-                                      ? "Đầy"
-                                      : cabin.registered === 0
-                                        ? "Trống"
-                                        : "Còn chỗ"}
-                                  </span>
-                                </div>
-
-                                {/* Progress bar */}
-                                <div
-                                  style={{
-                                    height: 6,
-                                    backgroundColor: "#e0e0e0",
-                                    borderRadius: 3,
-                                    overflow: "hidden",
-                                    marginBottom: 4,
-                                  }}
-                                >
-                                  <div
-                                    style={{
-                                      height: "100%",
-                                      width: `${pct}%`,
-                                      backgroundColor: full
-                                        ? "#c62828"
-                                        : pct > 60
-                                          ? "#f57f17"
-                                          : "#4caf50",
-                                      borderRadius: 3,
-                                      transition: "width 0.3s",
-                                    }}
-                                  />
-                                </div>
-
-                                <div style={{ fontSize: 12, color: "#555" }}>
-                                  {cabin.registered} / {cabin.capacity} người
-                                </div>
+                                    <title>Đầy</title>
+                                    <line
+                                      x1="8"
+                                      y1="8"
+                                      x2="32"
+                                      y2="32"
+                                      stroke="#c62828"
+                                      strokeWidth="5"
+                                      strokeLinecap="round"
+                                    />
+                                    <line
+                                      x1="32"
+                                      y1="8"
+                                      x2="8"
+                                      y2="32"
+                                      stroke="#c62828"
+                                      strokeWidth="5"
+                                      strokeLinecap="round"
+                                    />
+                                  </svg>
+                                ) : lowAvailability ? (
+                                  <svg
+                                    width="22"
+                                    height="22"
+                                    viewBox="0 0 40 40"
+                                    style={{ display: "block", flexShrink: 0 }}
+                                  >
+                                    <title>Sắp đầy</title>
+                                    <path
+                                      d="M17.2,9.3 Q20,4 22.8,9.3 L33.2,28.7 Q36,34 30,34 L10,34 Q4,34 6.8,28.7 Z"
+                                      fill="#FFE082"
+                                      stroke="#EF6C00"
+                                      strokeWidth="2.5"
+                                      strokeLinejoin="round"
+                                    />
+                                    <rect
+                                      x="18.5"
+                                      y="13.5"
+                                      width="3"
+                                      height="11.5"
+                                      rx="1.5"
+                                      fill="#E65100"
+                                    />
+                                    <circle
+                                      cx="20"
+                                      cy="30"
+                                      r="2"
+                                      fill="#E65100"
+                                    />
+                                  </svg>
+                                ) : (
+                                  <svg
+                                    width="22"
+                                    height="22"
+                                    viewBox="0 0 40 40"
+                                    style={{ display: "block", flexShrink: 0 }}
+                                  >
+                                    <title>Còn nhiều chỗ</title>
+                                    <circle
+                                      cx="20"
+                                      cy="20"
+                                      r="17"
+                                      fill="#F1F8E9"
+                                      stroke="#AED581"
+                                      strokeWidth="1.5"
+                                      strokeDasharray="4 2"
+                                    />
+                                    <polyline
+                                      points="11,20 17,27 29,13"
+                                      fill="none"
+                                      stroke="#558B2F"
+                                      strokeWidth="3.5"
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                    />
+                                  </svg>
+                                )}
                               </div>
                             </div>
                           );
@@ -281,34 +275,87 @@ const CabinPage: React.FC = () => {
               {!loading && !error && (
                 <div
                   className="d-flex flex-wrap gap-3 mb-4"
-                  style={{ fontSize: 13 }}
+                  style={{ fontSize: 13, color: "#555" }}
                 >
-                  <span>
-                    <span
-                      style={{
-                        display: "inline-block",
-                        width: 14,
-                        height: 14,
-                        backgroundColor: "#f0f7f0",
-                        border: "1.5px solid #a5d6a7",
-                        borderRadius: 3,
-                        verticalAlign: "middle",
-                      }}
-                    />{" "}
-                    Còn chỗ
+                  <span className="d-flex align-items-center gap-1">
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 40 40"
+                      style={{ display: "block" }}
+                    >
+                      <circle
+                        cx="20"
+                        cy="20"
+                        r="17"
+                        fill="#F1F8E9"
+                        stroke="#AED581"
+                        strokeWidth="1.5"
+                        strokeDasharray="4 2"
+                      />
+                      <polyline
+                        points="11,20 17,27 29,13"
+                        fill="none"
+                        stroke="#558B2F"
+                        strokeWidth="3.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                    Còn nhiều chỗ (≥ 50% sức chứa)
                   </span>
-                  <span>
-                    <span
-                      style={{
-                        display: "inline-block",
-                        width: 14,
-                        height: 14,
-                        backgroundColor: "#ffebee",
-                        border: "1.5px solid #ef9a9a",
-                        borderRadius: 3,
-                        verticalAlign: "middle",
-                      }}
-                    />{" "}
+                  <span className="d-flex align-items-center gap-1">
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 40 40"
+                      style={{ display: "block" }}
+                    >
+                      <path
+                        d="M17.2,9.3 Q20,4 22.8,9.3 L33.2,28.7 Q36,34 30,34 L10,34 Q4,34 6.8,28.7 Z"
+                        fill="#FFE082"
+                        stroke="#EF6C00"
+                        strokeWidth="2.5"
+                        strokeLinejoin="round"
+                      />
+                      <rect
+                        x="18.5"
+                        y="13.5"
+                        width="3"
+                        height="11.5"
+                        rx="1.5"
+                        fill="#E65100"
+                      />
+                      <circle cx="20" cy="30" r="2" fill="#E65100" />
+                    </svg>
+                    Sắp đầy (&lt; 50% sức chứa)
+                  </span>
+                  <span className="d-flex align-items-center gap-1">
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 40 40"
+                      style={{ display: "block" }}
+                    >
+                      <line
+                        x1="8"
+                        y1="8"
+                        x2="32"
+                        y2="32"
+                        stroke="#c62828"
+                        strokeWidth="5"
+                        strokeLinecap="round"
+                      />
+                      <line
+                        x1="32"
+                        y1="8"
+                        x2="8"
+                        y2="32"
+                        stroke="#c62828"
+                        strokeWidth="5"
+                        strokeLinecap="round"
+                      />
+                    </svg>
                     Đầy
                   </span>
                 </div>

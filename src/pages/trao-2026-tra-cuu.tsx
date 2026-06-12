@@ -293,7 +293,84 @@ const ParticipantEditCard: React.FC<{
                       const pending = pendingCount[cabin.number] ?? 0;
                       const displayRegistered = cabin.registered + pending;
                       const displayFull = displayRegistered >= cabin.capacity;
+                      const remaining = cabin.capacity - displayRegistered;
                       const isSelected = data.cabin === cabin.fullName;
+                      const statusSvg = displayFull ? (
+                        <svg
+                          width="12"
+                          height="12"
+                          viewBox="0 0 40 40"
+                          style={{ display: "block" }}
+                        >
+                          <line
+                            x1="8"
+                            y1="8"
+                            x2="32"
+                            y2="32"
+                            stroke="#bdbdbd"
+                            strokeWidth="5"
+                            strokeLinecap="round"
+                          />
+                          <line
+                            x1="32"
+                            y1="8"
+                            x2="8"
+                            y2="32"
+                            stroke="#bdbdbd"
+                            strokeWidth="5"
+                            strokeLinecap="round"
+                          />
+                        </svg>
+                      ) : remaining < cabin.capacity / 2 ? (
+                        <svg
+                          width="16"
+                          height="16"
+                          viewBox="0 0 40 40"
+                          style={{ display: "block" }}
+                        >
+                          <path
+                            d="M17.2,9.3 Q20,4 22.8,9.3 L33.2,28.7 Q36,34 30,34 L10,34 Q4,34 6.8,28.7 Z"
+                            fill="#FFE082"
+                            stroke="#EF6C00"
+                            strokeWidth="2.5"
+                            strokeLinejoin="round"
+                          />
+                          <rect
+                            x="18.5"
+                            y="13.5"
+                            width="3"
+                            height="11.5"
+                            rx="1.5"
+                            fill="#E65100"
+                          />
+                          <circle cx="20" cy="30" r="2" fill="#E65100" />
+                        </svg>
+                      ) : (
+                        <svg
+                          width="16"
+                          height="16"
+                          viewBox="0 0 40 40"
+                          style={{ display: "block" }}
+                        >
+                          <circle
+                            cx="20"
+                            cy="20"
+                            r="17"
+                            fill="#F1F8E9"
+                            stroke="#AED581"
+                            strokeWidth="1.5"
+                            strokeDasharray="4 2"
+                          />
+                          <polyline
+                            points="11,20 17,27 29,13"
+                            fill="none"
+                            stroke="#558B2F"
+                            strokeWidth="3.5"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      );
                       return (
                         <ToggleChip
                           key={cabin.number}
@@ -308,19 +385,18 @@ const ParticipantEditCard: React.FC<{
                             textAlign: "center",
                           }}
                         >
-                          <span style={{ fontWeight: 700 }}>
-                            {cabin.groupOrder}
-                          </span>
                           <span
                             style={{
-                              display: "block",
-                              fontSize: 9,
-                              color:
-                                displayFull && !isSelected ? "#bdbdbd" : "#888",
-                              lineHeight: 1,
+                              display: "flex",
+                              flexDirection: "column",
+                              alignItems: "center",
+                              gap: 2,
                             }}
                           >
-                            {displayRegistered}/{cabin.capacity}
+                            <span style={{ fontWeight: 700 }}>
+                              {cabin.groupOrder}
+                            </span>
+                            {statusSvg}
                           </span>
                         </ToggleChip>
                       );
@@ -347,21 +423,87 @@ const ParticipantEditCard: React.FC<{
                   />{" "}
                   Đang chọn
                 </span>
-                <span>
-                  <span
-                    style={{
-                      display: "inline-block",
-                      width: 12,
-                      height: 12,
-                      backgroundColor: "#f5f5f5",
-                      border: "2px solid #e0e0e0",
-                      borderRadius: 3,
-                      verticalAlign: "middle",
-                    }}
-                  />{" "}
+                <span className="d-flex align-items-center gap-1">
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 40 40"
+                    style={{ display: "block" }}
+                  >
+                    <line
+                      x1="8"
+                      y1="8"
+                      x2="32"
+                      y2="32"
+                      stroke="#bdbdbd"
+                      strokeWidth="5"
+                      strokeLinecap="round"
+                    />
+                    <line
+                      x1="32"
+                      y1="8"
+                      x2="8"
+                      y2="32"
+                      stroke="#bdbdbd"
+                      strokeWidth="5"
+                      strokeLinecap="round"
+                    />
+                  </svg>
                   Đầy
                 </span>
-                <span>Số trong cabin: đã đăng ký / sức chứa</span>
+                <span className="d-flex align-items-center gap-1">
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 40 40"
+                    style={{ display: "block" }}
+                  >
+                    <circle
+                      cx="20"
+                      cy="20"
+                      r="17"
+                      fill="#F1F8E9"
+                      stroke="#AED581"
+                      strokeWidth="1.5"
+                      strokeDasharray="4 2"
+                    />
+                    <polyline
+                      points="11,20 17,27 29,13"
+                      fill="none"
+                      stroke="#558B2F"
+                      strokeWidth="3.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                  Còn nhiều chỗ
+                </span>
+                <span className="d-flex align-items-center gap-1">
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 40 40"
+                    style={{ display: "block" }}
+                  >
+                    <path
+                      d="M17.2,9.3 Q20,4 22.8,9.3 L33.2,28.7 Q36,34 30,34 L10,34 Q4,34 6.8,28.7 Z"
+                      fill="#FFE082"
+                      stroke="#EF6C00"
+                      strokeWidth="2.5"
+                      strokeLinejoin="round"
+                    />
+                    <rect
+                      x="18.5"
+                      y="13.5"
+                      width="3"
+                      height="11.5"
+                      rx="1.5"
+                      fill="#E65100"
+                    />
+                    <circle cx="20" cy="30" r="2" fill="#E65100" />
+                  </svg>
+                  Sắp đầy
+                </span>
               </div>
             </div>
           )}
@@ -377,6 +519,7 @@ const ChinhSuaPage: React.FC = () => {
   const [code, setCode] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [loginError, setLoginError] = React.useState("");
+  const [isExpired, setIsExpired] = React.useState(false);
   const [logging, setLogging] = React.useState(false);
 
   const [result, setResult] = React.useState<LookupResult | null>(null);
@@ -389,6 +532,13 @@ const ChinhSuaPage: React.FC = () => {
   const [cabins, setCabins] = React.useState<CabinInfo[]>([]);
   const [loadingCabins, setLoadingCabins] = React.useState(false);
   const [cabinsFetched, setCabinsFetched] = React.useState(false);
+
+  // Upload receipt states (cho trạng thái "Chưa chuyển khoản")
+  const [receiptFile, setReceiptFile] = React.useState<File | null>(null);
+  const [receiptPreview, setReceiptPreview] = React.useState("");
+  const [uploadingReceipt, setUploadingReceipt] = React.useState(false);
+  const [uploadReceiptError, setUploadReceiptError] = React.useState("");
+  const [uploadReceiptDone, setUploadReceiptDone] = React.useState(false);
 
   // Fetch cabin list khi user chuyển sang tab chỉnh sửa (chỉ fetch 1 lần)
   React.useEffect(() => {
@@ -417,6 +567,7 @@ const ChinhSuaPage: React.FC = () => {
     }
     setLogging(true);
     setLoginError("");
+    setIsExpired(false);
     try {
       const res = await fetch("/api/trao-2026-lookup", {
         method: "POST",
@@ -427,6 +578,12 @@ const ChinhSuaPage: React.FC = () => {
         }),
       });
       const data = await res.json();
+      if (res.status === 410 || data.expired) {
+        setIsExpired(true);
+        setLoginError("");
+        return;
+      }
+      setIsExpired(false);
       if (!res.ok || !data.ok) throw new Error(data.error ?? "Lỗi xác thực");
       setResult(data);
       setEdited([data.representative, ...data.members]);
@@ -467,6 +624,69 @@ const ChinhSuaPage: React.FC = () => {
       setSaveError(err instanceof Error ? err.message : "Lỗi cập nhật.");
     } finally {
       setSaving(false);
+    }
+  };
+
+  const onReceiptFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] ?? null;
+    setReceiptFile(file);
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (ev) => setReceiptPreview(ev.target?.result as string);
+      reader.readAsDataURL(file);
+    } else {
+      setReceiptPreview("");
+    }
+  };
+
+  const onUploadReceipt = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!receiptFile) {
+      setUploadReceiptError("Vui lòng chọn ảnh chuyển khoản.");
+      return;
+    }
+    setUploadingReceipt(true);
+    setUploadReceiptError("");
+    try {
+      const base64 = await new Promise<string>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve((reader.result as string).split(",")[1]);
+        reader.onerror = reject;
+        reader.readAsDataURL(receiptFile);
+      });
+      const res = await fetch("/api/trao-2026-upload-receipt", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          code: code.trim().toUpperCase(),
+          password: password.trim(),
+          receipt: {
+            base64,
+            mimeType: receiptFile.type,
+            filename: receiptFile.name,
+          },
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.ok) throw new Error(data.error ?? "Lỗi upload");
+      setUploadReceiptDone(true);
+      // Cập nhật trạng thái trong result ngay trên UI
+      setResult((prev) =>
+        prev
+          ? {
+              ...prev,
+              profile: {
+                ...prev.profile,
+                status: "Chờ xác nhận",
+                receipt: data.receiptLink,
+              },
+            }
+          : prev,
+      );
+    } catch (err: unknown) {
+      setUploadReceiptError(err instanceof Error ? err.message : "Lỗi upload.");
+    } finally {
+      setUploadingReceipt(false);
     }
   };
 
@@ -541,7 +761,34 @@ const ChinhSuaPage: React.FC = () => {
                         }}
                       />
                     </div>
-                    {loginError && (
+                    {isExpired && (
+                      <div
+                        className="rounded p-3 mt-3 mb-3"
+                        style={{
+                          backgroundColor: "#fff3e0",
+                          border: "1.5px solid #ff8f00",
+                        }}
+                      >
+                        <div
+                          className="fw-semibold mb-1"
+                          style={{ color: "#e65100" }}
+                        >
+                          ⏰ Đăng ký đã hết hạn
+                        </div>
+                        <div style={{ fontSize: 13, color: "#555" }}>
+                          Đăng ký chưa được chuyển khoản sau 24 giờ nên đã tự
+                          động hết hạn. Vui lòng{" "}
+                          <a
+                            href="/trao-2026-form-dang-ky"
+                            style={{ color: "#e65100", fontWeight: 600 }}
+                          >
+                            đăng ký lại từ đầu
+                          </a>
+                          .
+                        </div>
+                      </div>
+                    )}
+                    {loginError && !isExpired && (
                       <div className="alert alert-danger py-2">
                         {loginError}
                       </div>
@@ -625,9 +872,11 @@ const ChinhSuaPage: React.FC = () => {
                       className="badge"
                       style={{
                         backgroundColor:
-                          profile.status === "Chờ xác nhận"
-                            ? "#ff8f00"
-                            : "#2e7d32",
+                          profile.status === "Chưa chuyển khoản"
+                            ? "#e53935"
+                            : profile.status === "Chờ xác nhận"
+                              ? "#ff8f00"
+                              : "#2e7d32",
                         fontSize: 11,
                       }}
                     >
@@ -838,19 +1087,93 @@ const ChinhSuaPage: React.FC = () => {
                     </tbody>
                   </table>
 
-                  {profile.receipt && (
-                    <>
-                      <SectionTitle>Chuyển khoản</SectionTitle>
-                      <a
-                        href={profile.receipt}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="btn btn-sm btn-outline-success"
+                  <SectionTitle>Chuyển khoản</SectionTitle>
+                  {profile.receipt ? (
+                    <a
+                      href={profile.receipt}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="btn btn-sm btn-outline-success"
+                    >
+                      🧾 Xem ảnh chuyển khoản
+                    </a>
+                  ) : profile.status === "Chưa chuyển khoản" &&
+                    !uploadReceiptDone ? (
+                    <form onSubmit={onUploadReceipt}>
+                      <div
+                        className="p-3 rounded mb-3"
+                        style={{
+                          backgroundColor: "#fff8e1",
+                          border: "1px solid #ffe082",
+                        }}
                       >
-                        🧾 Xem ảnh chuyển khoản
-                      </a>
-                    </>
-                  )}
+                        <p
+                          className="mb-2 fw-semibold"
+                          style={{ fontSize: 13, color: "#e65100" }}
+                        >
+                          ⏳ Bạn chưa upload ảnh chuyển khoản. Vui lòng upload
+                          trước khi hết 24 giờ kể từ lúc đăng ký.
+                        </p>
+                        <input
+                          type="file"
+                          className="form-control form-control-sm mb-2"
+                          accept="image/*"
+                          onChange={onReceiptFileChange}
+                        />
+                        {receiptPreview && (
+                          <div className="mb-2">
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img
+                              src={receiptPreview}
+                              alt="Preview"
+                              style={{
+                                maxWidth: "100%",
+                                maxHeight: 200,
+                                borderRadius: 6,
+                                border: "1px solid #dee2e6",
+                              }}
+                            />
+                          </div>
+                        )}
+                        {uploadReceiptError && (
+                          <div
+                            className="text-danger mb-2"
+                            style={{ fontSize: 13 }}
+                          >
+                            {uploadReceiptError}
+                          </div>
+                        )}
+                        <button
+                          type="submit"
+                          className="btn btn-sm btn-warning"
+                          disabled={uploadingReceipt || !receiptFile}
+                          style={{ fontWeight: 600 }}
+                        >
+                          {uploadingReceipt ? (
+                            <>
+                              <span className="spinner-border spinner-border-sm me-1" />
+                              Đang upload...
+                            </>
+                          ) : (
+                            "📤 Upload ảnh chuyển khoản"
+                          )}
+                        </button>
+                      </div>
+                    </form>
+                  ) : uploadReceiptDone ? (
+                    <div
+                      className="p-3 rounded"
+                      style={{
+                        backgroundColor: "#e8f5e9",
+                        border: "1px solid #a5d6a7",
+                        fontSize: 13,
+                        color: "#2e7d32",
+                      }}
+                    >
+                      ✅ Đã upload ảnh chuyển khoản thành công. Trạng thái đã
+                      chuyển sang <strong>Chờ xác nhận</strong>.
+                    </div>
+                  ) : null}
 
                   <div
                     className="mt-4 p-3 rounded"

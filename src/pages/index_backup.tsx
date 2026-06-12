@@ -241,7 +241,7 @@ export const getServerSideProps = async () => {
       {
         image: "/images/testimonial-member-1.jpg",
         description:
-          "Tham gia hoạt động hiking cùng Bàn Chân Xanh đã mang lại cho tôi những trải nghiệm tuyệt vời. Không chỉ được khám phá thiên nhiên đẹp mà còn kết bạn với nhiều người Việt tuyệt vời.",
+          "Tham gia hoạt động leo núi cùng Bàn Chân Xanh đã mang lại cho tôi những trải nghiệm tuyệt vời. Không chỉ được khám phá thiên nhiên đẹp mà còn kết bạn với nhiều người Việt tuyệt vời.",
         title: "Nguyễn Minh Anh",
         subtitle: "Thành viên từ 2022",
       },

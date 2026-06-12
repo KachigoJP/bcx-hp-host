@@ -6,15 +6,16 @@ import type { CabinInfo, ParticipantExtra, Step2, Step6 } from "./types";
 const ToggleChip: React.FC<{
   selected: boolean;
   disabled?: boolean;
+  disabledTitle?: string;
   onClick: () => void;
   children: React.ReactNode;
   style?: React.CSSProperties;
-}> = ({ selected, disabled, onClick, children, style }) => (
+}> = ({ selected, disabled, disabledTitle, onClick, children, style }) => (
   <button
     type="button"
     onClick={onClick}
     disabled={disabled}
-    title={disabled ? "Cabin đã đầy" : undefined}
+    title={disabled ? (disabledTitle ?? "Không thể chọn") : undefined}
     style={{
       cursor: disabled ? "not-allowed" : "pointer",
       border: `2px solid ${selected ? "#4caf50" : disabled ? "#e0e0e0" : "#dee2e6"}`,
@@ -184,20 +185,29 @@ const Step6Form: React.FC<Props> = ({
                   Size áo <span className="text-danger">*</span>
                 </label>
                 <div className="d-flex gap-2 flex-wrap">
-                  {SHIRT_SIZES.map((size) => (
-                    <ToggleChip
-                      key={size}
-                      selected={participant.shirt_size === size}
-                      onClick={() => updateParticipant(i, { shirt_size: size })}
-                      style={{
-                        minWidth: 40,
-                        textAlign: "center",
-                        padding: "5px 8px",
-                      }}
-                    >
-                      {size}
-                    </ToggleChip>
-                  ))}
+                  {SHIRT_SIZES.map((size) => {
+                    const soldOut =
+                      participant.shirt_color === "green" &&
+                      (size === "XS" || size === "S");
+                    return (
+                      <ToggleChip
+                        key={size}
+                        selected={participant.shirt_size === size}
+                        disabled={soldOut}
+                        disabledTitle="Đã hết áo"
+                        onClick={() =>
+                          !soldOut && updateParticipant(i, { shirt_size: size })
+                        }
+                        style={{
+                          minWidth: 40,
+                          textAlign: "center",
+                          padding: "5px 8px",
+                        }}
+                      >
+                        {size}
+                      </ToggleChip>
+                    );
+                  })}
                 </div>
                 {errors[`shirt_${i}`] && (
                   <div className="text-danger mt-1" style={{ fontSize: 12 }}>
@@ -220,9 +230,19 @@ const Step6Form: React.FC<Props> = ({
                       key={color.value}
                       type="button"
                       title={color.label}
-                      onClick={() =>
-                        updateParticipant(i, { shirt_color: color.value })
-                      }
+                      onClick={() => {
+                        const patch: Partial<ParticipantExtra> = {
+                          shirt_color: color.value,
+                        };
+                        if (
+                          color.value === "green" &&
+                          (participant.shirt_size === "XS" ||
+                            participant.shirt_size === "S")
+                        ) {
+                          patch.shirt_size = "";
+                        }
+                        updateParticipant(i, patch);
+                      }}
                       style={{
                         width: 36,
                         height: 36,
@@ -298,13 +318,92 @@ const Step6Form: React.FC<Props> = ({
                               cabin.registered + pending;
                             const displayFull =
                               displayRegistered >= cabin.capacity;
+                            const remaining =
+                              cabin.capacity - displayRegistered;
                             const isSelected =
                               participant.stay === String(cabin.number);
+                            const statusSvg = displayFull ? (
+                              <svg
+                                width="12"
+                                height="12"
+                                viewBox="0 0 40 40"
+                                style={{ display: "block" }}
+                              >
+                                <line
+                                  x1="8"
+                                  y1="8"
+                                  x2="32"
+                                  y2="32"
+                                  stroke="#bdbdbd"
+                                  strokeWidth="5"
+                                  strokeLinecap="round"
+                                />
+                                <line
+                                  x1="32"
+                                  y1="8"
+                                  x2="8"
+                                  y2="32"
+                                  stroke="#bdbdbd"
+                                  strokeWidth="5"
+                                  strokeLinecap="round"
+                                />
+                              </svg>
+                            ) : remaining < cabin.capacity / 2 ? (
+                              <svg
+                                width="16"
+                                height="16"
+                                viewBox="0 0 40 40"
+                                style={{ display: "block" }}
+                              >
+                                <path
+                                  d="M17.2,9.3 Q20,4 22.8,9.3 L33.2,28.7 Q36,34 30,34 L10,34 Q4,34 6.8,28.7 Z"
+                                  fill="#FFE082"
+                                  stroke="#EF6C00"
+                                  strokeWidth="2.5"
+                                  strokeLinejoin="round"
+                                />
+                                <rect
+                                  x="18.5"
+                                  y="13.5"
+                                  width="3"
+                                  height="11.5"
+                                  rx="1.5"
+                                  fill="#E65100"
+                                />
+                                <circle cx="20" cy="30" r="2" fill="#E65100" />
+                              </svg>
+                            ) : (
+                              <svg
+                                width="16"
+                                height="16"
+                                viewBox="0 0 40 40"
+                                style={{ display: "block" }}
+                              >
+                                <circle
+                                  cx="20"
+                                  cy="20"
+                                  r="17"
+                                  fill="#F1F8E9"
+                                  stroke="#AED581"
+                                  strokeWidth="1.5"
+                                  strokeDasharray="4 2"
+                                />
+                                <polyline
+                                  points="11,20 17,27 29,13"
+                                  fill="none"
+                                  stroke="#558B2F"
+                                  strokeWidth="3.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            );
                             return (
                               <ToggleChip
                                 key={cabin.number}
                                 selected={isSelected}
                                 disabled={displayFull && !isSelected}
+                                disabledTitle="Cabin đã đầy"
                                 onClick={() =>
                                   !displayFull &&
                                   updateParticipant(i, {
@@ -312,21 +411,18 @@ const Step6Form: React.FC<Props> = ({
                                   })
                                 }
                               >
-                                <span style={{ fontWeight: 700 }}>
-                                  {cabin.groupOrder}
-                                </span>
                                 <span
                                   style={{
-                                    display: "block",
-                                    fontSize: 9,
-                                    color:
-                                      displayFull && !isSelected
-                                        ? "#bdbdbd"
-                                        : "#888",
-                                    lineHeight: 1,
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    alignItems: "center",
+                                    gap: 2,
                                   }}
                                 >
-                                  {displayRegistered}/{cabin.capacity}
+                                  <span style={{ fontWeight: 700 }}>
+                                    {cabin.groupOrder}
+                                  </span>
+                                  {statusSvg}
                                 </span>
                               </ToggleChip>
                             );
@@ -353,21 +449,87 @@ const Step6Form: React.FC<Props> = ({
                         />{" "}
                         Đang chọn
                       </span>
-                      <span>
-                        <span
-                          style={{
-                            display: "inline-block",
-                            width: 12,
-                            height: 12,
-                            backgroundColor: "#f5f5f5",
-                            border: "2px solid #e0e0e0",
-                            borderRadius: 3,
-                            verticalAlign: "middle",
-                          }}
-                        />{" "}
+                      <span className="d-flex align-items-center gap-1">
+                        <svg
+                          width="12"
+                          height="12"
+                          viewBox="0 0 40 40"
+                          style={{ display: "block" }}
+                        >
+                          <line
+                            x1="8"
+                            y1="8"
+                            x2="32"
+                            y2="32"
+                            stroke="#bdbdbd"
+                            strokeWidth="5"
+                            strokeLinecap="round"
+                          />
+                          <line
+                            x1="32"
+                            y1="8"
+                            x2="8"
+                            y2="32"
+                            stroke="#bdbdbd"
+                            strokeWidth="5"
+                            strokeLinecap="round"
+                          />
+                        </svg>
                         Đầy
                       </span>
-                      <span>Số trong cabin: đã đăng ký / sức chứa</span>
+                      <span className="d-flex align-items-center gap-1">
+                        <svg
+                          width="12"
+                          height="12"
+                          viewBox="0 0 40 40"
+                          style={{ display: "block" }}
+                        >
+                          <circle
+                            cx="20"
+                            cy="20"
+                            r="17"
+                            fill="#F1F8E9"
+                            stroke="#AED581"
+                            strokeWidth="1.5"
+                            strokeDasharray="4 2"
+                          />
+                          <polyline
+                            points="11,20 17,27 29,13"
+                            fill="none"
+                            stroke="#558B2F"
+                            strokeWidth="3.5"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                        Còn nhiều chỗ
+                      </span>
+                      <span className="d-flex align-items-center gap-1">
+                        <svg
+                          width="12"
+                          height="12"
+                          viewBox="0 0 40 40"
+                          style={{ display: "block" }}
+                        >
+                          <path
+                            d="M17.2,9.3 Q20,4 22.8,9.3 L33.2,28.7 Q36,34 30,34 L10,34 Q4,34 6.8,28.7 Z"
+                            fill="#FFE082"
+                            stroke="#EF6C00"
+                            strokeWidth="2.5"
+                            strokeLinejoin="round"
+                          />
+                          <rect
+                            x="18.5"
+                            y="13.5"
+                            width="3"
+                            height="11.5"
+                            rx="1.5"
+                            fill="#E65100"
+                          />
+                          <circle cx="20" cy="30" r="2" fill="#E65100" />
+                        </svg>
+                        Sắp đầy
+                      </span>
                     </div>
                   </div>
                 )}

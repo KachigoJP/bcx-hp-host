@@ -52,8 +52,8 @@ export const getDefaultLayoutData = (): LayoutProps => {
         },
         {
           menuId: "32",
-          title: "Camping (Cắm trại)",
-          link: "/camping",
+          title: "Outdoor (Ngoài trời)",
+          link: "/outdoor",
         },
         {
           menuId: "33",

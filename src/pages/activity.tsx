@@ -3,7 +3,11 @@ import { activityService, globalService } from "@/lib/strapi/services";
 import { convertGlobalInfoToLayoutData, getStrapiImageUrl } from "@/utils/apps";
 import {
   ActivityContent,
-  ActivityScheduleItem, GlobalInfo, SectionDetailButton, SectionIconImageSlug, SectionIntro
+  ActivityScheduleItem,
+  GlobalInfo,
+  SectionDetailButton,
+  SectionIconImageSlug,
+  SectionIntro,
 } from "@/utils/interfaces";
 import Layout, { LayoutProps } from "@components/layout";
 import SEO from "@components/layout/SEO";
@@ -17,7 +21,7 @@ const sampleActivities = [
   {
     id: "1",
     icon: "flaticon-forest",
-    title: "Hiking (Leo núi)",
+    title: "Leo núi (hiking)",
     slug: "hiking",
     description:
       "Khám phá vẻ đẹp thiên nhiên Nhật Bản thông qua các chuyến leo núi. Chúng tôi tổ chức các hoạt động hiking phù hợp với mọi trình độ, từ người mới bắt đầu đến những người có kinh nghiệm.",
@@ -26,8 +30,8 @@ const sampleActivities = [
   {
     id: "2",
     icon: "flaticon-placeholder",
-    title: "Camping (Cắm trại)",
-    slug: "camping",
+    title: "Hoạt động ngoài trời",
+    slug: "outdoor",
     description:
       "Trải nghiệm cuộc sống ngoài trời và kết nối với thiên nhiên qua các hoạt động cắm trại. Cùng nhau xây dựng kỷ niệm đẹp và học hỏi kỹ năng sinh tồn.",
     simg1: "/images/activity-camping-tent.jpg",
@@ -56,7 +60,8 @@ export const getServerSideProps = async () => {
     metadata: {
       page_code: "activity",
       title: "Hoạt động chính - Bàn Chân Xanh",
-      description: "Khám phá các hoạt động chính của Bàn Chân Xanh - hiking, camping và workshop",
+      description:
+        "Khám phá các hoạt động chính của Bàn Chân Xanh - hiking, camping và workshop",
     },
   };
 
@@ -67,13 +72,15 @@ export const getServerSideProps = async () => {
       "Chúng tôi tổ chức các hoạt động đa dạng để kết nối cộng đồng và lan tỏa tình yêu thiên nhiên. Từ những chuyến hiking khám phá núi non, camping dưới bầu trời đầy sao, đến các workshop giáo dục về bảo vệ môi trường.",
   };
 
-  const activityItems: SectionIconImageSlug[] = sampleActivities.map(activity => ({
-    title: activity.title,
-    description: activity.description,
-    image: activity.simg1,
-    icon: activity.icon,
-    slug: activity.slug,
-  }));
+  const activityItems: SectionIconImageSlug[] = sampleActivities.map(
+    (activity) => ({
+      title: activity.title,
+      description: activity.description,
+      image: activity.simg1,
+      icon: activity.icon,
+      slug: activity.slug,
+    }),
+  );
 
   const scheduleSectionIntro: SectionIntro = {
     tag: "Lịch hoạt động",
@@ -152,9 +159,10 @@ export const getServerSideProps = async () => {
   };
 };
 
-const ActivityPage: React.FC<ActivityProps> = props => {
+const ActivityPage: React.FC<ActivityProps> = (props) => {
   const [globalData, setGlobalData] = useState<GlobalInfo | null>(null);
-  const [activityContent, setActivityContent] = useState<ActivityContent | null>(null);
+  const [activityContent, setActivityContent] =
+    useState<ActivityContent | null>(null);
   const [seoData] = useState<SEOProps | null>(null);
 
   useEffect(() => {
@@ -170,7 +178,8 @@ const ActivityPage: React.FC<ActivityProps> = props => {
           "populate[pageIntro][populate]": "*",
           "populate[activityItems][populate]": "*",
           "populate[scheduleSection][populate][sectionIntro][populate]": "*",
-          "populate[scheduleSection][populate][items][populate][button][populate]": "*",
+          "populate[scheduleSection][populate][items][populate][button][populate]":
+            "*",
           "populate[joinSection][populate]": "*",
         },
       });
@@ -189,13 +198,23 @@ const ActivityPage: React.FC<ActivityProps> = props => {
     // fetchSeoData(); // Disabled - SEO content type not created
   }, []);
 
-  const pageIntro = activityContent?.pageIntro || props.activityContent.pageIntro;
-  const activityItems = activityContent?.activityItems || props.activityContent.activityItems;
-  const scheduleSection = activityContent?.scheduleSection || props.activityContent.scheduleSection;
-  const joinSection = activityContent?.joinSection || props.activityContent.joinSection;
+  const pageIntro =
+    activityContent?.pageIntro || props.activityContent.pageIntro;
+  const activityItems =
+    activityContent?.activityItems || props.activityContent.activityItems;
+  const scheduleSection =
+    activityContent?.scheduleSection || props.activityContent.scheduleSection;
+  const joinSection =
+    activityContent?.joinSection || props.activityContent.joinSection;
 
   return (
-    <Layout data={globalData ? convertGlobalInfoToLayoutData(globalData) : props.layout.data}>
+    <Layout
+      data={
+        globalData
+          ? convertGlobalInfoToLayoutData(globalData)
+          : props.layout.data
+      }
+    >
       <SEO {...(seoData || props.seo)} />
 
       {/* Activities Intro Section */}
@@ -217,8 +236,9 @@ const ActivityPage: React.FC<ActivityProps> = props => {
       <section className="wpo-activities-section section-padding">
         <div className="container">
           <div className="row">
-            {activityItems && activityItems.length > 0 && activityItems.map(
-              (activity, index) => {
+            {activityItems &&
+              activityItems.length > 0 &&
+              activityItems.map((activity, index) => {
                 const imageSrc =
                   typeof activity.image === "string"
                     ? activity.image
@@ -228,7 +248,12 @@ const ActivityPage: React.FC<ActivityProps> = props => {
                   <div key={index} className="col-lg-4 col-md-6 col-12 mb-4">
                     <div className="activity-card">
                       <div className="activity-card-image">
-                        <Image src={imageSrc} alt={activity.title} width={400} height={300} />
+                        <Image
+                          src={imageSrc}
+                          alt={activity.title}
+                          width={400}
+                          height={300}
+                        />
                         <div className="activity-card-icon">
                           <i className={activity.icon}></i>
                         </div>
@@ -245,8 +270,7 @@ const ActivityPage: React.FC<ActivityProps> = props => {
                     </div>
                   </div>
                 );
-              }
-            )}
+              })}
           </div>
         </div>
       </section>
@@ -257,53 +281,43 @@ const ActivityPage: React.FC<ActivityProps> = props => {
           <div className="row">
             <div className="col-lg-12">
               <div className="wpo-section-title text-center">
-                <span>
-                  {
-                    scheduleSection?.sectionIntro?.tag
-                  }
-                </span>
-                <h2>
-                  {
-                    scheduleSection?.sectionIntro?.title
-                  }
-                </h2>
-                <p>
-                  {
-                    scheduleSection?.sectionIntro?.description
-                  }
-                </p>
+                <span>{scheduleSection?.sectionIntro?.tag}</span>
+                <h2>{scheduleSection?.sectionIntro?.title}</h2>
+                <p>{scheduleSection?.sectionIntro?.description}</p>
               </div>
             </div>
           </div>
           <div className="row">
             <div className="col-lg-12">
               <div className="wpo-schedule-wrap">
-                {scheduleSection?.items && scheduleSection?.items.length > 0 && scheduleSection?.items.map((schedule, index) => (
-                  <div key={index} className="schedule-card">
-                    <div className="schedule-date">
-                      <span className="date">{schedule.date}</span>
-                    </div>
-                    <div className="schedule-content">
-                      <h4>{schedule.title}</h4>
-                      <p>{schedule.description}</p>
-                      <div className="schedule-meta">
-                        <span>
-                          <i className="fi flaticon-placeholder"></i>
-                          {schedule.location}
-                        </span>
-                        <span>
-                          <i className="fi flaticon-user"></i>
-                          {schedule.participants}
-                        </span>
+                {scheduleSection?.items &&
+                  scheduleSection?.items.length > 0 &&
+                  scheduleSection?.items.map((schedule, index) => (
+                    <div key={index} className="schedule-card">
+                      <div className="schedule-date">
+                        <span className="date">{schedule.date}</span>
+                      </div>
+                      <div className="schedule-content">
+                        <h4>{schedule.title}</h4>
+                        <p>{schedule.description}</p>
+                        <div className="schedule-meta">
+                          <span>
+                            <i className="fi flaticon-placeholder"></i>
+                            {schedule.location}
+                          </span>
+                          <span>
+                            <i className="fi flaticon-user"></i>
+                            {schedule.participants}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="schedule-button">
+                        <a href={schedule.button?.link} className="theme-btn">
+                          {schedule.button?.text}
+                        </a>
                       </div>
                     </div>
-                    <div className="schedule-button">
-                      <a href={schedule.button?.link} className="theme-btn">
-                        {schedule.button?.text}
-                      </a>
-                    </div>
-                  </div>
-                ))}
+                  ))}
               </div>
             </div>
           </div>
@@ -318,31 +332,18 @@ const ActivityPage: React.FC<ActivityProps> = props => {
               <div className="join-section">
                 <div className="join-content">
                   <span className="join-tag">
-                    {
-                      joinSection?.sectionIntro?.tag
-                    }
+                    {joinSection?.sectionIntro?.tag}
                   </span>
                   <h2 className="join-title">
-                    {
-                      joinSection?.sectionIntro?.title
-                    }
+                    {joinSection?.sectionIntro?.title}
                   </h2>
                   <p className="join-description">
-                    {
-                      joinSection?.sectionIntro?.description
-                    }
+                    {joinSection?.sectionIntro?.description}
                   </p>
                 </div>
                 <div className="join-button">
-                  <a
-                    href={
-                      joinSection?.button?.link
-                    }
-                    className="theme-btn"
-                  >
-                    {
-                      joinSection?.button?.text
-                    }
+                  <a href={joinSection?.button?.link} className="theme-btn">
+                    {joinSection?.button?.text}
                   </a>
                 </div>
               </div>

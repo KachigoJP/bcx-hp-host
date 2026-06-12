@@ -2,10 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { google } from "googleapis";
 import { Readable } from "stream";
 import { sendRegistrationEmail } from "../../lib/sendRegistrationEmail";
-import {
-  fetchCabins,
-  updateCabinCounts,
-} from "./trao-2026-cabins";
+import { fetchCabins, updateCabinCounts } from "./trao-2026-cabins";
 import { Logger } from "../../lib/logger";
 import { getAuth } from "./utils";
 
@@ -187,7 +184,11 @@ export default async function handler(
       log.warn("register/upload-receipt", "Không có ảnh chuyển khoản");
     }
 
-    const now = new Date().toLocaleString("vi-VN", { timeZone: "Asia/Tokyo" });
+    const _d = new Date(
+      new Date().toLocaleString("en-US", { timeZone: "Asia/Tokyo" }),
+    );
+    const pad = (n: number) => String(n).padStart(2, "0");
+    const now = `${pad(_d.getDate())}/${pad(_d.getMonth() + 1)}/${_d.getFullYear()} ${pad(_d.getHours())}:${pad(_d.getMinutes())}:${pad(_d.getSeconds())}`;
     const transport = formData.transport === "bus" ? "Xe bus BTC" : "Tự túc";
     const busDeparture = (formData.bus_departure as string) || "";
 
@@ -230,7 +231,9 @@ export default async function handler(
         ? (formData.volunteer_teams as string[]).join(", ")
         : "", // Team CTV
       (formData.note as string) || "", // Ghi chú
-      "Chờ xác nhận", // Trạng thái
+      formData.payment_timing === "later"
+        ? "Chưa chuyển khoản"
+        : "Chờ xác nhận", // Trạng thái
       "", // Mã đại diện (để trống vì là đại diện)
       formData.register_type === "individual" ? "Cá nhân" : "Đại diện", // Vai trò
       participants[0]?.shirt_size ?? "", // Size áo
@@ -369,6 +372,7 @@ export default async function handler(
           ? (formData.volunteer_teams as string[])
           : [],
         note: String(formData.note ?? ""),
+        payment_timing: formData.payment_timing === "later" ? "later" : "now",
         representative: {
           name: String(formData.name),
           shirt_size: participants[0]?.shirt_size ?? "",

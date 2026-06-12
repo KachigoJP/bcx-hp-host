@@ -686,6 +686,7 @@ const RegisterPage: React.FC = () => {
     bus_departure: "",
   });
   const [step4, setStep4] = React.useState<Step4>({
+    payment_timing: "",
     receipt_file: null,
     receipt_url: "",
     donation: "",
@@ -711,6 +712,7 @@ const RegisterPage: React.FC = () => {
   const [loadingCabins, setLoadingCabins] = React.useState(false);
 
   const [errors, setErrors] = React.useState<Record<string, string>>({});
+  const [confirmContact, setConfirmContact] = React.useState(false);
 
   const clearError = React.useCallback((key: string) => {
     setErrors((prev) => {
@@ -807,6 +809,8 @@ const RegisterPage: React.FC = () => {
       e.emergency_phone = "Số điện thoại không hợp lệ";
     if (!step1.emergency_relation.trim())
       e.emergency_relation = "Vui lòng nhập quan hệ";
+    if (!confirmContact)
+      e.confirmContact = "Vui lòng xác nhận email và Facebook đã chính xác";
     setErrors(e);
     return Object.keys(e).length === 0;
   };
@@ -860,7 +864,10 @@ const RegisterPage: React.FC = () => {
 
   const validateStep6 = (): boolean => {
     const e: Record<string, string> = {};
-    if (!step4.receipt_file)
+    if (!step4.payment_timing)
+      e.payment_timing =
+        "Mã đăng ký có hiệu lực trong vòng 24 giờ. Vui lòng chuyển khoản đúng hạn.";
+    else if (step4.payment_timing === "now" && !step4.receipt_file)
       e.receipt_file = "Vui lòng upload ảnh chụp màn hình chuyển khoản";
     setErrors(e);
     return Object.keys(e).length === 0;
@@ -901,7 +908,12 @@ const RegisterPage: React.FC = () => {
     // Nếu đang ở bước thanh toán (step 6), xóa file đã chọn để tránh
     // tình trạng form tự động submit khi quay lại rồi tiến tới lại.
     if (currentStep === 6) {
-      setStep4((prev) => ({ ...prev, receipt_file: null, receipt_url: "" }));
+      setStep4((prev) => ({
+        ...prev,
+        payment_timing: "",
+        receipt_file: null,
+        receipt_url: "",
+      }));
     }
     setCurrentStep((step) => step - 1);
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -974,6 +986,7 @@ const RegisterPage: React.FC = () => {
         note: step5.note.trim() || null,
         participants: step6.participants,
         password: reservation.password,
+        payment_timing: step4.payment_timing,
       };
 
       const res = await fetch("/api/trao-2026-register", {
@@ -1495,6 +1508,42 @@ const RegisterPage: React.FC = () => {
 
                   {submitError && (
                     <div className="alert alert-danger mt-3">{submitError}</div>
+                  )}
+
+                  {currentStep === 1 && (
+                    <div className="mt-4">
+                      <label
+                        className="d-flex align-items-start gap-2"
+                        style={{ cursor: "pointer", fontSize: 14 }}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={confirmContact}
+                          onChange={(e) => setConfirmContact(e.target.checked)}
+                          required
+                          style={{
+                            marginTop: 3,
+                            flexShrink: 0,
+                            accentColor: "#2e7d32",
+                          }}
+                        />
+                        <span>
+                          Tôi xác nhận <strong>email</strong> và{" "}
+                          <strong>link Facebook</strong> đã nhập là chính xác.
+                          <br />
+                          (Ban tổ chức sẽ liên hệ qua 2 kênh này để thông báo và
+                          xác nhận đăng ký.)
+                        </span>
+                      </label>
+                      {errors.confirmContact && (
+                        <div
+                          className="text-danger mt-1"
+                          style={{ fontSize: 12, paddingLeft: 22 }}
+                        >
+                          {errors.confirmContact}
+                        </div>
+                      )}
+                    </div>
                   )}
 
                   <div className="d-flex justify-content-between mt-4">

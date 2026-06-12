@@ -10,6 +10,7 @@ import { formatGoogleApiError, getAuth } from "./utils";
 //   D = Tên đầy đủ (= B + C, e.g. "Nhà chú Cuội 1")
 //   E = Sức chứa (số người có thể ở)
 //   F = Số người đã đăng ký (được cập nhật bởi register API)
+//   G = Ghi chú
 const CABIN_SHEET = "Danh sách cabin";
 
 // Main sheet: cột AF (index 31, 0-based) chứa cabin dạng "Cabin X" (X = cột A)
@@ -24,7 +25,7 @@ export async function fetchCabins(
   const [cabinRes, mainRes] = await Promise.all([
     sheets.spreadsheets.values.get({
       spreadsheetId: sheetId,
-      range: `${CABIN_SHEET}!A2:E`,
+      range: `${CABIN_SHEET}!A2:G`,
     }),
     sheets.spreadsheets.values
       .get({
@@ -73,6 +74,7 @@ export async function fetchCabins(
       const fullName = String(row[3] ?? "").trim() || `${group} ${groupOrder}`;
       const capacity = Number(row[4]) || 0;
       const registered = registeredCount[number] ?? 0;
+      const note = String(row[6] ?? "").trim();
       return {
         number,
         group,
@@ -81,6 +83,7 @@ export async function fetchCabins(
         capacity,
         registered,
         available: registered < capacity,
+        note,
       };
     })
     .filter((c) => c.number > 0 && c.capacity > 0)
