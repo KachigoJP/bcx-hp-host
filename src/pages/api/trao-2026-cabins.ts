@@ -167,8 +167,8 @@ export default async function handler(
 
     const cabins = await fetchCabins(sheets, sheetId);
     res.status(200).json({ ok: true, cabins });
-  } catch (err) {
-    console.error("Cabins API error:", err);
+  } catch (err: unknown) {
+    console.error("Cabins API error:", typeof err === "object" && err !== null ? JSON.stringify(err) : String(err));
     res
       .status(500)
       .json({ ok: false, error: "Không thể tải danh sách cabin." });
