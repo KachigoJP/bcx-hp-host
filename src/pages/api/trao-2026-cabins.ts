@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { google } from "googleapis";
 import type { CabinInfo } from "../../components/trao2026/types";
-import { getAuth } from "./utils";
+import { formatGoogleApiError, getAuth } from "./utils";
 
 // Sheet "Danh sách cabin":
 //   A = Số TT (1-34, sequential)
@@ -168,7 +168,7 @@ export default async function handler(
     const cabins = await fetchCabins(sheets, sheetId);
     res.status(200).json({ ok: true, cabins });
   } catch (err: unknown) {
-    console.error("Cabins API error:", typeof err === "object" && err !== null ? JSON.stringify(err) : String(err));
+    console.error("Cabins API error:", formatGoogleApiError(err));
     res
       .status(500)
       .json({ ok: false, error: "Không thể tải danh sách cabin." });
