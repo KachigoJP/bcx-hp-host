@@ -1,21 +1,13 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { google } from "googleapis";
 import { Logger } from "../../lib/logger";
+import { getAuth } from "./utils";
 
 // ─── Sheets dùng chung trong cùng 1 Spreadsheet ──────────────────────────────
 //   Sheet1 (main): dữ liệu đăng ký hoàn chỉnh
 //   Reservations : code | password | created_at | status
 const MAIN_RANGE = "A2:A"; // cột mã trong sheet chính
 const RES_SHEET = "Reservations"; // tên tab reservations
-
-function getAuth() {
-  const client = new google.auth.OAuth2(
-    process.env.GOOGLE_CLIENT_ID,
-    process.env.GOOGLE_CLIENT_SECRET,
-  );
-  client.setCredentials({ refresh_token: process.env.GOOGLE_REFRESH_TOKEN });
-  return client;
-}
 
 // Đọc tất cả mã đã tồn tại (main + reservations) để tránh trùng
 async function fetchAllCodes(

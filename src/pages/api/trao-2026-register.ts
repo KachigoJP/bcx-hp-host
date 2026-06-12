@@ -5,9 +5,9 @@ import { sendRegistrationEmail } from "../../lib/sendRegistrationEmail";
 import {
   fetchCabins,
   updateCabinCounts,
-  getAuth as getCabinAuth,
 } from "./trao-2026-cabins";
 import { Logger } from "../../lib/logger";
+import { getAuth } from "./utils";
 
 export const config = {
   api: { bodyParser: { sizeLimit: "15mb" } },
@@ -33,17 +33,6 @@ const COLOR_LABEL: Record<string, string> = {
   white: "Trắng",
   green: "Xanh lá",
 };
-
-// ─── Google Auth ──────────────────────────────────────────────────────────────
-
-function getAuth() {
-  const client = new google.auth.OAuth2(
-    process.env.GOOGLE_CLIENT_ID,
-    process.env.GOOGLE_CLIENT_SECRET,
-  );
-  client.setCredentials({ refresh_token: process.env.GOOGLE_REFRESH_TOKEN });
-  return client;
-}
 
 // ─── Generate unique codes ────────────────────────────────────────────────────
 
@@ -157,7 +146,7 @@ export default async function handler(
     });
 
     // Lấy danh sách cabin để map số cabin → tên nhà chòi
-    const cabinSheets = google.sheets({ version: "v4", auth: getCabinAuth() });
+    const cabinSheets = google.sheets({ version: "v4", auth });
     const cabinList = await fetchCabins(
       cabinSheets,
       process.env.GOOGLE_SHEET_ID!,

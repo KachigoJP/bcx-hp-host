@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { google } from "googleapis";
 import type { CabinInfo } from "../../components/trao2026/types";
+import { getAuth } from "./utils";
 
 // Sheet "Danh sách cabin":
 //   A = Số TT (1-34, sequential)
@@ -13,15 +14,6 @@ const CABIN_SHEET = "Danh sách cabin";
 
 // Main sheet: cột AF (index 31, 0-based) chứa cabin dạng "Cabin X" (X = cột A)
 const MAIN_CABIN_COL = "AF";
-
-export function getAuth() {
-  const client = new google.auth.OAuth2(
-    process.env.GOOGLE_CLIENT_ID,
-    process.env.GOOGLE_CLIENT_SECRET,
-  );
-  client.setCredentials({ refresh_token: process.env.GOOGLE_REFRESH_TOKEN });
-  return client;
-}
 
 // ─── Helper: đọc cabin list + đếm từ main sheet ──────────────────────────────
 
