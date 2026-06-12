@@ -451,7 +451,7 @@ const Trao2026Page: React.FC = () => {
                   style={{ border: "3px solid #ffcc02" }}
                 >
                   <Image
-                    src="/assets/images/trao3.png"
+                    src="/assets/images/trao-2026.jpg"
                     width={420}
                     height={520}
                     alt="TRAO 2026"
@@ -596,14 +596,73 @@ const Trao2026Page: React.FC = () => {
                 </a>
               </div>
 
-              <p
-                className="mt-3 mb-0"
-                style={{ fontSize: 13, color: "#f57f17" }}
+              {/* ── Gây quỹ thiện nguyện ─────────────────────────────────────── */}
+              <div
+                className="mt-4 rounded-3 p-4"
+                style={{
+                  backgroundColor: "#fff8e1",
+                  border: "1px solid #ffe082",
+                }}
               >
-                🛍️ Chúng mình sẽ bán thêm các đồ thiện nguyện tại sự kiện và
-                nhận quyên góp. Vui lòng mang theo <strong>tiền mặt</strong> để
-                ủng hộ nhé!
-              </p>
+                <div className="d-flex align-items-start gap-3">
+                  <div
+                    style={{
+                      fontSize: 36,
+                      lineHeight: 1,
+                      minWidth: 44,
+                      paddingTop: 2,
+                    }}
+                  >
+                    ❤️
+                  </div>
+                  <div className="flex-grow-1">
+                    <h5 className="fw-bold mb-2" style={{ color: "#b71c1c" }}>
+                      TRAO — Hoạt động gây quỹ thiện nguyện
+                    </h5>
+                    <p
+                      className="mb-2"
+                      style={{ fontSize: 14, color: "#555", lineHeight: 1.8 }}
+                    >
+                      TRAO không chỉ là sự kiện hội ngộ — đây còn là dịp để cộng
+                      đồng <strong>Bàn Chân Xanh</strong> cùng nhau gây quỹ hỗ
+                      trợ các hoạt động thiện nguyện trong năm: trao học bổng
+                      cho trẻ em vùng khó khăn, xây trường, hỗ trợ đồng bào tại
+                      Việt Nam.
+                    </p>
+                    <p
+                      className="mb-3"
+                      style={{ fontSize: 14, color: "#555", lineHeight: 1.8 }}
+                    >
+                      Một phần lệ phí tham gia sẽ được dùng cho quỹ thiện
+                      nguyện. Ngoài ra, bạn có thể{" "}
+                      <strong>quyên góp thêm tùy tâm</strong> ngay trong form
+                      đăng ký hoặc tại sự kiện. Mọi khoản đóng góp đều được sử
+                      dụng minh bạch và thông báo sau sự kiện.
+                    </p>
+                    <div
+                      className="d-flex align-items-start gap-2 px-3 py-2 rounded-2"
+                      style={{
+                        backgroundColor: "#fff3e0",
+                        border: "1px solid #ffcc80",
+                      }}
+                    >
+                      <span style={{ fontSize: 16, lineHeight: 1.6 }}>🛍️</span>
+                      <p
+                        className="mb-0"
+                        style={{
+                          fontSize: 13,
+                          color: "#e65100",
+                          lineHeight: 1.7,
+                        }}
+                      >
+                        Chúng mình sẽ tổ chức workshop vẽ áo, túi và bán thêm
+                        các đồ gây quỹ tại sự kiện. Vui lòng mang theo{" "}
+                        <strong>tiền mặt</strong> để ủng hộ nhé!
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -672,49 +731,6 @@ const Trao2026Page: React.FC = () => {
           ✦
         </span>
       </div>
-
-      {/* ── Gây quỹ thiện nguyện ─────────────────────────────────────── */}
-      <section
-        style={{
-          backgroundColor: "#fff8e1",
-          borderBottom: "1px solid #ffe082",
-        }}
-      >
-        <div className="container py-4">
-          <div className="row justify-content-center">
-            <div className="col-lg-9 col-12">
-              <div className="d-flex align-items-start gap-3">
-                <div style={{ fontSize: 36, lineHeight: 1, minWidth: 44 }}>
-                  ❤️
-                </div>
-                <div>
-                  <h5 className="fw-bold mb-2" style={{ color: "#b71c1c" }}>
-                    TRAO — Hoạt động gây quỹ thiện nguyện
-                  </h5>
-                  <p
-                    className="mb-2"
-                    style={{ fontSize: 14, color: "#555", lineHeight: 1.8 }}
-                  >
-                    TRAO không chỉ là sự kiện hội ngộ — đây còn là dịp để cộng
-                    đồng <strong>Bàn Chân Xanh</strong> cùng nhau gây quỹ hỗ trợ
-                    các hoạt động thiện nguyện trong năm: trao học bổng cho trẻ
-                    em vùng khó khăn, xây trường, hỗ trợ đồng bào tại Việt Nam.
-                  </p>
-                  <p
-                    className="mb-0"
-                    style={{ fontSize: 14, color: "#555", lineHeight: 1.8 }}
-                  >
-                    Một phần lệ phí tham gia sẽ được dùng cho quỹ thiện nguyện.
-                    Ngoài ra, bạn có thể <strong>quyên góp thêm tùy tâm</strong>{" "}
-                    ngay trong form đăng ký. Mọi khoản đóng góp đều được sử dụng
-                    minh bạch và thông báo sau sự kiện.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* ── Thông tin & Tài liệu ─────────────────────────────────────── */}
       <section className="section-padding">

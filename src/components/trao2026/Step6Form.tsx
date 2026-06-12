@@ -85,13 +85,61 @@ const Step6Form: React.FC<Props> = ({
   return (
     <>
       <h5 className="mb-1 text-success fw-bold">Áo & Chỗ ngủ</h5>
-      <div className="d-flex gap-3 mb-4" style={{ fontSize: 13 }}>
-        <a href="/trao-2026-ao" target="_blank" className="text-success">
-          📐 Xem bảng size & màu áo
-        </a>
-        <a href="/trao-2026-cabin" target="_blank" className="text-success">
-          🏕️ Xem sơ đồ & thông tin cabin
-        </a>
+      <p className="text-muted mb-3" style={{ fontSize: 13 }}>
+        Vui lòng chọn size áo, màu áo và cabin cho từng người tham gia. Tham
+        khảo thông tin trước khi chọn:
+      </p>
+      <div className="row g-2 mb-4">
+        <div className="col-sm-6">
+          <a
+            href="/trao-2026-ao"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="d-flex align-items-center gap-3 p-3 rounded text-decoration-none"
+            style={{
+              backgroundColor: "#f0f7f0",
+              border: "1px solid #a5d6a7",
+            }}
+          >
+            <span style={{ fontSize: 24 }}>👕</span>
+            <div>
+              <div
+                className="fw-semibold"
+                style={{ color: "#1b5e20", fontSize: 13 }}
+              >
+                Bảng size & màu áo
+              </div>
+              <div style={{ fontSize: 11, color: "#888" }}>
+                Tham khảo trước khi chọn
+              </div>
+            </div>
+          </a>
+        </div>
+        <div className="col-sm-6">
+          <a
+            href="/trao-2026-cabin"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="d-flex align-items-center gap-3 p-3 rounded text-decoration-none"
+            style={{
+              backgroundColor: "#f0f7f0",
+              border: "1px solid #a5d6a7",
+            }}
+          >
+            <span style={{ fontSize: 24 }}>🏕️</span>
+            <div>
+              <div
+                className="fw-semibold"
+                style={{ color: "#1b5e20", fontSize: 13 }}
+              >
+                Danh sách cabin
+              </div>
+              <div style={{ fontSize: 11, color: "#888" }}>
+                Sức chứa & tình trạng
+              </div>
+            </div>
+          </a>
+        </div>
       </div>
 
       {data.participants.map((participant, i) => {
