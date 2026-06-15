@@ -12,9 +12,10 @@ type ParticipantUpdate = {
 const COLOR_LABEL: Record<string, string> = {
   white: "Trắng",
   green: "Xanh lá",
+  yellow: "Vàng chanh",
 };
 
-// Cập nhật cột AA:AC (Size áo, Màu áo, Cabin) cho một dòng cụ thể
+// Cập nhật cột AE:AG (Size áo, Màu áo, Cabin) cho một dòng cụ thể
 async function updateRow(
   sheets: ReturnType<typeof google.sheets>,
   rowIndex: number,
@@ -24,7 +25,7 @@ async function updateRow(
 ) {
   await sheets.spreadsheets.values.update({
     spreadsheetId: process.env.GOOGLE_SHEET_ID!,
-    range: `AD${rowIndex}:AF${rowIndex}`,
+    range: `AE${rowIndex}:AG${rowIndex}`,
     valueInputOption: "USER_ENTERED",
     requestBody: {
       values: [
@@ -57,7 +58,7 @@ export default async function handler(
     // Verify mật khẩu trước khi cho sửa
     const verify = await sheets.spreadsheets.values.get({
       spreadsheetId: process.env.GOOGLE_SHEET_ID!,
-      range: "A2:AG",
+      range: "A2:AH",
     });
     const rows = verify.data.values ?? [];
     const repRow = rows.find((r) => r[0] === code);
@@ -66,7 +67,7 @@ export default async function handler(
         .status(404)
         .json({ ok: false, error: "Không tìm thấy mã đăng ký." });
     }
-    if (repRow[32] !== password) {
+    if (repRow[33] !== password) {
       return res.status(401).json({ ok: false, error: "Mật khẩu không đúng." });
     }
 
@@ -81,7 +82,7 @@ export default async function handler(
     const repRowIndex = rows.findIndex((r) => r[0] === code) + 2;
     await sheets.spreadsheets.values.update({
       spreadsheetId: process.env.GOOGLE_SHEET_ID!,
-      range: `AA${repRowIndex}`,
+      range: `AB${repRowIndex}`,
       valueInputOption: "USER_ENTERED",
       requestBody: { values: [["Đã chỉnh sửa"]] },
     });

@@ -2,6 +2,7 @@ import React from "react";
 
 import CostSummaryCard from "./CostSummaryCard";
 import CopyButton from "./CopyButton";
+import { calcFees, calcProductFee } from "./helpers";
 import type { Step1, Step2, Step3, Step4, Step5 } from "./types";
 
 type Props = {
@@ -45,87 +46,20 @@ const Step4PaymentForm: React.FC<Props> = ({
     }
   };
 
+  const fees = calcFees(step1, step2, step3);
+  const productFee =
+    step5.want_products === "yes" ? calcProductFee(step5.products) : 0;
+  const grandTotal = fees.total + productFee + (Number(data.donation) || 0);
   const isLater = data.payment_timing === "later";
 
   return (
     <>
       <h5 className="mb-3 text-success fw-bold">Chuyển khoản</h5>
 
-      {/* ── Chọn thời điểm chuyển khoản ─────────────────────────────── */}
-      <div
-        className="rounded p-3 mb-4"
-        style={{ backgroundColor: "#f0f7f0", border: "1px solid #c8e6c9" }}
-      >
-        <div
-          className="fw-semibold mb-2"
-          style={{ fontSize: 14, color: "#1b5e20" }}
-        >
-          Bạn muốn chuyển khoản khi nào?
-        </div>
-        {[
-          {
-            value: "now" as const,
-            label: "Chuyển khoản ngay",
-            desc: "Upload ảnh chụp màn hình chuyển khoản để hoàn tất đăng ký.",
-            icon: "✅",
-          },
-          {
-            value: "later" as const,
-            label: "Chuyển khoản sau (trong vòng 24h)",
-            desc: "Bạn sẽ cần upload ảnh trong trang tra cứu trước khi hết 24 giờ. Sau 24h chưa chuyển, đăng ký sẽ hết hạn.",
-            icon: "⏳",
-          },
-        ].map((opt) => (
-          <label
-            key={opt.value}
-            className="d-flex align-items-start gap-3 p-3 rounded mb-2"
-            style={{
-              cursor: "pointer",
-              backgroundColor:
-                data.payment_timing === opt.value ? "#e8f5e9" : "#fff",
-              border: `2px solid ${data.payment_timing === opt.value ? "#4caf50" : "#dee2e6"}`,
-              transition: "all .15s",
-            }}
-          >
-            <input
-              type="radio"
-              name="payment_timing"
-              value={opt.value}
-              checked={data.payment_timing === opt.value}
-              onChange={() =>
-                onChange({
-                  payment_timing: opt.value,
-                  receipt_file: null,
-                  receipt_url: "",
-                })
-              }
-              style={{ marginTop: 3, accentColor: "#4caf50" }}
-            />
-            <div>
-              <div className="fw-semibold" style={{ fontSize: 14 }}>
-                {opt.icon} {opt.label}
-              </div>
-              <div style={{ fontSize: 12, color: "#666", lineHeight: 1.5 }}>
-                {opt.desc}
-              </div>
-            </div>
-          </label>
-        ))}
-        {errors.payment_timing && (
-          <div className="text-danger mt-1" style={{ fontSize: 13 }}>
-            {errors.payment_timing}
-          </div>
-        )}
-      </div>
-
       <div
         className="p-3 rounded mb-2"
         style={{ backgroundColor: "#1b5e20", color: "#fff" }}
       >
-        <p className="fw-semibold mb-2" style={{ fontSize: 13 }}>
-          ⚠️ Lưu lại thông tin này — dùng để tra cứu hoặc chỉnh sửa thông tin
-          đăng ký
-        </p>
         <div className="d-flex align-items-center gap-4 flex-wrap">
           <div>
             <div
@@ -234,106 +168,179 @@ const Step4PaymentForm: React.FC<Props> = ({
         step5={step5}
         donation={Number(data.donation) || 0}
       />
-      <p className="text-muted mt-1 mb-4" style={{ fontSize: 12 }}>
-        * Phí trên chỉ mang tính dự kiến, ban tổ chức sẽ xác nhận sau khi nhận
-        đăng ký.
-      </p>
 
-      <div
-        className="p-3 rounded mb-4"
-        style={{ backgroundColor: "#fff8e1", border: "1px solid #ffe082" }}
-      >
-        <h6 className="fw-bold mb-3">Thông tin chuyển khoản</h6>
-        <ul className="mb-0" style={{ lineHeight: 2 }}>
-          <li>
-            <strong>Ngân hàng:</strong> PayPay銀行 (PayPay Bank)
-          </li>
-          <li>
-            <strong>Số tài khoản:</strong> 店番 001 / 口座番号 1234567
-          </li>
-          <li>
-            <strong>Tên tài khoản:</strong> BAN CHAN XANH
-          </li>
-          <li>
-            <strong>Nội dung CK:</strong>{" "}
-            <span
-              className="fw-bold px-2 py-1 rounded me-2"
+      {grandTotal > 0 && (
+        <>
+          <div
+            className="p-3 rounded mb-4"
+            style={{ backgroundColor: "#fff8e1", border: "1px solid #ffe082" }}
+          >
+            <h6 className="fw-bold mb-3">Thông tin chuyển khoản</h6>
+            <ul className="mb-0" style={{ lineHeight: 2 }}>
+              <li>
+                <strong>Ngân hàng:</strong> 住信ＳＢＩネット銀行(0038) スミシン
+                SBI 銀行 (Sumishin SBI netbank)
+              </li>
+              <li>
+                <strong>Số tài khoản:</strong> バナナ支店(107) / 口座番号
+                普通　7615757
+              </li>
+              <li>
+                <strong>Tên tài khoản:</strong>{" "}
+                ＴＲＡＮ　ＶＡＮ　ＧＩＡＮＧ（トラン　ヴアンジヤン）
+              </li>
+              <li>
+                <strong>Nội dung CK:</strong>{" "}
+                <span
+                  className="fw-bold px-2 py-1 rounded me-2"
+                  style={{
+                    backgroundColor: "#fff3e0",
+                    color: "#e65100",
+                    fontSize: 15,
+                    letterSpacing: 1,
+                  }}
+                >
+                  TRAO2026-{reservation?.code ?? "[Mã đăng ký]"}
+                </span>
+                {reservation && (
+                  <CopyButton
+                    text={`TRAO2026-${reservation.code}`}
+                    label="Copy"
+                    small
+                  />
+                )}
+              </li>
+            </ul>
+            <div
+              className="mt-3 p-2 rounded text-danger"
+              style={{ backgroundColor: "#ffebee", fontSize: 13 }}
+            >
+              ⚠️ Vui lòng nhập đúng nội dung chuyển khoản ở trên, KHÔNG dùng họ
+              tên, để ban tổ chức xác nhận nhanh chóng.
+            </div>
+          </div>
+
+          {/* ── Chọn thời điểm chuyển khoản ─────────────────────────────── */}
+          <div
+            className="rounded p-3 mb-4"
+            style={{ backgroundColor: "#f0f7f0", border: "1px solid #c8e6c9" }}
+          >
+            <div
+              className="fw-semibold mb-2"
+              style={{ fontSize: 14, color: "#1b5e20" }}
+            >
+              Bạn muốn chuyển khoản khi nào?
+            </div>
+            {[
+              {
+                value: "now" as const,
+                label: "Chuyển khoản ngay",
+                desc: "Upload ảnh chụp màn hình chuyển khoản để hoàn tất đăng ký.",
+                icon: "✅",
+              },
+              {
+                value: "later" as const,
+                label: "Chuyển khoản sau (trong vòng 24h)",
+                desc: "Bạn sẽ cần upload ảnh trong trang tra cứu trước khi hết 24 giờ. Sau 24h chưa chuyển, đăng ký sẽ hết hạn.",
+                icon: "⏳",
+              },
+            ].map((opt) => (
+              <label
+                key={opt.value}
+                className="d-flex align-items-start gap-3 p-3 rounded mb-2"
+                style={{
+                  cursor: "pointer",
+                  backgroundColor:
+                    data.payment_timing === opt.value ? "#e8f5e9" : "#fff",
+                  border: `2px solid ${data.payment_timing === opt.value ? "#4caf50" : "#dee2e6"}`,
+                  transition: "all .15s",
+                }}
+              >
+                <input
+                  type="radio"
+                  name="payment_timing"
+                  value={opt.value}
+                  checked={data.payment_timing === opt.value}
+                  onChange={() =>
+                    onChange({
+                      payment_timing: opt.value,
+                      receipt_file: null,
+                      receipt_url: "",
+                    })
+                  }
+                  style={{ marginTop: 3, accentColor: "#4caf50" }}
+                />
+                <div>
+                  <div className="fw-semibold" style={{ fontSize: 14 }}>
+                    {opt.icon} {opt.label}
+                  </div>
+                  <div style={{ fontSize: 12, color: "#666", lineHeight: 1.5 }}>
+                    {opt.desc}
+                  </div>
+                </div>
+              </label>
+            ))}
+            {errors.payment_timing && (
+              <div className="text-danger mt-1" style={{ fontSize: 13 }}>
+                {errors.payment_timing}
+              </div>
+            )}
+          </div>
+
+          {isLater ? (
+            <div
+              className="rounded p-3 mb-3"
               style={{
-                backgroundColor: "#fff3e0",
-                color: "#e65100",
-                fontSize: 15,
-                letterSpacing: 1,
+                backgroundColor: "#fff8e1",
+                border: "1px solid #ffe082",
               }}
             >
-              TRAO2026-{reservation?.code ?? "[Mã đăng ký]"}
-            </span>
-            {reservation && (
-              <CopyButton
-                text={`TRAO2026-${reservation.code}`}
-                label="Copy"
-                small
-              />
-            )}
-          </li>
-        </ul>
-        <div
-          className="mt-3 p-2 rounded text-danger"
-          style={{ backgroundColor: "#ffebee", fontSize: 13 }}
-        >
-          ⚠️ Nhập đúng nội dung chuyển khoản ở trên — KHÔNG dùng họ tên — để ban
-          tổ chức xác nhận nhanh chóng.
-        </div>
-      </div>
-
-      {isLater ? (
-        <div
-          className="rounded p-3 mb-3"
-          style={{ backgroundColor: "#fff8e1", border: "1px solid #ffe082" }}
-        >
-          <p className="mb-0" style={{ fontSize: 13, color: "#e65100" }}>
-            ⏳ Bạn đã chọn chuyển khoản sau. Sau khi đăng ký, vào trang{" "}
-            <strong>Tra cứu thông tin đăng ký</strong> để upload ảnh chuyển
-            khoản trong vòng 24 giờ. Sau 24 giờ, đăng ký sẽ{" "}
-            <strong>tự động hết hạn</strong>.
-          </p>
-        </div>
-      ) : (
-        <div className="mb-3">
-          <label className="form-label fw-semibold">
-            Upload ảnh chụp màn hình chuyển khoản{" "}
-            <span className="text-danger">*</span>
-          </label>
-          <input
-            type="file"
-            className={`form-control ${errors.receipt_file ? "is-invalid" : ""}`}
-            accept="image/*"
-            onChange={onFileChange}
-          />
-          {errors.receipt_file && (
-            <div className="invalid-feedback">{errors.receipt_file}</div>
-          )}
-          <div className="form-text">
-            Chấp nhận: JPG, PNG, HEIC, v.v. Dung lượng tối đa 10MB.
-          </div>
-          {preview && (
-            <div className="mt-3">
-              <p className="text-muted mb-1" style={{ fontSize: 13 }}>
-                Xem trước:
+              <p className="mb-0" style={{ fontSize: 13, color: "#e65100" }}>
+                ⏳ Bạn đã chọn chuyển khoản sau. Sau khi đăng ký, vào trang{" "}
+                <strong>Tra cứu thông tin đăng ký</strong> để upload ảnh chuyển
+                khoản trong vòng 24 giờ. Sau 24 giờ, đăng ký sẽ{" "}
+                <strong>tự động hết hạn</strong>.
               </p>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={preview}
-                alt="Receipt preview"
-                style={{
-                  maxWidth: "100%",
-                  maxHeight: 320,
-                  borderRadius: 8,
-                  border: "1px solid #dee2e6",
-                }}
+            </div>
+          ) : (
+            <div className="mb-3">
+              <label className="form-label fw-semibold">
+                Upload ảnh chụp màn hình chuyển khoản{" "}
+                <span className="text-danger">*</span>
+              </label>
+              <input
+                type="file"
+                className={`form-control ${errors.receipt_file ? "is-invalid" : ""}`}
+                accept="image/*"
+                onChange={onFileChange}
               />
+              {errors.receipt_file && (
+                <div className="invalid-feedback">{errors.receipt_file}</div>
+              )}
+              <div className="form-text">
+                Chấp nhận: JPG, PNG, HEIC, v.v. Dung lượng tối đa 10MB.
+              </div>
+              {preview && (
+                <div className="mt-3">
+                  <p className="text-muted mb-1" style={{ fontSize: 13 }}>
+                    Xem trước:
+                  </p>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={preview}
+                    alt="Receipt preview"
+                    style={{
+                      maxWidth: "100%",
+                      maxHeight: 320,
+                      borderRadius: 8,
+                      border: "1px solid #dee2e6",
+                    }}
+                  />
+                </div>
+              )}
             </div>
           )}
-        </div>
+        </>
       )}
     </>
   );

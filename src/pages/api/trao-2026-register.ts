@@ -29,6 +29,7 @@ type ParticipantExtra = {
 const COLOR_LABEL: Record<string, string> = {
   white: "Trắng",
   green: "Xanh lá",
+  yellow: "Vàng chanh",
 };
 
 // ─── Generate unique codes ────────────────────────────────────────────────────
@@ -212,6 +213,7 @@ export default async function handler(
       busDeparture, // Nơi xuất phát
       Number(formData.fee_event), // Phí sự kiện
       Number(formData.fee_bus), // Phí xe bus
+      Number(formData.donation) || 0, // Quyên góp (S)
       Number(formData.fee_total), // Tổng phí
       receiptLink, // Link ảnh CK
       (formData.food_allergy as string) || "", // Dị ứng
@@ -242,7 +244,9 @@ export default async function handler(
         ? cabinNameMap[Number(participants[0].stay)] || participants[0].stay
         : "", // Cabin
       (formData.password as string) ?? "", // Mật khẩu
-      Number(formData.donation) || 0, // Quyên góp
+      Number(formData.count_adult ?? 0), // Số người lớn
+      Number(formData.count_child ?? 0), // Số trẻ em 6-12
+      Number(formData.count_free ?? 0), // Số miễn phí
     ];
 
     // ── Dòng từng thành viên ───────────────────────────────────────────────────
@@ -265,25 +269,25 @@ export default async function handler(
       busDeparture, // [15] Nơi xuất phát
       "", // [16] Phí sự kiện
       "", // [17] Phí xe bus
-      "", // [18] Tổng phí
-      "", // [19] Link ảnh CK
-      "", // [20] Dị ứng thực phẩm
-      "", // [21] Sản phẩm đặt mua
-      "", // [22] Phí sản phẩm (¥)
-      "", // [23] Cộng tác viên
-      "", // [24] Team CTV
-      "", // [25] Ghi chú
-      "Chờ xác nhận", // [26] Trạng thái
-      repCode, // [27] Mã đại diện ← trỏ về người đăng ký
-      "Thành viên", // [28] Vai trò
-      participants[i + 1]?.shirt_size ?? "", // [29] Size áo
-      COLOR_LABEL[participants[i + 1]?.shirt_color] ?? "", // [30] Màu áo
+      "", // [18] Quyên góp (trống — chỉ đại diện ghi)
+      "", // [19] Tổng phí
+      "", // [20] Link ảnh CK
+      "", // [21] Dị ứng thực phẩm
+      "", // [22] Sản phẩm đặt mua
+      "", // [23] Phí sản phẩm (¥)
+      "", // [24] Cộng tác viên
+      "", // [25] Team CTV
+      "", // [26] Ghi chú
+      "Chờ xác nhận", // [27] Trạng thái
+      repCode, // [28] Mã đại diện ← trỏ về người đăng ký
+      "Thành viên", // [29] Vai trò
+      participants[i + 1]?.shirt_size ?? "", // [30] Size áo
+      COLOR_LABEL[participants[i + 1]?.shirt_color] ?? "", // [31] Màu áo
       participants[i + 1]?.stay
         ? cabinNameMap[Number(participants[i + 1].stay)] ||
           participants[i + 1].stay
-        : "", // [31] Cabin
-      "", // [32] Mật khẩu (trống — chỉ đại diện có mật khẩu)
-      "", // [33] Quyên góp (trống — chỉ đại diện ghi)
+        : "", // [32] Cabin
+      "", // [33] Mật khẩu (trống — chỉ đại diện có mật khẩu)
     ]);
 
     log.startStep();
@@ -360,6 +364,10 @@ export default async function handler(
         bus_departure: String(formData.bus_departure ?? ""),
         reg_type:
           formData.register_type === "individual" ? "Cá nhân" : "Nhóm/Gia đình",
+        count_adult: Number(formData.count_adult ?? 0),
+        count_child: Number(formData.count_child ?? 0),
+        count_free: Number(formData.count_free ?? 0),
+
         fee_event: Number(formData.fee_event),
         fee_bus: Number(formData.fee_bus),
         fee_total: Number(formData.fee_total),

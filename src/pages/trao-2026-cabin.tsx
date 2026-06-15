@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+import Image from "next/image";
 import type { CabinInfo } from "../components/trao2026/types";
 
 const CabinPage: React.FC = () => {
@@ -60,10 +61,12 @@ const CabinPage: React.FC = () => {
                 className="rounded mb-4 overflow-hidden"
                 style={{ border: "1px solid #a5d6a7" }}
               >
-                <img
-                  src="/images/trao-2026/so-do-camp.png"
+                <Image
+                  src="/assets/images/trao-2026/so-do-camp.png"
                   alt="Sơ đồ bãi trại TRAO 2026"
-                  style={{ width: "100%", display: "block" }}
+                  width={1200}
+                  height={800}
+                  style={{ width: "100%", height: "auto", display: "block" }}
                 />
               </div>
 

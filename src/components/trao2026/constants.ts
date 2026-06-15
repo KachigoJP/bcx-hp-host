@@ -27,15 +27,21 @@ export const VOLUNTEER_TEAMS = [
   "Team camera",
 ];
 
-export const SHIRT_SIZES = ["XS", "S", "M", "L"];
+export const SHIRT_SIZES = ["XS", "S", "M", "L", "XL", "2XL", "3XL", "4XL"];
 
 export const SHIRT_COLORS = [
   { value: "white", label: "Trắng", hex: "#ffffff", border: "#bdbdbd" },
   {
     value: "green",
-    label: "Xanh lá",
+    label: "Xanh mint",
     hex: "rgb(232, 245, 233)",
     border: "#a5d6a7",
+  },
+  {
+    value: "yellow",
+    label: "Vàng chanh",
+    hex: "#f9f75e",
+    border: "#d4c000",
   },
 ];
 

@@ -13,8 +13,8 @@ import { formatGoogleApiError, getAuth } from "./utils";
 //   G = Ghi chú
 const CABIN_SHEET = "Danh sách cabin";
 
-// Main sheet: cột AF (index 31, 0-based) chứa cabin dạng "Cabin X" (X = cột A)
-const MAIN_CABIN_COL = "AF";
+// Main sheet: cột AG (index 32, 0-based) chứa cabin dạng "Cabin X" (X = cột A)
+const MAIN_CABIN_COL = "AG";
 
 // ─── Helper: đọc cabin list + đếm từ main sheet ──────────────────────────────
 
@@ -46,7 +46,7 @@ export async function fetchCabins(
     if (number > 0 && fullName) fullNameToNumber[fullName] = number;
   }
 
-  // Đếm số người đã đăng ký theo tên nhà chòi (cột AF lưu fullName)
+  // Đếm số người đã đăng ký theo tên nhà chòi (cột AG lưu fullName)
   // Tương thích ngược: vẫn nhận dạng format cũ "Cabin X" nếu còn trong sheet
   const registeredCount: Record<number, number> = {};
   for (const val of mainCabinValues) {

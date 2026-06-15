@@ -32,12 +32,16 @@ function buildHtml(data: {
   fee_total: number;
   products: string;
   fee_product: number;
+  donation?: number;
+  payment_timing?: string;
   food_allergy: string;
   volunteer: string;
   volunteer_teams: string[];
   note: string;
 }): string {
-  const grandTotal = data.fee_total + data.fee_product;
+  const donation = Number(data.donation) || 0;
+  const grandTotal = data.fee_total + data.fee_product + donation;
+  const needPayLater = data.payment_timing === "later" && grandTotal > 0;
   const allParticipants = [
     {
       ...data.representative,
@@ -53,7 +57,7 @@ function buildHtml(data: {
         <td style="padding:8px;border:1px solid #e0e0e0">${p.name}</td>
         <td style="padding:8px;border:1px solid #e0e0e0;text-align:center">${p.role}</td>
         <td style="padding:8px;border:1px solid #e0e0e0;text-align:center">${p.shirt_size || "—"}</td>
-        <td style="padding:8px;border:1px solid #e0e0e0;text-align:center">${p.shirt_color === "white" ? "Trắng" : p.shirt_color === "green" ? "Xanh lá" : p.shirt_color || "—"}</td>
+        <td style="padding:8px;border:1px solid #e0e0e0;text-align:center">${p.shirt_color === "white" ? "Trắng" : p.shirt_color === "green" ? "Xanh lá" : p.shirt_color === "yellow" ? "Vàng chanh" : p.shirt_color || "—"}</td>
         <td style="padding:8px;border:1px solid #e0e0e0;text-align:center">${p.cabin || "—"}</td>
       </tr>`,
     )
@@ -85,7 +89,13 @@ function buildHtml(data: {
       <p style="margin:0;font-size:32px;font-weight:900;color:#1b5e20;letter-spacing:4px">${data.code}</p>
       <p style="margin:8px 0 0;color:#777;font-size:13px">Mật khẩu: <strong style="letter-spacing:3px">${data.password}</strong></p>
       <p style="margin:8px 0 0;color:#e65100;font-size:12px">
-        ⚠️ Vui lòng lưu lại mã và mật khẩu này để tra cứu hoặc chỉnh sửa thông tin sau.
+        Mã đăng ký và mật khẩu dùng để đăng nhập khi tra cứu và chỉnh sửa thông tin.
+      </p>
+      <p style="margin:12px 0 0;font-size:13px;color:#555">
+        Trạng thái đăng ký hiện tại:
+        <span style="font-weight:700;color:${needPayLater ? "#e65100" : "#2e7d32"}">
+          ${needPayLater ? "Chưa chuyển khoản" : "Chờ xác nhận"}
+        </span>
       </p>
     </div>
 
@@ -115,7 +125,7 @@ function buildHtml(data: {
     </table>
 
     <!-- Chi phí -->
-    <h3 style="color:#2e7d32;border-bottom:2px solid #e8f5e9;padding-bottom:8px">Chi phí dự kiến</h3>
+    <h3 style="color:#2e7d32;border-bottom:2px solid #e8f5e9;padding-bottom:8px">Tổng phí</h3>
     <table style="width:100%;border-collapse:collapse;font-size:14px;margin-bottom:20px">
       <tr><td style="padding:8px 0;color:#777">Phí sự kiện</td><td style="padding:8px 0;text-align:right">${fmtYen(data.fee_event)}</td></tr>
       ${data.fee_bus > 0 ? `<tr style="background:#f9f9f9"><td style="padding:8px 4px;color:#777">Phí xe bus</td><td style="padding:8px 4px;text-align:right">${fmtYen(data.fee_bus)}</td></tr>` : ""}
@@ -126,39 +136,80 @@ function buildHtml(data: {
       </tr>
     </table>
 
-    <!-- Chuyển khoản -->
+    <!-- Thông tin chuyển khoản — chỉ hiện khi chuyển khoản sau -->
+    ${
+      needPayLater
+        ? `
     <div style="background:#fff8e1;border:1px solid #ffe082;border-radius:8px;padding:16px;margin-bottom:20px">
       <h4 style="margin:0 0 12px;color:#e65100">💳 Thông tin chuyển khoản</h4>
-      <p style="margin:4px 0;font-size:14px"><strong>Ngân hàng:</strong> PayPay銀行 (PayPay Bank)</p>
-      <p style="margin:4px 0;font-size:14px"><strong>Số tài khoản:</strong> 店番 001 / 口座番号 1234567</p>
-      <p style="margin:4px 0;font-size:14px"><strong>Tên TK:</strong> BAN CHAN XANH</p>
-      <p style="margin:4px 0;font-size:14px"><strong>Nội dung CK:</strong>
-        <span style="background:#fff3e0;color:#e65100;font-weight:700;padding:2px 8px;border-radius:4px;font-size:15px;letter-spacing:1px">
-          TRAO2026-${data.code}
-        </span>
-      </p>
+      <ul style="margin:0;padding-left:18px;line-height:2;font-size:14px">
+        <li><strong>Ngân hàng:</strong> 住信ＳＢＩネット銀行(0038) スミシン SBI 銀行 (Sumishin SBI netbank)</li>
+        <li><strong>Số tài khoản:</strong> バナナ支店(107) / 口座番号 普通　7615757</li>
+        <li><strong>Tên tài khoản:</strong> ＴＲＡＮ　ＶＡＮ　ＧＩＡＮＧ（トラン　ヴアンジヤン）</li>
+        <li><strong>Nội dung CK:</strong>
+          <span style="background:#fff3e0;color:#e65100;font-weight:700;padding:2px 8px;border-radius:4px;font-size:15px;letter-spacing:1px">
+            TRAO2026-${data.code}
+          </span>
+        </li>
+      </ul>
       <p style="margin:10px 0 0;font-size:12px;color:#e65100">
-        ⚠️ Nhập đúng nội dung chuyển khoản ở trên — KHÔNG dùng họ tên.
+        ⚠️ Vui lòng nhập đúng nội dung chuyển khoản ở trên, KHÔNG dùng họ tên, để ban tổ chức xác nhận nhanh chóng.
       </p>
     </div>
+    `
+        : ""
+    }
 
-    <!-- Chỉnh sửa -->
-    <div style="background:#e8f5e9;border-radius:8px;padding:16px;margin-bottom:20px;text-align:center">
-      <p style="margin:0 0 8px;font-size:14px">Muốn chỉnh sửa size áo hoặc chỗ ngủ? Dùng mã và mật khẩu ở trên tại:</p>
-      <a href="https://banchanxanh.jp/trao-2026-tra-cuu" style="display:inline-block;background:#2e7d32;color:#fff;padding:10px 24px;border-radius:6px;text-decoration:none;font-weight:600">
-        Trang chỉnh sửa thông tin →
-      </a>
-    </div>
-
-    <!-- Thông tin về TRAO 2026 -->
+    <!-- Trạng thái chuyển khoản -->
+    ${
+      needPayLater
+        ? `
     <div style="background:#fff8e1;border:1px solid #ffe082;border-radius:8px;padding:16px;margin-bottom:20px">
-      <h4 style="margin:0 0 12px;color:#e65100">💳 Thông tin chi tiết TRAO 2026</h4>
-      <p style="margin:4px 0;font-size:14px"><strong>🎊 Chủ đề:</strong>  TRUNG THU</p>
-      <p style="margin:4px 0;font-size:14px"><strong>⏰ Thời gian:</strong>  22/08/2026 (Thứ Bảy) - 23/08/2026 (Chủ Nhật)</p>
-      <p style="margin:4px 0;font-size:14px"><strong>🏠 Địa điểm</strong>  Kobu Camp Village - 甲武キャンプ村</p>
-      <p style="margin:4px 0;font-size:14px"><strong>            </strong>  〒409-0300 山梨県 北都留郡 丹波山村400</p>
-      <p style="margin:4px 0;font-size:14px"><strong>            </strong>  0428-88-0523</p>
-      <p style="margin:4px 0;font-size:14px"><strong>            </strong>  tabayama-kobu.jp</p>
+      <p style="margin:0 0 8px;font-size:15px;font-weight:700;color:#e65100">⏳ Bạn chưa chuyển khoản — vui lòng hoàn tất trong 24 giờ</p>
+      <p style="margin:0 0 12px;font-size:13px;color:#555;line-height:1.7">
+        Đăng ký của bạn đang ở trạng thái <strong>Chưa chuyển khoản</strong>. Vui lòng chuyển khoản theo thông tin trên và upload ảnh xác nhận trong vòng 24 giờ — sau đó đăng ký sẽ tự động hết hạn.
+      </p>
+      <p style="margin:0 0 12px;font-size:13px;color:#555;line-height:1.7">
+        Để upload ảnh chuyển khoản, chỉnh sửa size áo và chỗ ngủ, truy cập trang tra cứu bằng mã và mật khẩu bên dưới:
+      </p>
+      <div style="background:#f0f7f0;border:1px solid #c8e6c9;border-radius:6px;padding:12px;text-align:center;margin-bottom:12px">
+        <p style="margin:0 0 4px;font-size:13px;color:#555">Mã đăng ký: <strong style="font-size:18px;color:#1b5e20;letter-spacing:2px">${data.code}</strong></p>
+        <p style="margin:0;font-size:13px;color:#555">Mật khẩu: <strong style="font-size:16px;letter-spacing:2px">${data.password}</strong></p>
+      </div>
+      <div style="text-align:center">
+        <a href="https://banchanxanh.com/trao-2026-tra-cuu"
+           style="display:inline-block;background:#e65100;color:#fff;padding:12px 28px;border-radius:8px;text-decoration:none;font-weight:700;font-size:15px">
+          Hoàn tất chuyển khoản →
+        </a>
+      </div>
+    </div>
+    `
+        : `
+    <div style="background:#e8f5e9;border:1px solid #a5d6a7;border-radius:8px;padding:16px;margin-bottom:20px">
+      <p style="margin:0 0 8px;font-size:15px;font-weight:700;color:#2e7d32">✅ Chuyển khoản đã được ghi nhận!</p>
+      <p style="margin:0 0 12px;font-size:13px;color:#555;line-height:1.7">
+        Muốn chỉnh sửa size áo hoặc chỗ ngủ? Dùng mã và mật khẩu để truy cập trang tra cứu:
+      </p>
+      <div style="background:#f0f7f0;border:1px solid #c8e6c9;border-radius:6px;padding:12px;text-align:center;margin-bottom:12px">
+        <p style="margin:0 0 4px;font-size:13px;color:#555">Mã đăng ký: <strong style="font-size:18px;color:#1b5e20;letter-spacing:2px">${data.code}</strong></p>
+        <p style="margin:0;font-size:13px;color:#555">Mật khẩu: <strong style="font-size:16px;letter-spacing:2px">${data.password}</strong></p>
+      </div>
+      <div style="text-align:center">
+        <a href="https://banchanxanh.com/trao-2026-tra-cuu"
+           style="display:inline-block;background:#2e7d32;color:#fff;padding:12px 28px;border-radius:8px;text-decoration:none;font-weight:700;font-size:15px">
+          Chỉnh sửa áo và chỗ ngủ →
+        </a>
+      </div>
+    </div>
+    `
+    }
+
+    <!-- Thông tin chi tiết -->
+    <div style="text-align:center;margin:16px 0">
+      <a href="https://banchanxanh.com/trao-2026"
+         style="display:inline-block;background:#e8f5e9;color:#1b5e20;padding:10px 24px;border-radius:8px;text-decoration:none;font-weight:600;font-size:14px;border:1px solid #a5d6a7">
+        Thông tin chi tiết về TRAO 2026
+      </a>
     </div>
 
     <p style="color:#777;font-size:13px;line-height:1.6">

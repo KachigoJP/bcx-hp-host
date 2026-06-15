@@ -13,9 +13,9 @@ const C = {
   CODE: 0,
   NAME: 2,
   EMAIL: 3,
-  STATUS: 26,
-  RECEIPT: 19,
-  PASSWORD: 32,
+  STATUS: 27,
+  RECEIPT: 20,
+  PASSWORD: 33,
 };
 
 async function uploadToDrive(
@@ -146,7 +146,7 @@ export default async function handler(
     // Tìm dòng của mã đăng ký
     const result = await sheets.spreadsheets.values.get({
       spreadsheetId: sheetId,
-      range: "A2:AG",
+      range: "A2:AH",
     });
     const rows = result.data.values ?? [];
     const rowIdx = rows.findIndex((r) => r[C.CODE] === code);
@@ -183,11 +183,11 @@ export default async function handler(
         valueInputOption: "USER_ENTERED",
         data: [
           {
-            range: `T${sheetRow}`, // cột T = index 19 = RECEIPT
+            range: `U${sheetRow}`, // cột U = index 20 = RECEIPT
             values: [[receiptLink]],
           },
           {
-            range: `AA${sheetRow}`, // cột AA = index 26 = STATUS
+            range: `AB${sheetRow}`, // cột AB = index 27 = STATUS
             values: [["Chờ xác nhận"]],
           },
         ],

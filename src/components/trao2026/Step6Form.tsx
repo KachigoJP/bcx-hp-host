@@ -189,14 +189,21 @@ const Step6Form: React.FC<Props> = ({
                     const soldOut =
                       participant.shirt_color === "green" &&
                       (size === "XS" || size === "S");
+                    const notAvailable =
+                      participant.shirt_color === "yellow" &&
+                      !["XS", "S"].includes(size);
+                    const disabled = soldOut || notAvailable;
                     return (
                       <ToggleChip
                         key={size}
                         selected={participant.shirt_size === size}
-                        disabled={soldOut}
-                        disabledTitle="Đã hết áo"
+                        disabled={disabled}
+                        disabledTitle={
+                          soldOut ? "Đã hết áo" : "Không có cỡ này"
+                        }
                         onClick={() =>
-                          !soldOut && updateParticipant(i, { shirt_size: size })
+                          !disabled &&
+                          updateParticipant(i, { shirt_size: size })
                         }
                         style={{
                           minWidth: 40,
@@ -238,6 +245,12 @@ const Step6Form: React.FC<Props> = ({
                           color.value === "green" &&
                           (participant.shirt_size === "XS" ||
                             participant.shirt_size === "S")
+                        ) {
+                          patch.shirt_size = "";
+                        }
+                        if (
+                          color.value === "yellow" &&
+                          !["XS", "S", ""].includes(participant.shirt_size)
                         ) {
                           patch.shirt_size = "";
                         }

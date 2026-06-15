@@ -864,11 +864,17 @@ const RegisterPage: React.FC = () => {
 
   const validateStep6 = (): boolean => {
     const e: Record<string, string> = {};
-    if (!step4.payment_timing)
-      e.payment_timing =
-        "Mã đăng ký có hiệu lực trong vòng 24 giờ. Vui lòng chuyển khoản đúng hạn.";
-    else if (step4.payment_timing === "now" && !step4.receipt_file)
-      e.receipt_file = "Vui lòng upload ảnh chụp màn hình chuyển khoản";
+    const fees = calcFees(step1, step2, step3);
+    const productFee =
+      step5.want_products === "yes" ? calcProductFee(step5.products) : 0;
+    const grandTotal = fees.total + productFee + (Number(step4.donation) || 0);
+    if (grandTotal > 0) {
+      if (!step4.payment_timing)
+        e.payment_timing =
+          "Mã đăng ký có hiệu lực trong vòng 24 giờ. Vui lòng chuyển khoản đúng hạn.";
+      else if (step4.payment_timing === "now" && !step4.receipt_file)
+        e.receipt_file = "Vui lòng upload ảnh chụp màn hình chuyển khoản";
+    }
     setErrors(e);
     return Object.keys(e).length === 0;
   };
@@ -972,6 +978,9 @@ const RegisterPage: React.FC = () => {
         num_person: fees.total_people,
         transport: step3.transport,
         bus_departure: step3.bus_departure || null,
+        count_adult: fees.adults,
+        count_child: fees.children,
+        count_free: fees.free,
         fee_event: fees.event_fee,
         fee_bus: fees.bus_fee,
         fee_total: fees.total,
@@ -1571,12 +1580,17 @@ const RegisterPage: React.FC = () => {
                       <button
                         type="submit"
                         className="btn btn-success btn-lg"
-                        disabled={submitting}
+                        disabled={submitting || reserving || !reservation}
                       >
                         {submitting ? (
                           <>
                             <span className="spinner-border spinner-border-sm me-2" />
                             Đang gửi...
+                          </>
+                        ) : reserving ? (
+                          <>
+                            <span className="spinner-border spinner-border-sm me-2" />
+                            Đang tạo mã...
                           </>
                         ) : (
                           "Hoàn tất đăng ký"

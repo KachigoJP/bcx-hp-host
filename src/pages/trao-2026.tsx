@@ -451,7 +451,7 @@ const Trao2026Page: React.FC = () => {
                   style={{ border: "3px solid #ffcc02" }}
                 >
                   <Image
-                    src="/assets/images/trao-2026.jpg"
+                    src="/assets/images/trao-2026/trao-2026-poster.png"
                     width={420}
                     height={520}
                     alt="TRAO 2026"
@@ -535,7 +535,7 @@ const Trao2026Page: React.FC = () => {
                     label="Địa điểm"
                     value={
                       <a
-                        href="https://share.google/Sh5R7e7NA7JgAhiU9"
+                        href="https://maps.app.goo.gl/buEkmzw6bqzeribeA"
                         target="_blank"
                         rel="noopener noreferrer"
                         style={{ color: "#2e7d32" }}
@@ -763,9 +763,9 @@ const Trao2026Page: React.FC = () => {
               >
                 <div className="text-center">
                   <Image
-                    src="/assets/images/trao_rule.png"
-                    width={412}
-                    height={566}
+                    src="/assets/images/trao-2026/trao-2026-quy-tac.png"
+                    width={800}
+                    height={400}
                     alt="Nội quy bãi trại"
                     style={{ maxWidth: "100%", height: "auto" }}
                   />
@@ -775,7 +775,7 @@ const Trao2026Page: React.FC = () => {
               <AccordionItem title="Lịch Trình Sự Kiện" emoji="🗓️">
                 <div className="text-center">
                   <Image
-                    src="/assets/images/trao_schedule.jpg"
+                    src="/assets/images/trao-2026/trao-2026-lich-trinh.png"
                     width={800}
                     height={400}
                     alt="Lịch trình sự kiện"

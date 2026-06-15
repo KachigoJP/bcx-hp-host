@@ -1,16 +1,23 @@
 import React, { Fragment } from "react";
 import type { CabinInfo } from "../components/trao2026/types";
 
-const SHIRT_SIZES = ["XS", "S", "M", "L"];
+const SHIRT_SIZES = ["XS", "S", "M", "L", "XL", "2XL", "3XL", "4XL"];
 const SHIRT_COLORS = [
   { value: "white", label: "Trắng", hex: "#f5f5f5", border: "#bdbdbd" },
   {
     value: "green",
-    label: "Xanh lá",
+    label: "Xanh mint",
     hex: "rgb(232, 245, 233)",
     border: "#a5d6a7",
   },
+  { value: "yellow", label: "Vàng chanh", hex: "#f9f75e", border: "#d4c000" },
 ];
+
+function isSizeDisabled(color: string, size: string): boolean {
+  if (color === "green" && (size === "XS" || size === "S")) return true;
+  if (color === "yellow" && !["XS", "S"].includes(size)) return true;
+  return false;
+}
 
 function fmtYen(n: number | string) {
   return Number(n).toLocaleString("ja-JP") + " ¥";
@@ -48,6 +55,9 @@ type Profile = {
   fee_event: string;
   fee_bus: string;
   fee_total: string;
+  count_adult: string;
+  count_child: string;
+  count_free: string;
   products: string;
   fee_product: string;
   food_allergy: string;
@@ -106,15 +116,16 @@ const SectionTitle: React.FC<{ children: React.ReactNode }> = ({
 const ToggleChip: React.FC<{
   selected: boolean;
   disabled?: boolean;
+  disabledTitle?: string;
   onClick: () => void;
   children: React.ReactNode;
   style?: React.CSSProperties;
-}> = ({ selected, disabled, onClick, children, style }) => (
+}> = ({ selected, disabled, disabledTitle, onClick, children, style }) => (
   <button
     type="button"
     onClick={onClick}
     disabled={disabled}
-    title={disabled ? "Cabin đã đầy" : undefined}
+    title={disabled ? (disabledTitle ?? "Không thể chọn") : undefined}
     style={{
       cursor: disabled ? "not-allowed" : "pointer",
       border: `2px solid ${selected ? "#4caf50" : disabled ? "#e0e0e0" : "#dee2e6"}`,
@@ -205,20 +216,25 @@ const ParticipantEditCard: React.FC<{
             Size áo *
           </label>
           <div className="d-flex gap-2 flex-wrap">
-            {SHIRT_SIZES.map((s) => (
-              <ToggleChip
-                key={s}
-                selected={data.shirt_size === s}
-                onClick={() => onChange({ shirt_size: s })}
-                style={{
-                  padding: "5px 8px",
-                  minWidth: 40,
-                  textAlign: "center",
-                }}
-              >
-                {s}
-              </ToggleChip>
-            ))}
+            {SHIRT_SIZES.map((s) => {
+              const disabled = isSizeDisabled(data.shirt_color, s);
+              return (
+                <ToggleChip
+                  key={s}
+                  selected={data.shirt_size === s}
+                  disabled={disabled}
+                  disabledTitle="Không có cỡ này"
+                  onClick={() => !disabled && onChange({ shirt_size: s })}
+                  style={{
+                    padding: "5px 8px",
+                    minWidth: 40,
+                    textAlign: "center",
+                  }}
+                >
+                  {s}
+                </ToggleChip>
+              );
+            })}
           </div>
         </div>
 
@@ -233,7 +249,18 @@ const ParticipantEditCard: React.FC<{
                 key={c.value}
                 type="button"
                 title={c.label}
-                onClick={() => onChange({ shirt_color: c.value })}
+                onClick={() => {
+                  const patch: { shirt_color: string; shirt_size?: string } = {
+                    shirt_color: c.value,
+                  };
+                  if (
+                    data.shirt_size &&
+                    isSizeDisabled(c.value, data.shirt_size)
+                  ) {
+                    patch.shirt_size = "";
+                  }
+                  onChange(patch);
+                }}
                 style={{
                   width: 34,
                   height: 34,
@@ -1034,12 +1061,41 @@ const ChinhSuaPage: React.FC = () => {
                   <SectionTitle>Chi phí</SectionTitle>
                   <table style={{ width: "100%", borderCollapse: "collapse" }}>
                     <tbody>
+                      {Number(profile.count_adult) > 0 && (
+                        <InfoRow
+                          label={`Người lớn / Trẻ trên 12 tuổi (${profile.count_adult} người × 16,500 ¥)`}
+                          value={fmtYen(Number(profile.count_adult) * 16500)}
+                        />
+                      )}
+                      {Number(profile.count_child) > 0 && (
+                        <InfoRow
+                          label={`Trẻ em 6–12 tuổi (${profile.count_child} người × 8,000 ¥)`}
+                          value={fmtYen(Number(profile.count_child) * 8000)}
+                        />
+                      )}
+                      {Number(profile.count_free) > 0 && (
+                        <InfoRow
+                          label={`Người khuyết tật / Trẻ dưới 6 tuổi (${profile.count_free} người)`}
+                          value="Miễn phí"
+                        />
+                      )}
+                      {/* Fallback nếu đăng ký cũ chưa có count */}
+                      {Number(profile.count_adult) === 0 &&
+                        Number(profile.count_child) === 0 &&
+                        Number(profile.count_free) === 0 &&
+                        Number(profile.fee_event) > 0 && (
+                          <InfoRow
+                            label="Phí sự kiện"
+                            value={fmtYen(profile.fee_event)}
+                          />
+                        )}
                       <InfoRow
-                        label="Phí sự kiện"
-                        value={fmtYen(profile.fee_event)}
-                      />
-                      <InfoRow
-                        label="Phí xe bus"
+                        label={
+                          Number(profile.fee_bus) > 0 &&
+                          Number(profile.num_person) > 0
+                            ? `Phí xe bus (${profile.num_person} người × ${fmtYen(Number(profile.fee_bus) / Number(profile.num_person))})`
+                            : "Phí xe bus"
+                        }
                         value={
                           Number(profile.fee_bus) > 0
                             ? fmtYen(profile.fee_bus)

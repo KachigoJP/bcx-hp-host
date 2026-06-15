@@ -147,12 +147,36 @@ const Step1Form: React.FC<Props> = ({
         )}
       </div>
 
-      {field(
-        "Link Facebook",
-        "facebook",
-        "url",
-        "https://facebook.com/yourprofile",
-      )}
+      <div className="mb-3">
+        <label className="form-label fw-semibold">
+          Link Facebook <span className="text-danger">*</span>
+        </label>
+        <input
+          type="url"
+          className={`form-control ${errors.facebook ? "is-invalid" : ""}`}
+          placeholder="https://facebook.com/yourprofile"
+          value={data.facebook}
+          onChange={(e) => {
+            const val = e.target.value;
+            onChange({ facebook: val });
+            if (errors.facebook && isValid("facebook", val))
+              onClearError("facebook");
+          }}
+        />
+        {errors.facebook && (
+          <div className="invalid-feedback">{errors.facebook}</div>
+        )}
+        <div className="form-text">
+          <a
+            href="https://www.google.com/search?q=c%C3%A1ch+l%E1%BA%A5y+%C4%91%C6%B0%E1%BB%9Dng+link+facebook+c%C3%A1+nh%C3%A2n+c%E1%BB%A7a+m%C3%ACnh"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ fontSize: 13 }}
+          >
+            Cách lấy đường link Facebook cá nhân
+          </a>
+        </div>
+      </div>
       {field("Số điện thoại", "phone", "tel", "090-1234-5678")}
 
       {/* SĐT khẩn cấp */}

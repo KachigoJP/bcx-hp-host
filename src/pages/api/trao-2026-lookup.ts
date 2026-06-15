@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { google } from "googleapis";
 import { getAuth } from "./utils";
 
-// Column indices (0-based) theo header hiện tại (33 cột)
+// Column indices (0-based) theo header hiện tại (38 cột)
 const C = {
   CODE: 0,
   NAME: 2,
@@ -21,21 +21,25 @@ const C = {
   BUS_DEP: 15,
   FEE_EVENT: 16,
   FEE_BUS: 17,
-  FEE_TOTAL: 18,
-  RECEIPT: 19,
-  FOOD_ALLERGY: 20,
-  PRODUCTS: 21,
-  FEE_PRODUCT: 22,
-  VOLUNTEER: 23,
-  VOLUNTEER_TEAMS: 24,
-  NOTE: 25,
-  STATUS: 26,
-  REP_CODE: 27,
-  ROLE: 28,
-  SHIRT_SIZE: 29,
-  SHIRT_COLOR: 30,
-  CABIN: 31,
-  PASSWORD: 32,
+  DONATION: 18, // S
+  FEE_TOTAL: 19,
+  RECEIPT: 20,
+  FOOD_ALLERGY: 21,
+  PRODUCTS: 22,
+  FEE_PRODUCT: 23,
+  VOLUNTEER: 24,
+  VOLUNTEER_TEAMS: 25,
+  NOTE: 26,
+  STATUS: 27,
+  REP_CODE: 28,
+  ROLE: 29,
+  SHIRT_SIZE: 30,
+  SHIRT_COLOR: 31,
+  CABIN: 32,
+  PASSWORD: 33,
+  COUNT_ADULT: 34,
+  COUNT_CHILD: 35,
+  COUNT_FREE: 36,
 };
 
 const COLOR_VALUE: Record<string, string> = {
@@ -83,7 +87,7 @@ export default async function handler(
 
     const result = await sheets.spreadsheets.values.get({
       spreadsheetId: process.env.GOOGLE_SHEET_ID!,
-      range: "A2:AG",
+      range: "A2:AL",
     });
 
     const rows = result.data.values ?? [];
@@ -159,6 +163,9 @@ export default async function handler(
         status: rep[C.STATUS] ?? "",
         created_at: rows[repIdx][1] ?? "",
         receipt: rep[C.RECEIPT] ?? "",
+        count_adult: rep[C.COUNT_ADULT] ?? "0",
+        count_child: rep[C.COUNT_CHILD] ?? "0",
+        count_free: rep[C.COUNT_FREE] ?? "0",
       },
       representative: {
         rowIndex: repIdx + 2,
