@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import type { CabinInfo } from "../components/trao2026/types";
 
-const SHIRT_SIZES = ["XS", "S", "M", "L", "XL", "2XL", "3XL", "4XL"];
+const SHIRT_SIZES = ["XS", "S", "M", "L", "XL", "2XL"];
 const SHIRT_COLORS = [
   { value: "white", label: "Trắng", hex: "#f5f5f5", border: "#bdbdbd" },
   {
@@ -14,7 +14,11 @@ const SHIRT_COLORS = [
 ];
 
 function isSizeDisabled(color: string, size: string): boolean {
-  if (color === "green" && (size === "XS" || size === "S")) return true;
+  if (
+    (color === "white" || color === "green") &&
+    (size === "XS" || size === "S")
+  )
+    return true;
   if (color === "yellow" && !["XS", "S"].includes(size)) return true;
   return false;
 }
@@ -54,6 +58,7 @@ type Profile = {
   bus_departure: string;
   fee_event: string;
   fee_bus: string;
+  donation: string;
   fee_total: string;
   count_adult: string;
   count_child: string;
@@ -860,7 +865,10 @@ const ChinhSuaPage: React.FC = () => {
 
   // ── Profile + Edit ──────────────────────────────────────────────────────────
   const { profile } = result;
-  const grandTotal = Number(profile.fee_total) + Number(profile.fee_product);
+  const grandTotal =
+    Number(profile.fee_total) +
+    Number(profile.fee_product) +
+    Number(profile.donation);
 
   return (
     <Fragment>
@@ -1058,7 +1066,7 @@ const ChinhSuaPage: React.FC = () => {
                     </tbody>
                   </table>
 
-                  <SectionTitle>Chi phí</SectionTitle>
+                  <SectionTitle>Tổng phí</SectionTitle>
                   <table style={{ width: "100%", borderCollapse: "collapse" }}>
                     <tbody>
                       {Number(profile.count_adult) > 0 && (
@@ -1090,12 +1098,17 @@ const ChinhSuaPage: React.FC = () => {
                           />
                         )}
                       <InfoRow
-                        label={
-                          Number(profile.fee_bus) > 0 &&
-                          Number(profile.num_person) > 0
-                            ? `Phí xe bus (${profile.num_person} người × ${fmtYen(Number(profile.fee_bus) / Number(profile.num_person))})`
-                            : "Phí xe bus"
-                        }
+                        label={(() => {
+                          if (Number(profile.fee_bus) <= 0) return "Phí xe bus";
+                          const dep = profile.bus_departure
+                            ? ` từ ${profile.bus_departure}`
+                            : "";
+                          const perPerson =
+                            Number(profile.num_person) > 0
+                              ? ` × ${fmtYen(Number(profile.fee_bus) / Number(profile.num_person))}`
+                              : "";
+                          return `Phí xe bus${dep} (${profile.num_person} người${perPerson})`;
+                        })()}
                         value={
                           Number(profile.fee_bus) > 0
                             ? fmtYen(profile.fee_bus)
@@ -1114,6 +1127,12 @@ const ChinhSuaPage: React.FC = () => {
                             : undefined
                         }
                       />
+                      {Number(profile.donation) > 0 && (
+                        <InfoRow
+                          label="❤️ Quyên góp thiện nguyện"
+                          value={fmtYen(profile.donation)}
+                        />
+                      )}
                     </tbody>
                   </table>
                   <div

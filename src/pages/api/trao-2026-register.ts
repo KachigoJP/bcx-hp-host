@@ -371,7 +371,15 @@ export default async function handler(
         fee_event: Number(formData.fee_event),
         fee_bus: Number(formData.fee_bus),
         fee_total: Number(formData.fee_total),
-        products: String(formData.products ?? ""),
+        products: (() => {
+          if (!formData.products || formData.want_products !== "yes") return "";
+          const p = formData.products as Record<string, number>;
+          const parts: string[] = [];
+          if (p?.khan_ran) parts.push(`Khăn Rằn x${p.khan_ran}`);
+          if (p?.khan_tho_cam) parts.push(`Khăn Thổ Cẩm x${p.khan_tho_cam}`);
+          if (p?.tui_to_te) parts.push(`Túi Tò Te x${p.tui_to_te}`);
+          return parts.join(", ");
+        })(),
         fee_product: Number(formData.product_fee ?? 0),
         donation: Number(formData.donation ?? 0),
         food_allergy: String(formData.food_allergy ?? ""),

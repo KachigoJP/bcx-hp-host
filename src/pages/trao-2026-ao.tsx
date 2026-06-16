@@ -9,6 +9,7 @@ const COLORS = [
     textColor: "#212121",
     border: "#bdbdbd",
     img: "/assets/images/trao-2026/ao-trang.jpg",
+    note: "Không có cỡ XS và S",
   },
   {
     value: "green",

@@ -27,7 +27,7 @@ export const VOLUNTEER_TEAMS = [
   "Team camera",
 ];
 
-export const SHIRT_SIZES = ["XS", "S", "M", "L", "XL", "2XL", "3XL", "4XL"];
+export const SHIRT_SIZES = ["XS", "S", "M", "L", "XL", "2XL"];
 
 export const SHIRT_COLORS = [
   { value: "white", label: "Trắng", hex: "#ffffff", border: "#bdbdbd" },

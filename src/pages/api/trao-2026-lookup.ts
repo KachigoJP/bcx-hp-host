@@ -153,6 +153,7 @@ export default async function handler(
         bus_departure: rep[C.BUS_DEP] ?? "",
         fee_event: rep[C.FEE_EVENT] ?? "",
         fee_bus: rep[C.FEE_BUS] ?? "",
+        donation: rep[C.DONATION] ?? "0",
         fee_total: rep[C.FEE_TOTAL] ?? "",
         products: rep[C.PRODUCTS] ?? "",
         fee_product: rep[C.FEE_PRODUCT] ?? "",

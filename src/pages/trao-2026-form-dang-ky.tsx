@@ -1019,6 +1019,9 @@ const RegisterPage: React.FC = () => {
 
   if (allCodes) {
     const fees = calcFees(step1, step2, step3);
+    const productFee =
+      step5.want_products === "yes" ? calcProductFee(step5.products) : 0;
+    const grandTotal = fees.total + productFee + (Number(step4.donation) || 0);
     const allMembers = step2.register_type === "group" ? step2.members : [];
 
     return (
@@ -1211,9 +1214,9 @@ const RegisterPage: React.FC = () => {
                         : "Tự túc"}
                     </li>
                     <li>
-                      Tổng phí dự kiến:{" "}
+                      Tổng phí:{" "}
                       <strong className="text-success">
-                        {fmtYen(fees.total)}
+                        {fmtYen(grandTotal)}
                       </strong>
                     </li>
                   </ul>

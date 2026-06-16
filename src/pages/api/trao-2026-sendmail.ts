@@ -128,7 +128,7 @@ function buildHtml(data: {
     <h3 style="color:#2e7d32;border-bottom:2px solid #e8f5e9;padding-bottom:8px">Tổng phí</h3>
     <table style="width:100%;border-collapse:collapse;font-size:14px;margin-bottom:20px">
       <tr><td style="padding:8px 0;color:#777">Phí sự kiện</td><td style="padding:8px 0;text-align:right">${fmtYen(data.fee_event)}</td></tr>
-      ${data.fee_bus > 0 ? `<tr style="background:#f9f9f9"><td style="padding:8px 4px;color:#777">Phí xe bus</td><td style="padding:8px 4px;text-align:right">${fmtYen(data.fee_bus)}</td></tr>` : ""}
+      ${data.fee_bus > 0 ? `<tr style="background:#f9f9f9"><td style="padding:8px 4px;color:#777">Phí xe bus${data.bus_departure ? ` từ ${data.bus_departure}` : ""}</td><td style="padding:8px 4px;text-align:right">${fmtYen(data.fee_bus)}</td></tr>` : ""}
       ${data.fee_product > 0 ? `<tr><td style="padding:8px 0;color:#777">Sản phẩm (${data.products})</td><td style="padding:8px 0;text-align:right">${fmtYen(data.fee_product)}</td></tr>` : ""}
       <tr style="border-top:2px solid #4caf50">
         <td style="padding:10px 0;font-weight:700;font-size:16px">Tổng cộng</td>

@@ -62,7 +62,7 @@ const CabinPage: React.FC = () => {
                 style={{ border: "1px solid #a5d6a7" }}
               >
                 <Image
-                  src="/assets/images/trao-2026/so-do-camp.png"
+                  src="/assets/images/trao-2026/trao-2026-map.png"
                   alt="Sơ đồ bãi trại TRAO 2026"
                   width={1200}
                   height={800}

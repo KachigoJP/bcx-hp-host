@@ -116,7 +116,7 @@ const CostSummaryCard: React.FC<Props> = ({
             </tr>
           )}
           <tr style={{ borderTop: "1px solid #a5d6a7" }}>
-            <td className="ps-0 fw-bold">Tổng dự kiến</td>
+            <td className="ps-0 fw-bold">Tổng phí</td>
             <td
               className="text-end fw-bold text-success"
               style={{ fontSize: compact ? 15 : 17 }}

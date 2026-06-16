@@ -1195,7 +1195,7 @@ const RegisterCtvNttPage: React.FC = () => {
                         fontSize: 13,
                       }}
                     >
-                      <strong>Dự kiến phí tham gia:</strong>
+                      <strong>Tổng phí:</strong>
                       <ul className="mb-0 mt-1">
                         {role === "ntt" ? (
                           <li style={{ color: "#2e7d32" }}>

@@ -187,7 +187,8 @@ const Step6Form: React.FC<Props> = ({
                 <div className="d-flex gap-2 flex-wrap">
                   {SHIRT_SIZES.map((size) => {
                     const soldOut =
-                      participant.shirt_color === "green" &&
+                      (participant.shirt_color === "green" ||
+                        participant.shirt_color === "white") &&
                       (size === "XS" || size === "S");
                     const notAvailable =
                       participant.shirt_color === "yellow" &&
@@ -242,7 +243,8 @@ const Step6Form: React.FC<Props> = ({
                           shirt_color: color.value,
                         };
                         if (
-                          color.value === "green" &&
+                          (color.value === "green" ||
+                            color.value === "white") &&
                           (participant.shirt_size === "XS" ||
                             participant.shirt_size === "S")
                         ) {
