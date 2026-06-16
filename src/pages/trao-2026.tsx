@@ -791,7 +791,7 @@ const Trao2026Page: React.FC = () => {
               <AccordionItem title="Sơ Đồ Bãi Trại" emoji="🗺️">
                 <div className="text-center">
                   <Image
-                    src="/images/trao-2026/so-do-camp.png"
+                    src="/images/trao-2026/trao-2026-map.png"
                     width={800}
                     height={566}
                     alt="Sơ đồ bãi trại"
