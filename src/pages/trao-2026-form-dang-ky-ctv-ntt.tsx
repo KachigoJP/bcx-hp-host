@@ -624,7 +624,7 @@ const initialStep1: Step1 = {
   gender: "",
   age: "",
   disabled: false,
-  facebook: "https://facebook.com/",
+  facebook: "",
   phone: "",
   emergency_phone: "",
   emergency_relation: "",
