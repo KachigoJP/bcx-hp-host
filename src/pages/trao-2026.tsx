@@ -570,6 +570,78 @@ const Trao2026Page: React.FC = () => {
                 </div>
               </div>
 
+              {/* Chi phí tham gia */}
+              <div
+                className="rounded-3 p-3 mb-4"
+                style={{
+                  backgroundColor: "#f0f7f0",
+                  border: "1px solid #a5d6a7",
+                  fontSize: 14,
+                }}
+              >
+                <div className="fw-bold mb-2" style={{ color: "#1b5e20" }}>
+                  💰 Chi phí tham gia
+                </div>
+                <table style={{ width: "100%", borderCollapse: "collapse" }}>
+                  <tbody>
+                    <tr>
+                      <td style={{ padding: "5px 0", color: "#555" }}>
+                        Người lớn, trẻ em &gt;12 tuổi
+                      </td>
+                      <td
+                        style={{
+                          padding: "5px 0",
+                          textAlign: "right",
+                          fontWeight: 600,
+                          color: "#1b5e20",
+                        }}
+                      >
+                        16,500 ¥
+                      </td>
+                    </tr>
+                    <tr style={{ borderTop: "1px solid #e0e0e0" }}>
+                      <td style={{ padding: "5px 0", color: "#555" }}>
+                        Trẻ em 6–12 tuổi
+                      </td>
+                      <td
+                        style={{
+                          padding: "5px 0",
+                          textAlign: "right",
+                          fontWeight: 600,
+                          color: "#1b5e20",
+                        }}
+                      >
+                        8,000 ¥
+                      </td>
+                    </tr>
+                    <tr style={{ borderTop: "1px solid #e0e0e0" }}>
+                      <td style={{ padding: "5px 0", color: "#555" }}>
+                        Người khuyết tật / Trẻ em &lt;6 tuổi
+                      </td>
+                      <td
+                        style={{
+                          padding: "5px 0",
+                          textAlign: "right",
+                          fontWeight: 600,
+                          color: "#2e7d32",
+                        }}
+                      >
+                        Miễn phí
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div
+                  className="mt-2 pt-2"
+                  style={{ borderTop: "1px solid #a5d6a7", color: "#555" }}
+                >
+                  <span className="fw-semibold">🚌 Phí xe bus BTC:</span> Tokyo{" "}
+                  <strong>7,000 ¥</strong> &nbsp;·&nbsp; Nagoya{" "}
+                  <strong>9,000 ¥</strong> &nbsp;·&nbsp; Osaka{" "}
+                  <strong>9,000 ¥</strong>
+                </div>
+              </div>
+
               {/* CTA */}
               <div className="d-flex flex-wrap gap-3 align-items-center">
                 <a
@@ -597,10 +669,14 @@ const Trao2026Page: React.FC = () => {
                   Tra cứu thông tin đăng ký ↗
                 </a>
               </div>
+            </div>
+          </div>
 
-              {/* ── Gây quỹ thiện nguyện ─────────────────────────────────────── */}
+          {/* ── Gây quỹ thiện nguyện — full width ───────────────────────── */}
+          <div className="row mt-4">
+            <div className="col-12">
               <div
-                className="mt-4 rounded-3 p-4"
+                className="rounded-3 p-4"
                 style={{
                   backgroundColor: "#fff8e1",
                   border: "1px solid #ffe082",
@@ -791,7 +867,7 @@ const Trao2026Page: React.FC = () => {
               <AccordionItem title="Sơ Đồ Bãi Trại" emoji="🗺️">
                 <div className="text-center">
                   <Image
-                    src="/images/trao-2026/trao-2026-map.png"
+                    src="/assets/images/trao-2026/trao-2026-map.png"
                     width={800}
                     height={566}
                     alt="Sơ đồ bãi trại"
