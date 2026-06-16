@@ -102,6 +102,10 @@ const Step3Form: React.FC<Props> = ({
             {errors.bus_departure}
           </div>
         )}
+        <p className="mb-0 mt-2" style={{ fontSize: 12, color: "#777" }}>
+          * Giờ xuất phát và địa điểm tập trung sẽ được thông báo qua email sau
+          khi Ban tổ chức xác nhận chuyển khoản.
+        </p>
       </div>
     )}
   </>
