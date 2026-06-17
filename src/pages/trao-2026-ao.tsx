@@ -137,8 +137,8 @@ const ShirtPage: React.FC = () => (
               }}
             />
             <p className="text-muted" style={{ fontSize: 13 }}>
-              * Số đo mang tính tham khảo, có thể chênh lệch ±2cm. Nếu bạn ở
-              giữa 2 size, nên chọn size lớn hơn.
+              * Chiều cao và cân nặng chỉ mang tính tham khảo. Nếu bạn ở giữa 2
+              size, nên chọn size lớn hơn. Số đo có thể chênh lệch ±2cm.
             </p>
           </div>
         </div>
@@ -160,7 +160,11 @@ const ShirtPage: React.FC = () => (
                   Áo sự kiện sẽ được phát tại địa điểm tổ chức vào ngày đầu
                   tiên.
                 </li>
-                <li>Size và màu áo có thể thay đổi sau khi đăng ký.</li>
+                <li>
+                  Size và màu áo có thể thay đổi sau khi đăng ký. Sau khi hoàn
+                  tất chuyển khoản, vui lòng dùng mã đăng ký và mật khẩu để đăng
+                  nhập và thay đổi lựa chọn.
+                </li>
               </ul>
             </div>
           </div>

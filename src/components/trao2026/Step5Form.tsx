@@ -96,9 +96,17 @@ const Step5Form: React.FC<Props> = ({
             BÁN KHĂN RẰN, KHĂN THỔ CẨM, TÚI TÒ TE GÂY QUỸ CŨNG LÀ MỘT HOẠT ĐỘNG
             TRONG DỰ ÁN BÀN CHÂN XANH.
           </p>
-          <p className="mb-2" style={{ fontSize: 14 }}>
+          <p className="mb-1" style={{ fontSize: 14 }}>
             BẠN CÓ MUỐN SỞ HỮU CÁC SẢN PHẨM CHO HÀNH TRÌNH TUYỆT VỜI NÀY KHÔNG?
           </p>
+          <a
+            href="/trao-2026-san-pham"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ fontSize: 13, color: "#2e7d32", fontWeight: 600 }}
+          >
+            🛍️ Xem chi tiết & hình ảnh sản phẩm ↗
+          </a>
           <div className="d-flex gap-3">
             <div className="form-check">
               <input
