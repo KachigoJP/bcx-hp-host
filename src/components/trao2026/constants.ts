@@ -45,6 +45,16 @@ export const SHIRT_COLORS = [
   },
 ];
 
+// Tồn kho áo: null = không giới hạn
+export const SHIRT_INVENTORY: Record<
+  string,
+  Partial<Record<string, number>>
+> = {
+  white: { M: 45 },
+  green: { M: 31 },
+  yellow: {},
+};
+
 export const CABIN_NUMBERS = Array.from({ length: 20 }, (_, i) => i + 1);
 
 export const STEPS = [
