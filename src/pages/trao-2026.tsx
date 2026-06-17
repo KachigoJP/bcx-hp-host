@@ -695,17 +695,17 @@ const Trao2026Page: React.FC = () => {
                   </div>
                   <div className="flex-grow-1">
                     <h5 className="fw-bold mb-2" style={{ color: "#b71c1c" }}>
-                      TRAO — Hoạt động gây quỹ thiện nguyện
+                      TRAO - Hoạt động gây quỹ thiện nguyện
                     </h5>
                     <p
                       className="mb-2"
                       style={{ fontSize: 14, color: "#555", lineHeight: 1.8 }}
                     >
-                      TRAO không chỉ là sự kiện hội ngộ — đây còn là dịp để cộng
+                      TRAO không chỉ là sự kiện hội ngộ - đây còn là dịp để cộng
                       đồng <strong>Bàn Chân Xanh</strong> cùng nhau gây quỹ hỗ
                       trợ các hoạt động thiện nguyện trong năm: trao học bổng
-                      cho trẻ em vùng khó khăn, xây trường, hỗ trợ đồng bào tại
-                      Việt Nam.
+                      cho trẻ em vùng miền núi khó khăn, xây trường, hỗ trợ đồng
+                      bào tại Việt Nam.
                     </p>
                     <p
                       className="mb-3"
@@ -992,7 +992,7 @@ const Trao2026Page: React.FC = () => {
                 textShadow: "0 1px 4px rgba(0,0,0,.4)",
               }}
             >
-              Mỗi chiếc đèn trời là một ước nguyện — gửi lên bầu trời đêm Trung
+              Mỗi chiếc đèn trời là một ước nguyện - gửi lên bầu trời đêm Trung
               Thu cùng những người bạn đồng hành. Hãy đến với TRAO 2026 và cùng
               nhau thả đèn, ngắm trăng, và chia sẻ những khoảnh khắc đáng nhớ.
             </p>

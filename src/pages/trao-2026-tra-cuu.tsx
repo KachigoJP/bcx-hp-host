@@ -1026,15 +1026,15 @@ const ChinhSuaPage: React.FC = () => {
                                 <td>{m.gender}</td>
                                 <td>{m.age}</td>
                                 <td>{m.relation}</td>
-                                <td>{m.shirt_size || "—"}</td>
+                                <td>{m.shirt_size || "-"}</td>
                                 <td>
                                   {SHIRT_COLORS.find(
                                     (c) => c.value === m.shirt_color,
                                   )?.label ||
                                     m.shirt_color ||
-                                    "—"}
+                                    "-"}
                                 </td>
-                                <td>{m.cabin || "—"}</td>
+                                <td>{m.cabin || "-"}</td>
                               </tr>
                             ))}
                           </tbody>

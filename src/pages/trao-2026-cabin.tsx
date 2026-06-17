@@ -47,7 +47,7 @@ const CabinPage: React.FC = () => {
             >
               Bàn Chân Xanh
             </span>
-            <h2 className="mt-1">TRAO 2026 — Danh Sách Cabin Bãi Trại</h2>
+            <h2 className="mt-1">TRAO 2026 - Danh Sách Cabin Bãi Trại</h2>
             <p className="text-muted">
               Thông tin sức chứa và số người đã đăng ký theo từng cabin. Cập
               nhật theo thời gian thực.

@@ -54,7 +54,7 @@ const Step2Form: React.FC<Props> = ({
               }}
             />
             <label className="form-check-label" htmlFor="type-individual">
-              <strong>Cá nhân</strong> — Chỉ đăng ký cho mình
+              <strong>Cá nhân</strong> - Chỉ đăng ký cho mình
             </label>
           </div>
           <div className="form-check">
@@ -69,7 +69,7 @@ const Step2Form: React.FC<Props> = ({
               }}
             />
             <label className="form-check-label" htmlFor="type-group">
-              <strong>Gia đình / Nhóm bạn</strong> — Đăng ký cùng nhiều người
+              <strong>Gia đình / Nhóm bạn</strong> - Đăng ký cùng nhiều người
             </label>
           </div>
         </div>

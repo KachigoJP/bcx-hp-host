@@ -65,8 +65,8 @@ const SanPhamPage: React.FC = () => (
           <h2 className="mt-1">TRAO 2026 - Sản phẩm gây quỹ</h2>
           <p className="text-muted" style={{ maxWidth: 600, margin: "0 auto" }}>
             Mỗi sản phẩm bạn mua là một đóng góp thiết thực cho quỹ thiện nguyện
-            của Bàn Chân Xanh - hỗ trợ trẻ em vùng khó khăn và các hoạt động
-            cộng đồng tại Việt Nam.
+            của Bàn Chân Xanh - hỗ trợ trẻ em vùng miền núi khó khăn và các hoạt
+            động cộng đồng tại Việt Nam.
           </p>
         </div>
 

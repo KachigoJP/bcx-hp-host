@@ -73,7 +73,7 @@ const Step4PaymentForm: React.FC<Props> = ({
               Mã đăng ký
             </div>
             <div style={{ fontSize: 26, fontWeight: 800, letterSpacing: 3 }}>
-              {reservation?.code ?? "—"}
+              {reservation?.code ?? "-"}
             </div>
           </div>
           <div>
@@ -88,7 +88,7 @@ const Step4PaymentForm: React.FC<Props> = ({
               Mật khẩu
             </div>
             <div style={{ fontSize: 26, fontWeight: 800, letterSpacing: 3 }}>
-              {reservation?.password ?? "—"}
+              {reservation?.password ?? "-"}
             </div>
           </div>
           {reservation && (
@@ -119,16 +119,16 @@ const Step4PaymentForm: React.FC<Props> = ({
           className="fw-semibold mb-1"
           style={{ fontSize: 14, color: "#e65100" }}
         >
-          ❤️ TRAO — Hoạt động gây quỹ thiện nguyện
+          ❤️ TRAO - Hoạt động gây quỹ thiện nguyện
         </div>
         <p
           className="mb-3"
           style={{ fontSize: 13, color: "#555", lineHeight: 1.7 }}
         >
-          TRAO không chỉ là sự kiện hội ngộ — đây còn là dịp để cộng đồng Bàn
+          TRAO không chỉ là sự kiện hội ngộ - đây còn là dịp để cộng đồng Bàn
           Chân Xanh cùng nhau gây quỹ hỗ trợ các hoạt động thiện nguyện trong
-          năm: trao học bổng cho trẻ em vùng khó khăn, xây trường, hỗ trợ đồng
-          bào tại Việt Nam.
+          năm: trao học bổng cho trẻ em vùng miền núi khó khăn, xây trường, hỗ
+          trợ đồng bào tại Việt Nam.
         </p>
         <p
           className="mb-3"
@@ -138,7 +138,7 @@ const Step4PaymentForm: React.FC<Props> = ({
           đóng góp đều được sử dụng minh bạch và thông báo sau sự kiện.
         </p>
         <label className="form-label fw-semibold" style={{ fontSize: 13 }}>
-          Số tiền quyên góp (¥) — tùy tâm, không bắt buộc
+          Số tiền quyên góp (¥) - tùy tâm, không bắt buộc
         </label>
         <div className="input-group" style={{ maxWidth: 220 }}>
           <input

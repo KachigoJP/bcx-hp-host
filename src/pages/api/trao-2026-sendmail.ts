@@ -56,9 +56,9 @@ function buildHtml(data: {
       <tr>
         <td style="padding:8px;border:1px solid #e0e0e0">${p.name}</td>
         <td style="padding:8px;border:1px solid #e0e0e0;text-align:center">${p.role}</td>
-        <td style="padding:8px;border:1px solid #e0e0e0;text-align:center">${p.shirt_size || "—"}</td>
-        <td style="padding:8px;border:1px solid #e0e0e0;text-align:center">${p.shirt_color === "white" ? "Trắng" : p.shirt_color === "green" ? "Xanh lá" : p.shirt_color === "yellow" ? "Vàng chanh" : p.shirt_color || "—"}</td>
-        <td style="padding:8px;border:1px solid #e0e0e0;text-align:center">${p.cabin || "—"}</td>
+        <td style="padding:8px;border:1px solid #e0e0e0;text-align:center">${p.shirt_size || "-"}</td>
+        <td style="padding:8px;border:1px solid #e0e0e0;text-align:center">${p.shirt_color === "white" ? "Trắng" : p.shirt_color === "green" ? "Xanh lá" : p.shirt_color === "yellow" ? "Vàng chanh" : p.shirt_color || "-"}</td>
+        <td style="padding:8px;border:1px solid #e0e0e0;text-align:center">${p.cabin || "-"}</td>
       </tr>`,
     )
     .join("");
@@ -72,7 +72,7 @@ function buildHtml(data: {
   <!-- Header -->
   <div style="background:#1b5e20;padding:28px 24px;text-align:center">
     <h1 style="color:#fff;margin:0;font-size:22px;letter-spacing:1px">BÀN CHÂN XANH</h1>
-    <p style="color:#a5d6a7;margin:6px 0 0;font-size:14px">TRAO 2026 — Xác nhận đăng ký</p>
+    <p style="color:#a5d6a7;margin:6px 0 0;font-size:14px">TRAO 2026 - Xác nhận đăng ký</p>
   </div>
 
   <!-- Body -->
@@ -165,9 +165,9 @@ function buildHtml(data: {
       needPayLater
         ? `
     <div style="background:#fff8e1;border:1px solid #ffe082;border-radius:8px;padding:16px;margin-bottom:20px">
-      <p style="margin:0 0 8px;font-size:15px;font-weight:700;color:#e65100">⏳ Bạn chưa chuyển khoản — vui lòng hoàn tất trong 24 giờ</p>
+      <p style="margin:0 0 8px;font-size:15px;font-weight:700;color:#e65100">⏳ Bạn chưa chuyển khoản - vui lòng hoàn tất trong 24 giờ</p>
       <p style="margin:0 0 12px;font-size:13px;color:#555;line-height:1.7">
-        Đăng ký của bạn đang ở trạng thái <strong>Chưa chuyển khoản</strong>. Vui lòng chuyển khoản theo thông tin trên và upload ảnh xác nhận trong vòng 24 giờ — sau đó đăng ký sẽ tự động hết hạn.
+        Đăng ký của bạn đang ở trạng thái <strong>Chưa chuyển khoản</strong>. Vui lòng chuyển khoản theo thông tin trên và upload ảnh xác nhận trong vòng 24 giờ - sau đó đăng ký sẽ tự động hết hạn.
       </p>
       <p style="margin:0 0 12px;font-size:13px;color:#555;line-height:1.7">
         Để upload ảnh chuyển khoản, chỉnh sửa size áo và chỗ ngủ, truy cập trang tra cứu bằng mã và mật khẩu bên dưới:
@@ -250,7 +250,7 @@ export default async function handler(
     await transporter.sendMail({
       from: `"Bàn Chân Xanh - TRAO 2026" <${process.env.GOOGLE_EMAIL}>`,
       to: body.email,
-      subject: `[TRAO 2026] Xác nhận đăng ký — Mã ${body.code}`,
+      subject: `[TRAO 2026] Xác nhận đăng ký - Mã ${body.code}`,
       html: buildHtml(body),
     });
 
