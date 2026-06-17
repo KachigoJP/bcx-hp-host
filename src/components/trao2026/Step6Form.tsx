@@ -1,6 +1,6 @@
 import React from "react";
 
-import { SHIRT_COLORS, SHIRT_SIZES } from "./constants";
+import { SHIRT_COLORS, SHIRT_INVENTORY, SHIRT_SIZES } from "./constants";
 import type { CabinInfo, ParticipantExtra, Step2, Step6 } from "./types";
 
 const ToggleChip: React.FC<{
@@ -41,8 +41,9 @@ type Props = {
   data: Step6;
   onChange: (patch: Partial<Step6>) => void;
   errors: Partial<Record<string, string>>;
-  cabins: CabinInfo[]; // danh sách cabin từ API
+  cabins: CabinInfo[];
   loadingCabins?: boolean;
+  shirtCounts?: Record<string, number>; // "white|M" -> số lượng đã đăng ký
 };
 
 const Step6Form: React.FC<Props> = ({
@@ -52,7 +53,13 @@ const Step6Form: React.FC<Props> = ({
   errors,
   cabins,
   loadingCabins,
+  shirtCounts = {},
 }) => {
+  const isInventorySoldOut = (color: string, size: string): boolean => {
+    const limit = SHIRT_INVENTORY[color]?.[size];
+    if (limit === undefined) return false;
+    return (shirtCounts[`${color}|${size}`] ?? 0) >= limit;
+  };
   const updateParticipant = (
     index: number,
     patch: Partial<ParticipantExtra>,
@@ -186,13 +193,17 @@ const Step6Form: React.FC<Props> = ({
                 </label>
                 <div className="d-flex gap-2 flex-wrap">
                   {SHIRT_SIZES.map((size) => {
-                    const soldOut =
+                    const colorUnavailable =
                       (participant.shirt_color === "green" ||
                         participant.shirt_color === "white") &&
                       (size === "XS" || size === "S");
                     const notAvailable =
                       participant.shirt_color === "yellow" &&
                       !["XS", "S"].includes(size);
+                    const inventorySoldOut = participant.shirt_color
+                      ? isInventorySoldOut(participant.shirt_color, size)
+                      : false;
+                    const soldOut = colorUnavailable || inventorySoldOut;
                     const disabled = soldOut || notAvailable;
                     return (
                       <ToggleChip
@@ -200,7 +211,11 @@ const Step6Form: React.FC<Props> = ({
                         selected={participant.shirt_size === size}
                         disabled={disabled}
                         disabledTitle={
-                          soldOut ? "Đã hết áo" : "Không có cỡ này"
+                          notAvailable
+                            ? "Không có cỡ này"
+                            : colorUnavailable
+                              ? "Không có size này"
+                              : "Đã hết áo"
                         }
                         onClick={() =>
                           !disabled &&

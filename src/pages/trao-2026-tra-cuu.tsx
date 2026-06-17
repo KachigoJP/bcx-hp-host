@@ -13,13 +13,26 @@ const SHIRT_COLORS = [
   { value: "yellow", label: "Vàng chanh", hex: "#f9f75e", border: "#d4c000" },
 ];
 
-function isSizeDisabled(color: string, size: string): boolean {
+const SHIRT_INVENTORY: Record<string, Partial<Record<string, number>>> = {
+  white: { M: 45 },
+  green: { M: 31 },
+  yellow: {},
+};
+
+function isSizeDisabled(
+  color: string,
+  size: string,
+  shirtCounts: Record<string, number> = {},
+): boolean {
   if (
     (color === "white" || color === "green") &&
     (size === "XS" || size === "S")
   )
     return true;
   if (color === "yellow" && !["XS", "S"].includes(size)) return true;
+  const limit = SHIRT_INVENTORY[color]?.[size];
+  if (limit !== undefined && (shirtCounts[`${color}|${size}`] ?? 0) >= limit)
+    return true;
   return false;
 }
 
@@ -159,6 +172,7 @@ const ParticipantEditCard: React.FC<{
   cabins: CabinInfo[];
   allEdited: ParticipantData[];
   loadingCabins?: boolean;
+  shirtCounts?: Record<string, number>;
 }> = ({
   data,
   isRep,
@@ -168,6 +182,7 @@ const ParticipantEditCard: React.FC<{
   cabins,
   allEdited,
   loadingCabins,
+  shirtCounts = {},
 }) => {
   // Đếm số người đang chọn từng cabin (pending) — so sánh theo fullName
   const pendingCount: Record<number, number> = {};
@@ -222,13 +237,22 @@ const ParticipantEditCard: React.FC<{
           </label>
           <div className="d-flex gap-2 flex-wrap">
             {SHIRT_SIZES.map((s) => {
-              const disabled = isSizeDisabled(data.shirt_color, s);
+              const inventoryOut = data.shirt_color
+                ? (() => {
+                    const limit = SHIRT_INVENTORY[data.shirt_color]?.[s];
+                    return (
+                      limit !== undefined &&
+                      (shirtCounts[`${data.shirt_color}|${s}`] ?? 0) >= limit
+                    );
+                  })()
+                : false;
+              const disabled = isSizeDisabled(data.shirt_color, s, shirtCounts);
               return (
                 <ToggleChip
                   key={s}
                   selected={data.shirt_size === s}
                   disabled={disabled}
-                  disabledTitle="Không có cỡ này"
+                  disabledTitle={inventoryOut ? "Đã hết áo" : "Không có cỡ này"}
                   onClick={() => !disabled && onChange({ shirt_size: s })}
                   style={{
                     padding: "5px 8px",
@@ -260,7 +284,7 @@ const ParticipantEditCard: React.FC<{
                   };
                   if (
                     data.shirt_size &&
-                    isSizeDisabled(c.value, data.shirt_size)
+                    isSizeDisabled(c.value, data.shirt_size, shirtCounts)
                   ) {
                     patch.shirt_size = "";
                   }
@@ -564,6 +588,9 @@ const ChinhSuaPage: React.FC = () => {
   const [cabins, setCabins] = React.useState<CabinInfo[]>([]);
   const [loadingCabins, setLoadingCabins] = React.useState(false);
   const [cabinsFetched, setCabinsFetched] = React.useState(false);
+  const [shirtCounts, setShirtCounts] = React.useState<Record<string, number>>(
+    {},
+  );
 
   // Upload receipt states (cho trạng thái "Chưa chuyển khoản")
   const [receiptFile, setReceiptFile] = React.useState<File | null>(null);
@@ -572,18 +599,19 @@ const ChinhSuaPage: React.FC = () => {
   const [uploadReceiptError, setUploadReceiptError] = React.useState("");
   const [uploadReceiptDone, setUploadReceiptDone] = React.useState(false);
 
-  // Fetch cabin list khi user chuyển sang tab chỉnh sửa (chỉ fetch 1 lần)
+  // Fetch cabin list + shirt counts khi user chuyển sang tab chỉnh sửa (chỉ fetch 1 lần)
   React.useEffect(() => {
     if (activeTab === "edit" && !cabinsFetched) {
       setLoadingCabins(true);
-      fetch("/api/trao-2026-cabins")
-        .then((r) => r.json())
-        .then((data) => {
-          if (data.ok) setCabins(data.cabins);
+      Promise.all([
+        fetch("/api/trao-2026-cabins").then((r) => r.json()),
+        fetch("/api/trao-2026-shirts").then((r) => r.json()),
+      ])
+        .then(([cabinData, shirtData]) => {
+          if (cabinData.ok) setCabins(cabinData.cabins);
+          if (shirtData.ok) setShirtCounts(shirtData.counts);
         })
-        .catch(() => {
-          /* ignore */
-        })
+        .catch(() => {})
         .finally(() => {
           setLoadingCabins(false);
           setCabinsFetched(true);
@@ -1351,6 +1379,7 @@ const ChinhSuaPage: React.FC = () => {
                         cabins={cabins}
                         allEdited={edited}
                         loadingCabins={loadingCabins}
+                        shirtCounts={shirtCounts}
                       />
                     ))}
 

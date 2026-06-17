@@ -710,6 +710,9 @@ const RegisterPage: React.FC = () => {
     import("../components/trao2026/types").CabinInfo[]
   >([]);
   const [loadingCabins, setLoadingCabins] = React.useState(false);
+  const [shirtCounts, setShirtCounts] = React.useState<Record<string, number>>(
+    {},
+  );
 
   const [errors, setErrors] = React.useState<Record<string, string>>({});
   const [confirmContact, setConfirmContact] = React.useState(false);
@@ -767,14 +770,17 @@ const RegisterPage: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentStep, reservation]);
 
-  // Fetch danh sách cabin khi vào step 5 (chọn áo & cabin)
+  // Fetch danh sách cabin + số lượng áo đã đăng ký khi vào step 5
   React.useEffect(() => {
     if (currentStep !== 5) return;
     setLoadingCabins(true);
-    fetch("/api/trao-2026-cabins")
-      .then((r) => r.json())
-      .then((data) => {
-        if (data.ok) setCabins(data.cabins);
+    Promise.all([
+      fetch("/api/trao-2026-cabins").then((r) => r.json()),
+      fetch("/api/trao-2026-shirts").then((r) => r.json()),
+    ])
+      .then(([cabinData, shirtData]) => {
+        if (cabinData.ok) setCabins(cabinData.cabins);
+        if (shirtData.ok) setShirtCounts(shirtData.counts);
       })
       .catch(() => {})
       .finally(() => setLoadingCabins(false));
@@ -1477,6 +1483,7 @@ const RegisterPage: React.FC = () => {
                       errors={errors}
                       cabins={cabins}
                       loadingCabins={loadingCabins}
+                      shirtCounts={shirtCounts}
                     />
                   )}
                   {currentStep === 6 &&
