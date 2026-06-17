@@ -47,7 +47,7 @@ const ShirtPage: React.FC = () => (
           >
             Bàn Chân Xanh
           </span>
-          <h2 className="mt-1">TRAO 2026 — Áo sự kiện</h2>
+          <h2 className="mt-1">TRAO 2026 - Áo sự kiện</h2>
           <p className="text-muted">
             Thông tin chi tiết về size và màu áo. Vui lòng tham khảo trước khi
             chọn.

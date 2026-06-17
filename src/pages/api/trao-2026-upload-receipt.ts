@@ -66,7 +66,7 @@ async function sendPaymentConfirmEmail(d: {
 
   <div style="background:#1b5e20;padding:28px 24px;text-align:center">
     <h1 style="color:#fff;margin:0;font-size:22px;letter-spacing:1px">BÀN CHÂN XANH</h1>
-    <p style="color:#a5d6a7;margin:6px 0 0;font-size:14px">TRAO 2026 — Xác nhận đã nhận chuyển khoản</p>
+    <p style="color:#a5d6a7;margin:6px 0 0;font-size:14px">TRAO 2026 - Xác nhận đã nhận chuyển khoản</p>
   </div>
 
   <div style="padding:28px 24px">
@@ -118,7 +118,7 @@ async function sendPaymentConfirmEmail(d: {
   await transporter.sendMail({
     from: `"Bàn Chân Xanh - TRAO 2026" <${process.env.GOOGLE_EMAIL}>`,
     to: d.email,
-    subject: `[TRAO 2026] Đã nhận ảnh chuyển khoản — Mã ${d.code}`,
+    subject: `[TRAO 2026] Đã nhận ảnh chuyển khoản - Mã ${d.code}`,
     html,
   });
 }
