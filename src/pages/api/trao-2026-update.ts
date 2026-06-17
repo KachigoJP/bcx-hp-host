@@ -35,6 +35,18 @@ async function updateRow(
   });
 }
 
+function nowJst(): string {
+  return new Date().toLocaleString("ja-JP", {
+    timeZone: "Asia/Tokyo",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+  });
+}
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
@@ -78,13 +90,13 @@ export default async function handler(
       ),
     );
 
-    // Cập nhật trạng thái đại diện thành "Đã chỉnh sửa"
+    // Ghi trạng thái + thời gian chỉnh sửa áo/cabin vào AL:AM của dòng đại diện
     const repRowIndex = rows.findIndex((r) => r[0] === code) + 2;
     await sheets.spreadsheets.values.update({
       spreadsheetId: process.env.GOOGLE_SHEET_ID!,
-      range: `AB${repRowIndex}`,
+      range: `AL${repRowIndex}:AM${repRowIndex}`,
       valueInputOption: "USER_ENTERED",
-      requestBody: { values: [["Đã chỉnh sửa"]] },
+      requestBody: { values: [["Đã cập nhật", nowJst()]] },
     });
 
     res.status(200).json({ ok: true });

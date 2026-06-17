@@ -104,6 +104,8 @@ AH(33) PASSWORD
 AI(34) COUNT_ADULT
 AJ(35) COUNT_CHILD
 AK(36) COUNT_FREE
+AL(37) EDIT_STATUS   - "Đã cập nhật" (ghi khi người dùng sửa áo/cabin qua tra-cuu)
+AM(38) EDIT_AT       - Thời gian chỉnh sửa áo/cabin (JST, dòng đại diện)
 ```
 
 - **Dòng đại diện (rep row):** có dữ liệu đầy đủ, cột AC(REP_CODE) trống
