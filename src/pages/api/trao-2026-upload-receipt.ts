@@ -14,6 +14,7 @@ const C = {
   NAME: 2,
   EMAIL: 3,
   STATUS: 27,
+  REP_CODE: 28,
   RECEIPT: 20,
   PASSWORD: 33,
 };
@@ -177,20 +178,23 @@ export default async function handler(
 
     // Cập nhật cột RECEIPT và STATUS trong sheet (1-based: rowIdx+2)
     const sheetRow = rowIdx + 2;
+    const batchData: { range: string; values: string[][] }[] = [
+      { range: `U${sheetRow}`, values: [[receiptLink]] },
+      { range: `AB${sheetRow}`, values: [["Chờ xác nhận"]] },
+    ];
+
+    // Đồng bộ STATUS "Chờ xác nhận" cho tất cả dòng thành viên của nhóm
+    rows.forEach((r, i) => {
+      if ((r[C.REP_CODE] ?? "") === code) {
+        batchData.push({ range: `AB${i + 2}`, values: [["Chờ xác nhận"]] });
+      }
+    });
+
     await sheets.spreadsheets.values.batchUpdate({
       spreadsheetId: sheetId,
       requestBody: {
         valueInputOption: "USER_ENTERED",
-        data: [
-          {
-            range: `U${sheetRow}`, // cột U = index 20 = RECEIPT
-            values: [[receiptLink]],
-          },
-          {
-            range: `AB${sheetRow}`, // cột AB = index 27 = STATUS
-            values: [["Chờ xác nhận"]],
-          },
-        ],
+        data: batchData,
       },
     });
 

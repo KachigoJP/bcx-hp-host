@@ -278,7 +278,9 @@ export default async function handler(
       "", // [24] Cộng tác viên
       "", // [25] Team CTV
       "", // [26] Ghi chú
-      "Chờ xác nhận", // [27] Trạng thái
+      formData.payment_timing === "later"
+        ? "Chưa chuyển khoản"
+        : "Chờ xác nhận", // [27] Trạng thái
       repCode, // [28] Mã đại diện ← trỏ về người đăng ký
       "Thành viên", // [29] Vai trò
       participants[i + 1]?.shirt_size ?? "", // [30] Size áo
