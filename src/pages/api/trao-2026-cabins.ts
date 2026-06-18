@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { google } from "googleapis";
-import type { CabinInfo } from "../../components/trao2026/types";
+import type { CabinInfo, CabinOccupant } from "../../components/trao2026/types";
 import { formatGoogleApiError, getAuth } from "./utils";
 
 // Sheet "Danh sách cabin":
@@ -22,6 +22,8 @@ export async function fetchCabins(
   sheets: ReturnType<typeof google.sheets>,
   sheetId: string,
 ): Promise<CabinInfo[]> {
+  // Đọc main sheet: C(2)=NAME, E(4)=GENDER, F(5)=AGE, AG(32)=CABIN
+  // Range A2:AG để lấy đủ các cột cần thiết
   const [cabinRes, mainRes] = await Promise.all([
     sheets.spreadsheets.values.get({
       spreadsheetId: sheetId,
@@ -30,13 +32,13 @@ export async function fetchCabins(
     sheets.spreadsheets.values
       .get({
         spreadsheetId: sheetId,
-        range: `${MAIN_CABIN_COL}2:${MAIN_CABIN_COL}`,
+        range: "A2:AG",
       })
       .catch(() => ({ data: { values: [] as string[][] } })),
   ]);
 
   const cabinRows = cabinRes.data.values ?? [];
-  const mainCabinValues = (mainRes.data.values ?? []).flat();
+  const mainRows = (mainRes.data.values ?? []) as string[][];
 
   // Đọc tên nhà chòi từ cabin sheet trước để build map fullName → number
   const fullNameToNumber: Record<string, number> = {};
@@ -46,23 +48,31 @@ export async function fetchCabins(
     if (number > 0 && fullName) fullNameToNumber[fullName] = number;
   }
 
-  // Đếm số người đã đăng ký theo tên nhà chòi (cột AG lưu fullName)
-  // Tương thích ngược: vẫn nhận dạng format cũ "Cabin X" nếu còn trong sheet
+  // Đếm số người + gom danh sách occupants theo cabin
   const registeredCount: Record<number, number> = {};
-  for (const val of mainCabinValues) {
-    const v = String(val).trim();
-    if (!v) continue;
-    // Format mới: tên nhà chòi trực tiếp (vd: "Nhà chú Cuội 2")
-    if (fullNameToNumber[v] !== undefined) {
-      const n = fullNameToNumber[v];
-      registeredCount[n] = (registeredCount[n] ?? 0) + 1;
+  const occupantsMap: Record<number, CabinOccupant[]> = {};
+
+  for (const row of mainRows) {
+    const cabinVal = String(row[32] ?? "").trim(); // AG = index 32
+    if (!cabinVal) continue;
+
+    let cabinNumber: number | undefined;
+    if (fullNameToNumber[cabinVal] !== undefined) {
+      cabinNumber = fullNameToNumber[cabinVal];
     } else {
-      // Format cũ: "Cabin X" — tương thích ngược
-      const match = v.match(/^Cabin\s+(\d+)$/i);
-      if (match) {
-        const n = Number(match[1]);
-        registeredCount[n] = (registeredCount[n] ?? 0) + 1;
-      }
+      const match = cabinVal.match(/^Cabin\s+(\d+)$/i);
+      if (match) cabinNumber = Number(match[1]);
+    }
+    if (!cabinNumber) continue;
+
+    registeredCount[cabinNumber] = (registeredCount[cabinNumber] ?? 0) + 1;
+
+    const name = String(row[2] ?? "").trim(); // C = index 2
+    const gender = String(row[4] ?? "").trim(); // E = index 4
+    const age = String(row[5] ?? "").trim(); // F = index 5
+    if (name) {
+      if (!occupantsMap[cabinNumber]) occupantsMap[cabinNumber] = [];
+      occupantsMap[cabinNumber].push({ name, gender, age });
     }
   }
 
@@ -84,6 +94,7 @@ export async function fetchCabins(
         registered,
         available: registered < capacity,
         note,
+        occupants: occupantsMap[number] ?? [],
       };
     })
     .filter((c) => c.number > 0 && c.capacity > 0)

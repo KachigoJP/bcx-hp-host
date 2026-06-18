@@ -68,6 +68,12 @@ export type Step6 = {
   participants: ParticipantExtra[];
 };
 
+export type CabinOccupant = {
+  name: string;
+  gender: string;
+  age: string;
+};
+
 export type CabinInfo = {
   number: number; // số TT (cột A)
   group: string; // nhóm (cột B)
@@ -77,6 +83,7 @@ export type CabinInfo = {
   registered: number; // số đã đăng ký (tính từ main sheet)
   available: boolean;
   note: string; // ghi chú (cột G)
+  occupants: CabinOccupant[]; // danh sách người đã đăng ký
 };
 
 export type Step1Errors = Partial<Record<keyof Step1, string>>;

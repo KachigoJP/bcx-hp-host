@@ -6,6 +6,7 @@ const CabinPage: React.FC = () => {
   const [cabins, setCabins] = React.useState<CabinInfo[]>([]);
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState("");
+  const [hoveredCabin, setHoveredCabin] = React.useState<number | null>(null);
 
   React.useEffect(() => {
     fetch("/api/trao-2026-cabins")
@@ -149,13 +150,140 @@ const CabinPage: React.FC = () => {
                             <div
                               key={cabin.number}
                               className="col-6 col-md-4 col-lg-3"
+                              style={{ position: "relative" }}
+                              onMouseEnter={() => setHoveredCabin(cabin.number)}
+                              onMouseLeave={() => setHoveredCabin(null)}
                             >
+                              {/* Tooltip occupants */}
+                              {hoveredCabin === cabin.number && (
+                                <div
+                                  style={{
+                                    position: "absolute",
+                                    bottom: "calc(100% + 6px)",
+                                    left: "50%",
+                                    transform: "translateX(-50%)",
+                                    zIndex: 100,
+                                    backgroundColor: "#fff",
+                                    border: "1px solid #a5d6a7",
+                                    borderRadius: 8,
+                                    boxShadow: "0 4px 16px rgba(0,0,0,.15)",
+                                    padding: "10px 14px",
+                                    minWidth: 180,
+                                    maxWidth: 260,
+                                    pointerEvents: "none",
+                                    whiteSpace: "nowrap",
+                                  }}
+                                >
+                                  <div
+                                    style={{
+                                      fontWeight: 700,
+                                      fontSize: 12,
+                                      color: "#1b5e20",
+                                      marginBottom: 6,
+                                      borderBottom: "1px solid #e8f5e9",
+                                      paddingBottom: 4,
+                                    }}
+                                  >
+                                    {cabin.fullName} — {cabin.registered}/
+                                    {cabin.capacity} người
+                                  </div>
+                                  {cabin.occupants.length === 0 ? (
+                                    <div
+                                      style={{
+                                        fontSize: 12,
+                                        color: "#aaa",
+                                        fontStyle: "italic",
+                                      }}
+                                    >
+                                      Chưa có ai đăng ký
+                                    </div>
+                                  ) : (
+                                    <div
+                                      style={{
+                                        display: "flex",
+                                        flexDirection: "column",
+                                        gap: 4,
+                                      }}
+                                    >
+                                      {(() => {
+                                        const male = cabin.occupants.filter(
+                                          (o) => o.gender === "Nam",
+                                        ).length;
+                                        const female = cabin.occupants.filter(
+                                          (o) => o.gender === "Nữ",
+                                        ).length;
+                                        const child = cabin.occupants.filter(
+                                          (o) =>
+                                            Number(o.age) > 0 &&
+                                            Number(o.age) < 18,
+                                        ).length;
+                                        return (
+                                          <>
+                                            <div
+                                              style={{
+                                                fontSize: 12,
+                                                color: "#1565c0",
+                                              }}
+                                            >
+                                              ♂ Nam: <strong>{male}</strong>
+                                            </div>
+                                            <div
+                                              style={{
+                                                fontSize: 12,
+                                                color: "#c62828",
+                                              }}
+                                            >
+                                              ♀ Nữ: <strong>{female}</strong>
+                                            </div>
+                                            {child > 0 && (
+                                              <div
+                                                style={{
+                                                  fontSize: 12,
+                                                  color: "#e65100",
+                                                }}
+                                              >
+                                                👦 Trẻ em (&lt;18):{" "}
+                                                <strong>{child}</strong>
+                                              </div>
+                                            )}
+                                          </>
+                                        );
+                                      })()}
+                                    </div>
+                                  )}
+                                  {/* Mũi tên xuống */}
+                                  <div
+                                    style={{
+                                      position: "absolute",
+                                      bottom: -6,
+                                      left: "50%",
+                                      transform: "translateX(-50%)",
+                                      width: 10,
+                                      height: 6,
+                                      overflow: "hidden",
+                                    }}
+                                  >
+                                    <div
+                                      style={{
+                                        width: 10,
+                                        height: 10,
+                                        backgroundColor: "#fff",
+                                        border: "1px solid #a5d6a7",
+                                        transform: "rotate(45deg)",
+                                        transformOrigin: "center",
+                                        marginTop: -6,
+                                      }}
+                                    />
+                                  </div>
+                                </div>
+                              )}
                               <div
                                 className="p-2 rounded d-flex align-items-center justify-content-between"
                                 style={{
                                   border: `1.5px solid ${full ? "#ef9a9a" : "#a5d6a7"}`,
                                   backgroundColor: full ? "#ffebee" : "#f0f7f0",
                                   minHeight: 44,
+                                  cursor: "default",
                                 }}
                               >
                                 <div>
