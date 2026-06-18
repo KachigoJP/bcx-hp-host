@@ -115,6 +115,23 @@ const InfoRow: React.FC<{ label: string; value?: string; hide?: boolean }> = ({
   );
 };
 
+const FeeRow: React.FC<{ label: string; value?: string; hide?: boolean }> = ({
+  label,
+  value,
+  hide,
+}) => {
+  if (hide || !value) return null;
+  return (
+    <div
+      className="d-flex justify-content-between py-1"
+      style={{ gap: 12, fontSize: 13 }}
+    >
+      <span style={{ color: "#777", flex: 1 }}>{label}</span>
+      <span style={{ fontWeight: 500, whiteSpace: "nowrap" }}>{value}</span>
+    </div>
+  );
+};
+
 const SectionTitle: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => (
@@ -893,10 +910,7 @@ const ChinhSuaPage: React.FC = () => {
 
   // ── Profile + Edit ──────────────────────────────────────────────────────────
   const { profile } = result;
-  const grandTotal =
-    Number(profile.fee_total) +
-    Number(profile.fee_product) +
-    Number(profile.donation);
+  const grandTotal = Number(profile.fee_total);
 
   return (
     <Fragment>
@@ -1012,18 +1026,25 @@ const ChinhSuaPage: React.FC = () => {
                     </tbody>
                   </table>
 
-                  <SectionTitle>Đăng ký & Di chuyển</SectionTitle>
+                  <SectionTitle>Áo của người đại diện</SectionTitle>
                   <table style={{ width: "100%", borderCollapse: "collapse" }}>
                     <tbody>
-                      <InfoRow label="Hình thức" value={profile.reg_type} />
                       <InfoRow
-                        label="Tổng số người"
-                        value={profile.num_person}
+                        label="Size áo"
+                        value={result.representative.shirt_size}
                       />
-                      <InfoRow label="Phương tiện" value={profile.transport} />
                       <InfoRow
-                        label="Nơi xuất phát"
-                        value={profile.bus_departure}
+                        label="Màu áo"
+                        value={
+                          SHIRT_COLORS.find(
+                            (c) =>
+                              c.value === result.representative.shirt_color,
+                          )?.label
+                        }
+                      />
+                      <InfoRow
+                        label="Cabin"
+                        value={result.representative.cabin || undefined}
                       />
                     </tbody>
                   </table>
@@ -1070,104 +1091,94 @@ const ChinhSuaPage: React.FC = () => {
                       </div>
                     </>
                   )}
-
-                  <SectionTitle>Áo của người đại diện</SectionTitle>
+                  <SectionTitle>Đăng ký & Di chuyển</SectionTitle>
                   <table style={{ width: "100%", borderCollapse: "collapse" }}>
                     <tbody>
+                      <InfoRow label="Hình thức" value={profile.reg_type} />
                       <InfoRow
-                        label="Size áo"
-                        value={result.representative.shirt_size}
+                        label="Tổng số người"
+                        value={profile.num_person}
                       />
+                      <InfoRow label="Phương tiện" value={profile.transport} />
                       <InfoRow
-                        label="Màu áo"
-                        value={
-                          SHIRT_COLORS.find(
-                            (c) =>
-                              c.value === result.representative.shirt_color,
-                          )?.label
-                        }
-                      />
-                      <InfoRow
-                        label="Cabin"
-                        value={result.representative.cabin || undefined}
+                        label="Nơi xuất phát"
+                        value={profile.bus_departure}
                       />
                     </tbody>
                   </table>
 
                   <SectionTitle>Tổng phí</SectionTitle>
-                  <table style={{ width: "100%", borderCollapse: "collapse" }}>
-                    <tbody>
-                      {Number(profile.count_adult) > 0 && (
-                        <InfoRow
-                          label={`Người lớn / Trẻ trên 12 tuổi (${profile.count_adult} người × 16,500 ¥)`}
-                          value={fmtYen(Number(profile.count_adult) * 16500)}
+                  <div>
+                    {Number(profile.count_adult) > 0 && (
+                      <FeeRow
+                        label={`Người lớn / trẻ >12 tuổi (${profile.count_adult} người × 16,500 ¥)`}
+                        value={fmtYen(Number(profile.count_adult) * 16500)}
+                      />
+                    )}
+                    {Number(profile.count_child) > 0 && (
+                      <FeeRow
+                        label={`Trẻ em 6-12 tuổi (${profile.count_child} người × 8,000 ¥)`}
+                        value={fmtYen(Number(profile.count_child) * 8000)}
+                      />
+                    )}
+                    {Number(profile.count_free) > 0 && (
+                      <FeeRow
+                        label={`Khuyết tật / trẻ <6 tuổi (${profile.count_free} người)`}
+                        value="Miễn phí"
+                      />
+                    )}
+                    {/* Fallback nếu đăng ký cũ chưa có count */}
+                    {Number(profile.count_adult) === 0 &&
+                      Number(profile.count_child) === 0 &&
+                      Number(profile.count_free) === 0 &&
+                      Number(profile.fee_event) > 0 && (
+                        <FeeRow
+                          label="Phí sự kiện"
+                          value={fmtYen(profile.fee_event)}
                         />
                       )}
-                      {Number(profile.count_child) > 0 && (
-                        <InfoRow
-                          label={`Trẻ em 6–12 tuổi (${profile.count_child} người × 8,000 ¥)`}
-                          value={fmtYen(Number(profile.count_child) * 8000)}
-                        />
-                      )}
-                      {Number(profile.count_free) > 0 && (
-                        <InfoRow
-                          label={`Người khuyết tật / Trẻ dưới 6 tuổi (${profile.count_free} người)`}
-                          value="Miễn phí"
-                        />
-                      )}
-                      {/* Fallback nếu đăng ký cũ chưa có count */}
-                      {Number(profile.count_adult) === 0 &&
-                        Number(profile.count_child) === 0 &&
-                        Number(profile.count_free) === 0 &&
-                        Number(profile.fee_event) > 0 && (
-                          <InfoRow
-                            label="Phí sự kiện"
-                            value={fmtYen(profile.fee_event)}
-                          />
-                        )}
-                      <InfoRow
-                        label={(() => {
-                          if (Number(profile.fee_bus) <= 0) return "Phí xe bus";
-                          const dep = profile.bus_departure
-                            ? ` từ ${profile.bus_departure}`
+                    <FeeRow
+                      label={(() => {
+                        if (Number(profile.fee_bus) <= 0) return "Phí xe bus";
+                        const dep = profile.bus_departure
+                          ? ` từ ${profile.bus_departure}`
+                          : "";
+                        const perPerson =
+                          Number(profile.num_person) > 0
+                            ? ` × ${fmtYen(Number(profile.fee_bus) / Number(profile.num_person))}`
                             : "";
-                          const perPerson =
-                            Number(profile.num_person) > 0
-                              ? ` × ${fmtYen(Number(profile.fee_bus) / Number(profile.num_person))}`
-                              : "";
-                          return `Phí xe bus${dep} (${profile.num_person} người${perPerson})`;
-                        })()}
-                        value={
-                          Number(profile.fee_bus) > 0
-                            ? fmtYen(profile.fee_bus)
-                            : undefined
-                        }
+                        return `Xe bus${dep} (${profile.num_person} người${perPerson})`;
+                      })()}
+                      value={
+                        Number(profile.fee_bus) > 0
+                          ? fmtYen(profile.fee_bus)
+                          : undefined
+                      }
+                    />
+                    <FeeRow
+                      label={
+                        profile.products
+                          ? `Sản phẩm (${profile.products})`
+                          : "Phí sản phẩm"
+                      }
+                      value={
+                        Number(profile.fee_product) > 0
+                          ? fmtYen(profile.fee_product)
+                          : undefined
+                      }
+                    />
+                    {Number(profile.donation) > 0 && (
+                      <FeeRow
+                        label="❤️ Quyên góp thiện nguyện"
+                        value={fmtYen(profile.donation)}
                       />
-                      <InfoRow
-                        label="Sản phẩm"
-                        value={profile.products || undefined}
-                      />
-                      <InfoRow
-                        label="Phí sản phẩm"
-                        value={
-                          Number(profile.fee_product) > 0
-                            ? fmtYen(profile.fee_product)
-                            : undefined
-                        }
-                      />
-                      {Number(profile.donation) > 0 && (
-                        <InfoRow
-                          label="❤️ Quyên góp thiện nguyện"
-                          value={fmtYen(profile.donation)}
-                        />
-                      )}
-                    </tbody>
-                  </table>
+                    )}
+                  </div>
                   <div
                     className="d-flex justify-content-between fw-bold py-2 border-top mt-1"
                     style={{ fontSize: 16 }}
                   >
-                    <span>Tổng dự kiến</span>
+                    <span>Tổng phí</span>
                     <span className="text-success">{fmtYen(grandTotal)}</span>
                   </div>
 
