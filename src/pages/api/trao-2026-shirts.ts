@@ -2,11 +2,10 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { google } from "googleapis";
 import { getAuth } from "./utils";
 
-// Cột AE(30)=SHIRT_SIZE, AF(31)=SHIRT_COLOR (0-based)
-const COL_SHIRT_SIZE = "AE";
-const COL_SHIRT_COLOR = "AF";
+// Đọc AB:AF để lấy STATUS(0), SHIRT_SIZE(3), SHIRT_COLOR(4) trong một request
+// AB=STATUS, AC=REP_CODE, AD=ROLE, AE=SHIRT_SIZE, AF=SHIRT_COLOR
 
-// Trả về { "white|M": 12, "green|M": 5, ... }
+// Trả về { "white|M": 12, "green|M": 5, ... } — bỏ qua đăng ký "Hết hạn"
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
@@ -17,19 +16,12 @@ export default async function handler(
     const auth = getAuth();
     const sheets = google.sheets({ version: "v4", auth });
 
-    const [sizeRes, colorRes] = await Promise.all([
-      sheets.spreadsheets.values.get({
-        spreadsheetId: process.env.GOOGLE_SHEET_ID!,
-        range: `${COL_SHIRT_SIZE}2:${COL_SHIRT_SIZE}`,
-      }),
-      sheets.spreadsheets.values.get({
-        spreadsheetId: process.env.GOOGLE_SHEET_ID!,
-        range: `${COL_SHIRT_COLOR}2:${COL_SHIRT_COLOR}`,
-      }),
-    ]);
+    const result = await sheets.spreadsheets.values.get({
+      spreadsheetId: process.env.GOOGLE_SHEET_ID!,
+      range: "AB2:AF",
+    });
 
-    const sizes = (sizeRes.data.values ?? []).flat();
-    const colors = (colorRes.data.values ?? []).flat();
+    const rows = result.data.values ?? [];
 
     const colorValue: Record<string, string> = {
       Trắng: "white",
@@ -38,9 +30,11 @@ export default async function handler(
     };
 
     const counts: Record<string, number> = {};
-    for (let i = 0; i < sizes.length; i++) {
-      const size = sizes[i];
-      const colorRaw = colors[i];
+    for (const row of rows) {
+      const status = String(row[0] ?? "").trim();
+      if (status === "Hết hạn") continue;
+      const size = String(row[3] ?? "").trim();
+      const colorRaw = String(row[4] ?? "").trim();
       if (!size || !colorRaw) continue;
       const color = colorValue[colorRaw] ?? colorRaw;
       const key = `${color}|${size}`;
