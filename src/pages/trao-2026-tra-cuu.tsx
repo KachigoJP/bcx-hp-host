@@ -910,7 +910,11 @@ const ChinhSuaPage: React.FC = () => {
 
   // ── Profile + Edit ──────────────────────────────────────────────────────────
   const { profile } = result;
-  const grandTotal = Number(profile.fee_total);
+  const grandTotal =
+    Number(profile.fee_event) +
+    Number(profile.fee_bus) +
+    Number(profile.fee_product) +
+    Number(profile.donation);
 
   return (
     <Fragment>
