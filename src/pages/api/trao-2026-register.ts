@@ -214,7 +214,10 @@ export default async function handler(
       Number(formData.fee_event), // Phí sự kiện
       Number(formData.fee_bus), // Phí xe bus
       Number(formData.donation) || 0, // Quyên góp (S)
-      Number(formData.fee_total), // Tổng phí
+      (Number(formData.fee_event) || 0) +
+        (Number(formData.fee_bus) || 0) +
+        (Number(formData.product_fee) || 0) +
+        (Number(formData.donation) || 0), // Tổng phí
       receiptLink, // Link ảnh CK
       (formData.food_allergy as string) || "", // Dị ứng
       formData.want_products === "yes"
