@@ -34,10 +34,7 @@ export const transformSEOData = (pageData: PageContent | null): SEOProps => {
   return {
     metadata: {
       title: pageData.seo.metaTitle,
-      description: pageData.seo.metaDescription,
-      image: pageData.seo.shareImage?.data
-        ? getStrapiImageUrl(pageData.seo.shareImage.data.attributes.url || "")
-        : undefined,
+      description: pageData.seo.metaDescription
     },
   };
 };
@@ -56,8 +53,8 @@ export const transformHeroData = (
     items: pageData.heros
       .sort((a, b) => a.position - b.position)
       .map((hero) => ({
-        backgroundImage: hero.images?.formats
-          ? getStrapiImageUrl(hero.images.formats?.large?.url || "")
+        backgroundImage: hero.images
+          ? getStrapiImageUrl(hero.images.url || "")
           : "/images/hero-nature-mountain.jpg",
         title: hero.title,
         subtitle: hero.subtitle || "",
@@ -88,12 +85,13 @@ export const renderSection = (
         serviceProps.services = section.services.map((service) => ({
           title: service.title,
           id: service.linkUrl || `service-${service.title}`,
-          image: service.image ? getStrapiImageUrl(service.image?.formats?.large?.url || "") : undefined,
+          image: service.image ? getStrapiImageUrl(service.image?.url || "") : undefined,
           icon: service.icon || "flaticon-forest",
           linkText: service.linkText || "",
           linkUrl: service.linkUrl || "",
           description: service.description || "",
         }));
+        console.log("Rendering Service Section with props:", serviceProps.services[1]);
       }
       return <Service key={key} {...serviceProps} />;
 
@@ -108,7 +106,7 @@ export const renderSection = (
         aboutProps.about = {
           ...section.about,
           image: section.about.image
-            ? getStrapiImageUrl(section.about.image.formats?.large?.url || "")
+            ? getStrapiImageUrl(section.about.image.url || "")
             : undefined,
         };
       }
@@ -125,7 +123,7 @@ export const renderSection = (
       };
       if (section.CTA) {
         ctaProps.image = section.CTA.image
-          ? getStrapiImageUrl(section.CTA.image.formats?.medium?.url || "")
+          ? getStrapiImageUrl(section.CTA.image.url || "")
           : "/images/cta-group-hiking.jpg";
         ctaProps.buttonText = section.CTA.action || "Tham gia ngay";
         ctaProps.buttonLink = section.CTA.url || "/join";
@@ -158,7 +156,7 @@ export const renderSection = (
       if (section.testimonials && section.testimonials.length > 0) {
         testimonialProps.items = section.testimonials.map((testimonial) => ({
           image: testimonial.avatar
-            ? getStrapiImageUrl(testimonial.avatar.formats?.small?.url || "")
+            ? getStrapiImageUrl(testimonial.avatar.url || "")
             : "/images/testimonial-member-1.jpg",
           title: testimonial.title,
           subtitle: testimonial.subtitle || "",
@@ -176,8 +174,8 @@ export const renderSection = (
       };
       if (section.partners && section.partners.length > 0) {
         partnerProps.items = section.partners.map((partner) =>
-          partner.logo?.formats
-            ? getStrapiImageUrl(partner.logo.formats.thumbnail?.url || "")
+          partner.logo
+            ? getStrapiImageUrl(partner.logo.url || "")
             : "/assets/images/default/partner.jpg",
         );
       }
@@ -189,8 +187,8 @@ export const renderSection = (
       };
       if (section.projects && section.projects.length > 0) {
         projectProps.items = section.projects.map((project) => ({
-          image: project.image?.data?.[0]
-            ? getStrapiImageUrl(project.image.data[0].attributes.url || "")
+          image: project.image
+            ? getStrapiImageUrl(project.image.url || "")
             : "/images/project-default.jpg",
           slug: project.url || "",
           title: project.title,
@@ -209,7 +207,7 @@ export const renderSection = (
       if (section.members && section.members.length > 0) {
         teamProps.items = section.members.map((member) => ({
           tImg: member.avatar
-            ? getStrapiImageUrl(member.avatar.formats?.medium?.url || "")
+            ? getStrapiImageUrl(member.avatar.url || "")
             : undefined,
           slug: member.email || "",
           name: member.full_name,
@@ -224,8 +222,8 @@ export const renderSection = (
       // Currently it uses hardcoded data from api/event
       const eventItems =
         section.events?.map((event) => ({
-          eImg: (event.image?.data?.[0]
-            ? getStrapiImageUrl(event.image.data[0].attributes.url || "")
+          eImg: (event.image
+            ? getStrapiImageUrl(event.image.url || "")
             : "/images/event-default.jpg") as any,
           date: event.date || "",
           eTitle: event.title,
@@ -239,13 +237,13 @@ export const renderSection = (
       // Currently it uses hardcoded data from api/blogs
       const blogItems =
         section.blogs?.map((blog) => ({
-          screens: (blog.image?.data?.[0]
-            ? getStrapiImageUrl(blog.image.data[0].attributes.url || "")
+          screens: (blog.image
+            ? getStrapiImageUrl(blog.image.url || "")
             : "/images/blog-default.jpg") as any,
           slug: blog.url || "",
           title: blog.title,
-          authorImg: (blog.authorAvatar?.data?.[0]
-            ? getStrapiImageUrl(blog.authorAvatar.data[0].attributes.url || "")
+          authorImg: (blog.authorAvatar?.url
+            ? getStrapiImageUrl(blog.authorAvatar.url || "")
             : "/images/author-default.jpg") as any,
           author: blog.author || "",
           comment: blog.comment || 0,

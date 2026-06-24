@@ -91,8 +91,8 @@ const transformHeroData = (pageData: PageContent | null): HeroProps => {
     items: pageData.heros
       .sort((a, b) => a.position - b.position)
       .map((hero) => ({
-        backgroundImage: hero.images?.data?.[0]
-          ? getStrapiImageUrl(hero.images.data[0].attributes.url || "")
+        backgroundImage: hero.images
+          ? getStrapiImageUrl(hero.images.url || "")
           : "/images/hero-nature-mountain.jpg",
         title: hero.title,
         subtitle: hero.subtitle || "",

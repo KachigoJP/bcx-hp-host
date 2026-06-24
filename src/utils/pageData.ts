@@ -64,10 +64,7 @@ export function transformSEOData(
   return {
     metadata: {
       title: pageData.seo.metaTitle,
-      description: pageData.seo.metaDescription,
-      image: pageData.seo.shareImage?.data
-        ? getStrapiImageUrl(pageData.seo.shareImage.data.attributes.url || "")
-        : null,
+      description: pageData.seo.metaDescription
     },
   };
 }

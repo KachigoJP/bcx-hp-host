@@ -74,12 +74,7 @@ export interface PageProject {
   title: string;
   description?: string;
   url?: string;
-  image?: {
-    data: Array<{
-      id: number;
-      attributes: StrapiImage;
-    }>;
-  };
+  image?: StrapiImage;
 }
 
 // Team component interface (ui.team)
@@ -101,12 +96,7 @@ export interface PageEvent {
   date?: string;
   description?: string;
   url?: string;
-  image?: {
-    data: Array<{
-      id: number;
-      attributes: StrapiImage;
-    }>;
-  };
+  image?: StrapiImage;
 }
 
 // Blog component interface (ui.blog)
@@ -116,18 +106,8 @@ export interface PageBlog {
   author?: string;
   url?: string;
   comment?: number;
-  image?: {
-    data: Array<{
-      id: number;
-      attributes: StrapiImage;
-    }>;
-  };
-  authorAvatar?: {
-    data: Array<{
-      id: number;
-      attributes: StrapiImage;
-    }>;
-  };
+  image?: StrapiImage;
+  authorAvatar?: StrapiImage;
 }
 
 // Section component interface (shared.section)
@@ -173,12 +153,6 @@ export interface PageSection {
 export interface PageSEO {
   metaTitle: string;
   metaDescription: string;
-  shareImage?: {
-    data: {
-      id: number;
-      attributes: StrapiImage;
-    };
-  };
 }
 
 // Main Page content interface
@@ -188,12 +162,7 @@ export interface PageContent {
   title: string;
   subtitle?: string;
   url: string;
-  background?: {
-    data: {
-      id: number;
-      attributes: StrapiImage;
-    };
-  };
+  background?: StrapiImage;
   content?: StrapiRichText; // Blocks editor content (optional)
   sections?: PageSection[];
   heros?: PageHero[];
