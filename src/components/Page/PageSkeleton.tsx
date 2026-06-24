@@ -155,7 +155,6 @@ export const PageSkeleton: React.FC<PageSkeletonProps> = ({ slug }) => {
 
         // Check if max retries reached
         if (newRetryCount >= MAX_RETRIES) {
-          console.log("Max retries reached, staying in error state");
           setMaxRetriesReached(true);
           setRetryCount(newRetryCount);
           // Stay in error or show cached

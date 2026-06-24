@@ -91,7 +91,6 @@ export const renderSection = (
           linkUrl: service.linkUrl || "",
           description: service.description || "",
         }));
-        console.log("Rendering Service Section with props:", serviceProps.services[1]);
       }
       return <Service key={key} {...serviceProps} />;
 
