@@ -143,6 +143,7 @@ export class CollectionService<T> extends BaseService<T> {
         slug,
         status: response.status,
         dataCount: response.data.data.length,
+        data: response.data,
         fullUrl: response.request?.path || response.config.url,
       });
 

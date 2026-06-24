@@ -87,9 +87,11 @@ export const renderSection = (
       if (section.services && section.services.length > 0) {
         serviceProps.services = section.services.map((service) => ({
           title: service.title,
-          id: service.url || `service-${service.title}`,
+          id: service.linkUrl || `service-${service.title}`,
+          image: service.image ? getStrapiImageUrl(service.image?.formats?.large?.url || "") : undefined,
           icon: service.icon || "flaticon-forest",
-          slug: service.url || "",
+          linkText: service.linkText || "",
+          linkUrl: service.linkUrl || "",
           description: service.description || "",
         }));
       }
@@ -165,7 +167,8 @@ export const renderSection = (
       }
       return <Testimonial key={key} {...testimonialProps} />;
 
-    case "parters":
+    case "partners":
+      console.log("Rendering partners section with data:", section);
       const partnerProps: PartnerProps = {
         title: section.title,
         subtitle: section.subtitle || "",

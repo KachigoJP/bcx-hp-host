@@ -22,10 +22,11 @@ export interface PageHero {
 // Service component interface (ui.service)
 export interface PageService {
   title: string;
-  subtitle?: string;
   description?: string;
   icon?: string;
-  url?: string;
+  image?: StrapiImage;
+  linkText?: string;
+  linkUrl?: string;
 }
 
 // About component interface (ui.about)
@@ -150,7 +151,7 @@ export interface PageSection {
     | "abouts"
     | "testimonials"
     | "cta"
-    | "parters"
+    | "partners"
     | "funfacts"
     | "projects"
     | "teams"
