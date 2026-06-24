@@ -168,7 +168,6 @@ export const renderSection = (
       return <Testimonial key={key} {...testimonialProps} />;
 
     case "partners":
-      console.log("Rendering partners section with data:", section);
       const partnerProps: PartnerProps = {
         title: section.title,
         subtitle: section.subtitle || "",
