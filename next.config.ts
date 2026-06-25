@@ -5,6 +5,8 @@ import packageJson from "./package.json";
 const deps = packageJson.dependencies;
 
 const strapiUrl = process.env.NEXT_PUBLIC_STRAPI_URL;
+const strapiMediaUrl =
+  process.env.NEXT_PUBLIC_STRAPI_MEDIA_URL ?? process.env.NEXT_PUBLIC_STRAPI_URL;
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
@@ -26,9 +28,11 @@ const nextConfig: NextConfig = {
         },
       ];
 
-      if (strapiUrl) {
+      const allowedImageHosts = [strapiUrl, strapiMediaUrl].filter(Boolean);
+
+      allowedImageHosts.forEach((hostUrl) => {
         try {
-          const u = new URL(strapiUrl);
+          const u = new URL(hostUrl as string);
           patterns.push({
             protocol: u.protocol.replace(":", ""),
             hostname: u.hostname,
@@ -39,7 +43,7 @@ const nextConfig: NextConfig = {
         } catch (_) {
           // ignore invalid URL
         }
-      }
+      });
 
       return patterns;
     })(),
@@ -58,10 +62,6 @@ const nextConfig: NextConfig = {
       new container.ModuleFederationPlugin({
         name: "host",
         remotes: {},
-        // shared: {
-        //     react: { singleton: true },
-        //     'react-dom': { singleton: true },
-        // },
         shared: {
           react: {
             singleton: true,

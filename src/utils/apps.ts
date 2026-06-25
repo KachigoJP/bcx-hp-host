@@ -12,7 +12,12 @@ export const getStrapiImageUrl = (url: string): string => {
     return url;
   }
 
-  return `${process.env.NEXT_PUBLIC_STRAPI_URL ?? ""}${url}`;
+  const mediaBaseUrl =
+    process.env.NEXT_PUBLIC_STRAPI_MEDIA_URL ??
+    process.env.NEXT_PUBLIC_STRAPI_URL ??
+    "";
+
+  return `${mediaBaseUrl}${url}`;
 };
 
 export const convertGlobalInfoToLayoutData = (
