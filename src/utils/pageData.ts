@@ -7,7 +7,6 @@
 
 import { pageService } from "@/lib/strapi/services";
 import { PageContent } from "@/utils/interfaces";
-import { getStrapiImageUrl } from "@/utils/apps";
 import { getDefaultLayoutData } from "@/utils/layoutData";
 import { SEOProps } from "@components/layout/SEO/interface";
 import { LayoutProps } from "@components/layout";
