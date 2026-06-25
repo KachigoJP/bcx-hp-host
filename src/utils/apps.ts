@@ -4,7 +4,15 @@ import { LayoutData } from "@components/layout";
 import { IMenuItem } from "./interfaces";
 
 export const getStrapiImageUrl = (url: string): string => {
-  return `${process.env.NEXT_PUBLIC_STRAPI_URL}${url}`;
+  if (!url) {
+    return "";
+  }
+
+  if (/^(?:[a-z][a-z\d+\-.]*:)?\/\//i.test(url)) {
+    return url;
+  }
+
+  return `${process.env.NEXT_PUBLIC_STRAPI_URL ?? ""}${url}`;
 };
 
 export const convertGlobalInfoToLayoutData = (
