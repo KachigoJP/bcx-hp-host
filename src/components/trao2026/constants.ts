@@ -57,11 +57,14 @@ export const SHIRT_INVENTORY: Record<
 
 export const CABIN_NUMBERS = Array.from({ length: 20 }, (_, i) => i + 1);
 
+// Từ 1/7/2026 (giờ Nhật), ẩn phần chọn size & màu áo - áo đã chốt số lượng
+export const SHIRT_SELECTION_DEADLINE = new Date("2026-07-01T00:00:00+09:00");
+
 export const STEPS = [
   "Thông tin cá nhân",
   "Hình thức đăng ký",
   "Phương tiện di chuyển",
   "Thông tin khác",
-  "Áo & Chỗ ngủ",
+  "Chỗ ngủ",
   "Chuyển khoản",
 ];

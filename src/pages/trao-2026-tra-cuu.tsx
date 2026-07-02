@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+import { isShirtSelectionClosed } from "../components/trao2026/helpers";
 import type { CabinInfo } from "../components/trao2026/types";
 
 const SHIRT_SIZES = ["XS", "S", "M", "L", "XL", "2XL"];
@@ -223,6 +224,8 @@ const ParticipantEditCard: React.FC<{
     groups[groupIndex[cabin.group]].cabins.push(cabin);
   }
 
+  const shirtSelectionClosed = isShirtSelectionClosed();
+
   return (
     <div
       className="rounded p-3 mb-3"
@@ -246,91 +249,125 @@ const ParticipantEditCard: React.FC<{
           </span>
         )}
       </div>
+      {shirtSelectionClosed && (
+        <div
+          className="alert alert-warning py-2 px-3 mb-3"
+          style={{ fontSize: 13 }}
+        >
+          ⏰ Đã hết hạn chỉnh sửa size & màu áo (từ 01/07/2026). Vui lòng liên
+          hệ Fanpage nếu cần.
+        </div>
+      )}
       <div className="row g-3">
-        {/* Dòng 1: Size áo */}
-        <div className="col-6 col-md-4">
-          <label className="form-label fw-semibold" style={{ fontSize: 13 }}>
-            Size áo *
-          </label>
-          <div className="d-flex gap-2 flex-wrap">
-            {SHIRT_SIZES.map((s) => {
-              const inventoryOut = data.shirt_color
-                ? (() => {
-                    const limit = SHIRT_INVENTORY[data.shirt_color]?.[s];
-                    return (
-                      limit !== undefined &&
-                      (shirtCounts[`${data.shirt_color}|${s}`] ?? 0) >= limit
-                    );
-                  })()
-                : false;
-              const disabled = isSizeDisabled(data.shirt_color, s, shirtCounts);
-              return (
-                <ToggleChip
-                  key={s}
-                  selected={data.shirt_size === s}
-                  disabled={disabled}
-                  disabledTitle={inventoryOut ? "Đã hết áo" : "Không có cỡ này"}
-                  onClick={() => !disabled && onChange({ shirt_size: s })}
-                  style={{
-                    padding: "5px 8px",
-                    minWidth: 40,
-                    textAlign: "center",
-                  }}
-                >
-                  {s}
-                </ToggleChip>
-              );
-            })}
-          </div>
-        </div>
+        {!shirtSelectionClosed && (
+          <>
+            {/* Dòng 1: Size áo */}
+            <div className="col-6 col-md-4">
+              <label
+                className="form-label fw-semibold"
+                style={{ fontSize: 13 }}
+              >
+                Size áo *
+              </label>
+              <div className="d-flex gap-2 flex-wrap">
+                {SHIRT_SIZES.map((s) => {
+                  const inventoryOut = data.shirt_color
+                    ? (() => {
+                        const limit = SHIRT_INVENTORY[data.shirt_color]?.[s];
+                        return (
+                          limit !== undefined &&
+                          (shirtCounts[`${data.shirt_color}|${s}`] ?? 0) >=
+                            limit
+                        );
+                      })()
+                    : false;
+                  const disabled = isSizeDisabled(
+                    data.shirt_color,
+                    s,
+                    shirtCounts,
+                  );
+                  return (
+                    <ToggleChip
+                      key={s}
+                      selected={data.shirt_size === s}
+                      disabled={disabled}
+                      disabledTitle={
+                        inventoryOut ? "Đã hết áo" : "Không có cỡ này"
+                      }
+                      onClick={() => !disabled && onChange({ shirt_size: s })}
+                      style={{
+                        padding: "5px 8px",
+                        minWidth: 40,
+                        textAlign: "center",
+                      }}
+                    >
+                      {s}
+                    </ToggleChip>
+                  );
+                })}
+              </div>
+            </div>
 
-        {/* Dòng 1: Màu áo */}
-        <div className="col-6 col-md-4">
-          <label className="form-label fw-semibold" style={{ fontSize: 13 }}>
-            Màu áo *
-          </label>
-          <div className="d-flex gap-2 align-items-center">
-            {SHIRT_COLORS.map((c) => (
-              <button
-                key={c.value}
-                type="button"
-                title={c.label}
-                onClick={() => {
-                  const patch: { shirt_color: string; shirt_size?: string } = {
-                    shirt_color: c.value,
-                  };
-                  if (
-                    data.shirt_size &&
-                    isSizeDisabled(c.value, data.shirt_size, shirtCounts)
-                  ) {
-                    patch.shirt_size = "";
-                  }
-                  onChange(patch);
-                }}
-                style={{
-                  width: 34,
-                  height: 34,
-                  borderRadius: "50%",
-                  backgroundColor: c.hex,
-                  border:
-                    data.shirt_color === c.value
-                      ? "3px solid #4caf50"
-                      : `2px solid ${c.border ?? c.hex}`,
-                  outline:
-                    data.shirt_color === c.value ? "2px solid #4caf50" : "none",
-                  outlineOffset: 2,
-                  cursor: "pointer",
-                  transition: "all 0.15s",
-                }}
-              />
-            ))}
-            {data.shirt_color && (
-              <span style={{ fontSize: 13, color: "#555" }}>
-                {SHIRT_COLORS.find((c) => c.value === data.shirt_color)?.label}
-              </span>
-            )}
-          </div>
-        </div>
+            {/* Dòng 1: Màu áo */}
+            <div className="col-6 col-md-4">
+              <label
+                className="form-label fw-semibold"
+                style={{ fontSize: 13 }}
+              >
+                Màu áo *
+              </label>
+              <div className="d-flex gap-2 align-items-center">
+                {SHIRT_COLORS.map((c) => (
+                  <button
+                    key={c.value}
+                    type="button"
+                    title={c.label}
+                    onClick={() => {
+                      const patch: {
+                        shirt_color: string;
+                        shirt_size?: string;
+                      } = {
+                        shirt_color: c.value,
+                      };
+                      if (
+                        data.shirt_size &&
+                        isSizeDisabled(c.value, data.shirt_size, shirtCounts)
+                      ) {
+                        patch.shirt_size = "";
+                      }
+                      onChange(patch);
+                    }}
+                    style={{
+                      width: 34,
+                      height: 34,
+                      borderRadius: "50%",
+                      backgroundColor: c.hex,
+                      border:
+                        data.shirt_color === c.value
+                          ? "3px solid #4caf50"
+                          : `2px solid ${c.border ?? c.hex}`,
+                      outline:
+                        data.shirt_color === c.value
+                          ? "2px solid #4caf50"
+                          : "none",
+                      outlineOffset: 2,
+                      cursor: "pointer",
+                      transition: "all 0.15s",
+                    }}
+                  />
+                ))}
+                {data.shirt_color && (
+                  <span style={{ fontSize: 13, color: "#555" }}>
+                    {
+                      SHIRT_COLORS.find((c) => c.value === data.shirt_color)
+                        ?.label
+                    }
+                  </span>
+                )}
+              </div>
+            </div>
+          </>
+        )}
 
         {/* Dòng 2: Cabin (full width) */}
         <div className="col-12">
@@ -673,10 +710,13 @@ const ChinhSuaPage: React.FC = () => {
 
   const onSave = async (e: React.FormEvent) => {
     e.preventDefault();
+    const shirtClosed = isShirtSelectionClosed();
     for (const p of edited) {
-      if (!p.shirt_size || !p.shirt_color || !p.cabin) {
+      if ((!shirtClosed && (!p.shirt_size || !p.shirt_color)) || !p.cabin) {
         setSaveError(
-          `Vui lòng chọn đầy đủ size áo, màu áo và cabin cho ${p.name}.`,
+          shirtClosed
+            ? `Vui lòng chọn cabin cho ${p.name}.`
+            : `Vui lòng chọn đầy đủ size áo, màu áo và cabin cho ${p.name}.`,
         );
         return;
       }
@@ -1317,8 +1357,9 @@ const ChinhSuaPage: React.FC = () => {
                     }}
                   >
                     <p className="text-muted mb-3" style={{ fontSize: 13 }}>
-                      Bạn có thể chỉnh sửa size áo, màu áo và cabin cho từng
-                      người tham gia. Tham khảo thông tin trước khi chọn:
+                      {isShirtSelectionClosed()
+                        ? "Đã hết hạn chỉnh sửa size & màu áo. Bạn có thể chỉnh sửa cabin cho từng người tham gia. Tham khảo thông tin trước khi chọn:"
+                        : "Bạn có thể chỉnh sửa size áo, màu áo và cabin cho từng người tham gia. Tham khảo thông tin trước khi chọn:"}
                     </p>
                     <div className="row g-2 mb-4">
                       <div className="col-sm-6">

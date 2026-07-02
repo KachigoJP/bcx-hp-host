@@ -6,6 +6,7 @@ import {
   FEE_BUS_TOKYO,
   FEE_CHILD,
   PRODUCTS,
+  SHIRT_SELECTION_DEADLINE,
 } from "./constants";
 import type {
   Member,
@@ -76,6 +77,10 @@ export function calcFees(step1: Step1, step2: Step2, step3: Step3) {
 
 export function fmtYen(value: number) {
   return value.toLocaleString("ja-JP") + " ¥";
+}
+
+export function isShirtSelectionClosed(): boolean {
+  return Date.now() >= SHIRT_SELECTION_DEADLINE.getTime();
 }
 
 export function buildParticipants(

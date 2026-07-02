@@ -649,6 +649,7 @@ import {
   calcFees,
   calcProductFee,
   fmtYen,
+  isShirtSelectionClosed,
 } from "../components/trao2026/helpers";
 import type {
   Step1,
@@ -859,9 +860,12 @@ const RegisterPage: React.FC = () => {
 
   const validateStep5 = (): boolean => {
     const e: Record<string, string> = {};
+    const shirtClosed = isShirtSelectionClosed();
     step6.participants.forEach((participant, i) => {
-      if (!participant.shirt_size) e[`shirt_${i}`] = "Vui lòng chọn size áo";
-      if (!participant.shirt_color) e[`color_${i}`] = "Vui lòng chọn màu áo";
+      if (!shirtClosed) {
+        if (!participant.shirt_size) e[`shirt_${i}`] = "Vui lòng chọn size áo";
+        if (!participant.shirt_color) e[`color_${i}`] = "Vui lòng chọn màu áo";
+      }
       if (!participant.stay) e[`stay_${i}`] = "Vui lòng chọn cabin";
     });
     setErrors(e);
@@ -944,6 +948,10 @@ const RegisterPage: React.FC = () => {
 
       const code = reservation.code;
       const fees = calcFees(step1, step2, step3);
+      const productFee =
+        step5.want_products === "yes" ? calcProductFee(step5.products) : 0;
+      const grandTotal =
+        fees.total + productFee + (Number(step4.donation) || 0);
 
       let receipt: {
         base64: string;
@@ -989,7 +997,7 @@ const RegisterPage: React.FC = () => {
         count_free: fees.free,
         fee_event: fees.event_fee,
         fee_bus: fees.bus_fee,
-        fee_total: fees.total,
+        fee_total: grandTotal,
         donation: Number(step4.donation) || 0,
         food_allergy: step1.food_allergy.trim() || null,
         want_products: step5.want_products,

@@ -1,6 +1,7 @@
 import React from "react";
 
 import { SHIRT_COLORS, SHIRT_INVENTORY, SHIRT_SIZES } from "./constants";
+import { isShirtSelectionClosed } from "./helpers";
 import type { CabinInfo, ParticipantExtra, Step2, Step6 } from "./types";
 
 const ToggleChip: React.FC<{
@@ -55,6 +56,8 @@ const Step6Form: React.FC<Props> = ({
   loadingCabins,
   shirtCounts = {},
 }) => {
+  const shirtSelectionClosed = isShirtSelectionClosed();
+
   const isInventorySoldOut = (color: string, size: string): boolean => {
     const limit = SHIRT_INVENTORY[color]?.[size];
     if (limit === undefined) return false;
@@ -94,9 +97,18 @@ const Step6Form: React.FC<Props> = ({
     <>
       <h5 className="mb-1 text-success fw-bold">Áo & Chỗ ngủ</h5>
       <p className="text-muted mb-3" style={{ fontSize: 13 }}>
-        Vui lòng chọn size áo, màu áo và cabin cho từng người tham gia. Tham
-        khảo thông tin trước khi chọn:
+        {shirtSelectionClosed
+          ? "Đã hết hạn chọn size & màu áo. Vui lòng chọn cabin cho từng người tham gia. Tham khảo thông tin trước khi chọn:"
+          : "Vui lòng chọn size áo, màu áo và cabin cho từng người tham gia. Tham khảo thông tin trước khi chọn:"}
       </p>
+      {shirtSelectionClosed && (
+        <div
+          className="alert alert-warning py-2 px-3 mb-3"
+          style={{ fontSize: 13 }}
+        >
+          ⏰ Đã hết hạn đăng ký chọn size & màu áo (từ 01/07/2026).
+        </div>
+      )}
       <div className="row g-2 mb-4">
         <div className="col-sm-6">
           <a
@@ -183,131 +195,142 @@ const Step6Form: React.FC<Props> = ({
             </div>
 
             <div className="row g-3">
-              {/* Dòng 1: Size áo */}
-              <div className="col-6 col-md-4">
-                <label
-                  className="form-label fw-semibold"
-                  style={{ fontSize: 13 }}
-                >
-                  Size áo <span className="text-danger">*</span>
-                </label>
-                <div className="d-flex gap-2 flex-wrap">
-                  {SHIRT_SIZES.map((size) => {
-                    const colorUnavailable =
-                      (participant.shirt_color === "green" ||
-                        participant.shirt_color === "white") &&
-                      (size === "XS" || size === "S");
-                    const notAvailable =
-                      participant.shirt_color === "yellow" &&
-                      !["XS", "S"].includes(size);
-                    const inventorySoldOut = participant.shirt_color
-                      ? isInventorySoldOut(participant.shirt_color, size)
-                      : false;
-                    const soldOut = colorUnavailable || inventorySoldOut;
-                    const disabled = soldOut || notAvailable;
-                    return (
-                      <ToggleChip
-                        key={size}
-                        selected={participant.shirt_size === size}
-                        disabled={disabled}
-                        disabledTitle={
-                          notAvailable
-                            ? "Không có cỡ này"
-                            : colorUnavailable
-                              ? "Không có size này"
-                              : "Đã hết áo"
-                        }
-                        onClick={() =>
-                          !disabled &&
-                          updateParticipant(i, { shirt_size: size })
-                        }
-                        style={{
-                          minWidth: 40,
-                          textAlign: "center",
-                          padding: "5px 8px",
-                        }}
+              {!shirtSelectionClosed && (
+                <>
+                  {/* Dòng 1: Size áo */}
+                  <div className="col-6 col-md-4">
+                    <label
+                      className="form-label fw-semibold"
+                      style={{ fontSize: 13 }}
+                    >
+                      Size áo <span className="text-danger">*</span>
+                    </label>
+                    <div className="d-flex gap-2 flex-wrap">
+                      {SHIRT_SIZES.map((size) => {
+                        const colorUnavailable =
+                          (participant.shirt_color === "green" ||
+                            participant.shirt_color === "white") &&
+                          (size === "XS" || size === "S");
+                        const notAvailable =
+                          participant.shirt_color === "yellow" &&
+                          !["XS", "S"].includes(size);
+                        const inventorySoldOut = participant.shirt_color
+                          ? isInventorySoldOut(participant.shirt_color, size)
+                          : false;
+                        const soldOut = colorUnavailable || inventorySoldOut;
+                        const disabled = soldOut || notAvailable;
+                        return (
+                          <ToggleChip
+                            key={size}
+                            selected={participant.shirt_size === size}
+                            disabled={disabled}
+                            disabledTitle={
+                              notAvailable
+                                ? "Không có cỡ này"
+                                : colorUnavailable
+                                  ? "Không có size này"
+                                  : "Đã hết áo"
+                            }
+                            onClick={() =>
+                              !disabled &&
+                              updateParticipant(i, { shirt_size: size })
+                            }
+                            style={{
+                              minWidth: 40,
+                              textAlign: "center",
+                              padding: "5px 8px",
+                            }}
+                          >
+                            {size}
+                          </ToggleChip>
+                        );
+                      })}
+                    </div>
+                    {errors[`shirt_${i}`] && (
+                      <div
+                        className="text-danger mt-1"
+                        style={{ fontSize: 12 }}
                       >
-                        {size}
-                      </ToggleChip>
-                    );
-                  })}
-                </div>
-                {errors[`shirt_${i}`] && (
-                  <div className="text-danger mt-1" style={{ fontSize: 12 }}>
-                    {errors[`shirt_${i}`]}
+                        {errors[`shirt_${i}`]}
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
 
-              {/* Dòng 1: Màu áo */}
-              <div className="col-6 col-md-4">
-                <label
-                  className="form-label fw-semibold"
-                  style={{ fontSize: 13 }}
-                >
-                  Màu áo <span className="text-danger">*</span>
-                </label>
-                <div className="d-flex gap-2 align-items-center">
-                  {SHIRT_COLORS.map((color) => (
-                    <button
-                      key={color.value}
-                      type="button"
-                      title={color.label}
-                      onClick={() => {
-                        const patch: Partial<ParticipantExtra> = {
-                          shirt_color: color.value,
-                        };
-                        if (
-                          (color.value === "green" ||
-                            color.value === "white") &&
-                          (participant.shirt_size === "XS" ||
-                            participant.shirt_size === "S")
-                        ) {
-                          patch.shirt_size = "";
-                        }
-                        if (
-                          color.value === "yellow" &&
-                          !["XS", "S", ""].includes(participant.shirt_size)
-                        ) {
-                          patch.shirt_size = "";
-                        }
-                        updateParticipant(i, patch);
-                      }}
-                      style={{
-                        width: 36,
-                        height: 36,
-                        borderRadius: "50%",
-                        backgroundColor: color.hex,
-                        border:
-                          participant.shirt_color === color.value
-                            ? "3px solid #4caf50"
-                            : `2px solid ${color.border ?? color.hex}`,
-                        cursor: "pointer",
-                        outline:
-                          participant.shirt_color === color.value
-                            ? "2px solid #4caf50"
-                            : "none",
-                        outlineOffset: 2,
-                        transition: "all 0.15s",
-                      }}
-                    />
-                  ))}
-                  {participant.shirt_color && (
-                    <span style={{ fontSize: 13, color: "#555" }}>
-                      {
-                        SHIRT_COLORS.find(
-                          (color) => color.value === participant.shirt_color,
-                        )?.label
-                      }
-                    </span>
-                  )}
-                </div>
-                {errors[`color_${i}`] && (
-                  <div className="text-danger mt-1" style={{ fontSize: 12 }}>
-                    {errors[`color_${i}`]}
+                  {/* Dòng 1: Màu áo */}
+                  <div className="col-6 col-md-4">
+                    <label
+                      className="form-label fw-semibold"
+                      style={{ fontSize: 13 }}
+                    >
+                      Màu áo <span className="text-danger">*</span>
+                    </label>
+                    <div className="d-flex gap-2 align-items-center">
+                      {SHIRT_COLORS.map((color) => (
+                        <button
+                          key={color.value}
+                          type="button"
+                          title={color.label}
+                          onClick={() => {
+                            const patch: Partial<ParticipantExtra> = {
+                              shirt_color: color.value,
+                            };
+                            if (
+                              (color.value === "green" ||
+                                color.value === "white") &&
+                              (participant.shirt_size === "XS" ||
+                                participant.shirt_size === "S")
+                            ) {
+                              patch.shirt_size = "";
+                            }
+                            if (
+                              color.value === "yellow" &&
+                              !["XS", "S", ""].includes(participant.shirt_size)
+                            ) {
+                              patch.shirt_size = "";
+                            }
+                            updateParticipant(i, patch);
+                          }}
+                          style={{
+                            width: 36,
+                            height: 36,
+                            borderRadius: "50%",
+                            backgroundColor: color.hex,
+                            border:
+                              participant.shirt_color === color.value
+                                ? "3px solid #4caf50"
+                                : `2px solid ${color.border ?? color.hex}`,
+                            cursor: "pointer",
+                            outline:
+                              participant.shirt_color === color.value
+                                ? "2px solid #4caf50"
+                                : "none",
+                            outlineOffset: 2,
+                            transition: "all 0.15s",
+                          }}
+                        />
+                      ))}
+                      {participant.shirt_color && (
+                        <span style={{ fontSize: 13, color: "#555" }}>
+                          {
+                            SHIRT_COLORS.find(
+                              (color) =>
+                                color.value === participant.shirt_color,
+                            )?.label
+                          }
+                        </span>
+                      )}
+                    </div>
+                    {errors[`color_${i}`] && (
+                      <div
+                        className="text-danger mt-1"
+                        style={{ fontSize: 12 }}
+                      >
+                        {errors[`color_${i}`]}
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
+                </>
+              )}
 
               {/* Dòng 2: Cabin (full width) */}
               <div className="col-12">
