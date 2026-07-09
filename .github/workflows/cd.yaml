@@ -73,6 +73,7 @@ jobs:
           location: ${{ env.GKE_REGION }}
           project_id: ${{ env.GCP_PROJECT_ID }}
           use_connect_gateway: "true"
+          fleet_membership_name: "projects/banchanxanh/locations/us-central1/memberships/bcx-cluster"
 
       - name: Deploy to GKE
         run: |
