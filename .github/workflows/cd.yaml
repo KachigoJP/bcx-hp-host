@@ -72,6 +72,7 @@ jobs:
           cluster_name: ${{ env.GKE_CLUSTER }}
           location: ${{ env.GKE_REGION }}
           project_id: ${{ env.GCP_PROJECT_ID }}
+          use_connect_gateway: "true"
 
       - name: Deploy to GKE
         run: |
