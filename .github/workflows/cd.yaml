@@ -66,6 +66,19 @@ jobs:
           docker buildx build --push -t "${BUILD_IMAGE}" . --file Dockerfile.prod --platform linux/amd64
           echo "BUILD_IMAGE=$BUILD_IMAGE" >> $GITHUB_OUTPUT #export build image for later use
 
+      - name: Get runner public IP
+        id: ip
+        run: |
+          echo "ip=$(curl -s https://checkip.amazonaws.com)/32" >> "$GITHUB_OUTPUT"
+          
+      - name: Allow runner IP
+        run: |
+          gcloud container clusters update 'bcx-cluster' \
+            --region 'us-central1-a' \
+            --project 'banchanxanh' \
+            --enable-master-authorized-networks \
+            --master-authorized-networks "10.239.0.0/24,133.32.216.3/32,${{ steps.ip.outputs.ip }}"
+            
       - name: Set up GKE credentials
         uses: google-github-actions/get-gke-credentials@v2
         with:
