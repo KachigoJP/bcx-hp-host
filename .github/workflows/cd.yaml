@@ -55,25 +55,16 @@ jobs:
           echo "image_uri=${IMAGE_URI}" >> "${GITHUB_OUTPUT}"
           echo "container_name=${CONTAINER_NAME}" >> "${GITHUB_OUTPUT}"
 
-      - name: Validate required secrets
+      - name: Build & Push Docker Image to Harbor
         shell: bash
         run: |
           TIMESTAMP=$(date +%Y%m%d%H%M%S)
           VERSION=$(jq -r .version package.json)
-          BUILD_IMAGE=${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ steps.build_value.outputs.ENVIRONMENT }}/${{ steps.build_value.outputs.REPOSITORY_NAME }}-$VERSION:$TIMESTAMP
+          BUILD_IMAGE=${{ env.HARBOR_REGISTRY }}/${{ env.HARBOR_PROJECT }}/${{ steps.vars.outputs.REPOSITORY_NAME }}-$VERSION:$TIMESTAMP
           echo "Building image: $BUILD_IMAGE"  # Debugging
           docker buildx create --use
           docker buildx build --push -t "${BUILD_IMAGE}" . --file Dockerfile.prod --platform linux/amd64
           echo "BUILD_IMAGE=$BUILD_IMAGE" >> $GITHUB_OUTPUT #export build image for later use
-
-      - name: Set up GKE credentials
-        uses: google-github-actions/get-gke-credentials@v2
-        with:
-          context: .
-          file: ./Dockerfile.prod
-          platforms: linux/amd64
-          push: true
-          tags: ${{ steps.vars.outputs.image_uri }}
 
       - name: Set up kubectl
         uses: azure/setup-kubectl@v4
