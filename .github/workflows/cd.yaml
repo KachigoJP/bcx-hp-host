@@ -40,10 +40,10 @@ jobs:
             K8S_NAMESPACE="${{ secrets.CIVO_K8S_NAMESPACE }}"
           fi
 
-          IMAGE_REPOSITORY="${{ secrets.HARBOR_REGISTRY }}/${{ secrets.HARBOR_PROJECT }}/${REPOSITORY_NAME}"
+          IMAGE_REPOSITORY="${{ env.HARBOR_REGISTRY }}/${{ env.HARBOR_PROJECT }}/${DEPLOYMENT_NAME}"
           IMAGE_TAG="${ENVIRONMENT}-${VERSION}-${TIMESTAMP}"
           IMAGE_URI="${IMAGE_REPOSITORY}:${IMAGE_TAG}"
-          CONTAINER_NAME="${{ secrets.CIVO_CONTAINER_NAME }}"
+          CONTAINER_NAME="${{ env.CIVO_CONTAINER_NAME }}"
 
           if [ -z "${CONTAINER_NAME}" ]; then
             CONTAINER_NAME="${REPOSITORY_NAME}"
@@ -65,12 +65,12 @@ jobs:
           echo "Deployment: ${{ steps.vars.outputs.deployment_name }}"
           echo "Container: ${{ steps.vars.outputs.container_name }}"
 
-          if [ -z "${{ secrets.HARBOR_REGISTRY }}" ]; then
+          if [ -z "${{ env.HARBOR_REGISTRY }}" ]; then
             echo "HARBOR_REGISTRY is empty"
             exit 1
           fi
 
-          if [ -z "${{ secrets.HARBOR_PROJECT }}" ]; then
+          if [ -z "${{ env.HARBOR_PROJECT }}" ]; then
             echo "HARBOR_PROJECT is empty"
             exit 1
           fi
