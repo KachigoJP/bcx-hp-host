@@ -55,6 +55,13 @@ jobs:
           echo "image_uri=${IMAGE_URI}" >> "${GITHUB_OUTPUT}"
           echo "container_name=${CONTAINER_NAME}" >> "${GITHUB_OUTPUT}"
 
+      - name: Log in to Harbor
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ vars.HARBOR_REGISTRY }}
+          username: ${{ secrets.HARBOR_USERNAME }}
+          password: ${{ secrets.HARBOR_PASSWORD }}
+          
       - name: Build & Push Docker Image to Harbor
         shell: bash
         run: |
@@ -64,21 +71,6 @@ jobs:
           echo "Namespace: ${{ steps.vars.outputs.k8s_namespace }}"
           echo "Deployment: ${{ steps.vars.outputs.deployment_name }}"
           echo "Container: ${{ steps.vars.outputs.container_name }}"
-
-          if [ -z "${{ env.HARBOR_REGISTRY }}" ]; then
-            echo "HARBOR_REGISTRY is empty"
-            exit 1
-          fi
-
-          if [ -z "${{ env.HARBOR_PROJECT }}" ]; then
-            echo "HARBOR_PROJECT is empty"
-            exit 1
-          fi
-
-          if [ -z "${BUILD_IMAGE}" ]; then
-            echo "Resolved image URI is empty"
-            exit 1
-          fi
 
           docker buildx create --use
           docker buildx build --push -t "${BUILD_IMAGE}" . --file Dockerfile.prod --platform linux/amd64
