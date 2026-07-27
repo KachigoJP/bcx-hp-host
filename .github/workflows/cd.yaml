@@ -58,13 +58,30 @@ jobs:
       - name: Build & Push Docker Image to Harbor
         shell: bash
         run: |
-          TIMESTAMP=$(date +%Y%m%d%H%M%S)
-          VERSION=$(jq -r .version package.json)
-          BUILD_IMAGE=${{ env.HARBOR_REGISTRY }}/${{ env.HARBOR_PROJECT }}/${{ steps.vars.outputs.REPOSITORY_NAME }}-$VERSION:$TIMESTAMP
-          echo "Building image: $BUILD_IMAGE"  # Debugging
+          BUILD_IMAGE="${{ steps.vars.outputs.image_uri }}"
+          echo "Building image: $BUILD_IMAGE"
+          echo "Branch: ${BRANCH_NAME}"
+          echo "Namespace: ${{ steps.vars.outputs.k8s_namespace }}"
+          echo "Deployment: ${{ steps.vars.outputs.deployment_name }}"
+          echo "Container: ${{ steps.vars.outputs.container_name }}"
+
+          if [ -z "${{ secrets.HARBOR_REGISTRY }}" ]; then
+            echo "HARBOR_REGISTRY is empty"
+            exit 1
+          fi
+
+          if [ -z "${{ secrets.HARBOR_PROJECT }}" ]; then
+            echo "HARBOR_PROJECT is empty"
+            exit 1
+          fi
+
+          if [ -z "${BUILD_IMAGE}" ]; then
+            echo "Resolved image URI is empty"
+            exit 1
+          fi
+
           docker buildx create --use
           docker buildx build --push -t "${BUILD_IMAGE}" . --file Dockerfile.prod --platform linux/amd64
-          echo "BUILD_IMAGE=$BUILD_IMAGE" >> $GITHUB_OUTPUT #export build image for later use
 
       - name: Set up kubectl
         uses: azure/setup-kubectl@v4
