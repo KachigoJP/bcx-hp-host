@@ -41,3 +41,26 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+
+## CD to Harbor and Civo
+
+This repo now includes [.github/workflows/cd-harbor-civo.yaml](/home/gigagon/Documents/bcx-hp-host/.github/workflows/cd-harbor-civo.yaml), which builds `Dockerfile.prod`, pushes the image to Harbor, and updates an existing deployment on a Civo Kubernetes cluster.
+
+Configure these GitHub Actions secrets before using it:
+
+- `HARBOR_REGISTRY` for example `harbor.example.com`
+- `HARBOR_PROJECT` for example `web`
+- `HARBOR_USERNAME`
+- `HARBOR_PASSWORD`
+- `CIVO_KUBECONFIG` as a base64-encoded kubeconfig for the target cluster
+- `CIVO_K8S_NAMESPACE` as the default namespace
+- `CIVO_K8S_NAMESPACE_DEV` optional override for `develop`
+- `CIVO_K8S_NAMESPACE_PROD` optional override for `main`
+- `CIVO_CONTAINER_NAME` optional container name override if the Kubernetes container name is not `bcx-hp-host`
+
+Branch behavior:
+
+- `develop` deploys to `${repo}-dev`
+- `main` deploys to `${repo}-prod`
+
+If your Civo deployment names or namespace rules are different, adjust the workflow values in the `Set deployment values` step.

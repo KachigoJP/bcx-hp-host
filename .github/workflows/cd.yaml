@@ -1,62 +1,62 @@
-name: CI with GCP
+name: CD to Harbor and Civo
 
 on:
   push:
     branches:
       - develop
       - main
+  workflow_dispatch:
+
 env:
-  GCP_PROJECT_ID: banchanxanh
-  GCP_REGION: us-central1
-  GKE_CLUSTER: bcx-cluster
-  GKE_REGION: us-central1-a
   BRANCH_NAME: ${{ github.ref_name }}
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Authenticate to GCP
-        uses: google-github-actions/auth@v2
-        with:
-          credentials_json: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
-          project_id: ${{ env.GCP_PROJECT_ID }}
-
-      - name: Setup Google Cloud
-        uses: google-github-actions/setup-gcloud@v2
-        with:
-          version: "latest" # Or a specific version
-          project_id: ${{ env.GCP_PROJECT_ID }}
-
-      - name: Determine Build value
-        id: build_value
+      - name: Set deployment values
+        id: vars
+        shell: bash
         run: |
-          ENVIRONMENT=""
-          REPOSITORY_NAME=$(echo '${{ github.repository }}' | cut -d '/' -f 2)
+          REPOSITORY_NAME="$(basename "${{ github.repository }}")"
+          VERSION="$(jq -r .version package.json)"
+          TIMESTAMP="$(date +%Y%m%d%H%M%S)"
 
-          if [ "$BRANCH_NAME" == "main" ]; then
+          if [ "${BRANCH_NAME}" = "main" ]; then
             ENVIRONMENT="prod"
-            echo "DEPLOYMENT_NAME=$REPOSITORY_NAME-prod" >> $GITHUB_OUTPUT
+            DEPLOYMENT_NAME="${REPOSITORY_NAME}-prod"
+            K8S_NAMESPACE="${{ secrets.CIVO_K8S_NAMESPACE_PROD }}"
           else
             ENVIRONMENT="develop"
-            echo "DEPLOYMENT_NAME=$REPOSITORY_NAME-dev" >> $GITHUB_OUTPUT
+            DEPLOYMENT_NAME="${REPOSITORY_NAME}-dev"
+            K8S_NAMESPACE="${{ secrets.CIVO_K8S_NAMESPACE_DEV }}"
           fi
 
-          echo "ENVIRONMENT=$ENVIRONMENT" >> $GITHUB_OUTPUT
-          echo "REPOSITORY_NAME=$REPOSITORY_NAME" >> $GITHUB_OUTPUT
+          if [ -z "${K8S_NAMESPACE}" ]; then
+            K8S_NAMESPACE="${{ secrets.CIVO_K8S_NAMESPACE }}"
+          fi
 
-      - name: Configure Docker to use the gcloud command-line tool as a credential helper
-        run: gcloud auth configure-docker ${{ env.GCP_REGION }}-docker.pkg.dev
+          IMAGE_REPOSITORY="${{ secrets.HARBOR_REGISTRY }}/${{ secrets.HARBOR_PROJECT }}/${REPOSITORY_NAME}"
+          IMAGE_TAG="${ENVIRONMENT}-${VERSION}-${TIMESTAMP}"
+          IMAGE_URI="${IMAGE_REPOSITORY}:${IMAGE_TAG}"
+          CONTAINER_NAME="${{ secrets.CIVO_CONTAINER_NAME }}"
 
-      - name: Build Docker Image and Push to GCP Artifact Registry
-        id: build_push
+          if [ -z "${CONTAINER_NAME}" ]; then
+            CONTAINER_NAME="${REPOSITORY_NAME}"
+          fi
+
+          echo "environment=${ENVIRONMENT}" >> "${GITHUB_OUTPUT}"
+          echo "deployment_name=${DEPLOYMENT_NAME}" >> "${GITHUB_OUTPUT}"
+          echo "k8s_namespace=${K8S_NAMESPACE}" >> "${GITHUB_OUTPUT}"
+          echo "image_uri=${IMAGE_URI}" >> "${GITHUB_OUTPUT}"
+          echo "container_name=${CONTAINER_NAME}" >> "${GITHUB_OUTPUT}"
+
+      - name: Validate required secrets
+        shell: bash
         run: |
           TIMESTAMP=$(date +%Y%m%d%H%M%S)
           VERSION=$(jq -r .version package.json)
@@ -66,30 +66,35 @@ jobs:
           docker buildx build --push -t "${BUILD_IMAGE}" . --file Dockerfile.prod --platform linux/amd64
           echo "BUILD_IMAGE=$BUILD_IMAGE" >> $GITHUB_OUTPUT #export build image for later use
 
-      - name: Get runner public IP
-        id: ip
-        run: |
-          echo "ip=$(curl -s https://checkip.amazonaws.com)/32" >> "$GITHUB_OUTPUT"
-          
-      - name: Allow runner IP
-        run: |
-          gcloud container clusters update 'bcx-cluster' \
-            --region 'us-central1-a' \
-            --project 'banchanxanh' \
-            --enable-master-authorized-networks \
-            --master-authorized-networks "10.239.0.0/24,133.32.216.3/32,${{ steps.ip.outputs.ip }}"
-            
       - name: Set up GKE credentials
         uses: google-github-actions/get-gke-credentials@v2
         with:
-          cluster_name: ${{ env.GKE_CLUSTER }}
-          location: ${{ env.GKE_REGION }}
-          project_id: ${{ env.GCP_PROJECT_ID }}
+          context: .
+          file: ./Dockerfile.prod
+          platforms: linux/amd64
+          push: true
+          tags: ${{ steps.vars.outputs.image_uri }}
 
-      - name: Deploy to GKE
-        run: |
-          kubectl set image deployment/${{ steps.build_value.outputs.DEPLOYMENT_NAME }} ${{ steps.build_value.outputs.REPOSITORY_NAME }}=${{ steps.build_push.outputs.BUILD_IMAGE }}
+      - name: Set up kubectl
+        uses: azure/setup-kubectl@v4
 
-      - name: Wait for Deployment Rollout
+      - name: Configure kubeconfig for Civo
+        shell: bash
         run: |
-          kubectl rollout restart deployment/${{ steps.build_value.outputs.DEPLOYMENT_NAME }}
+          mkdir -p "${HOME}/.kube"
+          printf '%s' "${{ secrets.CIVO_KUBECONFIG }}" | base64 --decode > "${HOME}/.kube/config"
+          chmod 600 "${HOME}/.kube/config"
+
+      - name: Deploy image to Civo Kubernetes
+        shell: bash
+        run: |
+          kubectl -n "${{ steps.vars.outputs.k8s_namespace }}" set image \
+            deployment/"${{ steps.vars.outputs.deployment_name }}" \
+            "${{ steps.vars.outputs.container_name }}"="${{ steps.vars.outputs.image_uri }}"
+
+      - name: Wait for rollout
+        shell: bash
+        run: |
+          kubectl -n "${{ steps.vars.outputs.k8s_namespace }}" rollout status \
+            deployment/"${{ steps.vars.outputs.deployment_name }}" \
+            --timeout=300s
