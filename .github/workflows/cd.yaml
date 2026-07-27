@@ -40,7 +40,7 @@ jobs:
             K8S_NAMESPACE="${{ vars.CIVO_K8S_NAMESPACE }}"
           fi
 
-          IMAGE_REPOSITORY="${{ vars.HARBOR_REGISTRY }}/${{ vars.HARBOR_PROJECT }}/${DEPLOYMENT_NAME}"
+          IMAGE_REPOSITORY="${{ vars.HARBOR_REGISTRY }}/${{ vars.HARBOR_PROJECT }}/${REPOSITORY_NAME}"
           IMAGE_TAG="${ENVIRONMENT}-${VERSION}-${TIMESTAMP}"
           IMAGE_URI="${IMAGE_REPOSITORY}:${IMAGE_TAG}"
           CONTAINER_NAME="${{ vars.CIVO_CONTAINER_NAME }}"
